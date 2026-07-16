@@ -25,6 +25,108 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Space+Grotesk:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
+/* ============================================== */
+/* CYBERPUNK LOCAL ENVIRONMENT SECTION            */
+/* ============================================== */
+.cyberpunk-env-wrapper {
+  background-color: #0b0b0b;
+  border-top: 2px solid #FF0055;
+  border-bottom: 2px solid #FF0055;
+  padding: 80px 0;
+  position: relative;
+  margin-top: 60px;
+}
+
+.cyberpunk-env-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255,0,85,0.05) 0%, rgba(255,255,0,0.05) 100%);
+  pointer-events: none;
+}
+
+.env-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+}
+
+.env-card {
+  background-color: #141414;
+  border: 1px solid #FF0055;
+  border-radius: 4px;
+  padding: 40px 30px;
+  box-shadow: 0 0 10px rgba(255,0,85,0.2), inset 0 0 15px rgba(255,0,85,0.1);
+  transition: all 0.3s ease;
+  position: relative;
+  z-index: 1;
+}
+
+.env-card:hover {
+  border-color: #FFFF00;
+  box-shadow: 0 0 20px rgba(255,255,0,0.3), inset 0 0 20px rgba(255,255,0,0.15);
+  transform: translateY(-5px);
+}
+
+.env-icon-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 120px;
+  margin-bottom: 20px;
+}
+
+.env-svg {
+  width: 70px;
+  height: 70px;
+  stroke: #FF0055;
+  stroke-width: 1.5;
+  fill: none;
+  filter: drop-shadow(0 0 5px #FF0055);
+  transition: stroke 0.3s ease, filter 0.3s ease;
+}
+
+.env-card:hover .env-svg {
+  stroke: #FFFF00;
+  filter: drop-shadow(0 0 8px #FFFF00);
+}
+
+.env-title {
+  color: #FF0055;
+  font-family: "Space Grotesk", "Zen Kaku Gothic New", sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  text-shadow: 0 0 8px rgba(255,0,85,0.4);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.env-card:hover .env-title {
+  color: #FFFF00;
+  text-shadow: 0 0 8px rgba(255,255,0,0.4);
+}
+
+.env-desc {
+  color: #E0E0E0;
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+.env-highlight {
+  color: #FFFF00;
+  font-weight: 700;
+  text-shadow: 0 0 5px rgba(255,255,0,0.3);
+}
+
+@media (max-width: 900px) {
+  .env-grid { grid-template-columns: 1fr; }
+}
   :root {
     /* Wafu Heavy Yellow Theme (Aged Old Japanese Paper) */
     --bg-washi: #EADCB9;       
@@ -229,6 +331,108 @@
   @media (max-width: 700px) {
     .big-number[data-tip]::after { left: 0; transform: translateX(0) translateY(6px); }
     .big-number[data-tip]:hover::after, .big-number[data-tip]:focus::after { transform: translateX(0) translateY(0); }
+  }
+/* ============================================== */
+  /* CYBERPUNK LOCAL ENVIRONMENT SECTION            */
+  /* ============================================== */
+  .cyberpunk-env-wrapper {
+    background-color: var(--ink-main); /* 深色背景 */
+    border-top: 2px solid var(--vibrant-yellow); 
+    border-bottom: 2px solid var(--vibrant-yellow);
+    padding: 80px 0;
+    position: relative;
+    margin-top: 60px;
+  }
+
+  .cyberpunk-env-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(135deg, rgba(192,192,192,0.05) 0%, rgba(243,169,0,0.05) 100%); /* 銀色與黃色漸層裝飾 */
+    pointer-events: none;
+  }
+
+  .env-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 0 28px;
+  }
+
+  .env-card {
+    background-color: #1C1A1A;
+    border: 1px solid #C0C0C0; /* 銀色邊框裝飾 */
+    border-radius: var(--radius);
+    padding: 40px 30px;
+    box-shadow: 0 0 10px rgba(192,192,192,0.1), inset 0 0 15px rgba(243,169,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+  }
+
+  .env-card:hover {
+    border-color: var(--vibrant-yellow); /* Hover 發出黃光 */
+    box-shadow: 0 0 20px rgba(243,169,0,0.3), inset 0 0 20px rgba(192,192,192,0.15);
+    transform: translateY(-5px);
+  }
+
+  .env-icon-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 120px;
+    margin-bottom: 20px;
+  }
+
+  .env-svg {
+    width: 70px;
+    height: 70px;
+    stroke: #C0C0C0; /* 預設銀色線條 */
+    stroke-width: 1.5;
+    fill: none;
+    filter: drop-shadow(0 0 5px rgba(192,192,192,0.5));
+    transition: stroke 0.3s ease, filter 0.3s ease;
+  }
+
+  .env-card:hover .env-svg {
+    stroke: var(--vibrant-yellow); 
+    filter: drop-shadow(0 0 8px var(--vibrant-yellow));
+  }
+
+  .env-title {
+    color: #C0C0C0;
+    font-family: "Space Grotesk", "Zen Kaku Gothic New", sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    text-shadow: 0 0 8px rgba(192,192,192,0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+  }
+
+  .env-card:hover .env-title {
+    color: var(--vibrant-yellow);
+    text-shadow: 0 0 8px rgba(243,169,0,0.4);
+  }
+
+  .env-desc {
+    color: var(--bg-white);
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .env-highlight {
+    color: var(--vibrant-yellow);
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(243,169,0,0.3);
+  }
+
+  @media (max-width: 900px) {
+    .env-grid { grid-template-columns: 1fr; }
   }
 
   /* ---------- TEMPLATE CONTENT STYLES ---------- */
@@ -722,6 +926,62 @@
           <p class="txt-id">Rasakan kaligrafi tradisional (Kakizome) dan presentasikan pencapaian belajar Anda dengan percaya diri bersama teman-teman dari seluruh dunia.</p>
           <p class="txt-ru">Попробуйте традиционную каллиграфию (Какидзомэ) и уверенно представьте свои учебные достижения вместе с друзьями со всего мира.</p>
           <p class="txt-my">ရိုးရာလက်ရေးအနုပညာ (Kakizome) ကို စမ်းသပ်ကာ ကမ္ဘာတစ်ဝှမ်းမှ မိတ်ဆွေများနှင့်အတူ သင်ယူမှုအောင်မြင်မှုများကို ယုံကြည်စိတ်ချစွာ တင်ပြပါ။</p>
+        </div>
+      </div>
+    </div>
+  </section>
+<!-- 周邊生活環境 -->
+  <section class="cyberpunk-env-wrapper">
+    <div class="wrap">
+      <div class="eyebrow" style="color: var(--vibrant-yellow);">LOCAL ENVIRONMENT</div>
+      <h2 style="color: var(--bg-white); margin-bottom: 40px;">周辺の生活環境</h2>
+      
+      <div class="env-grid">
+        <!-- 1. 購物與生活用品 -->
+        <div class="env-card reveal">
+          <div class="env-icon-box">
+            <svg class="env-svg" viewBox="0 0 24 24">
+              <!-- 購物袋線條 -->
+              <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4l1-12z" />
+              <!-- 銀色裝飾點 -->
+              <circle cx="12" cy="15" r="1.5" fill="#C0C0C0" />
+            </svg>
+          </div>
+          <div class="env-title">🛒 買い物・生活用品</div>
+          <p class="env-desc">
+            学校から徒歩5分圏内に<span class="env-highlight">「ドン・キホーテ 千葉中央店」</span>やドラッグストアがあります。生活用品や食料品が安価で揃い、留学生の強い味方です。
+          </p>
+        </div>
+
+        <!-- 2. 周邊餐飲 -->
+        <div class="env-card reveal">
+          <div class="env-icon-box">
+            <svg class="env-svg" viewBox="0 0 24 24">
+              <!-- 拉麵與碗線條 -->
+              <path d="M3 13h18M5 13v8h14v-8M7 13v4m4-4v4m4-4v4m-8-8h10a2 2 0 012 2v2H3v-2a2 2 0 012-2z" />
+              <path d="M8 5s1-2 2-2 2 2 2 2M14 5s1-2 2-2 2 2 2 2" stroke-dasharray="2 2" />
+            </svg>
+          </div>
+          <div class="env-title">🍜 飲食店</div>
+          <p class="env-desc">
+            学校がある祐光エリアには、<span class="env-highlight">松屋・すき家</span>などの定食屋や、地元で人気のラーメン店が多数。ワンコイン（500円〜）で美味しい食事が楽しめます。
+          </p>
+        </div>
+
+        <!-- 3. 交通樞紐 -->
+        <div class="env-card reveal">
+          <div class="env-icon-box">
+            <svg class="env-svg" viewBox="0 0 24 24">
+              <!-- 懸掛式單軌電車輪廓 -->
+              <path d="M4 14h16M4 18h16M6 6h12l2 8H4l2-8z" />
+              <path d="M12 2v4" />
+              <path d="M8 10h8" />
+            </svg>
+          </div>
+          <div class="env-title">🚆 交通の便</div>
+          <p class="env-desc">
+            JR千葉駅へのアクセスに加え、世界最長の懸垂式モノレールとして知られる<span class="env-highlight">「千葉都市モノレール」</span>の駅も利用可能。東京方面や成田空港への移動もスムーズです。
+          </p>
         </div>
       </div>
     </div>
