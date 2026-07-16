@@ -434,7 +434,70 @@
   @media (max-width: 900px) {
     .env-grid { grid-template-columns: 1fr; }
   }
-
+/* ============================================== */
+  /* WAFU LOCAL ENVIRONMENT SECTION (NO NEON)       */
+  /* ============================================== */
+  .env-section { 
+    padding: 80px 0; 
+    background: transparent; 
+    border-top: 1px solid var(--line); 
+    margin-top: 60px;
+  }
+  .env-grid { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 24px; 
+    margin-top: 40px; 
+  }
+  .env-card { 
+    background: var(--bg-white); 
+    border: 1px solid var(--line); 
+    border-radius: var(--radius); 
+    padding: 40px 30px; 
+    text-align: center; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.25s ease; 
+  }
+  .env-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 12px 24px rgba(35,33,32,0.05); 
+    border-color: var(--vibrant-red);
+  }
+  .env-icon { 
+    width: 64px; 
+    height: 64px; 
+    stroke: var(--ink-main); 
+    stroke-width: 1.5; 
+    fill: none; 
+    margin: 0 auto 20px; 
+    display: block; 
+    transition: stroke 0.25s ease;
+  }
+  .env-card:hover .env-icon {
+    stroke: var(--vibrant-red);
+  }
+  .env-card:nth-child(1) { border-top: 4px solid var(--vibrant-yellow); }
+  .env-card:nth-child(2) { border-top: 4px solid var(--vibrant-red); }
+  .env-card:nth-child(3) { border-top: 4px solid var(--vibrant-green); }
+  .env-title { 
+    font-size: 18px; 
+    color: var(--ink-main); 
+    font-weight: 700; 
+    margin-bottom: 16px; 
+    font-family: "Space Grotesk", "Zen Kaku Gothic New", sans-serif; 
+  }
+  .env-desc { 
+    font-size: 13.5px; 
+    color: var(--ink-soft); 
+    line-height: 1.8; 
+    text-align: left; 
+  }
+  .env-highlight { 
+    color: var(--vibrant-red); 
+    font-weight: 700; 
+  }
+  @media (max-width: 900px) {
+    .env-grid { grid-template-columns: 1fr; }
+  }
   /* ---------- TEMPLATE CONTENT STYLES ---------- */
   .main-showcase-zone { padding: 60px 0 100px; }
   
@@ -906,34 +969,45 @@
 </head>
 <body>
 
-<section class="cyberpunk-env-wrapper">
-  <div class="wrap">
-    <h2 style="color: #fff; margin-bottom: 40px; text-align: center;">周辺の生活環境</h2>
+<!-- 周邊生活環境 (純粹和風線條插畫版) -->
+  <section class="env-section wrap reveal">
+    <div class="eyebrow">LOCAL ENVIRONMENT</div>
+    <h2>周辺の生活環境</h2>
     <div class="env-grid">
+      
+      <!-- 1. 購物與生活用品（唐吉訶德） -->
       <div class="env-card">
-        <div class="env-icon-box">
-          <svg class="env-svg" viewBox="0 0 24 24"><path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4l1-12z" /></svg>
-        </div>
-        <div class="env-title">🛒 買い物</div>
-        <p class="env-desc">学校から徒歩5分圏内に<span class="env-highlight">「ドン・キホーテ 千葉中央店」</span>があります。日用品や食料品が安価で揃います。</p>
+        <svg class="env-icon" viewBox="0 0 24 24">
+          <path d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4l1-12z" />
+          <circle cx="12" cy="15" r="1.5" />
+        </svg>
+        <div class="env-title">買い物・生活用品</div>
+        <p class="env-desc">学校から徒歩5分圏内に<span class="env-highlight">「ドン・キホーテ 千葉中央店」</span>やドラッグストアがあります。生活用品や食料品が安価で揃い、留領域の強い味方です。</p>
       </div>
+
+      <!-- 2. 周邊餐飲（松屋/平價拉麵） -->
       <div class="env-card">
-        <div class="env-icon-box">
-          <svg class="env-svg" viewBox="0 0 24 24"><path d="M3 13h18M5 13v8h14v-8M7 13v4m4-4v4m4-4v4m-8-8h10a2 2 0 012 2v2H3v-2a2 2 0 012-2z" /></svg>
-        </div>
-        <div class="env-title">🍜 飲食店</div>
-        <p class="env-desc">学校周辺には<span class="env-highlight">松屋・すき家</span>などの定食屋や、人気のラーメン店が多数。学生の予算に合わせて選べます。</p>
+        <svg class="env-icon" viewBox="0 0 24 24">
+          <path d="M3 13h18M5 13v8h14v-8M7 13v4m4-4v4m4-4v4m-8-8h10a2 2 0 012 2v2H3v-2a2 2 0 012-2z" />
+          <path d="M8 5s1-2 2-2 2 2 2 2M14 5s1-2 2-2 2 2 2 2" stroke-dasharray="2 2" />
+        </svg>
+        <div class="env-title">飲食店</div>
+        <p class="env-desc">学校がある祐光エリアには、<span class="env-highlight">松屋・すき家</span>などの定食屋や、地元で人気のラーメン店が多数。ワンコイン（500円〜）で美味しい食事が楽しめます。</p>
       </div>
+
+      <!-- 3. 交通樞紐（千葉單軌電車） -->
       <div class="env-card">
-        <div class="env-icon-box">
-          <svg class="env-svg" viewBox="0 0 24 24"><path d="M4 14h16M4 18h16M6 6h12l2 8H4l2-8z" /><path d="M12 2v4" /><path d="M8 10h8" /></svg>
-        </div>
-        <div class="env-title">🚆 交通の便</div>
-        <p class="env-desc">JR千葉駅に加え、<span class="env-highlight">「千葉都市モノレール」</span>が利用可能。東京方面や空港への移動もスムーズです。</p>
+        <svg class="env-icon" viewBox="0 0 24 24">
+          <path d="M4 14h16M4 18h16M6 6h12l2 8H4l2-8z" />
+          <path d="M12 2v4" />
+          <path d="M8 10h8" />
+        </svg>
+        <div class="env-title">交通の便</div>
+        <p class="env-desc">JR千葉駅へのアクセスに加え、世界最長的懸垂式モノレールとして知られる<span class="env-highlight">「千葉都市モノレール」</span>の駅も利用可能。東京方面への移動もスムーズです。</p>
       </div>
+
     </div>
-  </div>
-</section>
+  </section>
 
   <!-- 嵌入 Google 地圖 -->
   <section class="map-section wrap reveal">
