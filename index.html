@@ -744,30 +744,54 @@
       <div class="map-iframe-container">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.6826978437024!2d140.12569507632616!3d35.61955193318214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6022851fc365ab75%3A0xe9f7580b0376c24!2zNC1jaMW9bWUtMS0xOCBZdWvFjSwgQ2h1byBXYXJkLCBDaGliYSwgMjYwLTAwMTM!5e0!3m2!1sja!2sjp!4v1710000000000!5m2!1sja!2sjp" title="Tokyo One campus location map" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-  <!-- 優化後的周邊生活圈插畫地圖 -->
-<div style="background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; margin-top: 30px;">
-  <svg viewBox="0 0 500 250" style="width: 100%; height: auto; max-width: 700px; margin: 0 auto; display: block;">
-    <!-- 街道網格 -->
-    <path d="M50 50 L450 50 L450 200 L50 200 Z" fill="none" stroke="#EADCB9" stroke-width="10" />
-    <path d="M150 50 L150 200 M300 50 L300 200" stroke="#EADCB9" stroke-width="10" />
-    
-    <!-- 地標：千葉都市單軌電車線 (上方軌道) -->
-    <line x1="50" y1="30" x2="450" y2="30" stroke="#5C5654" stroke-width="4" />
-    <rect x="220" y="25" width="40" height="10" fill="#F3A900" />
-    
-    <!-- 地標：Tokyo One (學校主體) -->
-    <rect x="200" y="100" width="40" height="40" fill="#D3232A" />
-    <text x="245" y="125" font-size="14" font-weight="700" fill="#232120">Tokyo One</text>
+  <!-- 精確周邊地圖區塊 -->
+<section class="env-section wrap reveal">
+  <div class="eyebrow">ACCESS MAP</div>
+  <h2 style="font-family: 'Shippori Mincho', serif;">千葉校 周辺生活機能マップ</h2>
+  
+  <div style="background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; margin-top: 30px; overflow-x: auto;">
+    <!-- 這張地圖模擬了你參考圖的動線 -->
+    <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block; margin: 0 auto;">
+      <!-- 道路結構 -->
+      <path d="M0 200 L700 200 M200 0 L200 350 M450 150 L450 350" stroke="#d1cdc0" stroke-width="25" />
+      <path d="M450 180 L700 180" stroke="#d1cdc0" stroke-width="25" />
+      
+      <!-- 地標：Tokyo One (紅色核心) -->
+      <rect x="470" y="210" width="100" height="60" rx="4" fill="#D3232A" />
+      <text x="485" y="245" fill="white" font-size="16" font-weight="700">Tokyo One</text>
 
-    <!-- 地標：唐吉訶德 (建築特徵) -->
-    <rect x="80" y="130" width="40" height="40" fill="none" stroke="#232120" stroke-width="2" />
-    <text x="70" y="190" font-size="12" fill="#232120" font-weight="600">唐吉訶德</text>
+      <!-- 地標：地標點位 (黑點與文字) -->
+      <g fill="#232120">
+        <circle cx="360" cy="200" r="6" />
+        <text x="368" y="205" font-size="14" font-weight="700">松屋</text>
+        
+        <circle cx="410" cy="200" r="6" />
+        <text x="418" y="205" font-size="14" font-weight="700">唐吉訶德</text>
+        
+        <circle cx="300" cy="200" r="6" />
+        <text x="308" y="205" font-size="14" font-weight="700">BOOKOFF</text>
+      </g>
 
-    <!-- 地標：飲食店街 -->
-    <path d="M350 80 L390 80 L380 120 L360 120 Z" fill="none" stroke="#232120" stroke-width="2" />
-    <text x="350" y="140" font-size="12" fill="#232120" font-weight="600">飲食店</text>
-  </svg>
-</div>
+      <!-- 交通點：巴士與車站 -->
+      <rect x="210" y="100" width="60" height="30" fill="#5C5654" />
+      <text x="215" y="90" fill="#232120" font-size="14" font-weight="700">祐光三丁目巴士站</text>
+      
+      <rect x="50" y="150" width="120" height="80" fill="#232120" />
+      <text x="65" y="195" fill="white" font-size="14" font-weight="700">JR 東千葉站</text>
+    </svg>
+    
+    <!-- 精確功能說明表 -->
+    <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 14px; color: var(--ink-soft);">
+      <div style="background: rgba(35,33,32,0.03); padding: 15px; border-radius: var(--radius);">
+        <p><strong>🚶 徒步 10 分鐘：</strong> JR 東千葉站 (JR Higashi-Chiba Sta.)</p>
+        <p><strong>🚌 巴士 8 分鐘：</strong> JR千葉站出發（於祐光三丁目下車）</p>
+      </div>
+      <div style="background: rgba(35,33,32,0.03); padding: 15px; border-radius: var(--radius);">
+        <p><strong>🛍 生活圈：</strong> 唐吉訶德、松屋、BOOKOFF 皆在學校步行 5 分鐘生活圈內，採買與外食極為方便。</p>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- 地圖說明 -->
     <div style="margin-top: 30px; display: flex; justify-content: space-around; font-size: 13px; color: var(--ink-soft);">
