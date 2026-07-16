@@ -744,55 +744,49 @@
       <div class="map-iframe-container">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.6826978437024!2d140.12569507632616!3d35.61955193318214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6022851fc365ab75%3A0xe9f7580b0376c24!2zNC1jaMW9bWUtMS0xOCBZdWvFjSwgQ2h1byBXYXJkLCBDaGliYSwgMjYwLTAwMTM!5e0!3m2!1sja!2sjp!4v1710000000000!5m2!1sja!2sjp" title="Tokyo One campus location map" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-  <!-- 精確周邊地圖區塊 -->
+  <!-- 精確街區生活機能地圖 -->
 <section class="env-section wrap reveal">
-  <div class="eyebrow">ACCESS MAP</div>
-  <h2 style="font-family: 'Shippori Mincho', serif;">千葉校 周辺生活機能マップ</h2>
-  
-  <div style="background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; margin-top: 30px; overflow-x: auto;">
-    <!-- 這張地圖模擬了你參考圖的動線 -->
-    <svg viewBox="0 0 700 350" style="width: 100%; height: auto; display: block; margin: 0 auto;">
-      <!-- 道路結構 -->
-      <path d="M0 200 L700 200 M200 0 L200 350 M450 150 L450 350" stroke="#d1cdc0" stroke-width="25" />
-      <path d="M450 180 L700 180" stroke="#d1cdc0" stroke-width="25" />
-      
-      <!-- 地標：Tokyo One (紅色核心) -->
-      <rect x="470" y="210" width="100" height="60" rx="4" fill="#D3232A" />
-      <text x="485" y="245" fill="white" font-size="16" font-weight="700">Tokyo One</text>
+  <div class="eyebrow">NEIGHBORHOOD MAP</div>
+  <h2 style="font-family: 'Shippori Mincho', serif;">千葉校 周辺生活マップ</h2>
+  <p class="txt-zh" style="margin-bottom: 30px;">從學校出發，購物、飲食與交通設施皆在便捷的生活圈內。</p>
 
-      <!-- 地標：地標點位 (黑點與文字) -->
+  <div style="background: #E0DCCF; border: 2px solid var(--ink-main); border-radius: var(--radius); padding: 20px; overflow-x: auto;">
+    <svg viewBox="0 0 800 500" style="width: 100%; height: auto; display: block; font-family: 'Zen Kaku Gothic New', sans-serif;">
+      <!-- 街道網格底色 -->
+      <rect width="800" height="500" fill="#EADCB9" />
+      <path d="M100 0 L100 500 M300 0 L300 500 M500 0 L500 500" stroke="#D3C9AD" stroke-width="40" />
+      <path d="M0 150 L800 150 M0 350 L800 350" stroke="#D3C9AD" stroke-width="40" />
+
+      <!-- 綠地 (公園/綠色空間) -->
+      <rect x="550" y="50" width="150" height="80" fill="#B5C99A" />
+      <text x="580" y="95" font-size="14" font-weight="700">城之下公園</text>
+
+      <!-- 地標：Tokyo One (紅色重點) -->
+      <rect x="450" y="200" width="120" height="80" fill="#D3232A" />
+      <text x="465" y="240" fill="white" font-size="16" font-weight="700">Tokyo One</text>
+
+      <!-- 地標群：生活機能 -->
       <g fill="#232120">
-        <circle cx="360" cy="200" r="6" />
-        <text x="368" y="205" font-size="14" font-weight="700">松屋</text>
+        <!-- 唐吉訶德與商圈 -->
+        <rect x="350" y="200" width="40" height="40" fill="#F3A900" />
+        <text x="340" y="260" font-size="12" font-weight="700">唐吉訶德</text>
         
-        <circle cx="410" cy="200" r="6" />
-        <text x="418" y="205" font-size="14" font-weight="700">唐吉訶德</text>
+        <circle cx="370" cy="180" r="8" />
+        <text x="380" y="185" font-size="12">松屋</text>
         
-        <circle cx="300" cy="200" r="6" />
-        <text x="308" y="205" font-size="14" font-weight="700">BOOKOFF</text>
+        <rect x="350" y="100" width="40" height="20" fill="#5C5654" />
+        <text x="355" y="95" font-size="12" font-weight="700">巴士站</text>
       </g>
 
-      <!-- 交通點：巴士與車站 -->
-      <rect x="210" y="100" width="60" height="30" fill="#5C5654" />
-      <text x="215" y="90" fill="#232120" font-size="14" font-weight="700">祐光三丁目巴士站</text>
+      <!-- 交通點：JR車站 -->
+      <rect x="50" y="280" width="100" height="60" fill="#232120" />
+      <text x="60" y="315" fill="white" font-size="14" font-weight="700">JR東千葉站</text>
       
-      <rect x="50" y="150" width="120" height="80" fill="#232120" />
-      <text x="65" y="195" fill="white" font-size="14" font-weight="700">JR 東千葉站</text>
+      <!-- 道路名稱標示 -->
+      <text x="10" y="140" font-size="14" font-weight="700" transform="rotate(-90 10 140)">祐光大通</text>
     </svg>
-    
-    <!-- 精確功能說明表 -->
-    <div style="margin-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; font-size: 14px; color: var(--ink-soft);">
-      <div style="background: rgba(35,33,32,0.03); padding: 15px; border-radius: var(--radius);">
-        <p><strong>🚶 徒步 10 分鐘：</strong> JR 東千葉站 (JR Higashi-Chiba Sta.)</p>
-        <p><strong>🚌 巴士 8 分鐘：</strong> JR千葉站出發（於祐光三丁目下車）</p>
-      </div>
-      <div style="background: rgba(35,33,32,0.03); padding: 15px; border-radius: var(--radius);">
-        <p><strong>🛍 生活圈：</strong> 唐吉訶德、松屋、BOOKOFF 皆在學校步行 5 分鐘生活圈內，採買與外食極為方便。</p>
-      </div>
-    </div>
   </div>
 </section>
-
     <!-- 地圖說明 -->
     <div style="margin-top: 30px; display: flex; justify-content: space-around; font-size: 13px; color: var(--ink-soft);">
       <span>📍 <span class="env-highlight">ドン・キホーテ</span> (購物)</span>
