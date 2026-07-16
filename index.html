@@ -744,34 +744,30 @@
       <div class="map-iframe-container">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3243.6826978437024!2d140.12569507632616!3d35.61955193318214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6022851fc365ab75%3A0xe9f7580b0376c24!2zNC1jaMW9bWUtMS0xOCBZdWvFjSwgQ2h1byBXYXJkLCBDaGliYSwgMjYwLTAwMTM!5e0!3m2!1sja!2sjp!4v1710000000000!5m2!1sja!2sjp" title="Tokyo One campus location map" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
-    <!-- 新增的在地生活機能地圖區塊 -->
-<section class="env-section wrap reveal">
-  <div class="eyebrow" style="margin-top: 60px;">LIFE MAP</div>
-  <h2 style="font-family: 'Shippori Mincho', serif;">千葉校周辺マップ</h2>
-  <p class="txt-zh" style="margin-bottom: 30px;">學校位於生活機能完善的千葉中央區，日常所需皆在步行範圍內。</p>
+  <!-- 優化後的周邊生活圈插畫地圖 -->
+<div style="background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; margin-top: 30px;">
+  <svg viewBox="0 0 500 250" style="width: 100%; height: auto; max-width: 700px; margin: 0 auto; display: block;">
+    <!-- 街道網格 -->
+    <path d="M50 50 L450 50 L450 200 L50 200 Z" fill="none" stroke="#EADCB9" stroke-width="10" />
+    <path d="M150 50 L150 200 M300 50 L300 200" stroke="#EADCB9" stroke-width="10" />
+    
+    <!-- 地標：千葉都市單軌電車線 (上方軌道) -->
+    <line x1="50" y1="30" x2="450" y2="30" stroke="#5C5654" stroke-width="4" />
+    <rect x="220" y="25" width="40" height="10" fill="#F3A900" />
+    
+    <!-- 地標：Tokyo One (學校主體) -->
+    <rect x="200" y="100" width="40" height="40" fill="#D3232A" />
+    <text x="245" y="125" font-size="14" font-weight="700" fill="#232120">Tokyo One</text>
 
-  <div style="background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.02);">
-    <!-- 手繪風格意象地圖 -->
-    <svg viewBox="0 0 400 200" style="width: 100%; height: auto; max-width: 600px; margin: 0 auto; display: block;">
-      <!-- 道路 -->
-      <path d="M50 100 L350 100 M200 50 L200 150" stroke="#5C5654" stroke-width="2" stroke-dasharray="4 4" />
-      
-      <!-- 地標：Tokyo One -->
-      <circle cx="200" cy="100" r="8" fill="#D3232A" />
-      <text x="215" y="105" font-size="12" fill="#232120" font-weight="700">Tokyo One</text>
+    <!-- 地標：唐吉訶德 (建築特徵) -->
+    <rect x="80" y="130" width="40" height="40" fill="none" stroke="#232120" stroke-width="2" />
+    <text x="70" y="190" font-size="12" fill="#232120" font-weight="600">唐吉訶德</text>
 
-      <!-- 唐吉訶德 -->
-      <rect x="80" y="120" width="30" height="30" fill="none" stroke="#232120" stroke-width="1.5" />
-      <text x="70" y="170" font-size="10" fill="#232120">唐吉訶德</text>
-
-      <!-- 飲食店 -->
-      <circle cx="280" cy="60" r="10" fill="none" stroke="#232120" stroke-width="1.5" />
-      <text x="265" y="40" font-size="10" fill="#232120">飲食店</text>
-
-      <!-- 單軌電車 -->
-      <rect x="180" y="30" width="40" height="15" fill="none" stroke="#232120" stroke-width="1.5" />
-      <text x="175" y="25" font-size="10" fill="#232120">單軌電車</text>
-    </svg>
+    <!-- 地標：飲食店街 -->
+    <path d="M350 80 L390 80 L380 120 L360 120 Z" fill="none" stroke="#232120" stroke-width="2" />
+    <text x="350" y="140" font-size="12" fill="#232120" font-weight="600">飲食店</text>
+  </svg>
+</div>
 
     <!-- 地圖說明 -->
     <div style="margin-top: 30px; display: flex; justify-content: space-around; font-size: 13px; color: var(--ink-soft);">
