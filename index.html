@@ -372,14 +372,14 @@
     .adm-swipe-hint { display: block; }
   }
 
-  .adm-timeline-row { display: grid; grid-template-columns: 130px repeat(12, 1fr); align-items: center; gap: 4px; margin-bottom: 14px; min-width: 640px; transition: opacity 0.4s ease; }
+  .adm-timeline-row { display: grid; grid-template-columns: 155px repeat(12, 1fr); align-items: center; gap: 4px; margin-bottom: 14px; min-width: 680px; transition: opacity 0.4s ease; }
   .adm-timeline-row:last-child { margin-bottom: 0; }
   .adm-timeline-label { font-size: 14px; font-weight: 700; }
   .adm-cell { height: 22px; border-radius: 4px; background: rgba(35,33,32,0.05); position: relative; }
   .adm-cell.apply { background: var(--vibrant-yellow); opacity: 0.85; }
   .adm-cell.intake { background: var(--vibrant-red); }
   .adm-cell.intake::after { content: "★"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; }
-  .adm-month-header { display: grid; grid-template-columns: 130px repeat(12, 1fr); gap: 4px; margin-bottom: 10px; min-width: 640px; font-size: 12px; color: var(--ink-soft); text-align: center; }
+  .adm-month-header { display: grid; grid-template-columns: 155px repeat(12, 1fr); gap: 4px; margin-bottom: 10px; min-width: 680px; font-size: 12px; color: var(--ink-soft); text-align: center; }
   .adm-legend { display: flex; gap: 22px; margin-top: 20px; font-size: 14px; flex-wrap: wrap; }
   .adm-legend span { display: flex; align-items: center; gap: 8px; }
   .adm-legend .sw { width: 14px; height: 14px; border-radius: 3px; }
@@ -501,6 +501,24 @@
   /* Mobile Layout Adjustment */
   
   
+  
+    /* 交通地圖：手機版改為上下排列 */
+    .map-grid {
+      grid-template-columns: 1fr !important;
+      padding: 24px 20px !important;
+      gap: 20px !important;
+    }
+    .map-grid iframe {
+      width: 100% !important;
+      height: 220px !important;
+      border-radius: var(--radius);
+    }
+    .map-info h3 {
+      font-size: 20px !important;
+      margin-bottom: 10px;
+    }
+
+
   /* ── 三大區塊手機版修正 ───────────────────────────── */
   @media (max-width: 760px) {
 
@@ -514,10 +532,17 @@
       height: auto !important;
     }
 
-    /* 2. 出願カレンダー：隱藏橫向表格，改顯示垂直卡片 */
-    .adm-timeline { display: none; }
+    /* 2. 出願カレンダー：手機版縮小格狀表格，維持視覺設計 */
+    .adm-timeline { display: block; overflow-x: hidden; padding: 14px 6px !important; }
     .adm-swipe-hint { display: none !important; }
-    .adm-mobile-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+    .adm-mobile-cards { display: none; }
+    .adm-month-header { min-width: unset !important; grid-template-columns: 56px repeat(12, 1fr) !important; gap: 2px !important; margin-bottom: 6px !important; font-size: 10px !important; }
+    .adm-timeline-row { min-width: unset !important; grid-template-columns: 56px repeat(12, 1fr) !important; gap: 2px !important; margin-bottom: 5px !important; }
+    .adm-timeline-label { font-size: 10px !important; line-height: 1.3 !important; }
+    .adm-cell { height: 18px !important; border-radius: 2px !important; }
+    .adm-legend { font-size: 11px !important; gap: 10px !important; margin-top: 12px !important; }
+    .adm-legend-item { gap: 4px !important; font-size: 11px !important; }
+    .adm-star { font-size: 8px !important; }
 
     /* 3. 進路テーブル：隱藏table，改顯示垂直卡片 */
     .career-table-wrap table { display: none; }
@@ -550,6 +575,12 @@
     /* 桌機：隱藏手機版卡片，顯示原本的table和timeline */
     .adm-mobile-cards { display: none; }
     .career-mobile-cards { display: none; }
+    /* 桌機版恢復 adm-timeline 原始樣式 */
+    .adm-timeline-row { min-width: 680px !important; grid-template-columns: 155px repeat(12, 1fr) !important; gap: 4px !important; margin-bottom: 14px !important; }
+    .adm-month-header { min-width: 680px !important; grid-template-columns: 155px repeat(12, 1fr) !important; gap: 4px !important; margin-bottom: 10px !important; font-size: 13px !important; }
+    .adm-timeline-label { font-size: 14px !important; white-space: nowrap !important; }
+    .adm-cell { height: 26px !important; border-radius: 4px !important; }
+    .adm-legend { font-size: 14px !important; gap: 22px !important; }
   }
 
 
@@ -2139,43 +2170,43 @@
   </div>
 <div class="adm-mobile-cards">
   <!-- 4月入学 -->
-  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 4月</span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 16px;padding:6px 14px;border-radius:20px;">★ 4月</span>
       <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">2年・4月入学</span><span class="txt-zh">2年・4月入學</span><span class="txt-en">2yr · April</span><span class="txt-vi">2 năm · Tháng 4</span><span class="txt-uk">2 роки · Квітень</span><span class="txt-id">2 thn · April</span><span class="txt-ru">2 года · Апрель</span><span class="txt-my">၂နှစ် · ဧပြီ</span></span>
     </div>
-    <div style="font-size: 15px;color:var(--ink-soft);">
-      <span class="txt-ja">📋 出願期間：9〜10月</span><span class="txt-zh">📋 出願期間：9〜10月</span><span class="txt-en">📋 Application: Sep–Oct</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 9–10</span><span class="txt-uk">📋 Подача: Вересень–Жовтень</span><span class="txt-id">📋 Pendaftaran: Sep–Okt</span><span class="txt-ru">📋 Подача: Сент.–Окт.</span><span class="txt-my">📋 လျှောက်ရက်: စက်တင်-အောက်</span>
+    <div style="font-size: 16px;color:var(--ink-soft);margin-top:8px;">
+      <span class="txt-ja">出願期間：9〜10月</span><span class="txt-zh">出願期間：9〜10月</span><span class="txt-en">出願： Sep–Oct</span><span class="txt-vi">申請： Tháng 9–10</span><span class="txt-uk">申請： Вересень–Жовтень</span><span class="txt-id">申請： Sep–Okt</span><span class="txt-ru">申請： Сент.–Окт.</span><span class="txt-my">申請： စက်တင်-အောက်</span>
     </div>
   </div>
   <!-- 7月入学 -->
-  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 7月</span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 16px;padding:6px 14px;border-radius:20px;">★ 7月</span>
       <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">1年9ヶ月・7月入学</span><span class="txt-zh">1年9個月・7月入學</span><span class="txt-en">1.9yr · July</span><span class="txt-vi">1,9 năm · Tháng 7</span><span class="txt-uk">1,9 роки · Липень</span><span class="txt-id">1,9 thn · Juli</span><span class="txt-ru">1,9 года · Июль</span><span class="txt-my">၁.၉နှစ် · ဇူလိုင်</span></span>
     </div>
-    <div style="font-size: 15px;color:var(--ink-soft);">
-      <span class="txt-ja">📋 出願期間：1〜2月</span><span class="txt-zh">📋 出願期間：1〜2月</span><span class="txt-en">📋 Application: Jan–Feb</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 1–2</span><span class="txt-uk">📋 Подача: Січень–Лютий</span><span class="txt-id">📋 Pendaftaran: Jan–Feb</span><span class="txt-ru">📋 Подача: Янв.–Фев.</span><span class="txt-my">📋 လျှောက်ရက်: ဇန်-ဖေဖော်</span>
+    <div style="font-size: 16px;color:var(--ink-soft);margin-top:8px;">
+      <span class="txt-ja">出願期間：1〜2月</span><span class="txt-zh">出願期間：1〜2月</span><span class="txt-en">出願： Jan–Feb</span><span class="txt-vi">申請： Tháng 1–2</span><span class="txt-uk">申請： Січень–Лютий</span><span class="txt-id">申請： Jan–Feb</span><span class="txt-ru">申請： Янв.–Фев.</span><span class="txt-my">申請： ဇန်-ဖေဖော်</span>
     </div>
   </div>
   <!-- 10月入学 -->
-  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 10月</span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 16px;padding:6px 14px;border-radius:20px;">★ 10月</span>
       <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">1年6ヶ月・10月入学</span><span class="txt-zh">1年6個月・10月入學</span><span class="txt-en">1.6yr · October</span><span class="txt-vi">1,6 năm · Tháng 10</span><span class="txt-uk">1,6 роки · Жовтень</span><span class="txt-id">1,6 thn · Oktober</span><span class="txt-ru">1,6 года · Октябрь</span><span class="txt-my">၁.၆နှစ် · အောက်တိုဘာ</span></span>
     </div>
-    <div style="font-size: 15px;color:var(--ink-soft);">
-      <span class="txt-ja">📋 出願期間：3〜4月</span><span class="txt-zh">📋 出願期間：3〜4月</span><span class="txt-en">📋 Application: Mar–Apr</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 3–4</span><span class="txt-uk">📋 Подача: Березень–Квітень</span><span class="txt-id">📋 Pendaftaran: Mar–Apr</span><span class="txt-ru">📋 Подача: Март–Апр.</span><span class="txt-my">📋 လျှောက်ရက်: မတ်-ဧပြီ</span>
+    <div style="font-size: 16px;color:var(--ink-soft);margin-top:8px;">
+      <span class="txt-ja">出願期間：3〜4月</span><span class="txt-zh">出願期間：3〜4月</span><span class="txt-en">出願： Mar–Apr</span><span class="txt-vi">申請： Tháng 3–4</span><span class="txt-uk">申請： Березень–Квітень</span><span class="txt-id">申請： Mar–Apr</span><span class="txt-ru">申請： Март–Апр.</span><span class="txt-my">申請： မတ်-ဧပြီ</span>
     </div>
   </div>
   <!-- 1月入学 -->
-  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 1月</span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 16px;padding:6px 14px;border-radius:20px;">★ 1月</span>
       <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">1年3ヶ月・1月入学</span><span class="txt-zh">1年3個月・1月入學</span><span class="txt-en">1.3yr · January</span><span class="txt-vi">1,3 năm · Tháng 1</span><span class="txt-uk">1,3 роки · Січень</span><span class="txt-id">1,3 thn · Januari</span><span class="txt-ru">1,3 года · Январь</span><span class="txt-my">၁.၃နှစ် · ဇန်နဝါရီ</span></span>
     </div>
-    <div style="font-size: 15px;color:var(--ink-soft);">
-      <span class="txt-ja">📋 出願期間：8〜9月</span><span class="txt-zh">📋 出願期間：8〜9月</span><span class="txt-en">📋 Application: Aug–Sep</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 8–9</span><span class="txt-uk">📋 Подача: Серпень–Вересень</span><span class="txt-id">📋 Pendaftaran: Agu–Sep</span><span class="txt-ru">📋 Подача: Авг.–Сент.</span><span class="txt-my">📋 လျှောက်ရက်: သြဂုတ်-စက်တင်</span>
+    <div style="font-size: 16px;color:var(--ink-soft);margin-top:8px;">
+      <span class="txt-ja">出願期間：8〜9月</span><span class="txt-zh">出願期間：8〜9月</span><span class="txt-en">出願： Aug–Sep</span><span class="txt-vi">申請： Tháng 8–9</span><span class="txt-uk">申請： Серпень–Вересень</span><span class="txt-id">申請： Agu–Sep</span><span class="txt-ru">申請： Авг.–Сент.</span><span class="txt-my">申請： သြဂုတ်-စက်တင်</span>
     </div>
   </div>
 </div>
