@@ -398,20 +398,20 @@
   }
 
   /* ── 分頁底色 ──────────────────────────────── */
-  body.page-home         { background-color: #EADCB9; }
-  body.page-features     { background-color: #E2D8B8; }
-  body.page-achievements { background-color: #DDD5C0; }
-  body.page-courses      { background-color: #E6DCC4; }
-  body.page-admission    { background-color: #E9E0CC; }
+  body.page-home         { background-color: #E7D9B7; }
+  body.page-features     { background-color: #E5C9AF; }
+  body.page-achievements { background-color: #EBC27B; }
+  body.page-courses      { background-color: #F9F5B3; }
+  body.page-admission    { background-color: #DEB373; }
 
   body.page-features     header,
-  body.page-features     header::after   { background: #E2D8B8; }
+  body.page-features     header::after   { background: #E5C9AF; }
   body.page-achievements header,
-  body.page-achievements header::after   { background: #DDD5C0; }
+  body.page-achievements header::after   { background: #EBC27B; }
   body.page-courses      header,
-  body.page-courses      header::after   { background: #E6DCC4; }
+  body.page-courses      header::after   { background: #F9F5B3; }
   body.page-admission    header,
-  body.page-admission    header::after   { background: #E9E0CC; }
+  body.page-admission    header::after   { background: #DEB373; }
 
   header { transition: background-color 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
 
@@ -521,7 +521,14 @@
   
   
   
-    /* 交通地圖：手機版改為上下排列 */
+
+    /* 周邊生活指南縮減間距 */
+    .local-guide-section { margin-top: 24px !important; }
+    .local-guide-section h3 { margin-bottom: 8px !important; font-size: 18px !important; }
+    .local-guide-section p { font-size: 14px !important; line-height: 1.6 !important; }
+    .map-section.wrap { padding-top: 32px !important; padding-bottom: 32px !important; }
+
+        /* 交通地圖：手機版改為上下排列 */
     .map-grid {
       grid-template-columns: 1fr !important;
       padding: 24px 20px !important;
@@ -603,6 +610,84 @@
   }
 
 
+  
+  /* ══════════════════════════════════════════
+     手機版頁面長度優化
+     目標：首頁 7512→~4500px、課程 8093→~5000px
+  ══════════════════════════════════════════ */
+  @media (max-width: 760px) {
+
+    /* 學校介紹：doc-grid 2欄 */
+    .doc-cabinet { padding: 20px 14px !important; }
+    .doc-card { padding: 16px 12px !important; }
+    .doc-card h4 { font-size: 15px !important; }
+    .doc-card p  { font-size: 13px !important; }
+
+    /* 學校介紹：achieve-split 上下排 */
+    .achieve-split { grid-template-columns: 1fr !important; gap: 20px !important; }
+    .achieve-nums  { grid-template-columns: repeat(2, 1fr) !important; gap: 14px !important; }
+    .plaque-box { padding: 20px 14px !important; }
+
+    /* staff-card 縮緊 */
+    .staff-photo-grid { gap: 16px !important; }
+
+    /* ① 見證區塊：2欄，最多4張 */
+    .testimonial-section .testimonial-grid,
+    .testimonial-grid {
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      gap: 12px !important;
+      margin-top: 20px !important;
+    }
+    .testimonial-card:nth-child(n+5) { display: none !important; }
+    .testimonial-card { padding: 16px !important; }
+
+    /* ② map-section 周邊生活指南：縮減段落間距 */
+    .map-section { padding-top: 40px !important; padding-bottom: 40px !important; }
+    .map-grid { gap: 16px !important; padding: 20px 16px !important; }
+
+    /* ③ home-intro-summary：縮小間距 */
+    .home-intro-summary { padding-top: 36px !important; padding-bottom: 36px !important; }
+
+    /* ④ 課程 reason-grid（課綱卡片）：2欄排列 */
+    .reason-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+      margin-bottom: 36px !important;
+    }
+    .reason-card { padding: 18px 14px !important; }
+
+    /* ⑤ 課程 fee-visual-grid：上下排 */
+    .fee-visual-grid {
+      grid-template-columns: 1fr !important;
+      gap: 20px !important;
+    }
+
+    /* ⑥ 課程 vacation-grid：2欄 */
+    .vacation-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+      gap: 12px !important;
+    }
+
+    /* ⑦ 課程 schedule-dual：上下排 */
+    .schedule-dual {
+      grid-template-columns: 1fr !important;
+      gap: 16px !important;
+    }
+
+    /* ⑧ 退費決策樹：縮減 padding/margin */
+    .refund-zone { padding: 20px 14px !important; }
+    .refund-zone .refund-step { margin-bottom: 14px !important; }
+
+    /* ⑨ section 通用 padding 縮減 */
+    .testimonial-section.wrap,
+    .map-section.wrap { padding-left: 16px !important; padding-right: 16px !important; }
+
+    /* ⑩ schedule-block 間距縮減 */
+    .schedule-block { padding: 20px 14px !important; margin-top: 24px !important; }
+  }
+
+
   /* ── 手機版全面優化 ──────────────────────────────────── */
   @media (max-width: 900px) {
 
@@ -628,24 +713,29 @@
     .hero-text p  { font-size: 16px; }
     .hero-cta-row { justify-content: center; }
 
-    /* 2. 快速入口: 2×2 格 */
+    /* 2. 快速入口: 2×2 格，縮減高度 */
     .quick-access-grid {
       grid-template-columns: repeat(2, 1fr) !important;
-      gap: 12px;
+      gap: 10px;
+      margin-top: 24px !important;
     }
+    .access-card { padding: 16px 14px !important; }
+    .access-card h4 { font-size: 15px !important; margin-bottom: 6px !important; }
+    .access-card p  { font-size: 13px !important; line-height: 1.5 !important; }
 
     /* 3. 理事長區塊: 照片縮小置中，文字下移 */
     .home-intro-summary > div[style*="grid-template-columns:180px"] {
       display: flex !important;
-      flex-direction: column !important;
-      align-items: center !important;
-      gap: 20px !important;
+      flex-direction: row !important;
+      align-items: flex-start !important;
+      gap: 16px !important;
     }
     .home-intro-summary img[alt="理事長 小澤京子"] {
-      width: 130px !important;
+      width: 90px !important;
+      flex-shrink: 0;
       aspect-ratio: 3/4;
       object-fit: cover;
-      border-radius: 8px;
+      border-radius: 6px;
     }
 
     /* 4. 校園生活卡片: 橫向2欄（不要單欄全寬） */
@@ -704,7 +794,7 @@
     .menu-toggle { display: block; }
     
     .hero-inner, .achieve-split, .support-columns, .quick-access-grid, .campus-life-grid, .doc-grid, .req-grid { grid-template-columns: 1fr; }
-    .testimonial-grid { grid-template-columns: 1fr; }
+    /* testimonial-grid 在 761px 以上單欄，以下由手機版 CSS 控制 */
     .reason-grid { grid-template-columns: 1fr; }
     .reason-card:nth-child(1), .reason-card:nth-child(2), .reason-card:nth-child(3), .reason-card:nth-child(4), .reason-card:nth-child(5) { grid-column: span 1; }
     .course-grid { grid-template-columns: 1fr; }
