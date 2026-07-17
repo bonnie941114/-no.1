@@ -53,6 +53,7 @@
     font-size: 19px;
     line-height: 1.85; -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
+    transition: background-color 0.55s cubic-bezier(0.4, 0, 0.2, 1);
   }
   
   body::before {
@@ -395,6 +396,24 @@
     #langBottomSheet        { display: none; }   /* JS 控制：sheet.style.display='block' */
     #langBottomSheet.open   { display: block !important; }
   }
+
+  /* ── 分頁底色 ──────────────────────────────── */
+  body.page-home         { background-color: #EADCB9; }
+  body.page-features     { background-color: #E2D8B8; }
+  body.page-achievements { background-color: #DDD5C0; }
+  body.page-courses      { background-color: #E6DCC4; }
+  body.page-admission    { background-color: #E9E0CC; }
+
+  body.page-features     header,
+  body.page-features     header::after   { background: #E2D8B8; }
+  body.page-achievements header,
+  body.page-achievements header::after   { background: #DDD5C0; }
+  body.page-courses      header,
+  body.page-courses      header::after   { background: #E6DCC4; }
+  body.page-admission    header,
+  body.page-admission    header::after   { background: #E9E0CC; }
+
+  header { transition: background-color 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
 
   .dl-link {
     display: inline-flex; align-items: center; gap: 6px;
@@ -767,7 +786,7 @@
 
 </style>
 </head>
-<body class="lang-ja">
+<body class="lang-ja page-home">
 
 <!-- FILM INTRO: WAFU KANA & SAKURA SHUTTER SEQUENCE -->
 <div id="loading-shutter-wrap">
@@ -2706,6 +2725,17 @@
   function switchModule(targetPaneId) {
     viewPanes.forEach(pane => pane.classList.remove('active'));
     navButtons.forEach(btn => { btn.classList.remove('active'); btn.setAttribute('aria-selected', 'false'); });
+
+    // 切換底色
+    document.body.classList.remove('page-home','page-features','page-achievements','page-courses','page-admission');
+    const _bgMap = {
+      'pane-home-index':   'page-home',
+      'pane-features':     'page-features',
+      'pane-achievements': 'page-achievements',
+      'pane-courses':      'page-courses',
+      'pane-admission':    'page-admission',
+    };
+    if (_bgMap[targetPaneId]) document.body.classList.add(_bgMap[targetPaneId]);
 
     const targetPane = document.getElementById(targetPaneId);
     if(targetPane) targetPane.classList.add('active');
