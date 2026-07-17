@@ -50,7 +50,7 @@
   body {
     margin: 0; background: var(--bg-washi); color: var(--ink-main);
     font-family: "Zen Kaku Gothic New", sans-serif;
-    font-size: 17px;
+    font-size: 19px;
     line-height: 1.85; -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
@@ -69,7 +69,7 @@
   
   .eyebrow {
     display: inline-flex; align-items: center; gap: 12px;
-    font-size: 13px; letter-spacing: 0.2em; color: var(--vibrant-red);
+    font-size: 15px; letter-spacing: 0.2em; color: var(--vibrant-red);
     font-weight: 700; margin-bottom: 20px; text-transform: uppercase;
   }
   .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--vibrant-red); display: inline-block; }
@@ -77,7 +77,7 @@
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 10px;
     padding: 16px 36px; border-radius: 30px;
-    font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase;
+    font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 16px; letter-spacing: 0.1em; text-transform: uppercase;
     border: 1px solid transparent; cursor: pointer; transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
   }
   .btn:active { transform: scale(0.96) !important; transition: transform 0.12s ease; }
@@ -87,11 +87,11 @@
   .btn-ghost:hover { background: transparent; border-color: var(--ink-main); transform: translateY(-1px); }
 
   /* Tri-lingual Typography Styles */
-  .txt-ja { font-size: 15px; color: var(--ink-main); margin-bottom: 4px; font-weight: 700; }
+  .txt-ja { font-size: 17px; color: var(--ink-main); margin-bottom: 4px; font-weight: 700; }
   .txt-my { font-family: 'Myanmar Text', 'Noto Sans Myanmar', sans-serif; }
   .block-item { display: block; }
-  .txt-zh { font-size: 13.5px; color: var(--ink-soft); margin-bottom: 4px; }
-  .txt-en { font-size: 12px; color: rgba(92, 86, 84, 0.6); font-family: "Space Grotesk", sans-serif; margin-bottom: 16px; line-height: 1.5; }
+  .txt-zh { font-size: 15px; color: var(--ink-soft); margin-bottom: 4px; }
+  .txt-en { font-size: 14px; color: rgba(92, 86, 84, 0.6); font-family: "Space Grotesk", sans-serif; margin-bottom: 16px; line-height: 1.5; }
 
   /* 語言切換：日／中／英／越／烏克蘭文已全站雙語撰寫，可做到真正互斥切換。
      印尼文／俄文目前只有選單與標題（data-i18n）有對應翻譯，
@@ -124,7 +124,7 @@
 
   .logo-fixed-center-box { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 100; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.5s ease; }
   #loading-shutter-wrap.open .logo-fixed-center-box { opacity: 0; }
-  .intro-text { font-family: "Space Grotesk", sans-serif; font-weight: 900; font-size: 36px; letter-spacing: 0.2em; text-indent: 0.2em; color: var(--ink-main); opacity: 0; transform: scale(0.8) translateY(10px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
+  .intro-text { font-family: "Space Grotesk", sans-serif; font-weight: 900; font-size: 39px; letter-spacing: 0.2em; text-indent: 0.2em; color: var(--ink-main); opacity: 0; transform: scale(0.8) translateY(10px); transition: all 0.8s cubic-bezier(0.22, 1, 0.36, 1); }
   .intro-text.assembled { opacity: 1; transform: scale(1) translateY(0); }
   .brand-dots { display: flex; gap: 12px; margin-top: 18px; }
   .brand-dot { width: 8px; height: 8px; border-radius: 50%; opacity: 0; transform: scale(0); }
@@ -139,7 +139,7 @@
   .brand-dots.assembled .brand-dot:nth-child(5) { animation-delay: 0.9s; }
   .brand-dots.assembled .brand-dot:nth-child(6) { animation-delay: 1.05s; }
   @keyframes dotPop { to { opacity: 1; transform: scale(1); } }
-  .intro-tagline { margin-top: 20px; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 500; font-size: 12.5px; letter-spacing: 0.08em; color: var(--ink-soft); opacity: 0; transition: opacity 0.8s ease 1s; }
+  .intro-tagline { margin-top: 20px; font-family: "Zen Kaku Gothic New", sans-serif; font-weight: 500; font-size: 14px; letter-spacing: 0.08em; color: var(--ink-soft); opacity: 0; transition: opacity 0.8s ease 1s; }
   .intro-tagline.assembled { opacity: 1; }
 
   @media (prefers-reduced-motion: reduce) { #loading-shutter-wrap { display: none !important; } }
@@ -151,7 +151,7 @@
   .intro-skip-btn {
     position: absolute; right: 24px; bottom: 24px; z-index: 110;
     background: rgba(255,255,255,0.6); border: 1px solid rgba(35,33,32,0.2); color: var(--ink-soft);
-    font-family: "Space Grotesk", sans-serif; font-size: 11.5px; font-weight: 700; letter-spacing: 0.05em;
+    font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.05em;
     padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: all 0.25s ease;
   }
   .intro-skip-btn:hover { background: var(--ink-main); color: #fff; border-color: var(--ink-main); }
@@ -164,11 +164,11 @@
   header { position: sticky; top: 0; z-index: 100; background: rgba(234, 220, 185, 0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
   .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 84px; }
   
-  .brand { font-family: "Space Grotesk", sans-serif; font-size: 24px; font-weight: 700; letter-spacing: 0.08em; color: var(--ink-main); cursor: pointer; display: flex; align-items: center; gap: 8px; }
+  .brand { font-family: "Space Grotesk", sans-serif; font-size: 26px; font-weight: 700; letter-spacing: 0.08em; color: var(--ink-main); cursor: pointer; display: flex; align-items: center; gap: 8px; }
   .brand span { color: var(--vibrant-red); }
   .brand-icon { width: 14px; height: 14px; background: var(--vibrant-red); border-radius: 50%; display: inline-block; box-shadow: 8px 0 0 var(--vibrant-yellow), 16px 0 0 var(--vibrant-green); margin-right: 16px; transform: translateY(-2px); }
   
-  nav.main-nav { display: flex; gap: 32px; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.05em; }
+  nav.main-nav { display: flex; gap: 32px; font-family: "Zen Kaku Gothic New", sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 0.05em; }
   nav.main-nav button.nav-tab-btn { background: none; border: none; padding: 8px 0; color: var(--ink-main); opacity: 0.65; cursor: pointer; position: relative; font-weight: 700; transition: all 0.3s; }
   nav.main-nav button.nav-tab-btn:hover { opacity: 1; }
   nav.main-nav button.nav-tab-btn:active { transform: scale(0.95); transition: transform 0.1s ease; }
@@ -182,17 +182,17 @@
 
   /* 7國語言現代下拉選單美化 (Pure Frontend) */
   .custom-lang-dropdown { position: relative; display: inline-block; }
-  .lang-dropbtn { background: var(--bg-white); color: var(--ink-main); border: 1px solid var(--ink-main); padding: 8px 16px; border-radius: 20px; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s; }
+  .lang-dropbtn { background: var(--bg-white); color: var(--ink-main); border: 1px solid var(--ink-main); padding: 8px 16px; border-radius: 20px; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s; }
   .lang-dropbtn:hover { background: var(--ink-main); color: var(--bg-white); }
   .lang-dropdown-content { display: none; position: absolute; right: 0; background-color: var(--bg-white); min-width: 170px; box-shadow: 0px 8px 24px rgba(35,33,32,0.12); border: 1px solid var(--line); border-radius: var(--radius); z-index: 200; margin-top: 6px; overflow: hidden; }
-  .lang-dropdown-content button { background: none; border: none; width: 100%; text-align: left; color: var(--ink-main); padding: 10px 16px; cursor: pointer; font-size: 13.5px; font-weight: 500; transition: background 0.2s; font-family: inherit; }
+  .lang-dropdown-content button { background: none; border: none; width: 100%; text-align: left; color: var(--ink-main); padding: 10px 16px; cursor: pointer; font-size: 15px; font-weight: 500; transition: background 0.2s; font-family: inherit; }
   .lang-dropdown-content button:hover { background-color: rgba(234, 220, 185, 0.4); color: var(--vibrant-red); font-weight: 700; }
   .lang-dropdown-content button.lang-active { background-color: rgba(234, 220, 185, 0.6); color: var(--vibrant-red); font-weight: 700; }
   .lang-dropdown-content button.lang-active::before { content: "✓ "; }
   /* Hover 支援桌面端 */
   .custom-lang-dropdown:hover .lang-dropdown-content { display: block; }
 
-  .menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; color: var(--ink-main); }
+  .menu-toggle { display: none; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--ink-main); }
   
   /* ---------- STAGGER PANELS BLOCK ---------- */
   .view-pane { display: none; }
@@ -214,7 +214,7 @@
     position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%) translateY(6px);
     width: max-content; max-width: 260px; background: #FBF6EF; color: var(--ink-main);
     border: 1px solid rgba(211,35,42,0.25); border-radius: 10px; padding: 10px 14px;
-    font-family: "Zen Kaku Gothic New", sans-serif; font-size: 12px; font-weight: 500; line-height: 1.6; text-align: left;
+    font-family: "Zen Kaku Gothic New", sans-serif; font-size: 14px; font-weight: 500; line-height: 1.6; text-align: left;
     box-shadow: 0 8px 20px rgba(35,33,32,0.12); opacity: 0; pointer-events: none; z-index: 20;
     transition: opacity 0.25s ease, transform 0.25s ease; white-space: normal;
   }
@@ -238,7 +238,7 @@
   /* HOME & GENERAL PANE STYLES */
   .hero-inner { padding-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
   .manifesto-box { background: var(--bg-white); border-left: 4px solid var(--vibrant-red); padding: 30px 40px; margin-bottom: 50px; border-radius: 0 var(--radius) var(--radius) 0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-  .manifesto-box h3 { margin: 0 0 16px; font-size: 20px; color: var(--ink-main); }
+  .manifesto-box h3 { margin: 0 0 16px; font-size: 22px; color: var(--ink-main); }
   .reason-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 26px; margin-bottom: 64px; }
   .reason-card { background: var(--bg-white); padding: 40px 36px 36px; border-radius: var(--radius); border: 1px solid var(--line); position: relative; overflow: hidden; display: flex; flex-direction: column; z-index: 1; }
   .reason-card:nth-child(1), .reason-card:nth-child(2) { grid-column: span 3; }
@@ -252,16 +252,16 @@
   
   .support-grid { background: var(--bg-white); border-radius: var(--radius); border: 1px solid var(--line); padding: 40px; margin-bottom: 50px; }
   .facility-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 28px; }
-  .facility-tag { background: rgba(35,33,32,0.04); border: 1px solid var(--line); padding: 6px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 6px; }
+  .facility-tag { background: rgba(35,33,32,0.04); border: 1px solid var(--line); padding: 6px 14px; border-radius: 20px; font-size: 15px; font-weight: 700; color: var(--ink-soft); display: inline-flex; align-items: center; gap: 6px; }
   .support-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-  .support-list { margin: 0; padding: 0 0 0 18px; color: var(--ink-soft); font-size: 13.5px; line-height: 1.8; }
+  .support-list { margin: 0; padding: 0 0 0 18px; color: var(--ink-soft); font-size: 15px; line-height: 1.8; }
   .support-list li { margin-bottom: 8px; }
   .support-list .highlight { background: rgba(0, 122, 59, 0.1); color: var(--vibrant-green); font-weight: 700; padding: 2px 6px; border-radius: 4px; }
   
-  .cross-link-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-white); border: 1px solid var(--vibrant-red); color: var(--vibrant-red); padding: 12px 22px; border-radius: 30px; font-size: 13.5px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; margin-top: 10px; }
+  .cross-link-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--bg-white); border: 1px solid var(--vibrant-red); color: var(--vibrant-red); padding: 12px 22px; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.25s ease; margin-top: 10px; }
 
   /* 課程卡片下方的低調興趣連結，非強力銷售按鈕 */
-  .course-interest-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 12.5px; color: var(--ink-soft); cursor: pointer; background: none; border-left: none; border-right: none; border-bottom: none; width: 100%; text-align: left; transition: color 0.2s ease; }
+  .course-interest-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); font-size: 14px; color: var(--ink-soft); cursor: pointer; background: none; border-left: none; border-right: none; border-bottom: none; width: 100%; text-align: left; transition: color 0.2s ease; }
   .course-interest-link:hover { color: var(--vibrant-red); }
   .course-interest-link .arr-ic { transition: transform 0.2s ease; }
   .course-interest-link:hover .arr-ic { transform: translateX(3px); }
@@ -271,9 +271,9 @@
   /* MAP & ACCESS SECTION */
   .map-section { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line); }
   .map-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 30px; background: var(--bg-white); border: 1px solid var(--line); padding: 40px; border-radius: var(--radius); box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-  .map-info h3 { margin: 0 0 16px; font-size: 22px; color: var(--ink-main); }
-  .map-info p { font-size: 14.5px; color: var(--ink-soft); line-height: 1.8; margin: 0 0 24px; }
-  .map-info ul { margin: 0; padding: 0 0 0 20px; font-size: 13.8px; color: var(--ink-soft); line-height: 1.8; }
+  .map-info h3 { margin: 0 0 16px; font-size: 24px; color: var(--ink-main); }
+  .map-info p { font-size: 16px; color: var(--ink-soft); line-height: 1.8; margin: 0 0 24px; }
+  .map-info ul { margin: 0; padding: 0 0 0 20px; font-size: 15px; color: var(--ink-soft); line-height: 1.8; }
   .map-info ul li { margin-bottom: 10px; }
   .map-iframe-container { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); height: 320px; position: relative; }
   .map-iframe-container iframe { width: 100%; height: 100%; border: none; }
@@ -281,9 +281,9 @@
   /* ACHIEVEMENTS PANE STYLES */
   .plaque-box { background: var(--bg-white); border: 1px solid var(--ink-main); padding: 50px 40px; margin-bottom: 60px; text-align: center; position: relative; box-shadow: 4px 4px 0 rgba(35,33,32,0.05); }
   .plaque-box::before { content: ""; position: absolute; inset: 6px; border: 1px solid var(--line); }
-  .plaque-jp { font-family: "Shippori Mincho", serif; font-size: 28px; font-weight: 700; color: var(--ink-main); margin: 0 0 16px; letter-spacing: 0.08em; }
-  .plaque-zh { font-size: 14.5px; color: var(--ink-soft); margin: 0; letter-spacing: 0.05em; }
-  .plaque-en { font-size: 12.5px; color: rgba(92, 86, 84, 0.6); margin: 6px 0 0; font-family: "Space Grotesk", sans-serif; letter-spacing: 0.02em; }
+  .plaque-jp { font-family: "Shippori Mincho", serif; font-size: 30px; font-weight: 700; color: var(--ink-main); margin: 0 0 16px; letter-spacing: 0.08em; }
+  .plaque-zh { font-size: 16px; color: var(--ink-soft); margin: 0; letter-spacing: 0.05em; }
+  .plaque-en { font-size: 14px; color: rgba(92, 86, 84, 0.6); margin: 6px 0 0; font-family: "Space Grotesk", sans-serif; letter-spacing: 0.02em; }
 
   .achieve-split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 60px; align-items: center; margin-bottom: 50px; }
   .gauge-panel { background: var(--bg-white); padding: 44px; border-radius: var(--radius); text-align: center; border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; }
@@ -292,11 +292,11 @@
   .gauge-track { fill: none; stroke: var(--bg-washi); stroke-width: 14; }
   .gauge-fill { fill: none; stroke: var(--vibrant-red); stroke-width: 14; stroke-linecap: round; stroke-dasharray: 440; stroke-dashoffset: 440; transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1); }
   .gauge-panel.in .gauge-fill { stroke-dashoffset: 9; }
-  .gauge-counter { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "Space Grotesk", sans-serif; font-size: 42px; font-weight: 700; }
+  .gauge-counter { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "Space Grotesk", sans-serif; font-size: 46px; font-weight: 700; }
   .num-stat-row { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: center; background: rgba(255,255,255,0.3); padding: 24px 32px; border-radius: var(--radius); border-left: 4px solid var(--line); margin-bottom: 16px; }
-  .num-stat-row .big-number { font-family: "Space Grotesk", sans-serif; font-size: 34px; font-weight: 700; }
+  .num-stat-row .big-number { font-family: "Space Grotesk", sans-serif; font-size: 37px; font-weight: 700; }
   
-  table { width: 100%; border-collapse: collapse; font-size: 14px; background: var(--bg-white); border: 1px solid var(--line); }
+  table { width: 100%; border-collapse: collapse; font-size: 16px; background: var(--bg-white); border: 1px solid var(--line); }
   th, td { border-bottom: 1px solid var(--line); padding: 16px; text-align: left; }
   th { background: rgba(234, 220, 185, 0.5); font-weight: 700; }
 
@@ -308,65 +308,65 @@
   .doc-card:nth-child(2) { border-top-color: var(--vibrant-yellow); }
   .doc-card:nth-child(3) { border-top-color: var(--vibrant-green); }
   .doc-card:nth-child(4) { border-top-color: var(--vibrant-red); }
-  .doc-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: 0 0 14px; font-size: 16.5px; color: var(--ink-main); }
-  .doc-title .icon { font-size: 24px; flex: none; }
-  .doc-desc { margin: 0 0 24px; font-size: 13.5px; color: var(--ink-soft); line-height: 1.7; }
-  .doc-link { display: inline-flex; align-items: center; gap: 8px; font-family: "Space Grotesk", sans-serif; font-size: 12.5px; font-weight: 700; color: var(--vibrant-red); text-transform: uppercase; border: 1px solid var(--vibrant-red); padding: 10px 20px; border-radius: 30px; transition: all 0.2s; }
+  .doc-title { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin: 0 0 14px; font-size: 18px; color: var(--ink-main); }
+  .doc-title .icon { font-size: 26px; flex: none; }
+  .doc-desc { margin: 0 0 24px; font-size: 15px; color: var(--ink-soft); line-height: 1.7; }
+  .doc-link { display: inline-flex; align-items: center; gap: 8px; font-family: "Space Grotesk", sans-serif; font-size: 14px; font-weight: 700; color: var(--vibrant-red); text-transform: uppercase; border: 1px solid var(--vibrant-red); padding: 10px 20px; border-radius: 30px; transition: all 0.2s; }
   .doc-link:hover { background: var(--vibrant-red); color: #fff; }
 
   /* COURSES PANE STYLES */
   .course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 50px; }
   .course-card { background: var(--bg-white); padding: 40px 24px; border-radius: var(--radius); border: 1px solid var(--line); }
-  .course-tag { display: inline-block; font-family: "Space Grotesk", sans-serif; font-size: 11px; color: var(--vibrant-red); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px; text-transform: uppercase; }
+  .course-tag { display: inline-block; font-family: "Space Grotesk", sans-serif; font-size: 13px; color: var(--vibrant-red); font-weight: 700; letter-spacing: 0.1em; margin-bottom: 12px; text-transform: uppercase; }
   
   .fee-visual-grid { display: grid; grid-template-columns: 220px 1fr; gap: 40px; align-items: center; margin-bottom: 20px; }
   .fee-donut { width: 190px; height: 190px; border-radius: 50%; position: relative; margin: 0 auto; }
   .fee-donut-hole { position: absolute; inset: 26px; background: var(--bg-white); border-radius: 50%; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-  .fee-donut-hole .num { font-size: 19px; font-weight: 700; color: var(--ink-main); }
-  .fee-donut-hole small { font-size: 10.5px; color: var(--ink-soft); margin-top: 4px; }
+  .fee-donut-hole .num { font-size: 21px; font-weight: 700; color: var(--ink-main); }
+  .fee-donut-hole small { font-size: 12px; color: var(--ink-soft); margin-top: 4px; }
   .fee-legend { list-style: none; margin: 0; padding: 0; }
-  .fee-legend li { display: flex; align-items: center; gap: 10px; font-size: 13.5px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
+  .fee-legend li { display: flex; align-items: center; gap: 10px; font-size: 15px; padding: 9px 0; border-bottom: 1px dashed var(--line); }
   .fee-legend li:last-child { border-bottom: none; }
   .fee-legend .dot { width: 11px; height: 11px; border-radius: 50%; flex: none; }
   .fee-legend .fee-label { flex: 1; }
   .fee-legend .fee-amount { font-family: "Space Grotesk", sans-serif; font-weight: 700; }
   
   .refund-zone { background: rgba(255,255,255,0.6); border: 1px solid var(--line); border-top: 4px solid var(--vibrant-red); border-radius: var(--radius); padding: 34px 40px; margin-top: 40px; }
-  .refund-zone h4 { margin: 0 0 16px; font-size: 18px; }
-  .refund-deduct { background: rgba(211,35,42,0.06); color: var(--vibrant-red); padding: 12px 18px; border-radius: 6px; font-weight: 700; font-size: 13.5px; margin-bottom: 30px; display: inline-flex; align-items: center; gap: 10px; border: 1px dashed rgba(211,35,42,0.3); }
+  .refund-zone h4 { margin: 0 0 16px; font-size: 20px; }
+  .refund-deduct { background: rgba(211,35,42,0.06); color: var(--vibrant-red); padding: 12px 18px; border-radius: 6px; font-weight: 700; font-size: 15px; margin-bottom: 30px; display: inline-flex; align-items: center; gap: 10px; border: 1px dashed rgba(211,35,42,0.3); }
   .tree-grid { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 16px; align-items: stretch; }
   .tree-node { background: var(--bg-white); border: 1px solid var(--line); padding: 24px; border-radius: var(--radius); text-align: center; display: flex; flex-direction: column; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-  .tree-node h5 { margin: 0 0 10px; font-size: 14.5px; color: var(--ink-main); border-bottom: 1px solid var(--line); padding-bottom: 10px; }
-  .tree-node .result { margin-top: 14px; font-weight: 700; color: var(--vibrant-red); background: rgba(211,35,42,0.06); padding: 10px; border-radius: 4px; font-size: 13.5px; line-height: 1.5; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
-  .tree-arr { display: flex; align-items: center; justify-content: center; color: var(--ink-soft); font-size: 20px; font-family: "Space Grotesk", sans-serif; opacity: 0.6; }
+  .tree-node h5 { margin: 0 0 10px; font-size: 16px; color: var(--ink-main); border-bottom: 1px solid var(--line); padding-bottom: 10px; }
+  .tree-node .result { margin-top: 14px; font-weight: 700; color: var(--vibrant-red); background: rgba(211,35,42,0.06); padding: 10px; border-radius: 4px; font-size: 15px; line-height: 1.5; flex-grow: 1; display: flex; align-items: center; justify-content: center; }
+  .tree-arr { display: flex; align-items: center; justify-content: center; color: var(--ink-soft); font-size: 22px; font-family: "Space Grotesk", sans-serif; opacity: 0.6; }
 
   .schedule-dual { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 10px; }
   .sched-col { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
-  .sched-col h4 { margin: 0; padding: 22px; background: rgba(35,33,32,0.02); border-bottom: 1px solid var(--line); text-align: center; font-size: 16.5px; color: var(--ink-main); letter-spacing: 0.05em; }
+  .sched-col h4 { margin: 0; padding: 22px; background: rgba(35,33,32,0.02); border-bottom: 1px solid var(--line); text-align: center; font-size: 18px; color: var(--ink-main); letter-spacing: 0.05em; }
   .sched-col.am h4 { border-top: 4px solid var(--vibrant-yellow); }
   .sched-col.pm h4 { border-top: 4px solid #4A90E2; }
-  .sched-block { padding: 20px 24px; border-bottom: 1px dashed var(--line); font-size: 14.5px; text-align: center; font-weight: 700; color: var(--ink-main); }
+  .sched-block { padding: 20px 24px; border-bottom: 1px dashed var(--line); font-size: 16px; text-align: center; font-weight: 700; color: var(--ink-main); }
   .sched-block:last-child { border-bottom: none; }
-  .coffee-break { background: rgba(243,169,0,0.1); color: #B37A00; padding: 14px 24px; text-align: center; font-size: 13px; font-weight: 700; border-bottom: 1px dashed var(--line); display: flex; justify-content: center; align-items: center; gap: 8px; }
+  .coffee-break { background: rgba(243,169,0,0.1); color: #B37A00; padding: 14px 24px; text-align: center; font-size: 15px; font-weight: 700; border-bottom: 1px dashed var(--line); display: flex; justify-content: center; align-items: center; gap: 8px; }
 
   .vacation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 24px; }
   .vac-card { background: var(--bg-white); border: 1px solid var(--line); padding: 30px 24px; border-radius: var(--radius); text-align: center; transition: transform 0.3s, box-shadow 0.3s; }
   .vac-card:hover { transform: translateY(-4px); box-shadow: 0 10px 20px rgba(0,0,0,0.04); }
-  .vac-card .icon { font-size: 32px; display: block; margin-bottom: 16px; }
+  .vac-card .icon { font-size: 35px; display: block; margin-bottom: 16px; }
 
   /* ADMISSION PANE STYLES */
   .req-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 60px; }
   .req-card { background: rgba(255,255,255,0.5); border: 1px solid var(--line); padding: 34px 26px; border-radius: var(--radius); border-top: 4px solid var(--ink-main); }
-  .req-card .icon { font-size: 32px; margin-bottom: 14px; }
+  .req-card .icon { font-size: 35px; margin-bottom: 14px; }
   
   .tl-tabs { display: flex; gap: 10px; margin-bottom: 24px; flex-wrap: wrap; }
-  .tl-btn { background: var(--bg-white); border: 1px solid var(--line); padding: 8px 18px; border-radius: 30px; font-size: 13px; font-weight: 700; cursor: pointer; transition: all 0.3s; color: var(--ink-soft); }
+  .tl-btn { background: var(--bg-white); border: 1px solid var(--line); padding: 8px 18px; border-radius: 30px; font-size: 15px; font-weight: 700; cursor: pointer; transition: all 0.3s; color: var(--ink-soft); }
   .tl-btn:active { transform: scale(0.94); transition: transform 0.1s ease; }
   .tl-btn:hover { border-color: var(--vibrant-red); color: var(--vibrant-red); }
   .tl-btn.active { background: var(--vibrant-red); border-color: var(--vibrant-red); color: #fff; }
 
   .adm-timeline { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 34px; margin-bottom: 40px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .adm-swipe-hint { display: none; font-size: 11.5px; color: var(--ink-soft); text-align: center; margin-bottom: 14px; }
+  .adm-swipe-hint { display: none; font-size: 13px; color: var(--ink-soft); text-align: center; margin-bottom: 14px; }
   @media (max-width: 760px) {
     .adm-timeline { padding: 24px 18px; }
     .adm-swipe-hint { display: block; }
@@ -374,13 +374,13 @@
 
   .adm-timeline-row { display: grid; grid-template-columns: 130px repeat(12, 1fr); align-items: center; gap: 4px; margin-bottom: 14px; min-width: 640px; transition: opacity 0.4s ease; }
   .adm-timeline-row:last-child { margin-bottom: 0; }
-  .adm-timeline-label { font-size: 12.5px; font-weight: 700; }
+  .adm-timeline-label { font-size: 14px; font-weight: 700; }
   .adm-cell { height: 22px; border-radius: 4px; background: rgba(35,33,32,0.05); position: relative; }
   .adm-cell.apply { background: var(--vibrant-yellow); opacity: 0.85; }
   .adm-cell.intake { background: var(--vibrant-red); }
-  .adm-cell.intake::after { content: "★"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #fff; }
-  .adm-month-header { display: grid; grid-template-columns: 130px repeat(12, 1fr); gap: 4px; margin-bottom: 10px; min-width: 640px; font-size: 10.5px; color: var(--ink-soft); text-align: center; }
-  .adm-legend { display: flex; gap: 22px; margin-top: 20px; font-size: 12.5px; flex-wrap: wrap; }
+  .adm-cell.intake::after { content: "★"; position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; }
+  .adm-month-header { display: grid; grid-template-columns: 130px repeat(12, 1fr); gap: 4px; margin-bottom: 10px; min-width: 640px; font-size: 12px; color: var(--ink-soft); text-align: center; }
+  .adm-legend { display: flex; gap: 22px; margin-top: 20px; font-size: 14px; flex-wrap: wrap; }
   .adm-legend span { display: flex; align-items: center; gap: 8px; }
   .adm-legend .sw { width: 14px; height: 14px; border-radius: 3px; }
 
@@ -400,13 +400,13 @@
     display: inline-flex; align-items: center; gap: 6px;
     margin: 6px 4px 0; padding: 4px 10px;
     border: 1px solid var(--line); border-radius: 3px;
-    font-size: 12px; font-weight: 700; text-decoration: none;
+    font-size: 14px; font-weight: 700; text-decoration: none;
     color: #6b5a52; transition: color 0.18s, border-color 0.18s;
   }
   .dl-link:hover { color: var(--vibrant-red); border-color: var(--vibrant-red); }
-  .dl-link::before { content: '↓'; font-size: 11px; }
-  .step .dot { width: 54px; height: 54px; border-radius: 50%; background: var(--bg-white); color: var(--ink-main); border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative; z-index: 2; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 18px; }
-  .role-tag { display: inline-block; background: rgba(35,33,32,0.05); font-size: 11px; font-weight: 700; color: var(--ink-soft); padding: 4px 10px; border-radius: 4px; margin-bottom: 12px; }
+  .dl-link::before { content: '↓'; font-size: 13px; }
+  .step .dot { width: 54px; height: 54px; border-radius: 50%; background: var(--bg-white); color: var(--ink-main); border: 2px solid var(--line); display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; position: relative; z-index: 2; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 20px; }
+  .role-tag { display: inline-block; background: rgba(35,33,32,0.05); font-size: 13px; font-weight: 700; color: var(--ink-soft); padding: 4px 10px; border-radius: 4px; margin-bottom: 12px; }
   
   .quick-access-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 50px; }
   .campus-life-section { padding: 70px 0 20px; }
@@ -416,8 +416,8 @@
   .testimonial-card { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 26px; transition: transform 0.3s ease, box-shadow 0.3s ease; }
   .testimonial-card:hover { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(35,33,32,0.08); border-color: var(--vibrant-red); }
   .testimonial-card:active { transform: translateY(-3px) scale(0.99); transition: transform 0.12s ease; }
-  .testimonial-quote { font-size: 13.6px; color: var(--ink-soft); line-height: 1.85; margin: 0 0 18px; }
-  .testimonial-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 14px; color: #fff; flex: none; }
+  .testimonial-quote { font-size: 15px; color: var(--ink-soft); line-height: 1.85; margin: 0 0 18px; }
+  .testimonial-avatar { width: 38px; height: 38px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 16px; color: #fff; flex: none; }
   
   .campus-life-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 22px; margin-top: 40px; }
   .life-card { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 34px 26px 28px; position: relative; overflow: hidden; }
@@ -428,10 +428,10 @@
     display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
     background: repeating-linear-gradient(45deg, rgba(35,33,32,0.03), rgba(35,33,32,0.03) 10px, rgba(35,33,32,0.05) 10px, rgba(35,33,32,0.05) 20px);
     border: 1.5px dashed rgba(35,33,32,0.25); border-radius: var(--radius);
-    color: var(--ink-soft); font-size: 12px; text-align: center; padding: 20px;
+    color: var(--ink-soft); font-size: 14px; text-align: center; padding: 20px;
     aspect-ratio: 4 / 3; width: 100%;
   }
-  .photo-placeholder .ph-icon { font-size: 26px; opacity: 0.5; }
+  .photo-placeholder .ph-icon { font-size: 28px; opacity: 0.5; }
   .photo-placeholder .ph-caption { font-weight: 700; max-width: 85%; line-height: 1.5; }
   .life-card .photo-placeholder { aspect-ratio: 4 / 3; margin-bottom: 18px; }
   .facility-photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 30px 0 40px; }
@@ -448,32 +448,32 @@
   .season-winter { border-top: 4px solid #85C0DF; }
   .season-mark { position: absolute; right: -12px; bottom: -28px; font-size: 100px; color: rgba(35,33,32,0.03); font-family: "Shippori Mincho", serif; pointer-events: none; z-index: 1; }
   .life-card .content-layer { position: relative; z-index: 2; }
-  .life-card .life-date { font-family: "Space Grotesk", sans-serif; font-size: 13px; font-weight: 700; letter-spacing: 0.05em; color: var(--ink-soft); margin-bottom: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
+  .life-card .life-date { font-family: "Space Grotesk", sans-serif; font-size: 15px; font-weight: 700; letter-spacing: 0.05em; color: var(--ink-soft); margin-bottom: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; }
   
   .access-card { background: var(--bg-white); padding: 36px 30px; border-radius: var(--radius); border: 1px solid var(--line); cursor: pointer; transition: all 0.3s; }
   .access-card:hover { transform: translateY(-4px); border-color: var(--vibrant-red); box-shadow: 0 12px 24px rgba(0,0,0,0.03); }
   .access-card:active { transform: translateY(-2px) scale(0.99); transition: transform 0.12s ease; }
-  .access-card h4 { margin: 0 0 12px 0; font-size: 18px; display: flex; justify-content: space-between; align-items: center; }
+  .access-card h4 { margin: 0 0 12px 0; font-size: 20px; display: flex; justify-content: space-between; align-items: center; }
   .access-card h4 .arr { color: var(--vibrant-red); font-family: "Space Grotesk", sans-serif; }
 
   /* FAQ & FOOTER */
   .faq-section { padding: 80px 0; border-top: 1px solid var(--line); }
   .faq-item { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); margin-bottom: 14px; overflow: hidden; }
-  .faq-q { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 26px; cursor: pointer; font-weight: 700; font-size: 15px; transition: background 0.2s ease, color 0.2s ease; }
+  .faq-q { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 22px 26px; cursor: pointer; font-weight: 700; font-size: 17px; transition: background 0.2s ease, color 0.2s ease; }
   .faq-q:hover { background: rgba(211, 35, 42, 0.04); color: var(--vibrant-red); }
   .faq-q:active { background: rgba(211, 35, 42, 0.08); transition: background 0.1s ease; }
-  .faq-q .faq-plus { font-family: "Space Grotesk", sans-serif; font-size: 20px; color: var(--vibrant-red); transition: transform 0.3s ease; flex: none; }
+  .faq-q .faq-plus { font-family: "Space Grotesk", sans-serif; font-size: 22px; color: var(--vibrant-red); transition: transform 0.3s ease; flex: none; }
   .faq-item.open .faq-plus { transform: rotate(45deg); }
-  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1), padding 0.3s ease; padding: 0 26px; font-size: 13.8px; color: var(--ink-soft); line-height: 1.9; }
+  .faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22,1,0.36,1), padding 0.3s ease; padding: 0 26px; font-size: 15px; color: var(--ink-soft); line-height: 1.9; }
   .faq-item.open .faq-a { max-height: 240px; padding: 0 26px 22px; }
 
   /* 諮詢按鈕與智慧縮放設定 */
-  .inquiry-fab { position: fixed; right: 26px; bottom: 26px; z-index: 500; background: var(--vibrant-red); color: #fff; border: none; padding: 15px 24px; border-radius: 30px; font-weight: 700; font-size: 13.5px; cursor: pointer; box-shadow: 0 10px 26px rgba(211,35,42,0.35); transition: transform 0.25s ease, width 0.3s ease, padding 0.3s ease, border-radius 0.3s ease; white-space: nowrap; overflow: hidden; }
+  .inquiry-fab { position: fixed; right: 26px; bottom: 26px; z-index: 500; background: var(--vibrant-red); color: #fff; border: none; padding: 15px 24px; border-radius: 30px; font-weight: 700; font-size: 15px; cursor: pointer; box-shadow: 0 10px 26px rgba(211,35,42,0.35); transition: transform 0.25s ease, width 0.3s ease, padding 0.3s ease, border-radius 0.3s ease; white-space: nowrap; overflow: hidden; }
   .inquiry-fab:hover { transform: translateY(-3px); }
   .inquiry-fab:active { transform: translateY(-1px) scale(0.96); transition: transform 0.1s ease; }
   .inquiry-fab.collapsed { padding: 15px; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }
   .inquiry-fab.collapsed .fab-text { display: none; }
-  .inquiry-fab .fab-icon { display: none; font-size: 20px; }
+  .inquiry-fab .fab-icon { display: none; font-size: 22px; }
   .inquiry-fab.collapsed .fab-icon { display: inline; }
   .inquiry-fab.collapsed:hover { width: auto; border-radius: 30px; padding: 15px 24px; }
   .inquiry-fab.collapsed:hover .fab-text { display: inline; }
@@ -484,19 +484,19 @@
   .modal-box { background: var(--bg-white); border-radius: var(--radius); padding: 40px; max-width: 420px; width: 100%; transform: translateY(20px) scale(0.97); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
   .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
   .modal-box h3 { margin: 0 0 6px; }
-  .modal-box .modal-sub { font-size: 13px; color: var(--ink-soft); margin-bottom: 26px; }
+  .modal-box .modal-sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 26px; }
   .modal-choice-group { display: flex; gap: 10px; margin-bottom: 20px; }
-  .modal-choice { flex: 1; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); text-align: center; font-size: 13px; cursor: pointer; transition: all 0.2s ease; }
+  .modal-choice { flex: 1; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); text-align: center; font-size: 15px; cursor: pointer; transition: all 0.2s ease; }
   .modal-choice:hover { border-color: var(--vibrant-red); color: var(--vibrant-red); }
   .modal-choice:active { transform: scale(0.97); transition: transform 0.1s ease; }
   .modal-choice.selected { border-color: var(--vibrant-red); background: rgba(211, 35, 42, 0.06); font-weight: 700; }
-  .modal-box input[type="text"], .modal-box select { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); font-size: 14px; margin-bottom: 14px; font-family: inherit; background: var(--bg-washi); }
-  .modal-close { position: absolute; top: 18px; right: 20px; background: none; border: none; font-size: 20px; cursor: pointer; color: var(--ink-soft); }
+  .modal-box input[type="text"], .modal-box select { width: 100%; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius); font-size: 16px; margin-bottom: 14px; font-family: inherit; background: var(--bg-washi); }
+  .modal-close { position: absolute; top: 18px; right: 20px; background: none; border: none; font-size: 22px; cursor: pointer; color: var(--ink-soft); }
   .modal-box { position: relative; }
   .modal-success { display: none; text-align: center; padding: 10px 0; }
   .modal-success.show { display: block; }
   
-  footer { background: var(--bg-dark-accent); color: rgba(255,255,255,0.4); padding: 60px 0 40px; font-size: 13.5px; border-top: 1px solid var(--line); }
+  footer { background: var(--bg-dark-accent); color: rgba(255,255,255,0.4); padding: 60px 0 40px; font-size: 15px; border-top: 1px solid var(--line); }
 
   /* Mobile Layout Adjustment */
   
@@ -530,12 +530,12 @@
       gap: 4px;
     }
     .career-mobile-label {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 800;
       color: var(--vibrant-red);
     }
     .career-mobile-desc {
-      font-size: 14px;
+      font-size: 16px;
       line-height: 1.7;
       color: var(--ink-main);
     }
@@ -568,8 +568,8 @@
       max-width: 180px !important;
     }
     .hero-text { text-align: center; }
-    .hero-text h1 { font-size: 28px; line-height: 1.25; }
-    .hero-text p  { font-size: 14px; }
+    .hero-text h1 { font-size: 30px; line-height: 1.25; }
+    .hero-text p  { font-size: 16px; }
     .hero-cta-row { justify-content: center; }
 
     /* 2. 快速入口: 2×2 格 */
@@ -609,11 +609,11 @@
     .step { padding: 0 4px; }
 
     /* 6. 底部語言選單副標題字體加大 */
-    .lang-native { font-size: 12px !important; }
+    .lang-native { font-size: 14px !important; }
 
     /* 7. 下載連結手機版置中 */
     .dl-link {
-      font-size: 11.5px;
+      font-size: 13px;
       padding: 5px 10px;
     }
 
@@ -655,7 +655,7 @@
     
     .fee-visual-grid { grid-template-columns: 1fr; }
     .tree-grid { grid-template-columns: 1fr; }
-    .tree-arr { transform: rotate(90deg); margin: 10px 0; font-size: 24px; }
+    .tree-arr { transform: rotate(90deg); margin: 10px 0; font-size: 26px; }
     .schedule-dual { grid-template-columns: 1fr; }
     .vacation-grid { grid-template-columns: 1fr; }
     
@@ -670,7 +670,7 @@
   /* ── 手機版語言底部選單 (Bottom Sheet) ─────────────────── */
   @media (max-width: 900px) {
     /* 觸發按鈕縮小文字，只留地球圖示 */
-    .lang-dropbtn { padding: 8px 12px; font-size: 12px; }
+    .lang-dropbtn { padding: 8px 12px; font-size: 14px; }
 
     /* 原本的 dropdown 在手機上完全隱藏 */
     .lang-dropdown-content { display: none !important; }
@@ -703,7 +703,7 @@
 
     /* 標題列 */
     .lang-sheet-title {
-      font-size: 13px; font-weight: 700; color: var(--ink-soft);
+      font-size: 15px; font-weight: 700; color: var(--ink-soft);
       text-align: center; padding: 12px 20px 10px;
       border-bottom: 1px solid var(--line); letter-spacing: 0.06em;
     }
@@ -715,7 +715,7 @@
     }
     .lang-sheet-btn {
       background: none; border: none; cursor: pointer;
-      font-family: inherit; font-size: 15px; font-weight: 600;
+      font-family: inherit; font-size: 17px; font-weight: 600;
       color: var(--ink-main); padding: 16px 12px;
       text-align: left; border-radius: 10px;
       transition: background 0.15s, color 0.15s;
@@ -723,9 +723,9 @@
     }
     .lang-sheet-btn:active { background: rgba(211,35,42,0.08); color: var(--vibrant-red); }
     .lang-sheet-btn.lang-active { color: var(--vibrant-red); font-weight: 800; }
-    .lang-sheet-btn .lang-flag { font-size: 20px; flex: none; }
+    .lang-sheet-btn .lang-flag { font-size: 22px; flex: none; }
     .lang-sheet-btn .lang-name { line-height: 1.2; }
-    .lang-sheet-btn .lang-native { font-size: 11px; color: var(--ink-soft); font-weight: 500; }
+    .lang-sheet-btn .lang-native { font-size: 13px; color: var(--ink-soft); font-weight: 500; }
   }
 
 </style>
@@ -863,7 +863,7 @@
     <div style="display:grid; grid-template-columns:180px 1fr; gap:32px; align-items:start; max-width:900px;">
       <img src="data:image/jpeg;base64,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" alt="理事長 小澤京子" style="width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:var(--radius);">
       <div>
-      <p class="txt-ja" style="font-family:'Shippori Mincho',serif; font-size:16px; margin-bottom:12px;">「私はここ20年来、千葉市において様々な国際交流や地域の活動に参加してまいりました。こうした縁があり、私が愛して止まない千葉市に『Tokyo One 日本語学校』を設立しました。世界各国の若者が本校に集い、真のグローバルな人材に育つよう精一杯努めてまいります。」</p>
+      <p class="txt-ja" style="font-family:'Shippori Mincho',serif; font-size: 18px; margin-bottom:12px;">「私はここ20年来、千葉市において様々な国際交流や地域の活動に参加してまいりました。こうした縁があり、私が愛して止まない千葉市に『Tokyo One 日本語学校』を設立しました。世界各国の若者が本校に集い、真のグローバルな人材に育つよう精一杯努めてまいります。」</p>
       <p class="txt-zh">「本人這20年來，在千葉市參與了各式各樣的國際交流與地方活動。正因這份情緣，我在深愛的千葉市創立了『Tokyo One 日本語學校』。願世界各地的青年在此相聚，一同成長為真正的全球化人才，我們全體教職員將全力支持每一位學生。」</p>
       <p class="txt-en">"For the past 20 years, I have participated in various international exchanges and local activities in Chiba City. Thanks to these connections, I founded 'Tokyo One Japanese Language School' in my beloved city. We will do our utmost to help young people from all over the world gather here and grow into true global talents."</p>
       <p class="txt-vi">"Trong suốt 20 năm qua, tôi đã tham gia nhiều hoạt động giao lưu quốc tế và cộng đồng tại thành phố Chiba. Nhờ những mối duyên này, tôi đã thành lập 'Trường Nhật ngữ Tokyo One' tại thành phố mà tôi yêu quý. Chúng tôi sẽ nỗ lực hết mình để những người trẻ từ khắp nơi trên thế giới cùng hội tụ và trưởng thành thành những nhân tài toàn cầu thực thụ."</p>
@@ -871,7 +871,7 @@
       <p class="txt-id">"Selama 20 tahun terakhir, saya telah berpartisipasi dalam berbagai pertukaran internasional dan kegiatan lokal di Kota Chiba. Berkat hubungan ini, saya mendirikan 'Sekolah Bahasa Jepang Tokyo One' di kota yang saya cintai. Kami akan berusaha sekuat tenaga membantu generasi muda dari seluruh dunia berkumpul di sini dan tumbuh menjadi talenta global sejati."</p>
       <p class="txt-ru">«За последние 20 лет я участвовала в различных международных обменах и местных мероприятиях в городе Чиба. Благодаря этим связям я основала 'Японскую языковую школу Tokyo One' в любимом городе. Мы приложим все усилия, чтобы молодёжь со всего мира собралась здесь и выросла в настоящих глобальных специалистов.»</p>
       <p class="txt-my">「ကျွန်မသည် ယခင် ၂၀ နှစ်တာကာလအတွင်း ချစ်ဘားမြို့တွင် နိုင်ငံတကာ ဖလှယ်ရေးနှင့် ဒေသဆိုင်ရာလှုပ်ရှားမှုများစွာတွင် ပါဝင်ခဲ့ပါသည်။ ဤသက်ဆိုင်မှုများကြောင့် ကျွန်မချစ်မြတ်နိုးသော ဤမြို့တွင် 'Tokyo One ဂျပန်ဘာသာစကားကျောင်း' ကို တည်ထောင်ခဲ့ပါသည်။ ကမ္ဘာတစ်ဝှမ်းမှ လူငယ်များ ဤနေရာတွင် စုစည်း၍ စစ်မှန်သော နိုင်ငံတကာအရည်အချင်းရှိသူများအဖြစ် ကြီးထွားလာနိုင်ရန် ကျွန်ုပ်တို့ အားလုံး အစွမ်းကုန် ကြိုးစားပါမည်။」</p>
-      <p style="color:var(--ink-soft); font-size:14px; margin-top:24px; font-weight:700;">—— 理事長 小澤京子 School President, Kyoko Ozawa</p>
+      <p style="color:var(--ink-soft); font-size: 16px; margin-top:24px; font-weight:700;">—— 理事長 小澤京子 School President, Kyoko Ozawa</p>
       </div>
     </div>
 
@@ -1014,7 +1014,7 @@
       <h3 style="margin-bottom:14px;">
         <span class="txt-ja">周辺の生活機能マップ</span><span class="txt-zh">周邊生活機能圖</span><span class="txt-en">Neighborhood Amenities Map</span><span class="txt-vi">Bản đồ tiện ích khu vực</span><span class="txt-uk">Карта зручностей району</span><span class="txt-id">Peta Fasilitas Sekitar</span><span class="txt-ru">Карта удобств района</span><span class="txt-my">ပတ်ဝန်းကျင် အဆင်ပြေမှု မြေပုံ</span>
       </h3>
-      <p style="font-size:13.5px;color:var(--ink-soft);max-width:820px;margin-bottom:20px;"><span class="txt-ja">学校を中心とした徒歩圏の生活機能マップです。実在する周辺施設に加え、JR東千葉駅からの徒歩ルート（赤）と、千葉駅方面からのバスルート（青）も示しています。</span><span class="txt-zh">以學校為中心、步行範圍內的生活機能示意圖。除了周邊真實店家外，也標示了從 JR 東千葉站步行過來的路線（紅色）與從千葉站方向搭公車的路線（藍色）。</span><span class="txt-en">A walking-distance amenities map centred on the school. Alongside real nearby shops, it shows the walking route from JR Higashi-Chiba Station (red) and the bus route from the Chiba Station direction (blue).</span><span class="txt-vi">Bản đồ tiện ích trong tầm đi bộ quanh trường. Ngoài các cửa hàng thực tế gần đó, bản đồ còn hiển thị lộ trình đi bộ từ ga JR Higashi-Chiba (đỏ) và tuyến xe buýt từ hướng ga Chiba (xanh).</span><span class="txt-uk">Карта зручностей у пішій доступності від школи. Окрім реальних закладів поблизу, показано пішохідний маршрут від станції JR Хіґасі-Чіба (червоний) та автобусний маршрут з боку станції Чіба (синій).</span><span class="txt-id">Peta fasilitas dalam jarak jalan kaki dari sekolah. Selain toko nyata di sekitar, ditampilkan juga rute jalan kaki dari Stasiun JR Higashi-Chiba (merah) dan rute bus dari arah Stasiun Chiba (biru).</span><span class="txt-ru">Карта удобств в пешей доступности от школы. Помимо реальных заведений рядом, показан пешеходный маршрут от станции JR Хигаси-Тиба (красный) и автобусный маршрут со стороны станции Тиба (синий).</span><span class="txt-my">ကျောင်းကို ဗဟိုပြုသော လမ်းလျှောက်အကွာအဝေး အဆင်ပြေမှုမြေပုံ။ အနီးအနားရှိ တကယ့်ဆိုင်များအပြင် JR Higashi-Chiba ဘူတာမှ လမ်းလျှောက်လမ်းကြောင်း (အနီ) နှင့် Chiba ဘူတာဘက်မှ ဘတ်စ်ကားလမ်းကြောင်း (အပြာ) ကိုပါ ပြထားသည်။</span></p>
+      <p style="font-size: 15px;color:var(--ink-soft);max-width:820px;margin-bottom:20px;"><span class="txt-ja">学校を中心とした徒歩圏の生活機能マップです。実在する周辺施設に加え、JR東千葉駅からの徒歩ルート（赤）と、千葉駅方面からのバスルート（青）も示しています。</span><span class="txt-zh">以學校為中心、步行範圍內的生活機能示意圖。除了周邊真實店家外，也標示了從 JR 東千葉站步行過來的路線（紅色）與從千葉站方向搭公車的路線（藍色）。</span><span class="txt-en">A walking-distance amenities map centred on the school. Alongside real nearby shops, it shows the walking route from JR Higashi-Chiba Station (red) and the bus route from the Chiba Station direction (blue).</span><span class="txt-vi">Bản đồ tiện ích trong tầm đi bộ quanh trường. Ngoài các cửa hàng thực tế gần đó, bản đồ còn hiển thị lộ trình đi bộ từ ga JR Higashi-Chiba (đỏ) và tuyến xe buýt từ hướng ga Chiba (xanh).</span><span class="txt-uk">Карта зручностей у пішій доступності від школи. Окрім реальних закладів поблизу, показано пішохідний маршрут від станції JR Хіґасі-Чіба (червоний) та автобусний маршрут з боку станції Чіба (синій).</span><span class="txt-id">Peta fasilitas dalam jarak jalan kaki dari sekolah. Selain toko nyata di sekitar, ditampilkan juga rute jalan kaki dari Stasiun JR Higashi-Chiba (merah) dan rute bus dari arah Stasiun Chiba (biru).</span><span class="txt-ru">Карта удобств в пешей доступности от школы. Помимо реальных заведений рядом, показан пешеходный маршрут от станции JR Хигаси-Тиба (красный) и автобусный маршрут со стороны станции Тиба (синий).</span><span class="txt-my">ကျောင်းကို ဗဟိုပြုသော လမ်းလျှောက်အကွာအဝေး အဆင်ပြေမှုမြေပုံ။ အနီးအနားရှိ တကယ့်ဆိုင်များအပြင် JR Higashi-Chiba ဘူတာမှ လမ်းလျှောက်လမ်းကြောင်း (အနီ) နှင့် Chiba ဘူတာဘက်မှ ဘတ်စ်ကားလမ်းကြောင်း (အပြာ) ကိုပါ ပြထားသည်။</span></p>
       <div class="map-scroll-wrapper" style="border:1px solid var(--line);border-radius:var(--radius);padding:10px;background:#FCFBF7;overflow:hidden;">
         <svg viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg" role="img"
   aria-label="学校を中心とした周辺生活機能マップ（徒歩圏）"
@@ -1099,8 +1099,8 @@
 </g>
 </svg>
       </div>
-      <div style="margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;"><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size:13px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#E08A00;display:inline-flex;align-items:center;justify-content:center;font-size:10px;">🍚</span><span class="txt-ja">飲食店</span><span class="txt-zh">餐飲店</span><span class="txt-en">Restaurants</span><span class="txt-vi">Nhà hàng</span><span class="txt-uk">Ресторани</span><span class="txt-id">Restoran</span><span class="txt-ru">Рестораны</span><span class="txt-my">စားသောက်ဆိုင်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size:13px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#D3232A;display:inline-flex;align-items:center;justify-content:center;font-size:10px;">🛍️</span><span class="txt-ja">買い物</span><span class="txt-zh">購物</span><span class="txt-en">Shopping</span><span class="txt-vi">Mua sắm</span><span class="txt-uk">Покупки</span><span class="txt-id">Belanja</span><span class="txt-ru">Покупки</span><span class="txt-my">ဈေးဝယ်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size:13px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#007A3B;display:inline-flex;align-items:center;justify-content:center;font-size:10px;">🏪</span><span class="txt-ja">コンビニ</span><span class="txt-zh">便利商店</span><span class="txt-en">Convenience</span><span class="txt-vi">Tiện lợi</span><span class="txt-uk">Магазин</span><span class="txt-id">Minimarket</span><span class="txt-ru">Магазин</span><span class="txt-my">ကွန်ဗီးနီးယင့်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size:13px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#007A3B;display:inline-flex;align-items:center;justify-content:center;font-size:10px;">🌳</span><span class="txt-ja">公園</span><span class="txt-zh">公園</span><span class="txt-en">Park</span><span class="txt-vi">Công viên</span><span class="txt-uk">Парк</span><span class="txt-id">Taman</span><span class="txt-ru">Парк</span><span class="txt-my">ပန်းခြံ</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size:13px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#26211F;display:inline-flex;align-items:center;justify-content:center;font-size:10px;">🚉</span><span class="txt-ja">駅・バス停</span><span class="txt-zh">車站・巴士站</span><span class="txt-en">Station / Bus</span><span class="txt-vi">Ga / Xe buýt</span><span class="txt-uk">Станція / Автобус</span><span class="txt-id">Stasiun / Bus</span><span class="txt-ru">Станция / Автобус</span><span class="txt-my">ဘူတာ / ဘတ်စ်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size:13px;font-weight:700;"><span style="width:22px;height:0;border-top:2.6px dashed #D3232A;display:inline-block;"></span><span class="txt-ja">徒歩ルート</span><span class="txt-zh">步行路線</span><span class="txt-en">Walking route</span><span class="txt-vi">Lộ trình đi bộ</span><span class="txt-uk">Пішки</span><span class="txt-id">Rute jalan</span><span class="txt-ru">Пешком</span><span class="txt-my">လမ်းလျှောက်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size:13px;font-weight:700;"><span style="width:22px;height:0;border-top:2.6px dashed #2F6DB0;display:inline-block;"></span><span class="txt-ja">バスルート</span><span class="txt-zh">公車路線</span><span class="txt-en">Bus route</span><span class="txt-vi">Tuyến bus</span><span class="txt-uk">Автобус</span><span class="txt-id">Rute bus</span><span class="txt-ru">Автобус</span><span class="txt-my">ဘတ်စ်လမ်း</span></span></div>
-      <p style="font-size:12px;color:var(--ink-soft);margin-top:6px;"><span class="txt-ja">※ 位置・所要時間は概略の目安です。店舗名・情報・ダイヤは変更される場合があります。</span><span class="txt-zh">※ 位置與所需時間為概略示意，店家名稱、資訊與班次可能會有變動。</span><span class="txt-en">※ Positions and times are approximate. Shop names, details and schedules may change.</span><span class="txt-vi">※ Vị trí và thời gian chỉ mang tính tương đối. Tên cửa hàng, thông tin và lịch trình có thể thay đổi.</span><span class="txt-uk">※ Розташування і час приблизні. Назви, деталі та розклад можуть змінюватися.</span><span class="txt-id">※ Posisi dan waktu bersifat perkiraan. Nama toko, detail, dan jadwal dapat berubah.</span><span class="txt-ru">※ Расположение и время приблизительные. Названия, детали и расписание могут меняться.</span><span class="txt-my">※ တည်နေရာနှင့် အချိန်များသည် ခန့်မှန်းခြေဖြစ်သည်။ ဆိုင်အမည်၊ အချက်အလက်နှင့် အချိန်ဇယား ပြောင်းလဲနိုင်သည်။</span></p>
+      <div style="margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;"><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#E08A00;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🍚</span><span class="txt-ja">飲食店</span><span class="txt-zh">餐飲店</span><span class="txt-en">Restaurants</span><span class="txt-vi">Nhà hàng</span><span class="txt-uk">Ресторани</span><span class="txt-id">Restoran</span><span class="txt-ru">Рестораны</span><span class="txt-my">စားသောက်ဆိုင်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#D3232A;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🛍️</span><span class="txt-ja">買い物</span><span class="txt-zh">購物</span><span class="txt-en">Shopping</span><span class="txt-vi">Mua sắm</span><span class="txt-uk">Покупки</span><span class="txt-id">Belanja</span><span class="txt-ru">Покупки</span><span class="txt-my">ဈေးဝယ်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#007A3B;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🏪</span><span class="txt-ja">コンビニ</span><span class="txt-zh">便利商店</span><span class="txt-en">Convenience</span><span class="txt-vi">Tiện lợi</span><span class="txt-uk">Магазин</span><span class="txt-id">Minimarket</span><span class="txt-ru">Магазин</span><span class="txt-my">ကွန်ဗီးနီးယင့်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#007A3B;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🌳</span><span class="txt-ja">公園</span><span class="txt-zh">公園</span><span class="txt-en">Park</span><span class="txt-vi">Công viên</span><span class="txt-uk">Парк</span><span class="txt-id">Taman</span><span class="txt-ru">Парк</span><span class="txt-my">ပန်းခြံ</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#26211F;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🚉</span><span class="txt-ja">駅・バス停</span><span class="txt-zh">車站・巴士站</span><span class="txt-en">Station / Bus</span><span class="txt-vi">Ga / Xe buýt</span><span class="txt-uk">Станція / Автобус</span><span class="txt-id">Stasiun / Bus</span><span class="txt-ru">Станция / Автобус</span><span class="txt-my">ဘူတာ / ဘတ်စ်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:22px;height:0;border-top:2.6px dashed #D3232A;display:inline-block;"></span><span class="txt-ja">徒歩ルート</span><span class="txt-zh">步行路線</span><span class="txt-en">Walking route</span><span class="txt-vi">Lộ trình đi bộ</span><span class="txt-uk">Пішки</span><span class="txt-id">Rute jalan</span><span class="txt-ru">Пешком</span><span class="txt-my">လမ်းလျှောက်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:22px;height:0;border-top:2.6px dashed #2F6DB0;display:inline-block;"></span><span class="txt-ja">バスルート</span><span class="txt-zh">公車路線</span><span class="txt-en">Bus route</span><span class="txt-vi">Tuyến bus</span><span class="txt-uk">Автобус</span><span class="txt-id">Rute bus</span><span class="txt-ru">Автобус</span><span class="txt-my">ဘတ်စ်လမ်း</span></span></div>
+      <p style="font-size: 14px;color:var(--ink-soft);margin-top:6px;"><span class="txt-ja">※ 位置・所要時間は概略の目安です。店舗名・情報・ダイヤは変更される場合があります。</span><span class="txt-zh">※ 位置與所需時間為概略示意，店家名稱、資訊與班次可能會有變動。</span><span class="txt-en">※ Positions and times are approximate. Shop names, details and schedules may change.</span><span class="txt-vi">※ Vị trí và thời gian chỉ mang tính tương đối. Tên cửa hàng, thông tin và lịch trình có thể thay đổi.</span><span class="txt-uk">※ Розташування і час приблизні. Назви, деталі та розклад можуть змінюватися.</span><span class="txt-id">※ Posisi dan waktu bersifat perkiraan. Nama toko, detail, dan jadwal dapat berubah.</span><span class="txt-ru">※ Расположение и время приблизительные. Названия, детали и расписание могут меняться.</span><span class="txt-my">※ တည်နေရာနှင့် အချိန်များသည် ခန့်မှန်းခြေဖြစ်သည်။ ဆိုင်အမည်၊ အချက်အလက်နှင့် အချိန်ဇယား ပြောင်းလဲနိုင်သည်။</span></p>
     </div>
   </section>
 
@@ -1201,24 +1201,24 @@
         <h4 class="txt-id" style="margin:0 0 10px;color:#fff;">Lihat suara nyata siswa kami</h4>
         <h4 class="txt-ru" style="margin:0 0 10px;color:#fff;">Реальные отзывы студентов</h4>
         <h4 class="txt-my" style="margin:0 0 10px;color:#fff;">ကျောင်းသားများ၏ အမှန်တကယ်အသံများ</h4>
-        <p class="txt-zh" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.8;">您可以直接點擊進入我們的 Facebook 官方社群頁面，查閱歷屆學生的精彩留學生活紀實與反饋。</p>
-        <p class="txt-en" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.8;">Visit our official Facebook page directly to see real posts and feedback from past and current students' study-abroad life.</p>
-        <p class="txt-vi" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.8;">Hãy truy cập trang Facebook chính thức của chúng tôi để xem các bài đăng và phản hồi thực tế từ học viên cũ và hiện tại.</p>
-        <p class="txt-uk" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.8;">Відвідайте нашу офіційну сторінку Facebook, щоб побачити реальні дописи та відгуки колишніх і нинішніх студентів.</p>
-        <p class="txt-id" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.8;">Kunjungi halaman Facebook resmi kami untuk melihat postingan dan tanggapan nyata dari siswa masa lalu dan sekarang.</p>
-        <p class="txt-ru" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.8;">Посетите нашу официальную страницу в Facebook, чтобы увидеть настоящие посты и отзывы бывших и нынешних студентов.</p>
-        <p class="txt-my" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size:13.5px;line-height:1.8;">ယခင်နှင့် လက်ရှိကျောင်းသားများ၏ အမှန်တကယ်ပို့စ်များနှင့် တုံ့ပြန်ချက်များကို ကြည့်ရှုရန် ကျွန်ုပ်တို့၏ တရားဝင် Facebook စာမျက်နှာသို့ လာရောက်ကြည့်ရှုပါ။</p>
+        <p class="txt-zh" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size: 15px;line-height:1.8;">您可以直接點擊進入我們的 Facebook 官方社群頁面，查閱歷屆學生的精彩留學生活紀實與反饋。</p>
+        <p class="txt-en" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size: 15px;line-height:1.8;">Visit our official Facebook page directly to see real posts and feedback from past and current students' study-abroad life.</p>
+        <p class="txt-vi" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size: 15px;line-height:1.8;">Hãy truy cập trang Facebook chính thức của chúng tôi để xem các bài đăng và phản hồi thực tế từ học viên cũ và hiện tại.</p>
+        <p class="txt-uk" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size: 15px;line-height:1.8;">Відвідайте нашу офіційну сторінку Facebook, щоб побачити реальні дописи та відгуки колишніх і нинішніх студентів.</p>
+        <p class="txt-id" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size: 15px;line-height:1.8;">Kunjungi halaman Facebook resmi kami untuk melihat postingan dan tanggapan nyata dari siswa masa lalu dan sekarang.</p>
+        <p class="txt-ru" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size: 15px;line-height:1.8;">Посетите нашу официальную страницу в Facebook, чтобы увидеть настоящие посты и отзывы бывших и нынешних студентов.</p>
+        <p class="txt-my" style="margin:0 0 20px;color:rgba(255,255,255,0.7);font-size: 15px;line-height:1.8;">ယခင်နှင့် လက်ရှိကျောင်းသားများ၏ အမှန်တကယ်ပို့စ်များနှင့် တုံ့ပြန်ချက်များကို ကြည့်ရှုရန် ကျွန်ုပ်တို့၏ တရားဝင် Facebook စာမျက်နှာသို့ လာရောက်ကြည့်ရှုပါ။</p>
         <a href="https://www.facebook.com/TokyOneJapanaese/" target="_blank" class="btn btn-primary" style="text-decoration:none;" data-i18n="btn_fb">Facebookページへ</a>
       </div>
     </div>
-    <p class="txt-ja" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">※上記は学校の実際の特色に基づく内容です。個人の発言を装った引用は掲載しておりません。</p>
-    <p class="txt-en" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">*The above reflects the school's actual features. We do not post quotes made to look like individual testimonials.</p>
-    <p class="txt-vi" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">*Nội dung trên phản ánh đặc điểm thực tế của trường. Chúng tôi không đăng các trích dẫn giả làm lời chứng thực cá nhân.</p>
-    <p class="txt-uk" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">*Наведене вище відображає реальні особливості школи. Ми не публікуємо цитати, видані за особисті відгуки.</p>
-    <p class="txt-id" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">*Konten di atas mencerminkan fitur nyata sekolah. Kami tidak memposting kutipan yang dibuat seolah-olah testimoni pribadi.</p>
-    <p class="txt-ru" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">*Вышеуказанное отражает реальные особенности школы. Мы не публикуем цитаты, выданные за личные отзывы.</p>
-    <p class="txt-my" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">※အထက်ပါအချက်အလက်များသည် ကျောင်း၏ အမှန်တကယ်ထူးခြားချက်များအပေါ် အခြေခံသည်။ ကိုယ်ရေးကိုယ်တာအသိအမှတ်ပြုချက်များအဖြစ် ဟန်ဆောင်ထားသော ကိုးကားချက်များကို မထုတ်ပြန်ပါ။</p>
-    <p class="txt-zh" style="margin-top:20px;font-size:11.5px;color:var(--ink-soft);">※以上內容皆基於學校真實特色，並未刊登任何冒充個人發言的引用文字。</p>
+    <p class="txt-ja" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">※上記は学校の実際の特色に基づく内容です。個人の発言を装った引用は掲載しておりません。</p>
+    <p class="txt-en" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">*The above reflects the school's actual features. We do not post quotes made to look like individual testimonials.</p>
+    <p class="txt-vi" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">*Nội dung trên phản ánh đặc điểm thực tế của trường. Chúng tôi không đăng các trích dẫn giả làm lời chứng thực cá nhân.</p>
+    <p class="txt-uk" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">*Наведене вище відображає реальні особливості школи. Ми не публікуємо цитати, видані за особисті відгуки.</p>
+    <p class="txt-id" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">*Konten di atas mencerminkan fitur nyata sekolah. Kami tidak memposting kutipan yang dibuat seolah-olah testimoni pribadi.</p>
+    <p class="txt-ru" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">*Вышеуказанное отражает реальные особенности школы. Мы не публикуем цитаты, выданные за личные отзывы.</p>
+    <p class="txt-my" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">※အထက်ပါအချက်အလက်များသည် ကျောင်း၏ အမှန်တကယ်ထူးခြားချက်များအပေါ် အခြေခံသည်။ ကိုယ်ရေးကိုယ်တာအသိအမှတ်ပြုချက်များအဖြစ် ဟန်ဆောင်ထားသော ကိုးကားချက်များကို မထုတ်ပြန်ပါ။</p>
+    <p class="txt-zh" style="margin-top:20px;font-size: 13px;color:var(--ink-soft);">※以上內容皆基於學校真實特色，並未刊登任何冒充個人發言的引用文字。</p>
   </section>
 </div>
 
@@ -1306,22 +1306,22 @@
   <div class="facility-photo-grid">
     <div>
       <div class="photo-placeholder"><span class="ph-icon">📷</span><span class="ph-caption">教室内観照片<br>Classroom photo</span></div>
-      <p style="font-size:13px; color:var(--ink-soft); margin-top:10px; text-align:center;"><span class="txt-ja">液晶プロジェクター完備の教室</span><span class="txt-zh">配備液晶投影機的教室</span><span class="txt-en">Classrooms with LCD projectors</span><span class="txt-vi">Phòng học có máy chiếu LCD</span><span class="txt-uk">Класи з РК-проєкторами</span><span class="txt-id">Ruang kelas dengan proyektor LCD</span><span class="txt-ru">Классы с ЖК-проекторами</span><span class="txt-my">LCD ပရိုဂျက်တာပါ အတန်းခန်းများ</span></p>
+      <p style="font-size: 15px; color:var(--ink-soft); margin-top:10px; text-align:center;"><span class="txt-ja">液晶プロジェクター完備の教室</span><span class="txt-zh">配備液晶投影機的教室</span><span class="txt-en">Classrooms with LCD projectors</span><span class="txt-vi">Phòng học có máy chiếu LCD</span><span class="txt-uk">Класи з РК-проєкторами</span><span class="txt-id">Ruang kelas dengan proyektor LCD</span><span class="txt-ru">Классы с ЖК-проекторами</span><span class="txt-my">LCD ပရိုဂျက်တာပါ အတန်းခန်းများ</span></p>
     </div>
     <div>
       <div class="photo-placeholder"><span class="ph-icon">📷</span><span class="ph-caption">校舍入口照片<br>Entrance / lobby photo</span></div>
-      <p style="font-size:13px; color:var(--ink-soft); margin-top:10px; text-align:center;"><span class="txt-ja">明るい新校舎の入口</span><span class="txt-zh">明亮的新校舍入口大廳</span><span class="txt-en">Bright entrance of the new campus building</span><span class="txt-vi">Lối vào sáng sủa của tòa nhà mới</span><span class="txt-uk">Світлий вхід нового кампусу</span><span class="txt-id">Pintu masuk gedung baru yang terang</span><span class="txt-ru">Светлый вход нового здания кампуса</span><span class="txt-my">အသစ်တောက်ပသော ကျောင်းဝင်ပေါက်</span></p>
+      <p style="font-size: 15px; color:var(--ink-soft); margin-top:10px; text-align:center;"><span class="txt-ja">明るい新校舎の入口</span><span class="txt-zh">明亮的新校舍入口大廳</span><span class="txt-en">Bright entrance of the new campus building</span><span class="txt-vi">Lối vào sáng sủa của tòa nhà mới</span><span class="txt-uk">Світлий вхід нового кампусу</span><span class="txt-id">Pintu masuk gedung baru yang terang</span><span class="txt-ru">Светлый вход нового здания кампуса</span><span class="txt-my">အသစ်တောက်ပသော ကျောင်းဝင်ပေါက်</span></p>
     </div>
     <div>
       <div class="photo-placeholder"><span class="ph-icon">📷</span><span class="ph-caption">交流休息區照片<br>Common area photo</span></div>
-      <p style="font-size:13px; color:var(--ink-soft); margin-top:10px; text-align:center;"><span class="txt-ja">学生同士が交流する共有スペース</span><span class="txt-zh">學生互動交流的共用空間</span><span class="txt-en">A shared space where students interact</span><span class="txt-vi">Không gian chung để học viên giao lưu</span><span class="txt-uk">Спільний простір для спілкування студентів</span><span class="txt-id">Ruang bersama untuk interaksi siswa</span><span class="txt-ru">Общее пространство для общения студентов</span><span class="txt-my">ကျောင်းသားများ ဆက်ဆံရေးပြုလုပ်သည့် ဘုံနေရာ</span></p>
+      <p style="font-size: 15px; color:var(--ink-soft); margin-top:10px; text-align:center;"><span class="txt-ja">学生同士が交流する共有スペース</span><span class="txt-zh">學生互動交流的共用空間</span><span class="txt-en">A shared space where students interact</span><span class="txt-vi">Không gian chung để học viên giao lưu</span><span class="txt-uk">Спільний простір для спілкування студентів</span><span class="txt-id">Ruang bersama untuk interaksi siswa</span><span class="txt-ru">Общее пространство для общения студентов</span><span class="txt-my">ကျောင်းသားများ ဆက်ဆံရေးပြုလုပ်သည့် ဘုံနေရာ</span></p>
     </div>
   </div>
 
   <div class="support-grid reveal">
     <div class="support-content">
       <div class="eyebrow">LIVING & SUPPORT</div>
-      <h3 class="txt-ja" style="font-size:22px; margin:0 0 6px;">特約寮と生活サポート</h3>
+      <h3 class="txt-ja" style="font-size: 24px; margin:0 0 6px;">特約寮と生活サポート</h3>
       <p class="txt-zh" style="margin:0 0 16px;">特約宿舍與在地支援 (Dormitory & Lifestyle Support)</p>
       <p class="txt-en" style="margin:0 0 16px;">Affiliated Dormitory & Lifestyle Support</p>
       <p class="txt-vi" style="margin:0 0 16px;">Ký túc xá liên kết & Hỗ trợ sinh hoạt</p>
@@ -1460,7 +1460,7 @@
   <h3 style="margin-bottom:6px;">
     <span class="txt-ja">教職員のご紹介</span><span class="txt-zh">教職員介紹</span><span class="txt-en">Meet Our Teachers</span><span class="txt-vi">Gặp gỡ giáo viên</span><span class="txt-uk">Знайомство з викладачами</span><span class="txt-id">Kenali Guru Kami</span><span class="txt-ru">Знакомство с преподавателями</span><span class="txt-my">ကျွန်ုပ်တို့၏ ဆရာများ</span>
   </h3>
-  <p style="font-size:13px;color:var(--ink-soft);margin-bottom:20px;">
+  <p style="font-size: 15px;color:var(--ink-soft);margin-bottom:20px;">
     <span class="txt-ja">※こちらは掲載枠のサンプルです。実際の教職員情報（写真・経歴・メッセージ）に差し替えてご使用ください。</span>
     <span class="txt-zh">※此為版面示範，請替換為真實教職員資訊（照片、經歷、寄語）後使用。</span>
     <span class="txt-en">*This is a placeholder layout — please replace with real staff photos, background, and messages.</span>
@@ -1473,23 +1473,23 @@
   <div class="staff-photo-grid">
     <div class="staff-card">
       <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size:14px;">〇〇 〇〇</h4>
-      <p style="font-size:12px;color:var(--ink-soft);margin:0;"><span class="txt-ja">日本語教師・N1対策担当</span><span class="txt-zh">日語教師・N1對策負責人</span><span class="txt-en">Japanese Teacher, N1 Prep Lead</span><span class="txt-vi">Giáo viên tiếng Nhật, phụ trách N1</span><span class="txt-uk">Викладач японської, керівник N1</span><span class="txt-id">Guru Bahasa Jepang, Koordinator N1</span><span class="txt-ru">Преподаватель японского, куратор N1</span><span class="txt-my">ဂျပန်ဆရာ၊ N1 ပြင်ဆင်မှုတာဝန်ခံ</span></p>
+      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
+      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">日本語教師・N1対策担当</span><span class="txt-zh">日語教師・N1對策負責人</span><span class="txt-en">Japanese Teacher, N1 Prep Lead</span><span class="txt-vi">Giáo viên tiếng Nhật, phụ trách N1</span><span class="txt-uk">Викладач японської, керівник N1</span><span class="txt-id">Guru Bahasa Jepang, Koordinator N1</span><span class="txt-ru">Преподаватель японского, куратор N1</span><span class="txt-my">ဂျပန်ဆရာ၊ N1 ပြင်ဆင်မှုတာဝန်ခံ</span></p>
     </div>
     <div class="staff-card">
       <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size:14px;">〇〇 〇〇</h4>
-      <p style="font-size:12px;color:var(--ink-soft);margin:0;"><span class="txt-ja">日本語教師・初級担当</span><span class="txt-zh">日語教師・初級負責人</span><span class="txt-en">Japanese Teacher, Beginner Level</span><span class="txt-vi">Giáo viên tiếng Nhật, sơ cấp</span><span class="txt-uk">Викладач японської, початковий рівень</span><span class="txt-id">Guru Bahasa Jepang, Tingkat Pemula</span><span class="txt-ru">Преподаватель японского, начальный уровень</span><span class="txt-my">ဂျပန်ဆရာ၊ အခြေခံအဆင့်</span></p>
+      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
+      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">日本語教師・初級担当</span><span class="txt-zh">日語教師・初級負責人</span><span class="txt-en">Japanese Teacher, Beginner Level</span><span class="txt-vi">Giáo viên tiếng Nhật, sơ cấp</span><span class="txt-uk">Викладач японської, початковий рівень</span><span class="txt-id">Guru Bahasa Jepang, Tingkat Pemula</span><span class="txt-ru">Преподаватель японского, начальный уровень</span><span class="txt-my">ဂျပန်ဆရာ၊ အခြေခံအဆင့်</span></p>
     </div>
     <div class="staff-card">
       <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size:14px;">〇〇 〇〇</h4>
-      <p style="font-size:12px;color:var(--ink-soft);margin:0;"><span class="txt-ja">進学・キャリア相談担当</span><span class="txt-zh">升學・職涯諮詢負責人</span><span class="txt-en">Further Study & Career Advisor</span><span class="txt-vi">Cố vấn học tiếp & sự nghiệp</span><span class="txt-uk">Консультант з навчання та кар'єри</span><span class="txt-id">Penasihat Studi Lanjut & Karier</span><span class="txt-ru">Консультант по учёбе и карьере</span><span class="txt-my">ပညာသင်ဆက်ခြင်း/အသက်မွေးဝမ်းကျောင်း အကြံပေး</span></p>
+      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
+      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">進学・キャリア相談担当</span><span class="txt-zh">升學・職涯諮詢負責人</span><span class="txt-en">Further Study & Career Advisor</span><span class="txt-vi">Cố vấn học tiếp & sự nghiệp</span><span class="txt-uk">Консультант з навчання та кар'єри</span><span class="txt-id">Penasihat Studi Lanjut & Karier</span><span class="txt-ru">Консультант по учёбе и карьере</span><span class="txt-my">ပညာသင်ဆက်ခြင်း/အသက်မွေးဝမ်းကျောင်း အကြံပေး</span></p>
     </div>
     <div class="staff-card">
       <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size:14px;">〇〇 〇〇</h4>
-      <p style="font-size:12px;color:var(--ink-soft);margin:0;"><span class="txt-ja">生活指導・寮担当</span><span class="txt-zh">生活輔導・宿舍負責人</span><span class="txt-en">Life Guidance & Dormitory Coordinator</span><span class="txt-vi">Điều phối viên hướng dẫn sinh hoạt & ký túc xá</span><span class="txt-uk">Координатор з побуту та гуртожитку</span><span class="txt-id">Koordinator Bimbingan Hidup & Asrama</span><span class="txt-ru">Координатор по быту и общежитию</span><span class="txt-my">နေထိုင်မှုလမ်းညွှန်/ကျောင်းအိပ်ဆောင် တာဝန်ခံ</span></p>
+      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
+      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">生活指導・寮担当</span><span class="txt-zh">生活輔導・宿舍負責人</span><span class="txt-en">Life Guidance & Dormitory Coordinator</span><span class="txt-vi">Điều phối viên hướng dẫn sinh hoạt & ký túc xá</span><span class="txt-uk">Координатор з побуту та гуртожитку</span><span class="txt-id">Koordinator Bimbingan Hidup & Asrama</span><span class="txt-ru">Координатор по быту и общежитию</span><span class="txt-my">နေထိုင်မှုလမ်းညွှန်/ကျောင်းအိပ်ဆောင် တာဝန်ခံ</span></p>
     </div>
   </div>
 
@@ -1507,7 +1507,7 @@
       <th><span class="txt-ja">内容</span><span class="txt-zh">內容</span><span class="txt-en">Details</span><span class="txt-vi">Chi tiết</span><span class="txt-uk">Деталі</span><span class="txt-id">Detail</span><span class="txt-ru">Подробности</span><span class="txt-my">အသေးစိတ်</span></th>
     </tr></thead>
     <tbody>
-      <tr><td><span class="txt-ja">大学進学</span><span class="txt-zh">大學升學</span><span class="txt-en" style="margin:0;font-size:11px;">University</span><span class="txt-vi" style="margin:0;font-size:11px;">Đại học</span><span class="txt-uk" style="margin:0;font-size:11px;">Університет</span><span class="txt-id" style="margin:0;font-size:11px;">Universitas</span><span class="txt-ru" style="margin:0;font-size:11px;">Университет</span><span class="txt-my" style="margin:0;font-size:11px;">တက္ကသိုလ်</span></td><td>
+      <tr><td><span class="txt-ja">大学進学</span><span class="txt-zh">大學升學</span><span class="txt-en" style="margin:0;font-size: 13px;">University</span><span class="txt-vi" style="margin:0;font-size: 13px;">Đại học</span><span class="txt-uk" style="margin:0;font-size: 13px;">Університет</span><span class="txt-id" style="margin:0;font-size: 13px;">Universitas</span><span class="txt-ru" style="margin:0;font-size: 13px;">Университет</span><span class="txt-my" style="margin:0;font-size: 13px;">တက္ကသိုလ်</span></td><td>
         <span class="txt-ja">国立千葉大学をはじめ多くの大学が近隣にあり、個人の目標に応じた進学指導を行います</span>
         <span class="txt-zh">鄰近國立千葉大學等多所大學，提供依個人目標訂做的升學指導</span>
         <span class="txt-en">Near National Chiba University and many other universities; we provide advancement guidance tailored to individual goals.</span>
@@ -1517,7 +1517,7 @@
         <span class="txt-ru">Рядом с Национальным университетом Чиба и другими вузами; предоставляем консультации по поступлению с учётом индивидуальных целей.</span>
         <span class="txt-my">နိုင်ငံတော် ချစ်ဘားတက္ကသိုလ်နှင့် အခြားတက္ကသိုလ်များနှင့် အနီးတွင်ရှိပြီး ကိုယ်ရေးရည်မှန်းချက်နှင့်ကိုက်ညီသော ပညာဆက်လက်သင်ကြားရေး လမ်းညွှန်မှု ပေးအပ်ပါသည်။</span>
       </td></tr>
-      <tr><td><span class="txt-ja">専門学校</span><span class="txt-zh">專門學校</span><span class="txt-en" style="margin:0;font-size:11px;">Vocational</span><span class="txt-vi" style="margin:0;font-size:11px;">Trường nghề</span><span class="txt-uk" style="margin:0;font-size:11px;">Проф. школа</span><span class="txt-id" style="margin:0;font-size:11px;">Sekolah Kejuruan</span><span class="txt-ru" style="margin:0;font-size:11px;">Проф. школа</span><span class="txt-my" style="margin:0;font-size:11px;">အသက်မွေးဝမ်းကျောင်းကျောင်း</span></td><td>
+      <tr><td><span class="txt-ja">専門学校</span><span class="txt-zh">專門學校</span><span class="txt-en" style="margin:0;font-size: 13px;">Vocational</span><span class="txt-vi" style="margin:0;font-size: 13px;">Trường nghề</span><span class="txt-uk" style="margin:0;font-size: 13px;">Проф. школа</span><span class="txt-id" style="margin:0;font-size: 13px;">Sekolah Kejuruan</span><span class="txt-ru" style="margin:0;font-size: 13px;">Проф. школа</span><span class="txt-my" style="margin:0;font-size: 13px;">အသက်မွေးဝမ်းကျောင်းကျောင်း</span></td><td>
         <span class="txt-ja">千葉市内に多数の専門学校があり、志望に応じた学科を選択できます</span>
         <span class="txt-zh">千葉市內設有多所專門學校，可依志向選擇合適科系</span>
         <span class="txt-en">Chiba City has many vocational schools, allowing you to choose a program that matches your goals.</span>
@@ -1527,7 +1527,7 @@
         <span class="txt-ru">В городе Чиба много профессиональных школ, что позволяет выбрать программу по своим целям.</span>
         <span class="txt-my">ချစ်ဘားမြို့တွင် အသက်မွေးဝမ်းကျောင်းကျောင်းများစွာရှိပြီး ရည်မှန်းချက်နှင့်ကိုက်ညီသော ဌာနကို ရွေးချယ်နိုင်ပါသည်။</span>
       </td></tr>
-      <tr><td><span class="txt-ja">就職</span><span class="txt-zh">就職</span><span class="txt-en" style="margin:0;font-size:11px;">Employment</span><span class="txt-vi" style="margin:0;font-size:11px;">Việc làm</span><span class="txt-uk" style="margin:0;font-size:11px;">Працевлаштування</span><span class="txt-id" style="margin:0;font-size:11px;">Pekerjaan</span><span class="txt-ru" style="margin:0;font-size:11px;">Трудоустройство</span><span class="txt-my" style="margin:0;font-size:11px;">အလုပ်အကိုင်</span></td><td>
+      <tr><td><span class="txt-ja">就職</span><span class="txt-zh">就職</span><span class="txt-en" style="margin:0;font-size: 13px;">Employment</span><span class="txt-vi" style="margin:0;font-size: 13px;">Việc làm</span><span class="txt-uk" style="margin:0;font-size: 13px;">Працевлаштування</span><span class="txt-id" style="margin:0;font-size: 13px;">Pekerjaan</span><span class="txt-ru" style="margin:0;font-size: 13px;">Трудоустройство</span><span class="txt-my" style="margin:0;font-size: 13px;">အလုပ်အကိုင်</span></td><td>
         <span class="txt-ja">卒業生の専門性に応じて、日本企業への就職をサポートします</span>
         <span class="txt-zh">依畢業生的專長，協助其於日本企業就業</span>
         <span class="txt-en">We support employment at Japanese companies based on each graduate's expertise.</span>
@@ -1537,7 +1537,7 @@
         <span class="txt-ru">Мы помогаем с трудоустройством в японских компаниях с учётом квалификации выпускника.</span>
         <span class="txt-my">ဘွဲ့ရများ၏ ကျွမ်းကျင်မှုအရ ဂျပန်ကုမ္ပဏီများတွင် အလုပ်ရရှိရန် ကူညီပါသည်။</span>
       </td></tr>
-      <tr><td><span class="txt-ja">特定技能</span><span class="txt-zh">特定技能</span><span class="txt-en" style="margin:0;font-size:11px;">Specified Skilled Worker</span><span class="txt-vi" style="margin:0;font-size:11px;">Kỹ năng đặc định</span><span class="txt-uk" style="margin:0;font-size:11px;">Спеціалізована кваліфікація</span><span class="txt-id" style="margin:0;font-size:11px;">Keterampilan Spesifik</span><span class="txt-ru" style="margin:0;font-size:11px;">Специализированная квалификация</span><span class="txt-my" style="margin:0;font-size:11px;">အထူးကျွမ်းကျင်မှု</span></td><td>
+      <tr><td><span class="txt-ja">特定技能</span><span class="txt-zh">特定技能</span><span class="txt-en" style="margin:0;font-size: 13px;">Specified Skilled Worker</span><span class="txt-vi" style="margin:0;font-size: 13px;">Kỹ năng đặc định</span><span class="txt-uk" style="margin:0;font-size: 13px;">Спеціалізована кваліфікація</span><span class="txt-id" style="margin:0;font-size: 13px;">Keterampilan Spesifik</span><span class="txt-ru" style="margin:0;font-size: 13px;">Специализированная квалификация</span><span class="txt-my" style="margin:0;font-size: 13px;">အထူးကျွမ်းကျင်မှု</span></td><td>
         <span class="txt-ja">介護・外食・宿泊など特定産業分野の「技能測定試験」に合格し、特定技能ビザで日本での就労を目指す卒業生もいます（対象分野・試験内容は年度により異なり、当校が試験対策や仲介を行うものではありません）</span>
         <span class="txt-zh">部分畢業生會選擇報考介護、餐飲、住宿等特定產業領域的「技能測定試驗」，並以特定技能簽證留在日本工作（適用領域與考試內容依年度而異；本校並未提供該考試之對策課程或仲介服務）</span>
         <span class="txt-en">Some graduates choose to take the "Skills Assessment Test" in fields such as caregiving, food service, and hospitality, aiming to work in Japan under a Specified Skilled Worker visa (target fields and test content vary by year; the school does not provide test-prep courses or job-placement services for this route).</span>
@@ -1568,34 +1568,34 @@
   </div>
 </div>
   
-  <p class="txt-ja" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">本校は国立千葉大学など多くの高等教育機関に近く、論文作成や模擬面接の個別指導を通じて、理想のキャリアへの道を全力でサポートします。</p>
-  <p class="txt-zh" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">學校鄰近國立千葉大學等多所高等教育資源，提供一對一論文準備與模擬面試精緻指導，全力輔導學生踏上理想日本職涯道路。</p>
-  <p class="txt-en" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">Located near Chiba University and other higher-education institutions, we offer one-on-one essay preparation and mock interview coaching to fully support your ideal career path in Japan.</p>
-  <p class="txt-vi" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">Nằm gần Đại học Chiba và các cơ sở giáo dục bậc cao khác, chúng tôi cung cấp hướng dẫn viết luận văn và phỏng vấn thử 1-kèm-1 để hỗ trợ toàn diện con đường sự nghiệp lý tưởng của bạn tại Nhật.</p>
-  <p class="txt-uk" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">Розташована поруч з Університетом Чіба та іншими закладами вищої освіти, ми пропонуємо індивідуальну підготовку есе та співбесід, щоб повністю підтримати ваш ідеальний кар'єрний шлях в Японії.</p>
-  <p class="txt-id" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">Berlokasi dekat Universitas Chiba dan institusi pendidikan tinggi lainnya, kami menawarkan persiapan esai dan wawancara tiruan satu-lawan-satu untuk mendukung sepenuhnya jalur karier ideal Anda di Jepang.</p>
-  <p class="txt-ru" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">Расположены рядом с Университетом Чиба и другими высшими учебными заведениями, мы предлагаем индивидуальную подготовку эссе и собеседований, чтобы полностью поддержать ваш идеальный карьерный путь в Японии.</p>
-  <p class="txt-my" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">ချစ်ဘားတက္ကသိုလ်နှင့် အခြားအဆင့်မြင့်ပညာရေးအဖွဲ့အစည်းများအနီးတွင် တည်ရှိပြီး ဂျပန်တွင် သင့်စိတ်ကူးယဉ် အသက်မွေးဝမ်းကျောင်းလမ်းကြောင်းကို အပြည့်အဝ ထောက်ပံ့ရန် တစ်ဦးချင်း စာစီစာကုံးပြင်ဆင်မှုနှင့် အင်တာဗျူးလေ့ကျင့်မှု ပေးအပ်ပါသည်။</p>
-  <p class="txt-ja" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">※現時点で公式サイトやパンフレットに具体的な進学達成率や指定校推薦一覧（東京大学・早稲田大学等）の公表はありません。確認済みの最新データがあればご提供ください。差し替えいたします。</p>
-  <p class="txt-zh" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">※目前官方網站與手冊皆未公開具體的升學達成率或指定校推薦名單（如東京大學、早稲田大學等）。若您有經核實的最新數據，歡迎提供，我們將立即更新替換。</p>
-  <p class="txt-en" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">*Specific advancement rates or designated-school recommendation lists (e.g. University of Tokyo, Waseda) are not currently published on the official site or brochure. If you have verified up-to-date figures, please provide them and we will update this right away.</p>
-  <p class="txt-vi" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">*Tỷ lệ học tiếp cụ thể hoặc danh sách trường được đề cử (như Đại học Tokyo, Waseda) hiện chưa được công bố trên trang chính thức hoặc tài liệu quảng cáo. Nếu quý vị có số liệu mới đã được xác thực, vui lòng cung cấp để chúng tôi cập nhật ngay.</p>
-  <p class="txt-uk" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">*Конкретні показники вступу або списки рекомендованих закладів (наприклад, Токійський університет, Васеда) наразі не опубліковані на офіційному сайті чи в брошурі. Якщо у вас є перевірені актуальні дані, будь ласка, надайте їх, і ми оновимо цю інформацію негайно.</p>
-  <p class="txt-id" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">*Tingkat kelanjutan studi spesifik atau daftar rekomendasi sekolah tertentu (misalnya Universitas Tokyo, Waseda) saat ini belum dipublikasikan di situs resmi atau brosur. Jika Anda memiliki data terkini yang telah diverifikasi, mohon berikan kepada kami dan kami akan segera memperbaruinya.</p>
-  <p class="txt-ru" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">*Конкретные показатели поступления или списки рекомендованных школ (например, Токийский университет, Васэда) в настоящее время не опубликованы на официальном сайте или в брошюре. Если у вас есть проверенные актуальные данные, пожалуйста, предоставьте их, и мы немедленно обновим информацию.</p>
-  <p class="txt-my" style="margin-top:20px;font-size:12.5px;color:var(--ink-soft);">※ တိကျသော ပညာသင်ဆက်ခွင့်နှုန်း သို့မဟုတ် တိကျသော ကျောင်းအကြံပြုစာရင်းများ (ဥပမာ တိုကျိုတက္ကသိုလ်၊ Waseda) ကို လက်ရှိတွင် တရားဝင်ဝက်ဘ်ဆိုက် သို့မဟုတ် လက်ကမ်းစာစောင်တွင် ထုတ်ပြန်ထားခြင်းမရှိပါ။ အတည်ပြုပြီးသား နောက်ဆုံးအချက်အလက်များရှိပါက ကျေးဇူးပြု၍ ပေးပို့ပါ၊ ကျွန်ုပ်တို့ ချက်ချင်းအပ်ဒိတ်ပြုလုပ်ပါမည်။</p>
+  <p class="txt-ja" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">本校は国立千葉大学など多くの高等教育機関に近く、論文作成や模擬面接の個別指導を通じて、理想のキャリアへの道を全力でサポートします。</p>
+  <p class="txt-zh" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">學校鄰近國立千葉大學等多所高等教育資源，提供一對一論文準備與模擬面試精緻指導，全力輔導學生踏上理想日本職涯道路。</p>
+  <p class="txt-en" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">Located near Chiba University and other higher-education institutions, we offer one-on-one essay preparation and mock interview coaching to fully support your ideal career path in Japan.</p>
+  <p class="txt-vi" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">Nằm gần Đại học Chiba và các cơ sở giáo dục bậc cao khác, chúng tôi cung cấp hướng dẫn viết luận văn và phỏng vấn thử 1-kèm-1 để hỗ trợ toàn diện con đường sự nghiệp lý tưởng của bạn tại Nhật.</p>
+  <p class="txt-uk" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">Розташована поруч з Університетом Чіба та іншими закладами вищої освіти, ми пропонуємо індивідуальну підготовку есе та співбесід, щоб повністю підтримати ваш ідеальний кар'єрний шлях в Японії.</p>
+  <p class="txt-id" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">Berlokasi dekat Universitas Chiba dan institusi pendidikan tinggi lainnya, kami menawarkan persiapan esai dan wawancara tiruan satu-lawan-satu untuk mendukung sepenuhnya jalur karier ideal Anda di Jepang.</p>
+  <p class="txt-ru" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">Расположены рядом с Университетом Чиба и другими высшими учебными заведениями, мы предлагаем индивидуальную подготовку эссе и собеседований, чтобы полностью поддержать ваш идеальный карьерный путь в Японии.</p>
+  <p class="txt-my" style="margin-top:16px; font-size: 16px; color:var(--ink-main); font-weight:700;">ချစ်ဘားတက္ကသိုလ်နှင့် အခြားအဆင့်မြင့်ပညာရေးအဖွဲ့အစည်းများအနီးတွင် တည်ရှိပြီး ဂျပန်တွင် သင့်စိတ်ကူးယဉ် အသက်မွေးဝမ်းကျောင်းလမ်းကြောင်းကို အပြည့်အဝ ထောက်ပံ့ရန် တစ်ဦးချင်း စာစီစာကုံးပြင်ဆင်မှုနှင့် အင်တာဗျူးလေ့ကျင့်မှု ပေးအပ်ပါသည်။</p>
+  <p class="txt-ja" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">※現時点で公式サイトやパンフレットに具体的な進学達成率や指定校推薦一覧（東京大学・早稲田大学等）の公表はありません。確認済みの最新データがあればご提供ください。差し替えいたします。</p>
+  <p class="txt-zh" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">※目前官方網站與手冊皆未公開具體的升學達成率或指定校推薦名單（如東京大學、早稲田大學等）。若您有經核實的最新數據，歡迎提供，我們將立即更新替換。</p>
+  <p class="txt-en" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">*Specific advancement rates or designated-school recommendation lists (e.g. University of Tokyo, Waseda) are not currently published on the official site or brochure. If you have verified up-to-date figures, please provide them and we will update this right away.</p>
+  <p class="txt-vi" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">*Tỷ lệ học tiếp cụ thể hoặc danh sách trường được đề cử (như Đại học Tokyo, Waseda) hiện chưa được công bố trên trang chính thức hoặc tài liệu quảng cáo. Nếu quý vị có số liệu mới đã được xác thực, vui lòng cung cấp để chúng tôi cập nhật ngay.</p>
+  <p class="txt-uk" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">*Конкретні показники вступу або списки рекомендованих закладів (наприклад, Токійський університет, Васеда) наразі не опубліковані на офіційному сайті чи в брошурі. Якщо у вас є перевірені актуальні дані, будь ласка, надайте їх, і ми оновимо цю інформацію негайно.</p>
+  <p class="txt-id" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">*Tingkat kelanjutan studi spesifik atau daftar rekomendasi sekolah tertentu (misalnya Universitas Tokyo, Waseda) saat ini belum dipublikasikan di situs resmi atau brosur. Jika Anda memiliki data terkini yang telah diverifikasi, mohon berikan kepada kami dan kami akan segera memperbaruinya.</p>
+  <p class="txt-ru" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">*Конкретные показатели поступления или списки рекомендованных школ (например, Токийский университет, Васэда) в настоящее время не опубликованы на официальном сайте или в брошюре. Если у вас есть проверенные актуальные данные, пожалуйста, предоставьте их, и мы немедленно обновим информацию.</p>
+  <p class="txt-my" style="margin-top:20px;font-size: 14px;color:var(--ink-soft);">※ တိကျသော ပညာသင်ဆက်ခွင့်နှုန်း သို့မဟုတ် တိကျသော ကျောင်းအကြံပြုစာရင်းများ (ဥပမာ တိုကျိုတက္ကသိုလ်၊ Waseda) ကို လက်ရှိတွင် တရားဝင်ဝက်ဘ်ဆိုက် သို့မဟုတ် လက်ကမ်းစာစောင်တွင် ထုတ်ပြန်ထားခြင်းမရှိပါ။ အတည်ပြုပြီးသား နောက်ဆုံးအချက်အလက်များရှိပါက ကျေးဇူးပြု၍ ပေးပို့ပါ၊ ကျွန်ုပ်တို့ ချက်ချင်းအပ်ဒိတ်ပြုလုပ်ပါမည်။</p>
   
   <div class="doc-cabinet">
     <div class="eyebrow">OFFICIAL DOCUMENTS</div>
     <h2 data-i18n="title_doc">公式規程・評価報告書</h2>
-    <p class="txt-ja" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">日本の文部科学省および関連教育法令に基づき全面的に情報公開し、留学生が日本で最高水準の権利保障を受けられるようにしています。</p>
-    <p class="txt-zh" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">依據日本文部科學省與相關教育法令全面公開透明化，確保留學生在日享有最高標準之權益保障。</p>
-    <p class="txt-en" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">Fully disclosed in accordance with Japan's Ministry of Education and related regulations, ensuring international students receive the highest standard of protection in Japan.</p>
-    <p class="txt-vi" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">Công khai đầy đủ theo quy định của Bộ Giáo dục Nhật Bản và các luật liên quan, đảm bảo du học sinh được bảo vệ ở mức cao nhất tại Nhật Bản.</p>
-    <p class="txt-uk" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">Повністю розкрито відповідно до Міністерства освіти Японії та відповідних нормативних актів, забезпечуючи іноземним студентам найвищий рівень захисту в Японії.</p>
-    <p class="txt-id" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">Diungkapkan sepenuhnya sesuai dengan Kementerian Pendidikan Jepang dan peraturan terkait, memastikan siswa internasional menerima standar perlindungan tertinggi di Jepang.</p>
-    <p class="txt-ru" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">Полностью раскрыто в соответствии с Министерством образования Японии и соответствующими нормативными актами, обеспечивая иностранным студентам высочайший уровень защиты в Японии.</p>
-    <p class="txt-my" style="color:var(--ink-soft); font-size:14px; margin-bottom:0;">ဂျပန်ပညာရေးဝန်ကြီးဌာနနှင့် သက်ဆိုင်ရာစည်းမျဉ်းများအတိုင်း အပြည့်အဝ ထုတ်ဖော်ကာ နိုင်ငံခြားကျောင်းသားများ ဂျပန်တွင် အမြင့်ဆုံးအဆင့် အကာအကွယ်ရရှိစေရန် သေချာစေသည်။</p>
+    <p class="txt-ja" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">日本の文部科学省および関連教育法令に基づき全面的に情報公開し、留学生が日本で最高水準の権利保障を受けられるようにしています。</p>
+    <p class="txt-zh" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">依據日本文部科學省與相關教育法令全面公開透明化，確保留學生在日享有最高標準之權益保障。</p>
+    <p class="txt-en" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">Fully disclosed in accordance with Japan's Ministry of Education and related regulations, ensuring international students receive the highest standard of protection in Japan.</p>
+    <p class="txt-vi" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">Công khai đầy đủ theo quy định của Bộ Giáo dục Nhật Bản và các luật liên quan, đảm bảo du học sinh được bảo vệ ở mức cao nhất tại Nhật Bản.</p>
+    <p class="txt-uk" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">Повністю розкрито відповідно до Міністерства освіти Японії та відповідних нормативних актів, забезпечуючи іноземним студентам найвищий рівень захисту в Японії.</p>
+    <p class="txt-id" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">Diungkapkan sepenuhnya sesuai dengan Kementerian Pendidikan Jepang dan peraturan terkait, memastikan siswa internasional menerima standar perlindungan tertinggi di Jepang.</p>
+    <p class="txt-ru" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">Полностью раскрыто в соответствии с Министерством образования Японии и соответствующими нормативными актами, обеспечивая иностранным студентам высочайший уровень защиты в Японии.</p>
+    <p class="txt-my" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">ဂျပန်ပညာရေးဝန်ကြီးဌာနနှင့် သက်ဆိုင်ရာစည်းမျဉ်းများအတိုင်း အပြည့်အဝ ထုတ်ဖော်ကာ နိုင်ငံခြားကျောင်းသားများ ဂျပန်တွင် အမြင့်ဆုံးအဆင့် အကာအကွယ်ရရှိစေရန် သေချာစေသည်။</p>
     
     <div class="doc-grid">
       <div class="doc-card reveal">
@@ -1624,7 +1624,7 @@
     </div>
     
     <div style="margin-top:20px; display:flex; gap:16px; flex-wrap:wrap;">
-      <span style="font-size:12.5px; color:var(--ink-soft);">
+      <span style="font-size: 14px; color:var(--ink-soft);">
         <span class="txt-ja">※学費返還規定は「コース」タブ、寮規則は「特徴」タブ内に詳細を掲載しています。</span>
         <span class="txt-zh">※學費退費規定詳見「課程」分頁；宿舍規則詳見「特色」分頁。</span>
         <span class="txt-en">*Tuition refund details are on the "Courses" tab; dormitory rules are on the "Features" tab.</span>
@@ -1757,14 +1757,14 @@
         <li><span class="dot" style="background:var(--ink-soft);"></span><span class="fee-label"><span class="txt-ja">その他 (教材等)</span><span class="txt-zh">其他（教材等）</span><span class="txt-en">Other (materials, etc.)</span><span class="txt-vi">Khác (tài liệu, v.v.)</span><span class="txt-uk">Інше (матеріали тощо)</span><span class="txt-id">Lainnya (materi, dll.)</span><span class="txt-ru">Прочее (материалы и т.д.)</span><span class="txt-my">အခြား (စာအုပ်စာတမ်းစသည်)</span></span><span class="fee-amount">¥20,000</span></li>
       </ul>
     </div>
-    <p class="txt-ja" style="font-size:12.5px;color:var(--ink-soft);margin-top:20px;margin-bottom:0;">※ 2年目以降は1ヶ月ごとに ¥760,000 ÷ 12ヶ月分を加算（例：1年6ヶ月コースは2年目に6ヶ月分 ¥380,000 を追加）。</p>
-    <p class="txt-zh" style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※第二年起，每追加一個月加收 ¥760,000 ÷ 12個月的學費（例如1年6個月課程，第二年需再繳6個月份，共 ¥380,000）。</p>
-    <p class="txt-en" style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*From the second year, ¥760,000 ÷ 12 months is added per additional month (e.g. the 1-year-6-month course pays 6 more months = ¥380,000 in year two).</p>
-    <p class="txt-vi" style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Từ năm thứ hai, mỗi tháng thêm sẽ cộng ¥760,000 ÷ 12 tháng (ví dụ: khóa 1 năm 6 tháng phải đóng thêm 6 tháng = ¥380,000 ở năm thứ hai).</p>
-    <p class="txt-uk" style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Починаючи з другого року, за кожен додатковий місяць додається ¥760,000 ÷ 12 місяців (напр., курс 1 рік 6 місяців сплачує ще 6 місяців = ¥380,000 на другому році).</p>
-    <p class="txt-id" style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Mulai tahun kedua, setiap bulan tambahan dikenakan ¥760,000 ÷ 12 bulan (misal: kursus 1 tahun 6 bulan membayar 6 bulan tambahan = ¥380,000 di tahun kedua).</p>
-    <p class="txt-ru" style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Начиная со второго года, за каждый дополнительный месяц добавляется ¥760,000 ÷ 12 месяцев (напр., курс 1 год 6 месяцев доплачивает ещё 6 месяцев = ¥380,000 на втором году).</p>
-    <p class="txt-my" style="font-size:12.5px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※ဒုတိယနှစ်မှစတင်၍ တစ်လထပ်တိုင်း ¥760,000 ÷ ၁၂ လ ထပ်ဆောင်းပေးရမည် (ဥပမာ ၁နှစ်၆လသင်တန်းသည် ဒုတိယနှစ်တွင် ၆လထပ်ဆောင်းငွေ ¥380,000 ပေးရမည်)။</p>
+    <p class="txt-ja" style="font-size: 14px;color:var(--ink-soft);margin-top:20px;margin-bottom:0;">※ 2年目以降は1ヶ月ごとに ¥760,000 ÷ 12ヶ月分を加算（例：1年6ヶ月コースは2年目に6ヶ月分 ¥380,000 を追加）。</p>
+    <p class="txt-zh" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※第二年起，每追加一個月加收 ¥760,000 ÷ 12個月的學費（例如1年6個月課程，第二年需再繳6個月份，共 ¥380,000）。</p>
+    <p class="txt-en" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*From the second year, ¥760,000 ÷ 12 months is added per additional month (e.g. the 1-year-6-month course pays 6 more months = ¥380,000 in year two).</p>
+    <p class="txt-vi" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Từ năm thứ hai, mỗi tháng thêm sẽ cộng ¥760,000 ÷ 12 tháng (ví dụ: khóa 1 năm 6 tháng phải đóng thêm 6 tháng = ¥380,000 ở năm thứ hai).</p>
+    <p class="txt-uk" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Починаючи з другого року, за кожен додатковий місяць додається ¥760,000 ÷ 12 місяців (напр., курс 1 рік 6 місяців сплачує ще 6 місяців = ¥380,000 на другому році).</p>
+    <p class="txt-id" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Mulai tahun kedua, setiap bulan tambahan dikenakan ¥760,000 ÷ 12 bulan (misal: kursus 1 tahun 6 bulan membayar 6 bulan tambahan = ¥380,000 di tahun kedua).</p>
+    <p class="txt-ru" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Начиная со второго года, за каждый дополнительный месяц добавляется ¥760,000 ÷ 12 месяцев (напр., курс 1 год 6 месяцев доплачивает ещё 6 месяцев = ¥380,000 на втором году).</p>
+    <p class="txt-my" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※ဒုတိယနှစ်မှစတင်၍ တစ်လထပ်တိုင်း ¥760,000 ÷ ၁၂ လ ထပ်ဆောင်းပေးရမည် (ဥပမာ ၁နှစ်၆လသင်တန်းသည် ဒုတိယနှစ်တွင် ၆လထပ်ဆောင်းငွေ ¥380,000 ပေးရမည်)။</p>
     
     <div class="refund-zone">
       <h4 class="txt-ja">学費返還規定ガイド (Refund Policy)</h4>
@@ -1858,13 +1858,13 @@
     <div class="reason-grid" style="margin-bottom:0; margin-top:24px;">
       <div class="reason-card" style="padding:26px 22px;">
         <span class="course-tag"><span class="txt-ja">N5 目標</span><span class="txt-zh">N5 目標</span><span class="txt-en">N5 Target</span><span class="txt-vi">Mục tiêu N5</span><span class="txt-uk">Ціль N5</span><span class="txt-id">Target N5</span><span class="txt-ru">Цель N5</span><span class="txt-my">N5 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size:16px;" class="txt-ja">初級：みんなの日本語 I</h3>
-        <h3 style="font-size:16px;" class="txt-en">Beginner: Minna no Nihongo I</h3>
-        <h3 style="font-size:16px;" class="txt-vi">Sơ cấp: Minna no Nihongo I</h3>
-        <h3 style="font-size:16px;" class="txt-uk">Початковий: Мінна но Ніхонго I</h3>
-        <h3 style="font-size:16px;" class="txt-id">Pemula: Minna no Nihongo I</h3>
-        <h3 style="font-size:16px;" class="txt-ru">Начальный: Минна но Нихонго I</h3>
-        <h3 style="font-size:16px;" class="txt-my">အခြေခံအဆင့်：Minna no Nihongo I</h3>
+        <h3 style="font-size: 18px;" class="txt-ja">初級：みんなの日本語 I</h3>
+        <h3 style="font-size: 18px;" class="txt-en">Beginner: Minna no Nihongo I</h3>
+        <h3 style="font-size: 18px;" class="txt-vi">Sơ cấp: Minna no Nihongo I</h3>
+        <h3 style="font-size: 18px;" class="txt-uk">Початковий: Мінна но Ніхонго I</h3>
+        <h3 style="font-size: 18px;" class="txt-id">Pemula: Minna no Nihongo I</h3>
+        <h3 style="font-size: 18px;" class="txt-ru">Начальный: Минна но Нихонго I</h3>
+        <h3 style="font-size: 18px;" class="txt-my">အခြေခံအဆင့်：Minna no Nihongo I</h3>
         <p class="txt-zh">扎實復習並掌握基礎日語變化與基本句型、平假名與片假名書寫，培養教室與生活簡單對話聽力。</p>
         <p class="txt-en">Master basic Japanese conjugation, core sentence patterns, and Hiragana/Katakana writing, while building listening skills for simple classroom and daily conversation.</p>
         <p class="txt-vi">Nắm vững chia động từ cơ bản, mẫu câu cốt lõi và cách viết Hiragana/Katakana, đồng thời xây dựng kỹ năng nghe cho hội thoại đơn giản trong lớp và đời sống.</p>
@@ -1875,13 +1875,13 @@
       </div>
       <div class="reason-card" style="padding:26px 22px;">
         <span class="course-tag"><span class="txt-ja">N4–N3 目標</span><span class="txt-zh">N4–N3 目標</span><span class="txt-en">N4–N3 Target</span><span class="txt-vi">Mục tiêu N4–N3</span><span class="txt-uk">Ціль N4–N3</span><span class="txt-id">Target N4–N3</span><span class="txt-ru">Цель N4–N3</span><span class="txt-my">N4–N3 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size:16px;" class="txt-ja">初中級：みんなの日本語 II</h3>
-        <h3 style="font-size:16px;" class="txt-en">Elementary-Intermediate: Minna no Nihongo II</h3>
-        <h3 style="font-size:16px;" class="txt-vi">Sơ trung cấp: Minna no Nihongo II</h3>
-        <h3 style="font-size:16px;" class="txt-uk">Нижче середнього: Мінна но Ніхонго II</h3>
-        <h3 style="font-size:16px;" class="txt-id">Pra-Menengah: Minna no Nihongo II</h3>
-        <h3 style="font-size:16px;" class="txt-ru">Ниже среднего: Минна но Нихонго II</h3>
-        <h3 style="font-size:16px;" class="txt-my">အလယ်အလတ်အောက်အဆင့်：Minna no Nihongo II</h3>
+        <h3 style="font-size: 18px;" class="txt-ja">初中級：みんなの日本語 II</h3>
+        <h3 style="font-size: 18px;" class="txt-en">Elementary-Intermediate: Minna no Nihongo II</h3>
+        <h3 style="font-size: 18px;" class="txt-vi">Sơ trung cấp: Minna no Nihongo II</h3>
+        <h3 style="font-size: 18px;" class="txt-uk">Нижче середнього: Мінна но Ніхонго II</h3>
+        <h3 style="font-size: 18px;" class="txt-id">Pra-Menengah: Minna no Nihongo II</h3>
+        <h3 style="font-size: 18px;" class="txt-ru">Ниже среднего: Минна но Нихонго II</h3>
+        <h3 style="font-size: 18px;" class="txt-my">အလယ်အလတ်အောက်အဆင့်：Minna no Nihongo II</h3>
         <p class="txt-zh">深度掌握自動詞與他動詞、被動態、使役態以及基本敬語文法。熟練掌握基本漢字讀寫。</p>
         <p class="txt-en">Deepen mastery of transitive/intransitive verbs, passive and causative forms, and basic honorific grammar, along with core Kanji reading and writing.</p>
         <p class="txt-vi">Nâng cao khả năng sử dụng động từ tự động/tha động, thể bị động và sai khiến, ngữ pháp kính ngữ cơ bản, cùng đọc viết Kanji cốt lõi.</p>
@@ -1892,13 +1892,13 @@
       </div>
       <div class="reason-card" style="padding:26px 22px;">
         <span class="course-tag"><span class="txt-ja">N3–N2 目標</span><span class="txt-zh">N3–N2 目標</span><span class="txt-en">N3–N2 Target</span><span class="txt-vi">Mục tiêu N3–N2</span><span class="txt-uk">Ціль N3–N2</span><span class="txt-id">Target N3–N2</span><span class="txt-ru">Цель N3–N2</span><span class="txt-my">N3–N2 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size:16px;" class="txt-ja">中級：中級を学ぼう</h3>
-        <h3 style="font-size:16px;" class="txt-en">Intermediate: Chukyu wo Manabou</h3>
-        <h3 style="font-size:16px;" class="txt-vi">Trung cấp: Chukyu wo Manabou</h3>
-        <h3 style="font-size:16px;" class="txt-uk">Середній: Чукю о Манабо</h3>
-        <h3 style="font-size:16px;" class="txt-id">Menengah: Chukyu wo Manabou</h3>
-        <h3 style="font-size:16px;" class="txt-ru">Средний: Тюкю о Манабо</h3>
-        <h3 style="font-size:16px;" class="txt-my">အလယ်အလတ်အဆင့်：Chukyu wo Manabou</h3>
+        <h3 style="font-size: 18px;" class="txt-ja">中級：中級を学ぼう</h3>
+        <h3 style="font-size: 18px;" class="txt-en">Intermediate: Chukyu wo Manabou</h3>
+        <h3 style="font-size: 18px;" class="txt-vi">Trung cấp: Chukyu wo Manabou</h3>
+        <h3 style="font-size: 18px;" class="txt-uk">Середній: Чукю о Манабо</h3>
+        <h3 style="font-size: 18px;" class="txt-id">Menengah: Chukyu wo Manabou</h3>
+        <h3 style="font-size: 18px;" class="txt-ru">Средний: Тюкю о Манабо</h3>
+        <h3 style="font-size: 18px;" class="txt-my">အလယ်အလတ်အဆင့်：Chukyu wo Manabou</h3>
         <p class="txt-zh">完全熟練N3進階文法並延伸理解N2。培養接近日本人日常語速的聽解力，以及閱讀報紙新聞摘要之能力。</p>
         <p class="txt-en">Fully master advanced N3 grammar and extend into N2. Build listening comprehension close to natural speaking speed, and the ability to read newspaper summaries.</p>
         <p class="txt-vi">Nắm vững hoàn toàn ngữ pháp N3 nâng cao và mở rộng sang N2. Xây dựng khả năng nghe hiểu gần với tốc độ nói tự nhiên, và khả năng đọc tóm tắt báo chí.</p>
@@ -1909,13 +1909,13 @@
       </div>
       <div class="reason-card" style="padding:26px 22px;">
         <span class="course-tag"><span class="txt-ja">N2 目標</span><span class="txt-zh">N2 目標</span><span class="txt-en">N2 Target</span><span class="txt-vi">Mục tiêu N2</span><span class="txt-uk">Ціль N2</span><span class="txt-id">Target N2</span><span class="txt-ru">Цель N2</span><span class="txt-my">N2 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size:16px;" class="txt-ja">中上級：読解源泉10［中級］</h3>
-        <h3 style="font-size:16px;" class="txt-en">Upper-Intermediate: Dokkai Gensen 10 (Intermediate)</h3>
-        <h3 style="font-size:16px;" class="txt-vi">Trung cao cấp: Dokkai Gensen 10 (Trung cấp)</h3>
-        <h3 style="font-size:16px;" class="txt-uk">Вище середнього: Доккай Ґенсен 10 (Середній)</h3>
-        <h3 style="font-size:16px;" class="txt-id">Menengah Atas: Dokkai Gensen 10 (Menengah)</h3>
-        <h3 style="font-size:16px;" class="txt-ru">Выше среднего: Доккай Гэнсэн 10 (Средний)</h3>
-        <h3 style="font-size:16px;" class="txt-my">အလယ်အလတ်အထက်：Dokkai Gensen 10 (အလယ်အလတ်)</h3>
+        <h3 style="font-size: 18px;" class="txt-ja">中上級：読解源泉10［中級］</h3>
+        <h3 style="font-size: 18px;" class="txt-en">Upper-Intermediate: Dokkai Gensen 10 (Intermediate)</h3>
+        <h3 style="font-size: 18px;" class="txt-vi">Trung cao cấp: Dokkai Gensen 10 (Trung cấp)</h3>
+        <h3 style="font-size: 18px;" class="txt-uk">Вище середнього: Доккай Ґенсен 10 (Середній)</h3>
+        <h3 style="font-size: 18px;" class="txt-id">Menengah Atas: Dokkai Gensen 10 (Menengah)</h3>
+        <h3 style="font-size: 18px;" class="txt-ru">Выше среднего: Доккай Гэнсэн 10 (Средний)</h3>
+        <h3 style="font-size: 18px;" class="txt-my">အလယ်အလတ်အထက်：Dokkai Gensen 10 (အလယ်အလတ်)</h3>
         <p class="txt-zh">能順暢閱讀日本主流報章雜誌之評論、說明文，精確掌握文章脈絡，具備撰寫嚴謹段落作文之能力。</p>
         <p class="txt-en">Read commentary and explanatory articles in major Japanese newspapers and magazines fluently, grasp context precisely, and write well-structured paragraphs.</p>
         <p class="txt-vi">Đọc trôi chảy các bài bình luận, giải thích trên báo và tạp chí lớn của Nhật, nắm bắt chính xác ngữ cảnh, và viết đoạn văn có cấu trúc tốt.</p>
@@ -1926,13 +1926,13 @@
       </div>
       <div class="reason-card" style="padding:26px 22px;">
         <span class="course-tag"><span class="txt-ja">N1 目標</span><span class="txt-zh">N1 目標</span><span class="txt-en">N1 Target</span><span class="txt-vi">Mục tiêu N1</span><span class="txt-uk">Ціль N1</span><span class="txt-id">Target N1</span><span class="txt-ru">Цель N1</span><span class="txt-my">N1 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size:16px;" class="txt-ja">上級：読解源泉10［中上級］</h3>
-        <h3 style="font-size:16px;" class="txt-en">Advanced: Dokkai Gensen 10 (Upper-Intermediate)</h3>
-        <h3 style="font-size:16px;" class="txt-vi">Cao cấp: Dokkai Gensen 10 (Trung cao cấp)</h3>
-        <h3 style="font-size:16px;" class="txt-uk">Просунутий: Доккай Ґенсен 10 (Вище середнього)</h3>
-        <h3 style="font-size:16px;" class="txt-id">Lanjutan: Dokkai Gensen 10 (Menengah Atas)</h3>
-        <h3 style="font-size:16px;" class="txt-ru">Продвинутый: Доккай Гэнсэн 10 (Выше среднего)</h3>
-        <h3 style="font-size:16px;" class="txt-my">အဆင့်မြင့်：Dokkai Gensen 10 (အလယ်အလတ်အထက်)</h3>
+        <h3 style="font-size: 18px;" class="txt-ja">上級：読解源泉10［中上級］</h3>
+        <h3 style="font-size: 18px;" class="txt-en">Advanced: Dokkai Gensen 10 (Upper-Intermediate)</h3>
+        <h3 style="font-size: 18px;" class="txt-vi">Cao cấp: Dokkai Gensen 10 (Trung cao cấp)</h3>
+        <h3 style="font-size: 18px;" class="txt-uk">Просунутий: Доккай Ґенсен 10 (Вище середнього)</h3>
+        <h3 style="font-size: 18px;" class="txt-id">Lanjutan: Dokkai Gensen 10 (Menengah Atas)</h3>
+        <h3 style="font-size: 18px;" class="txt-ru">Продвинутый: Доккай Гэнсэн 10 (Выше среднего)</h3>
+        <h3 style="font-size: 18px;" class="txt-my">အဆင့်မြင့်：Dokkai Gensen 10 (အလယ်အလတ်အထက်)</h3>
         <p class="txt-zh">理解日本社論、政經評論等複雜文章。聽懂自然流暢的日語演講、電視新聞與大學講座，掌握邏輯結構。</p>
         <p class="txt-en">Understand complex texts such as editorials and political/economic commentary. Follow natural-speed speeches, TV news, and university lectures, grasping logical structure.</p>
         <p class="txt-vi">Hiểu các văn bản phức tạp như xã luận và bình luận chính trị/kinh tế. Theo dõi bài phát biểu, tin tức truyền hình và bài giảng đại học với tốc độ tự nhiên, nắm bắt cấu trúc logic.</p>
@@ -2108,40 +2108,40 @@
   <!-- 4月入学 -->
   <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 4月</span>
-      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">2年・4月入学</span><span class="txt-zh">2年・4月入學</span><span class="txt-en">2yr · April</span><span class="txt-vi">2 năm · Tháng 4</span><span class="txt-uk">2 роки · Квітень</span><span class="txt-id">2 thn · April</span><span class="txt-ru">2 года · Апрель</span><span class="txt-my">၂နှစ် · ဧပြီ</span></span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 4月</span>
+      <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">2年・4月入学</span><span class="txt-zh">2年・4月入學</span><span class="txt-en">2yr · April</span><span class="txt-vi">2 năm · Tháng 4</span><span class="txt-uk">2 роки · Квітень</span><span class="txt-id">2 thn · April</span><span class="txt-ru">2 года · Апрель</span><span class="txt-my">၂နှစ် · ဧပြီ</span></span>
     </div>
-    <div style="font-size:13px;color:var(--ink-soft);">
+    <div style="font-size: 15px;color:var(--ink-soft);">
       <span class="txt-ja">📋 出願期間：9〜10月</span><span class="txt-zh">📋 出願期間：9〜10月</span><span class="txt-en">📋 Application: Sep–Oct</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 9–10</span><span class="txt-uk">📋 Подача: Вересень–Жовтень</span><span class="txt-id">📋 Pendaftaran: Sep–Okt</span><span class="txt-ru">📋 Подача: Сент.–Окт.</span><span class="txt-my">📋 လျှောက်ရက်: စက်တင်-အောက်</span>
     </div>
   </div>
   <!-- 7月入学 -->
   <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 7月</span>
-      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">1年9ヶ月・7月入学</span><span class="txt-zh">1年9個月・7月入學</span><span class="txt-en">1.9yr · July</span><span class="txt-vi">1,9 năm · Tháng 7</span><span class="txt-uk">1,9 роки · Липень</span><span class="txt-id">1,9 thn · Juli</span><span class="txt-ru">1,9 года · Июль</span><span class="txt-my">၁.၉နှစ် · ဇူလိုင်</span></span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 7月</span>
+      <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">1年9ヶ月・7月入学</span><span class="txt-zh">1年9個月・7月入學</span><span class="txt-en">1.9yr · July</span><span class="txt-vi">1,9 năm · Tháng 7</span><span class="txt-uk">1,9 роки · Липень</span><span class="txt-id">1,9 thn · Juli</span><span class="txt-ru">1,9 года · Июль</span><span class="txt-my">၁.၉နှစ် · ဇူလိုင်</span></span>
     </div>
-    <div style="font-size:13px;color:var(--ink-soft);">
+    <div style="font-size: 15px;color:var(--ink-soft);">
       <span class="txt-ja">📋 出願期間：1〜2月</span><span class="txt-zh">📋 出願期間：1〜2月</span><span class="txt-en">📋 Application: Jan–Feb</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 1–2</span><span class="txt-uk">📋 Подача: Січень–Лютий</span><span class="txt-id">📋 Pendaftaran: Jan–Feb</span><span class="txt-ru">📋 Подача: Янв.–Фев.</span><span class="txt-my">📋 လျှောက်ရက်: ဇန်-ဖေဖော်</span>
     </div>
   </div>
   <!-- 10月入学 -->
   <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 10月</span>
-      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">1年6ヶ月・10月入学</span><span class="txt-zh">1年6個月・10月入學</span><span class="txt-en">1.6yr · October</span><span class="txt-vi">1,6 năm · Tháng 10</span><span class="txt-uk">1,6 роки · Жовтень</span><span class="txt-id">1,6 thn · Oktober</span><span class="txt-ru">1,6 года · Октябрь</span><span class="txt-my">၁.၆နှစ် · အောက်တိုဘာ</span></span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 10月</span>
+      <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">1年6ヶ月・10月入学</span><span class="txt-zh">1年6個月・10月入學</span><span class="txt-en">1.6yr · October</span><span class="txt-vi">1,6 năm · Tháng 10</span><span class="txt-uk">1,6 роки · Жовтень</span><span class="txt-id">1,6 thn · Oktober</span><span class="txt-ru">1,6 года · Октябрь</span><span class="txt-my">၁.၆နှစ် · အောက်တိုဘာ</span></span>
     </div>
-    <div style="font-size:13px;color:var(--ink-soft);">
+    <div style="font-size: 15px;color:var(--ink-soft);">
       <span class="txt-ja">📋 出願期間：3〜4月</span><span class="txt-zh">📋 出願期間：3〜4月</span><span class="txt-en">📋 Application: Mar–Apr</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 3–4</span><span class="txt-uk">📋 Подача: Березень–Квітень</span><span class="txt-id">📋 Pendaftaran: Mar–Apr</span><span class="txt-ru">📋 Подача: Март–Апр.</span><span class="txt-my">📋 လျှောက်ရက်: မတ်-ဧပြီ</span>
     </div>
   </div>
   <!-- 1月入学 -->
   <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
     <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
-      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 1月</span>
-      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">1年3ヶ月・1月入学</span><span class="txt-zh">1年3個月・1月入學</span><span class="txt-en">1.3yr · January</span><span class="txt-vi">1,3 năm · Tháng 1</span><span class="txt-uk">1,3 роки · Січень</span><span class="txt-id">1,3 thn · Januari</span><span class="txt-ru">1,3 года · Январь</span><span class="txt-my">၁.၃နှစ် · ဇန်နဝါရီ</span></span>
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size: 15px;padding:3px 10px;border-radius:20px;">★ 1月</span>
+      <span style="font-weight:700;font-size: 17px;"><span class="txt-ja">1年3ヶ月・1月入学</span><span class="txt-zh">1年3個月・1月入學</span><span class="txt-en">1.3yr · January</span><span class="txt-vi">1,3 năm · Tháng 1</span><span class="txt-uk">1,3 роки · Січень</span><span class="txt-id">1,3 thn · Januari</span><span class="txt-ru">1,3 года · Январь</span><span class="txt-my">၁.၃နှစ် · ဇန်နဝါရီ</span></span>
     </div>
-    <div style="font-size:13px;color:var(--ink-soft);">
+    <div style="font-size: 15px;color:var(--ink-soft);">
       <span class="txt-ja">📋 出願期間：8〜9月</span><span class="txt-zh">📋 出願期間：8〜9月</span><span class="txt-en">📋 Application: Aug–Sep</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 8–9</span><span class="txt-uk">📋 Подача: Серпень–Вересень</span><span class="txt-id">📋 Pendaftaran: Agu–Sep</span><span class="txt-ru">📋 Подача: Авг.–Сент.</span><span class="txt-my">📋 လျှောက်ရက်: သြဂုတ်-စက်တင်</span>
     </div>
   </div>
@@ -2295,7 +2295,7 @@
     <div id="modalForm">
       <h3 id="modalTitle">Online Inquiry</h3>
       <p class="modal-sub">Please let us know your request. 專任教職員將會盡快與您聯繫。</p>
-      <div id="modalCourseContext" style="display:none; background: var(--bg-washi); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 16px; font-size: 12.5px; color: var(--ink-main);">
+      <div id="modalCourseContext" style="display:none; background: var(--bg-washi); border: 1px solid var(--line); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 16px; font-size: 14px; color: var(--ink-main);">
         <span class="txt-ja">お問い合わせ内容：</span><span class="txt-zh">詢問課程：</span><span class="txt-en">Regarding:</span><span class="txt-vi">Về khóa học:</span><span class="txt-uk">Щодо:</span><span class="txt-id">Mengenai:</span><span class="txt-ru">Относительно:</span><span class="txt-my">အကြောင်းအရာ：</span>
         <b id="modalCourseName"></b>
       </div>
@@ -2314,7 +2314,7 @@
       <label for="modalContactValue" id="modalContactValueLabel" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Contact detail / 聯絡方式內容</label>
       <input type="text" id="modalContactValue" placeholder="Please select a contact method above first / 請先選擇上方的聯絡工具" />
       <button class="btn btn-primary" style="width:100%; justify-content:center;" id="modalSubmit">Get My Study Advice →</button>
-      <p style="font-size:11.5px; color:var(--ink-soft); text-align:center; margin:10px 0 0;">
+      <p style="font-size: 13px; color:var(--ink-soft); text-align:center; margin:10px 0 0;">
         <span class="txt-ja">クリックするとメールアプリが開きます</span><span class="txt-zh">點擊後將為您開啟郵件 App</span><span class="txt-en">Clicking will open your email app</span><span class="txt-vi">Nhấn để mở ứng dụng email của bạn</span><span class="txt-uk">Натискання відкриє ваш поштовий додаток</span><span class="txt-id">Klik untuk membuka aplikasi email Anda</span><span class="txt-ru">Нажатие откроет ваше почтовое приложение</span><span class="txt-my">နှိပ်လိုက်ပါက သင့်အီးမေးလ်အက်ပ် ဖွင့်ပါမည်</span>
       </p>
     </div>
@@ -2334,14 +2334,14 @@
       </div>
       <div>
         <h5 style="color:#FFF; margin:0 0 16px 0; font-family:'Space Grotesk';">CAMPUS DESK</h5>
-        <p style="font-size:13px; margin:0; line-height:1.8;">
+        <p style="font-size: 15px; margin:0; line-height:1.8;">
           4-1-18 Yuko, Chuo-ku, Chiba City, Chiba 260-0013<br>
           TEL 043-330-3300 ／ FAX 043-330-3301<br>
           info@tokyo1-school.com
         </p>
       </div>
     </div>
-    <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:30px; margin-top:30px; font-family:'Space Grotesk', sans-serif; font-size:12px; color:rgba(255,255,255,0.35);">
+    <div style="border-top:1px solid rgba(255,255,255,0.1); padding-top:30px; margin-top:30px; font-family:'Space Grotesk', sans-serif; font-size: 14px; color:rgba(255,255,255,0.35);">
       <span>© 2026 TOKYO ONE. ALL RIGHTS RESERVED.</span>
     </div>
   </div>
