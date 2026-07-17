@@ -402,7 +402,7 @@
   body.page-features     { background-color: #E5C9AF; }
   body.page-achievements { background-color: #E9C48C; }
   body.page-courses      { background-color: #EFEAAC; }
-  body.page-admission    { background-color: #E1C978; }
+  body.page-admission    { background-color: #F7D169; }
 
   body.page-features     header,
   body.page-features     header::after   { background: #E5C9AF; }
@@ -411,7 +411,7 @@
   body.page-courses      header,
   body.page-courses      header::after   { background: #EFEAAC; }
   body.page-admission    header,
-  body.page-admission    header::after   { background: #E1C978; }
+  body.page-admission    header::after   { background: #F7D169; }
 
   header { transition: background-color 0.55s cubic-bezier(0.4, 0, 0.2, 1); }
 
@@ -2879,16 +2879,16 @@
   });
 
   logoTrigger.addEventListener('click', () => {
-    navButtons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected', 'false'); });
-    viewPanes.forEach(p => p.classList.remove('active'));
-    homePane.classList.add('active');
-    homePane.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+    switchModule('pane-home-index');
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    document.getElementById('topAnchor').scrollIntoView({ behavior: 'smooth' });
   });
   // 無障礙：讓 role="button" 的 Logo 也能用鍵盤 Enter / 空白鍵觸發回首頁
   logoTrigger.addEventListener('keydown', (e) => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); logoTrigger.click(); }
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      switchModule('pane-home-index');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   });
 
   const menuToggle = document.getElementById('menuToggle');
