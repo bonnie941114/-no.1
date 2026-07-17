@@ -500,6 +500,53 @@
 
   /* Mobile Layout Adjustment */
   
+  
+  /* ── 三大區塊手機版修正 ───────────────────────────── */
+  @media (max-width: 760px) {
+
+    /* 1. 地圖：縮小顯示，不需橫向捲動 */
+    .map-scroll-wrapper {
+      overflow-x: hidden !important;
+    }
+    .map-scroll-wrapper svg {
+      min-width: unset !important;
+      width: 100% !important;
+      height: auto !important;
+    }
+
+    /* 2. 出願カレンダー：隱藏橫向表格，改顯示垂直卡片 */
+    .adm-timeline { display: none; }
+    .adm-swipe-hint { display: none !important; }
+    .adm-mobile-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+
+    /* 3. 進路テーブル：隱藏table，改顯示垂直卡片 */
+    .career-table-wrap table { display: none; }
+    .career-mobile-cards { display: flex; flex-direction: column; gap: 0; }
+    .career-mobile-item {
+      padding: 14px 0;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .career-mobile-label {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--vibrant-red);
+    }
+    .career-mobile-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--ink-main);
+    }
+  }
+  @media (min-width: 761px) {
+    /* 桌機：隱藏手機版卡片，顯示原本的table和timeline */
+    .adm-mobile-cards { display: none; }
+    .career-mobile-cards { display: none; }
+  }
+
+
   /* ── 手機版全面優化 ──────────────────────────────────── */
   @media (max-width: 900px) {
 
@@ -1454,7 +1501,7 @@
   <h3 style="margin-top:40px;" class="txt-id">Studi Lanjut & Jalur Karier</h3>
   <h3 style="margin-top:40px;" class="txt-ru">Дальнейшее обучение и карьера</h3>
   <h3 style="margin-top:40px;" class="txt-my">အဆက်တိုက် ပညာသင်ကြားမှုနှင့် အသက်မွေးဝမ်းကျောင်း</h3>
-  <table>
+  <div class="career-table-wrap"><table>
     <thead><tr>
       <th><span class="txt-ja">分野</span><span class="txt-zh">分野</span><span class="txt-en">Field</span><span class="txt-vi">Lĩnh vực</span><span class="txt-uk">Напрям</span><span class="txt-id">Bidang</span><span class="txt-ru">Направление</span><span class="txt-my">နယ်ပယ်</span></th>
       <th><span class="txt-ja">内容</span><span class="txt-zh">內容</span><span class="txt-en">Details</span><span class="txt-vi">Chi tiết</span><span class="txt-uk">Деталі</span><span class="txt-id">Detail</span><span class="txt-ru">Подробности</span><span class="txt-my">အသေးစိတ်</span></th>
@@ -1501,7 +1548,25 @@
         <span class="txt-my">ဘွဲ့ရအချို့သည် ပြုစုစောင့်ရှောက်ရေး၊ အစားအသောက်၊ တည်းခိုခန်းစသည့် နယ်ပယ်များတွင် 「ကျွမ်းကျင်မှုအကဲဖြတ်စာမေးပွဲ」ဖြေဆိုကာ အထူးကျွမ်းကျင်မှုဗီဇာဖြင့် ဂျပန်တွင် အလုပ်လုပ်ကြသည် (ဆိုင်ရာနယ်ပယ်နှင့် စာမေးပွဲအကြောင်းအရာမှာ နှစ်အလိုက် ကွာခြားပြီး ကျောင်းမှ ဤလမ်းကြောင်းအတွက် ပြင်ဆင်သင်တန်း သို့မဟုတ် အလုပ်ရှာဖွေရေးဝန်ဆောင်မှု မပေးပါ)။</span>
       </td></tr>
     </tbody>
-  </table>
+  </table></div>
+  <div class="career-mobile-cards">
+  <div class="career-mobile-item">
+    <div class="career-mobile-label"><span class="txt-ja">大学進学</span><span class="txt-zh">大學升學</span><span class="txt-en">University</span><span class="txt-vi">Đại học</span><span class="txt-uk">Університет</span><span class="txt-id">Universitas</span><span class="txt-ru">Университет</span><span class="txt-my">တက္ကသိုလ်</span></div>
+    <div class="career-mobile-desc"><span class="txt-ja">国立千葉大学をはじめ多くの大学が近隣にあり、個人の目標に応じた進学指導を行います</span><span class="txt-zh">鄰近國立千葉大學等多所大學，提供依個人目標訂做的升學指導</span><span class="txt-en">Near Chiba University and many others; tailored advancement guidance for your goals.</span><span class="txt-vi">Gần Đại học Chiba và nhiều trường khác; hướng dẫn thăng tiến theo mục tiêu cá nhân.</span><span class="txt-uk">Поруч з університетом Тіба та іншими; індивідуальне керівництво для вступу.</span><span class="txt-id">Dekat Universitas Chiba dan lainnya; bimbingan lanjut studi sesuai tujuan pribadi.</span><span class="txt-ru">Рядом с университетом Тиба и другими; индивидуальное руководство для поступления.</span><span class="txt-my">Chiba တက္ကသိုလ်နှင့် အခြားများ အနီးရှိ၍ ပုဂ္ဂိုလ်ရေးအကြောင်း ပညာသင်ကြားရေး လမ်းညွှန်မှု ပေးသည်။</span></div>
+  </div>
+  <div class="career-mobile-item">
+    <div class="career-mobile-label"><span class="txt-ja">専門学校</span><span class="txt-zh">專門學校</span><span class="txt-en">Vocational School</span><span class="txt-vi">Trường nghề</span><span class="txt-uk">Профшкола</span><span class="txt-id">Sekolah Vokasi</span><span class="txt-ru">Профшкола</span><span class="txt-my">သက်မွေးသင်တန်း</span></div>
+    <div class="career-mobile-desc"><span class="txt-ja">千葉市内に多数の専門学校があり、志望に応じた学科を選択できます</span><span class="txt-zh">千葉市內多所專門學校，可依志向選擇科系</span><span class="txt-en">Many vocational schools in Chiba City; choose the field that suits your aspirations.</span><span class="txt-vi">Nhiều trường dạy nghề tại thành phố Chiba; lựa chọn ngành phù hợp với nguyện vọng.</span><span class="txt-uk">Багато профшкіл у місті Тіба; оберіть напрям за покликанням.</span><span class="txt-id">Banyak sekolah vokasi di Kota Chiba; pilih jurusan sesuai minat Anda.</span><span class="txt-ru">Много профшкол в городе Тиба; выберите направление по призванию.</span><span class="txt-my">Chiba မြို့တွင် သက်မွေးကျောင်း များရှိ၍ ကိုယ်ပိုင်ရည်ရွယ်ချက်အတိုင်း ဘာသာရပ် ရွေးချယ်နိုင်သည်။</span></div>
+  </div>
+  <div class="career-mobile-item">
+    <div class="career-mobile-label"><span class="txt-ja">就職</span><span class="txt-zh">就職</span><span class="txt-en">Employment</span><span class="txt-vi">Việc làm</span><span class="txt-uk">Працевлаштування</span><span class="txt-id">Pekerjaan</span><span class="txt-ru">Трудоустройство</span><span class="txt-my">အလုပ်အကိုင်</span></div>
+    <div class="career-mobile-desc"><span class="txt-ja">卒業生の専門性に応じて、日本企業への就職をサポートします</span><span class="txt-zh">依據畢業生的專業能力，協助媒合日本企業就職</span><span class="txt-en">We support graduates in finding employment at Japanese companies suited to their expertise.</span><span class="txt-vi">Hỗ trợ sinh viên tốt nghiệp tìm việc tại các công ty Nhật phù hợp với chuyên môn.</span><span class="txt-uk">Підтримуємо випускників у пошуку роботи в японських компаніях за фахом.</span><span class="txt-id">Mendukung lulusan menemukan pekerjaan di perusahaan Jepang sesuai keahlian mereka.</span><span class="txt-ru">Поддерживаем выпускников в поиске работы в японских компаниях по специальности.</span><span class="txt-my">ကျောင်းပြီးဆင်းသူများ၏ ကျွမ်းကျင်မှုအလိုက် ဂျပန်ကုမ္ပဏီများတွင် အလုပ်ရှာဖွေရာ၌ ကူညီပံ့ပိုးသည်။</span></div>
+  </div>
+  <div class="career-mobile-item" style="border-bottom:none;">
+    <div class="career-mobile-label"><span class="txt-ja">特定技能</span><span class="txt-zh">特定技能</span><span class="txt-en">Specified Skilled Worker</span><span class="txt-vi">Kỹ năng đặc định</span><span class="txt-uk">Спеціальна кваліфікація</span><span class="txt-id">Pekerja Terampil Khusus</span><span class="txt-ru">Специальная квалификация</span><span class="txt-my">သတ်မှတ်ကျွမ်းကျင်မှု</span></div>
+    <div class="career-mobile-desc"><span class="txt-ja">介護・外食・宿泊など特定産業分野の「技能測定試験」に合格し、特定技能ビザで就労を目指す卒業生もいます（当校が試験対策や仲介を行うものではありません）</span><span class="txt-zh">部分畢業生選擇參加特定產業技能測定試驗並以特定技能簽證就勞，本校不提供考試對策或仲介服務</span><span class="txt-en">Some graduates pursue the Specified Skilled Worker visa via industry skill tests (the school does not provide exam prep or placement services).</span><span class="txt-vi">Một số sinh viên tốt nghiệp theo đuổi visa Lao động có kỹ năng đặc định (trường không cung cấp luyện thi hay môi giới).</span><span class="txt-uk">Деякі випускники обирають візу кваліфікованого спеціаліста (школа не надає підготовку до іспитів чи посередницькі послуги).</span><span class="txt-id">Beberapa lulusan mengejar visa Pekerja Terampil Khusus (sekolah tidak menyediakan persiapan ujian atau penempatan kerja).</span><span class="txt-ru">Некоторые выпускники выбирают визу квалифицированного специалиста (школа не предоставляет подготовку к экзаменам или посреднические услуги).</span><span class="txt-my">ဘွဲ့ရသူအချို့သည် သတ်မှတ်ကျွမ်းကျင်မှုဗီဇာ ကို ရည်မှန်းသည် (ကျောင်းသည် စာမေးပွဲပြင်ဆင်မှု သို့မဟုတ် အလုပ်ရှာဖွေမှု မပေးပါ)。</span></div>
+  </div>
+</div>
   
   <p class="txt-ja" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">本校は国立千葉大学など多くの高等教育機関に近く、論文作成や模擬面接の個別指導を通じて、理想のキャリアへの道を全力でサポートします。</p>
   <p class="txt-zh" style="margin-top:16px; font-size:14px; color:var(--ink-main); font-weight:700;">學校鄰近國立千葉大學等多所高等教育資源，提供一對一論文準備與模擬面試精緻指導，全力輔導學生踏上理想日本職涯道路。</p>
@@ -2039,6 +2104,49 @@
 
   <div class="adm-timeline reveal">
     <div class="adm-swipe-hint">← <span class="txt-ja">左右にスワイプしてご覧ください</span><span class="txt-zh">左右滑動查看</span><span class="txt-en">Swipe left/right to view</span><span class="txt-vi">Vuốt sang trái/phải để xem</span><span class="txt-uk">Проведіть пальцем ліворуч/праворуч</span><span class="txt-id">Geser kiri/kanan untuk melihat</span><span class="txt-ru">Проведите влево/вправо для просмотра</span><span class="txt-my">ဘယ်/ညာ ပွတ်ဆွဲကြည့်ရှုပါ</span> →</div>
+<div class="adm-mobile-cards">
+  <!-- 4月入学 -->
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 4月</span>
+      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">2年・4月入学</span><span class="txt-zh">2年・4月入學</span><span class="txt-en">2yr · April</span><span class="txt-vi">2 năm · Tháng 4</span><span class="txt-uk">2 роки · Квітень</span><span class="txt-id">2 thn · April</span><span class="txt-ru">2 года · Апрель</span><span class="txt-my">၂နှစ် · ဧပြီ</span></span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);">
+      <span class="txt-ja">📋 出願期間：9〜10月</span><span class="txt-zh">📋 出願期間：9〜10月</span><span class="txt-en">📋 Application: Sep–Oct</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 9–10</span><span class="txt-uk">📋 Подача: Вересень–Жовтень</span><span class="txt-id">📋 Pendaftaran: Sep–Okt</span><span class="txt-ru">📋 Подача: Сент.–Окт.</span><span class="txt-my">📋 လျှောက်ရက်: စက်တင်-အောက်</span>
+    </div>
+  </div>
+  <!-- 7月入学 -->
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 7月</span>
+      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">1年9ヶ月・7月入学</span><span class="txt-zh">1年9個月・7月入學</span><span class="txt-en">1.9yr · July</span><span class="txt-vi">1,9 năm · Tháng 7</span><span class="txt-uk">1,9 роки · Липень</span><span class="txt-id">1,9 thn · Juli</span><span class="txt-ru">1,9 года · Июль</span><span class="txt-my">၁.၉နှစ် · ဇူလိုင်</span></span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);">
+      <span class="txt-ja">📋 出願期間：1〜2月</span><span class="txt-zh">📋 出願期間：1〜2月</span><span class="txt-en">📋 Application: Jan–Feb</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 1–2</span><span class="txt-uk">📋 Подача: Січень–Лютий</span><span class="txt-id">📋 Pendaftaran: Jan–Feb</span><span class="txt-ru">📋 Подача: Янв.–Фев.</span><span class="txt-my">📋 လျှောက်ရက်: ဇန်-ဖေဖော်</span>
+    </div>
+  </div>
+  <!-- 10月入学 -->
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 10月</span>
+      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">1年6ヶ月・10月入学</span><span class="txt-zh">1年6個月・10月入學</span><span class="txt-en">1.6yr · October</span><span class="txt-vi">1,6 năm · Tháng 10</span><span class="txt-uk">1,6 роки · Жовтень</span><span class="txt-id">1,6 thn · Oktober</span><span class="txt-ru">1,6 года · Октябрь</span><span class="txt-my">၁.၆နှစ် · အောက်တိုဘာ</span></span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);">
+      <span class="txt-ja">📋 出願期間：3〜4月</span><span class="txt-zh">📋 出願期間：3〜4月</span><span class="txt-en">📋 Application: Mar–Apr</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 3–4</span><span class="txt-uk">📋 Подача: Березень–Квітень</span><span class="txt-id">📋 Pendaftaran: Mar–Apr</span><span class="txt-ru">📋 Подача: Март–Апр.</span><span class="txt-my">📋 လျှောက်ရက်: မတ်-ဧပြီ</span>
+    </div>
+  </div>
+  <!-- 1月入学 -->
+  <div style="background:var(--bg-white);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;">
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+      <span style="background:var(--vibrant-red);color:#fff;font-weight:800;font-size:13px;padding:3px 10px;border-radius:20px;">★ 1月</span>
+      <span style="font-weight:700;font-size:15px;"><span class="txt-ja">1年3ヶ月・1月入学</span><span class="txt-zh">1年3個月・1月入學</span><span class="txt-en">1.3yr · January</span><span class="txt-vi">1,3 năm · Tháng 1</span><span class="txt-uk">1,3 роки · Січень</span><span class="txt-id">1,3 thn · Januari</span><span class="txt-ru">1,3 года · Январь</span><span class="txt-my">၁.၃နှစ် · ဇန်နဝါရီ</span></span>
+    </div>
+    <div style="font-size:13px;color:var(--ink-soft);">
+      <span class="txt-ja">📋 出願期間：8〜9月</span><span class="txt-zh">📋 出願期間：8〜9月</span><span class="txt-en">📋 Application: Aug–Sep</span><span class="txt-vi">📋 Nộp hồ sơ: Tháng 8–9</span><span class="txt-uk">📋 Подача: Серпень–Вересень</span><span class="txt-id">📋 Pendaftaran: Agu–Sep</span><span class="txt-ru">📋 Подача: Авг.–Сент.</span><span class="txt-my">📋 လျှောက်ရက်: သြဂုတ်-စက်တင်</span>
+    </div>
+  </div>
+</div>
+
     <div class="adm-month-header">
       <div></div>
       <div>1</div><div>2</div><div>3</div><div>4</div><div>5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div>
