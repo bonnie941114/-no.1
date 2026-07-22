@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TOKYO ONE.</title>
+<title>TOKYO ONE. | Tokyo One Japanese Language School, Chiba</title>
 <meta name="description" content="千葉市中心の日本語学校 Tokyo One。JLPT N5〜N1対応の少人数制授業、特約寮での生活サポート、進学・就職・特定技能まで幅広い進路指導。8言語対応サイトで海外からの出願もスムーズに。">
 <meta name="author" content="Tokyo One Japanese Language School">
 
@@ -241,6 +241,36 @@
   .hero-inner { padding-top: 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
   .manifesto-box { background: var(--bg-white); border-left: 4px solid var(--vibrant-red); padding: 30px 40px; margin-bottom: 50px; border-radius: 0 var(--radius) var(--radius) 0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); }
   .manifesto-box h3 { margin: 0 0 16px; font-size: 22px; color: var(--ink-main); }
+  .phil-section { margin-bottom: 56px; }
+  .phil-title { font-size: 26px; font-weight: 800; color: var(--ink-main); margin: 0 0 6px; }
+  .phil-title-sub { font-size: 14px; font-weight: 600; letter-spacing: 0.06em; color: var(--vibrant-red); margin: 0 0 22px; text-transform: uppercase; }
+  .phil-quote { background: var(--bg-white); border-left: 4px solid var(--vibrant-red); padding: 26px 34px; margin-bottom: 32px; border-radius: 0 var(--radius) var(--radius) 0; box-shadow: 0 4px 12px rgba(0,0,0,0.02); font-size: 17px; line-height: 1.9; color: var(--ink-main); }
+  .phil-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .pillar-intro { text-align: center; font-size: 18px; font-weight: 700; color: var(--ink-main); max-width: 720px; margin: 44px auto 28px; line-height: 1.8; }
+  .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 0; }
+  .pillar-card { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px 26px; text-align: center; }
+  .pillar-card .pillar-icon { font-size: 32px; margin-bottom: 14px; }
+  .pillar-card .pillar-num { font-size: 12px; font-weight: 700; letter-spacing: 0.08em; color: var(--vibrant-red); text-transform: uppercase; margin-bottom: 8px; }
+  .pillar-card h4 { margin: 0 0 12px; font-size: 18px; color: var(--ink-main); }
+  .pillar-card p { margin: 0; font-size: 15px; line-height: 1.85; color: var(--ink-soft); text-align: left; }
+  @media (max-width: 760px) {
+    .pillar-grid { grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 86%; overflow-x: auto; scroll-snap-type: x mandatory; gap: 16px; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+    .pillar-card { scroll-snap-align: center; }
+  }
+  .pillar-foundation {
+    border-radius: var(--radius);
+    background: var(--ink-main); color: #fff;
+    padding: 44px 24px; margin-top: 36px; margin-bottom: 8px;
+    text-align: center;
+  }
+  .pillar-foundation .pf-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; color: var(--vibrant-yellow); text-transform: uppercase; margin-bottom: 10px; }
+  .pillar-foundation h4 { font-size: 20px; margin: 0 0 12px; color: #fff; }
+  .pillar-foundation p { font-size: 15px; line-height: 1.85; max-width: 760px; margin: 0 auto; color: rgba(255,255,255,0.85); }
+  .phil-card { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px 30px; }
+  .phil-card .phil-icon { font-size: 26px; margin-bottom: 10px; }
+  .phil-card h4 { margin: 0 0 10px; font-size: 17px; color: var(--ink-main); }
+  .phil-card p { margin: 0; font-size: 15px; line-height: 1.85; color: var(--ink-soft); }
+  @media (max-width: 760px) { .phil-grid { grid-template-columns: 1fr; } }
   .reason-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 26px; margin-bottom: 64px; }
   .reason-card { background: var(--bg-white); padding: 40px 36px 36px; border-radius: var(--radius); border: 1px solid var(--line); position: relative; overflow: hidden; display: flex; flex-direction: column; z-index: 1; }
   .reason-card:nth-child(1), .reason-card:nth-child(2) { grid-column: span 3; }
@@ -1633,6 +1663,7 @@
   <div class="eyebrow">FEATURES</div>
   <h2 style="margin-bottom:40px;" data-i18n="title_feat">学校紹介と特徴</h2>
 
+
   <div class="manifesto-box reveal">
     <h3>教育目標 (Educational Goals)</h3>
     <p class="txt-ja">実用的な日本語と日本文化の教育を提供し、学生の進学（大学、大学院、専門学校）や就職をサポートするとともに、教育活動を通じて国際的な友好交流を促進することを目指しています。</p>
@@ -1700,6 +1731,89 @@
       <p class="txt-id">Tes penempatan memastikan siswa ditempatkan di kelas yang sesuai sempurna dengan kemampuan bahasa Jepang mereka untuk pembelajaran optimal.</p>
       <p class="txt-ru">Тесты распределения гарантируют, что студенты попадают в классы, полностью соответствующие их уровню японского языка для оптимального обучения.</p>
       <p class="txt-my">အဆင့်သတ်မှတ်စာမေးပွဲများက ကျောင်းသားများကို သူတို့၏ ဂျပန်ဘာသာအဆင့်နှင့် အကောင်းဆုံးကိုက်ညီသော အတန်းများသို့ ထည့်သွင်းစေကာ အကောင်းဆုံး သင်ယူမှုရရှိစေသည်။</p>
+    </div>
+  </div>
+
+
+  <div class="phil-section reveal">
+    <div class="phil-title-sub">Our Philosophy &amp; Features</div>
+    <h3 class="phil-title">
+      <span class="txt-zh">學校特徵與教育理念</span>
+      <span class="txt-sc">学校特征与教育理念</span>
+      <span class="txt-ja">学校の特徴と教育理念</span>
+      <span class="txt-en">Our Philosophy &amp; Features</span>
+      <span class="txt-vi">Triết lý &amp; Đặc điểm giáo dục</span>
+      <span class="txt-uk">Наша філософія та особливості</span>
+      <span class="txt-id">Filosofi &amp; Keunggulan Kami</span>
+      <span class="txt-ru">Наша философия и особенности</span>
+      <span class="txt-my">ကျောင်း၏ရည်ရွယ်ချက်နှင့် ထူးခြားချက်များ</span>
+    </h3>
+
+    <div class="phil-quote">
+      <p class="txt-zh">自建校以來，Tokyo One 日本語學校不僅致力於幫助學生掌握日語，更致力於加深他們對日本文化和社會習俗的理解。我們的教育理念是培養能夠在日本社會中有效且自信地進行溝通的個體。</p>
+      <p class="txt-sc">自建校以来，Tokyo One 日本语学校不仅致力于帮助学生掌握日语，更致力于加深他们对日本文化和社会习俗的理解。我们的教育理念是培养能够在日本社会中有效且自信地进行沟通的个体。</p>
+      <p class="txt-ja">開校以来、Tokyo One 日本語学校は学生の日本語習得を支援するだけでなく、日本の文化や社会習慣への理解を深めることにも力を注いできました。私たちの教育理念は、日本社会において効果的かつ自信を持ってコミュニケーションできる人材を育成することです。</p>
+      <p class="txt-en">Since our founding, Tokyo One Japanese Language School has been committed not only to helping students master Japanese, but also to deepening their understanding of Japanese culture and social customs. Our educational philosophy is to nurture individuals who can communicate effectively and confidently within Japanese society.</p>
+      <p class="txt-vi">Kể từ khi thành lập, trường Nhật ngữ Tokyo One không chỉ nỗ lực giúp học viên thành thạo tiếng Nhật mà còn chú trọng đào sâu hiểu biết của họ về văn hóa và phong tục xã hội Nhật Bản. Triết lý giáo dục của chúng tôi là bồi dưỡng những cá nhân có thể giao tiếp hiệu quả và tự tin trong xã hội Nhật Bản.</p>
+      <p class="txt-uk">З моменту заснування школа японської мови Tokyo One прагне не лише допомогти студентам опанувати японську мову, а й поглибити їхнє розуміння японської культури та соціальних звичаїв. Наша освітня філософія полягає у вихованні особистостей, здатних ефективно та впевнено спілкуватися в японському суспільстві.</p>
+      <p class="txt-id">Sejak didirikan, Sekolah Bahasa Jepang Tokyo One tidak hanya berkomitmen membantu siswa menguasai bahasa Jepang, tetapi juga memperdalam pemahaman mereka tentang budaya dan adat istiadat sosial Jepang. Filosofi pendidikan kami adalah membina individu yang mampu berkomunikasi secara efektif dan percaya diri dalam masyarakat Jepang.</p>
+      <p class="txt-ru">С момента основания школа японского языка Tokyo One стремится не только помочь студентам овладеть японским языком, но и углубить их понимание японской культуры и социальных обычаев. Наша образовательная философия — воспитывать людей, способных эффективно и уверенно общаться в японском обществе.</p>
+      <p class="txt-my">တည်ထောင်ချိန်မှစ၍ Tokyo One ဂျပန်ဘာသာကျောင်းသည် ကျောင်းသားများ ဂျပန်ဘာသာစကားကျွမ်းကျင်စေရန် ကူညီရုံသာမက ဂျပန်ယဉ်ကျေးမှုနှင့် လူမှုဓလေ့ထုံးတမ်းများကို နက်နက်ရှိုင်းရှိုင်း နားလည်စေရန်လည်း ကြိုးပမ်းခဲ့ပါသည်။ ကျွန်ုပ်တို့၏ ပညာရေးရည်ရွယ်ချက်မှာ ဂျပန်လူ့အဖွဲ့အစည်းတွင် ထိရောက်စွာနှင့် ယုံကြည်မှုအပြည့်ဖြင့် ဆက်သွယ်ပြောဆိုနိုင်သော ပုဂ္ဂိုလ်များကို မွေးထုတ်ရန် ဖြစ်ပါသည်။</p>
+    </div>
+
+    <div class="phil-grid">
+      <div class="phil-card reveal">
+        <div class="phil-icon">🌟</div>
+        <h4><span class="txt-zh">特色一：以「熱愛生活」為核心</span><span class="txt-sc">特色一：以「热爱生活」为核心</span><span class="txt-ja">特徴①：「生きる力」を核として</span><span class="txt-en">① Zest for Living</span><span class="txt-vi">① Yêu thích cuộc sống</span><span class="txt-uk">① Любов до життя</span><span class="txt-id">① Semangat Hidup</span><span class="txt-ru">① Любовь к жизни</span><span class="txt-my">① ဘဝကို နှစ်သက်မြတ်နိုးမှု</span></h4>
+        <p class="txt-zh">作為一所教育機構，我們秉持日本學校教育的根本目標——「熱愛生活」。我們致力於透過日語教育，培養學生獨立思考、做出正確判斷、有效表達自我，並與社會建立有意義的聯繫，讓每位學生都能擁有充實而成功的人生。</p>
+        <p class="txt-sc">作为一所教育机构，我们秉持日本学校教育的根本目标——「热爱生活」。我们致力于通过日语教育，培养学生独立思考、做出正确判断、有效表达自我，并与社会建立有意义的联系，让每位学生都能拥有充实而成功的人生。</p>
+        <p class="txt-ja">教育機関として、私たちは日本の学校教育の根本目標である「生きる力」を大切にしています。日本語教育を通じて、学生が自ら考え、正しく判断し、自分を効果的に表現し、社会と意味のあるつながりを築く力を育み、充実した人生を歩めるよう支援します。</p>
+        <p class="txt-en">As an educational institution, we uphold "zest for living" — the fundamental goal of Japanese school education. Through Japanese language education, we help students think independently, make sound judgments, express themselves effectively, and build meaningful connections with society, so every student can lead a fulfilling and successful life.</p>
+        <p class="txt-vi">Là một cơ sở giáo dục, chúng tôi trân trọng mục tiêu căn bản của giáo dục trường học Nhật Bản — "yêu thích cuộc sống". Thông qua giáo dục tiếng Nhật, chúng tôi giúp học viên tư duy độc lập, đưa ra phán đoán đúng đắn, thể hiện bản thân hiệu quả và xây dựng những kết nối ý nghĩa với xã hội, để mỗi học viên đều có một cuộc sống trọn vẹn và thành công.</p>
+        <p class="txt-uk">Як освітній заклад, ми дотримуємося фундаментальної мети японської шкільної освіти — «любові до життя». Через навчання японської мови ми допомагаємо студентам мислити самостійно, приймати правильні рішення, ефективно виражати себе та будувати значущі зв'язки із суспільством, щоб кожен студент міг прожити повноцінне й успішне життя.</p>
+        <p class="txt-id">Sebagai lembaga pendidikan, kami menjunjung tinggi tujuan mendasar pendidikan sekolah Jepang — "semangat hidup". Melalui pendidikan bahasa Jepang, kami membantu siswa berpikir mandiri, membuat penilaian yang tepat, mengekspresikan diri secara efektif, dan membangun hubungan yang bermakna dengan masyarakat, sehingga setiap siswa dapat menjalani kehidupan yang memuaskan dan sukses.</p>
+        <p class="txt-ru">Как образовательное учреждение, мы придерживаемся фундаментальной цели японского школьного образования — «любви к жизни». Через обучение японскому языку мы помогаем студентам мыслить самостоятельно, принимать верные решения, эффективно выражать себя и выстраивать значимые связи с обществом, чтобы каждый студент мог прожить насыщенную и успешную жизнь.</p>
+        <p class="txt-my">ပညာရေးအဖွဲ့အစည်းတစ်ခုအနေဖြင့် ဂျပန်ကျောင်းပညာရေး၏ အခြေခံရည်ရွယ်ချက်ဖြစ်သော 「ဘဝကို နှစ်သက်မြတ်နိုးမှု」ကို ကျွန်ုပ်တို့ လေးစားလိုက်နာပါသည်။ ဂျပန်ဘာသာပညာရေးမှတဆင့် ကျောင်းသားများ လွတ်လပ်စွာ တွေးခေါ်နိုင်ရန်၊ မှန်ကန်စွာ ဆုံးဖြတ်နိုင်ရန်၊ မိမိကိုယ်ကို ထိရောက်စွာ ဖော်ပြနိုင်ရန်နှင့် လူ့အဖွဲ့အစည်းနှင့် အဓိပ္ပါယ်ရှိသော ဆက်ဆံရေးတည်ဆောက်နိုင်ရန် ကူညီပေးကာ ကျောင်းသားတိုင်း ပြည့်စုံအောင်မြင်သော ဘဝတစ်ခု ရရှိစေရန် ကြိုးပမ်းပါသည်။</p>
+      </div>
+      <div class="phil-card reveal">
+        <div class="phil-icon">📚</div>
+        <h4><span class="txt-zh">特色二：超越語言習得的全方位支持</span><span class="txt-sc">特色二：超越语言习得的全方位支持</span><span class="txt-ja">特徴②：語学習得を超えた総合サポート</span><span class="txt-en">② Beyond Language Acquisition</span><span class="txt-vi">② Vượt xa việc học ngôn ngữ</span><span class="txt-uk">② Понад вивчення мови</span><span class="txt-id">② Melampaui Pembelajaran Bahasa</span><span class="txt-ru">② За пределами изучения языка</span><span class="txt-my">② ဘာသာစကားသင်ယူမှုထက် ပိုမိုသော</span></h4>
+        <p class="txt-zh">我們提供的教育超越了單純的語言學習。學校為每位學習者的日常生活、未來職業發展、社會參與以及文化理解提供全方位的支持。我們不僅教授實用的日語技能，更將日本的文化背景與社會習俗融入課堂，促進跨文化理解。</p>
+        <p class="txt-sc">我们提供的教育超越了单纯的语言学习。学校为每位学习者的日常生活、未来职业发展、社会参与以及文化理解提供全方位的支持。我们不仅教授实用的日语技能，更将日本的文化背景与社会习俗融入课堂，促进跨文化理解。</p>
+        <p class="txt-ja">私たちの教育は単なる語学学習にとどまりません。学校は学習者一人ひとりの日常生活、将来のキャリア、社会参加、そして文化理解を全面的にサポートします。実用的な日本語スキルの指導に加え、日本の文化的背景や社会習慣を授業に取り入れ、異文化理解を促進します。</p>
+        <p class="txt-en">Our education goes beyond simple language learning. The school provides comprehensive support for every learner's daily life, future career, social participation, and cultural understanding. We teach practical Japanese skills while weaving Japan's cultural background and social customs into the classroom to promote cross-cultural understanding.</p>
+        <p class="txt-vi">Nền giáo dục của chúng tôi vượt xa việc học ngôn ngữ đơn thuần. Nhà trường cung cấp hỗ trợ toàn diện cho cuộc sống hàng ngày, sự nghiệp tương lai, tham gia xã hội và hiểu biết văn hóa của mỗi học viên. Chúng tôi không chỉ dạy kỹ năng tiếng Nhật thực tiễn mà còn lồng ghép bối cảnh văn hóa và phong tục xã hội Nhật Bản vào lớp học, thúc đẩy sự hiểu biết liên văn hóa.</p>
+        <p class="txt-uk">Наша освіта виходить за межі простого вивчення мови. Школа надає всебічну підтримку повсякденного життя, майбутньої кар'єри, соціальної участі та культурного розуміння кожного студента. Ми навчаємо не лише практичних навичок японської мови, а й вплітаємо культурне тло та соціальні звичаї Японії в заняття, сприяючи міжкультурному взаєморозумінню.</p>
+        <p class="txt-id">Pendidikan kami melampaui sekadar pembelajaran bahasa. Sekolah memberikan dukungan menyeluruh untuk kehidupan sehari-hari, karier masa depan, partisipasi sosial, dan pemahaman budaya setiap siswa. Kami tidak hanya mengajarkan keterampilan bahasa Jepang praktis, tetapi juga memasukkan latar belakang budaya dan adat istiadat sosial Jepang ke dalam kelas untuk mendorong pemahaman lintas budaya.</p>
+        <p class="txt-ru">Наше образование выходит за рамки простого изучения языка. Школа оказывает всестороннюю поддержку повседневной жизни, будущей карьере, социальному участию и культурному пониманию каждого студента. Мы обучаем не только практическим навыкам японского языка, но и вплетаем культурный фон и социальные обычаи Японии в занятия, способствуя межкультурному взаимопониманию.</p>
+        <p class="txt-my">ကျွန်ုပ်တို့၏ ပညာရေးသည် ရိုးရိုးဘာသာစကားသင်ယူမှုထက် ပိုပါသည်။ ကျောင်းသားတစ်ဦးချင်းစီ၏ နေ့စဉ်ဘဝ၊ အနာဂတ်အသက်မွေးဝမ်းကြောင်း၊ လူ့အဖွဲ့အစည်းပါဝင်မှုနှင့် ယဉ်ကျေးမှုနားလည်မှုအတွက် ကျောင်းက အပြည့်အဝ ပံ့ပိုးပေးပါသည်။ လက်တွေ့ကျသော ဂျပန်ဘာသာစွမ်းရည်များကို သင်ကြားရုံသာမက ဂျပန်၏ ယဉ်ကျေးမှုနောက်ခံနှင့် လူမှုဓလေ့ထုံးတမ်းများကိုပါ အတန်းထဲသို့ ထည့်သွင်းကာ ယဉ်ကျေးမှုကူးလူးနားလည်မှုကို မြှင့်တင်ပါသည်။</p>
+      </div>
+      <div class="phil-card reveal">
+        <div class="phil-icon">🎯</div>
+        <h4><span class="txt-zh">特色三：培養獨立自主與自信</span><span class="txt-sc">特色三：培养独立自主与自信</span><span class="txt-ja">特徴③：自主性と自信を育む</span><span class="txt-en">③ Learner Autonomy &amp; Confidence</span><span class="txt-vi">③ Tự chủ &amp; Tự tin</span><span class="txt-uk">③ Автономність та впевненість</span><span class="txt-id">③ Kemandirian &amp; Kepercayaan Diri</span><span class="txt-ru">③ Самостоятельность и уверенность</span><span class="txt-my">③ လွတ်လပ်စွာ သင်ယူနိုင်မှုနှင့် ယုံကြည်မှု</span></h4>
+        <p class="txt-zh">我們高度重視培養學習者的自主性，鼓勵學生設定目標並反思進步。透過這種教育方式，學生能培養獨立學習、自信生活和積極參與社會活動的能力，在各種場合中主動解決問題並與他人合作。</p>
+        <p class="txt-sc">我们高度重视培养学习者的自主性，鼓励学生设定目标并反思进步。通过这种教育方式，学生能培养独立学习、自信生活和积极参与社会活动的能力，在各种场合中主动解决问题并与他人合作。</p>
+        <p class="txt-ja">私たちは学習者の自主性を育むことを重視し、学生自身が目標を設定し、進歩を振り返ることを奨励しています。この教育方針を通じて、学生は自立した学習力、自信を持って生活する力、そして社会活動に積極的に参加する力を養い、様々な場面で主体的に課題を解決し、他者と協力できるようになります。</p>
+        <p class="txt-en">We place great importance on nurturing learner autonomy, encouraging students to set goals and reflect on their progress. Through this approach, students develop the ability to learn independently, live with confidence, and actively engage in society — solving problems proactively and collaborating with others in a variety of settings.</p>
+        <p class="txt-vi">Chúng tôi đặc biệt coi trọng việc bồi dưỡng tính tự chủ của học viên, khuyến khích học viên đặt mục tiêu và tự nhìn lại tiến bộ của mình. Qua cách tiếp cận này, học viên phát triển khả năng học tập độc lập, sống tự tin và tích cực tham gia các hoạt động xã hội — chủ động giải quyết vấn đề và hợp tác với người khác trong nhiều bối cảnh khác nhau.</p>
+        <p class="txt-uk">Ми надаємо велике значення розвитку автономності студентів, заохочуючи їх ставити цілі та осмислювати свій прогрес. Завдяки цьому підходу студенти розвивають здатність вчитися самостійно, жити впевнено та активно брати участь у суспільному житті — проактивно вирішувати проблеми та співпрацювати з іншими в різних ситуаціях.</p>
+        <p class="txt-id">Kami sangat mengutamakan pengembangan kemandirian pembelajar, mendorong siswa menetapkan tujuan dan merefleksikan kemajuan mereka. Melalui pendekatan ini, siswa mengembangkan kemampuan belajar mandiri, hidup dengan percaya diri, dan berpartisipasi aktif dalam masyarakat — memecahkan masalah secara proaktif dan berkolaborasi dengan orang lain dalam berbagai situasi.</p>
+        <p class="txt-ru">Мы придаём большое значение развитию самостоятельности учащихся, поощряя студентов ставить цели и анализировать свой прогресс. Благодаря такому подходу студенты развивают способность учиться самостоятельно, жить уверенно и активно участвовать в жизни общества — проактивно решать проблемы и сотрудничать с другими в различных ситуациях.</p>
+        <p class="txt-my">ကျောင်းသားများ၏ လွတ်လပ်စွာဆုံးဖြတ်နိုင်မှုကို ပြုစုပျိုးထောင်ရန် ကျွန်ုပ်တို့ အလေးထားပြီး ကျောင်းသားများကိုယ်တိုင် ရည်မှန်းချက်သတ်မှတ်ကာ တိုးတက်မှုကို ပြန်လည်သုံးသပ်စေရန် အားပေးပါသည်။ ဤပညာရေးနည်းလမ်းမှတဆင့် ကျောင်းသားများသည် လွတ်လပ်စွာသင်ယူနိုင်မှု၊ ယုံကြည်မှုအပြည့်ဖြင့် နေထိုင်နိုင်မှုနှင့် လူ့အဖွဲ့အစည်းလှုပ်ရှားမှုများတွင် တက်ကြွစွာ ပါဝင်နိုင်မှုတို့ကို တည်ဆောက်နိုင်ကာ အခြေအနေအမျိုးမျိုးတွင် ကိုယ်ပိုင်တက်ကြွစွာ ပြဿနာများကိုဖြေရှင်းပြီး သူတစ်ပါးနှင့် ပူးပေါင်းဆောင်ရွက်နိုင်ပါသည်။</p>
+      </div>
+      <div class="phil-card reveal">
+        <div class="phil-icon">🚀</div>
+        <h4><span class="txt-zh">特色四：塑造未來的發展平台</span><span class="txt-sc">特色四：塑造未来的发展平台</span><span class="txt-ja">特徴④：未来を切り拓くプラットフォーム</span><span class="txt-en">④ Shaping Your Future</span><span class="txt-vi">④ Định hình tương lai</span><span class="txt-uk">④ Формування вашого майбутнього</span><span class="txt-id">④ Membentuk Masa Depan Anda</span><span class="txt-ru">④ Формирование вашего будущего</span><span class="txt-my">④ အနာဂတ်ကို ပုံဖော်ခြင်း</span></h4>
+        <p class="txt-zh">這為學生未來的高等教育、就業以及其他許多發展道路提供了更廣闊的機會。我們的學校不僅僅是一個學習日語的地方，更是幫助您為未來職涯、社會融入奠定基礎，並賦予您能力去塑造專屬未來的最佳平台。</p>
+        <p class="txt-sc">这为学生未来的高等教育、就业以及其他许多发展道路提供了更广阔的机会。我们的学校不仅仅是一个学习日语的地方，更是帮助您为未来职涯、社会融入奠定基础，并赋予您能力去塑造专属未来的最佳平台。</p>
+        <p class="txt-ja">これにより、学生の進学、就職、その他さまざまな将来の可能性がより大きく広がります。私たちの学校は単に日本語を学ぶ場ではなく、将来のキャリアや社会への適応の土台を築き、自分だけの未来を切り拓く力を身につけるための最良のプラットフォームです。</p>
+        <p class="txt-en">This opens broader opportunities for students' future higher education, employment, and many other paths. Our school is more than just a place to learn Japanese — it's the ideal platform to lay the groundwork for your future career and social integration, and to empower you to shape a future that's uniquely your own.</p>
+        <p class="txt-vi">Điều này mở ra những cơ hội rộng lớn hơn cho việc học lên cao, việc làm và nhiều con đường phát triển khác của học viên trong tương lai. Trường chúng tôi không chỉ là nơi học tiếng Nhật, mà còn là nền tảng tốt nhất giúp bạn đặt nền móng cho sự nghiệp và hòa nhập xã hội tương lai, đồng thời trao cho bạn khả năng định hình tương lai của riêng mình.</p>
+        <p class="txt-uk">Це відкриває ширші можливості для майбутньої вищої освіти, працевлаштування та багатьох інших шляхів розвитку студентів. Наша школа — це не просто місце для вивчення японської мови, а найкраща платформа, яка допоможе закласти основу для вашої майбутньої кар'єри й соціальної інтеграції та дасть вам змогу формувати власне майбутнє.</p>
+        <p class="txt-id">Ini membuka peluang yang lebih luas untuk pendidikan tinggi, pekerjaan, dan berbagai jalur perkembangan siswa di masa depan. Sekolah kami bukan sekadar tempat belajar bahasa Jepang, melainkan platform terbaik untuk membangun fondasi karier dan integrasi sosial masa depan Anda, serta memberdayakan Anda untuk membentuk masa depan Anda sendiri.</p>
+        <p class="txt-ru">Это открывает более широкие возможности для дальнейшего образования, трудоустройства и многих других путей развития студентов в будущем. Наша школа — это не просто место для изучения японского языка, а лучшая платформа, которая поможет заложить основу вашей будущей карьеры и социальной интеграции и даст вам возможность формировать собственное будущее.</p>
+        <p class="txt-my">၎င်းသည် ကျောင်းသားများ၏ အနာဂတ် အဆင့်မြင့်ပညာရေး၊ အလုပ်အကိုင်နှင့် အခြားဖွံ့ဖြိုးတိုးတက်မှုလမ်းကြောင်းများအတွက် ကျယ်ပြန့်သော အခွင့်အလမ်းများ ဖန်တီးပေးပါသည်။ ကျွန်ုပ်တို့ကျောင်းသည် ဂျပန်ဘာသာသင်ယူရုံမျှသာမက အနာဂတ်အသက်မွေးဝမ်းကျောင်းလုပ်ငန်းနှင့် လူ့အဖွဲ့အစည်းတွင် ပေါင်းစည်းနိုင်ရန် အခြေခံအုတ်မြစ်ချပေးကာ သင့်ကိုယ်ပိုင်အနာဂတ်ကို ပုံဖော်နိုင်စွမ်းရှိသော အကောင်းဆုံးပလက်ဖောင်း ဖြစ်ပါသည်။</p>
+      </div>
     </div>
   </div>
 
@@ -1774,6 +1888,8 @@
       </div>
     </div>
   </div>
+
+
   <button class="cross-link-btn" data-trigger="pane-admission" data-i18n="btn_more_adm">出願手続きを見る →</button>
 </div>
 
@@ -1789,6 +1905,83 @@
     <p class="plaque-zh">「以責任心來培育，帶著自豪將每位學生送出校園。」</p>
     <p class="plaque-en">"To nurture with responsibility, and send them forth with pride."</p>
   </div>
+
+
+  <div class="phil-section reveal">
+    <p class="pillar-intro">
+      <span class="txt-zh">為了培養在日本成功生活所需的技能，我們的課程建立在以下三個教育支柱之上。</span>
+      <span class="txt-sc">为了培养在日本成功生活所需的技能，我们的课程建立在以下三个教育支柱之上。</span>
+      <span class="txt-ja">日本で成功する生活に必要なスキルを育むため、私たちのカリキュラムは以下の3つの教育の柱の上に築かれています。</span>
+      <span class="txt-en">To cultivate the skills needed for a successful life in Japan, our curriculum is built on the following three educational pillars.</span>
+      <span class="txt-vi">Để bồi dưỡng những kỹ năng cần thiết cho một cuộc sống thành công tại Nhật Bản, chương trình học của chúng tôi được xây dựng trên ba trụ cột giáo dục sau đây.</span>
+      <span class="txt-uk">Щоб розвинути навички, необхідні для успішного життя в Японії, наша навчальна програма побудована на трьох освітніх стовпах нижче.</span>
+      <span class="txt-id">Untuk membina keterampilan yang diperlukan bagi kehidupan sukses di Jepang, kurikulum kami dibangun di atas tiga pilar pendidikan berikut.</span>
+      <span class="txt-ru">Чтобы развить навыки, необходимые для успешной жизни в Японии, наша учебная программа построена на трёх образовательных столпах ниже.</span>
+      <span class="txt-my">ဂျပန်တွင် အောင်မြင်သောဘဝတစ်ခု ရရှိစေရန် လိုအပ်သော ကျွမ်းကျင်မှုများကို မွေးထုတ်ရန် ကျွန်ုပ်တို့၏ သင်ရိုးညွှန်းတမ်းကို အောက်ပါ ပညာရေးတိုင် ၃ ခုအပေါ် တည်ဆောက်ထားပါသည်။</span>
+    </p>
+
+    <div class="pillar-grid">
+      <div class="pillar-card reveal">
+        <div class="pillar-icon">🗣️</div>
+        <div class="pillar-num">Pillar 1</div>
+        <h4><span class="txt-zh">支柱一：日語能力培養</span><span class="txt-sc">支柱一：日语能力培养</span><span class="txt-ja">柱①：日本語力の育成</span><span class="txt-en">Japanese Language Proficiency</span><span class="txt-vi">Trụ cột 1: Năng lực tiếng Nhật</span><span class="txt-uk">Стовп 1: Володіння японською</span><span class="txt-id">Pilar 1: Kemahiran Bahasa Jepang</span><span class="txt-ru">Столп 1: Владение японским языком</span><span class="txt-my">တိုင် ၁: ဂျပန်ဘာသာစွမ်းရည်</span></h4>
+        <p class="txt-zh">學生透過聽、說（互動和表達）、寫五項語言活動有系統地發展日語語言技能。從詞彙、文法和語篇組織等基礎知識，到高等教育和就業所需的實用溝通技巧，學習者將掌握能夠在現實生活中有效運用的日語。</p>
+        <p class="txt-sc">学生通过听、说（互动和表达）、写五项语言活动有系统地发展日语语言技能。从词汇、语法和语篇组织等基础知识，到高等教育和就业所需的实用沟通技巧，学习者将掌握能够在现实生活中有效运用的日语。</p>
+        <p class="txt-ja">聞く、話す（やり取り・表現）、書くという5つの言語活動を通じて、学生は日本語力を体系的に伸ばします。語彙・文法・談話構成といった基礎知識から、進学や就職に必要な実践的なコミュニケーション力まで、実生活で活かせる日本語を身につけます。</p>
+        <p class="txt-en">Students systematically develop their Japanese through five language activities: listening, speaking (interaction and production), and writing. From foundational vocabulary, grammar, and discourse organization to the practical communication skills needed for higher education and employment, learners acquire Japanese they can use effectively in real life.</p>
+        <p class="txt-vi">Học viên phát triển kỹ năng tiếng Nhật một cách có hệ thống thông qua năm hoạt động ngôn ngữ: nghe, nói (tương tác và diễn đạt) và viết. Từ kiến thức nền tảng về từ vựng, ngữ pháp và tổ chức văn bản, đến kỹ năng giao tiếp thực tiễn cần thiết cho học lên cao và việc làm, học viên sẽ nắm vững tiếng Nhật có thể sử dụng hiệu quả trong cuộc sống thực tế.</p>
+        <p class="txt-uk">Студенти систематично розвивають японську мову через п'ять мовленнєвих видів діяльності: аудіювання, говоріння (взаємодія та продукування) і письмо. Від базових знань лексики, граматики й побудови тексту до практичних комунікативних навичок, необхідних для вищої освіти та працевлаштування, учні опановують японську, яку можна ефективно застосовувати в реальному житті.</p>
+        <p class="txt-id">Siswa mengembangkan bahasa Jepang secara sistematis melalui lima aktivitas bahasa: mendengarkan, berbicara (interaksi dan produksi), dan menulis. Dari pengetahuan dasar kosakata, tata bahasa, dan organisasi wacana, hingga keterampilan komunikasi praktis yang dibutuhkan untuk pendidikan tinggi dan pekerjaan, pembelajar akan menguasai bahasa Jepang yang dapat digunakan secara efektif dalam kehidupan nyata.</p>
+        <p class="txt-ru">Студенты систематически развивают японский язык через пять видов языковой деятельности: аудирование, говорение (взаимодействие и продукция) и письмо. От базовых знаний лексики, грамматики и построения текста до практических коммуникативных навыков, необходимых для высшего образования и трудоустройства, учащиеся осваивают японский язык, который можно эффективно применять в реальной жизни.</p>
+        <p class="txt-my">ကျောင်းသားများသည် နားထောင်ခြင်း၊ ပြောဆိုခြင်း (အပြန်အလှန်ဆက်သွယ်ခြင်းနှင့် ဖော်ပြခြင်း)၊ ရေးသားခြင်း ဘာသာစကားလှုပ်ရှားမှု ၅ ခုမှတဆင့် ဂျပန်ဘာသာစွမ်းရည်ကို စနစ်တကျ တိုးတက်စေပါသည်။ ဝေါဟာရ၊ သဒ္ဒါနှင့် စာပိုဒ်ဖွဲ့စည်းမှုအခြေခံမှသည် အဆင့်မြင့်ပညာရေးနှင့် အလုပ်အကိုင်အတွက် လိုအပ်သော လက်တွေ့ဆက်သွယ်ရေးစွမ်းရည်အထိ သင်ယူသူများသည် လက်တွေ့ဘဝတွင် ထိရောက်စွာ အသုံးပြုနိုင်သော ဂျပန်ဘာသာစကားကို ကျွမ်းကျင်စွာ ရရှိပါလိမ့်မည်။</p>
+      </div>
+      <div class="pillar-card reveal">
+        <div class="pillar-icon">🤝</div>
+        <div class="pillar-num">Pillar 2</div>
+        <h4><span class="txt-zh">支柱二：適應日本社會</span><span class="txt-sc">支柱二：适应日本社会</span><span class="txt-ja">柱②：日本社会への適応</span><span class="txt-en">Adapting to Japanese Society</span><span class="txt-vi">Trụ cột 2: Thích nghi với xã hội Nhật Bản</span><span class="txt-uk">Стовп 2: Адаптація до японського суспільства</span><span class="txt-id">Pilar 2: Beradaptasi dengan Masyarakat Jepang</span><span class="txt-ru">Столп 2: Адаптация к японскому обществу</span><span class="txt-my">တိုင် ၂: ဂျပန်လူ့အဖွဲ့အစည်းနှင့် လိုက်လျောညီထွေဖြစ်မှု</span></h4>
+        <p class="txt-zh">我們培養學習者在各種環境中（包括日常生活、學術研究和日本的工作場所）獨立解決問題和積極主動地與他人合作的能力。</p>
+        <p class="txt-sc">我们培养学习者在各种环境中（包括日常生活、学术研究和日本的工作场所）独立解决问题和积极主动地与他人合作的能力。</p>
+        <p class="txt-ja">日常生活、学術的な学び、そして日本の職場など、さまざまな場面において、学習者が自ら課題を解決し、主体的に他者と協力できる力を育みます。</p>
+        <p class="txt-en">We cultivate learners' ability to solve problems independently and proactively collaborate with others across a variety of settings — including daily life, academic study, and Japanese workplaces.</p>
+        <p class="txt-vi">Chúng tôi bồi dưỡng khả năng giải quyết vấn đề độc lập và chủ động hợp tác với người khác của học viên trong nhiều môi trường khác nhau — bao gồm cuộc sống hàng ngày, nghiên cứu học thuật và nơi làm việc tại Nhật Bản.</p>
+        <p class="txt-uk">Ми розвиваємо в учнів здатність самостійно вирішувати проблеми та проактивно співпрацювати з іншими в різних умовах — включаючи повсякденне життя, академічне навчання та японські робочі місця.</p>
+        <p class="txt-id">Kami mengembangkan kemampuan pembelajar untuk memecahkan masalah secara mandiri dan berkolaborasi secara proaktif dengan orang lain di berbagai lingkungan — termasuk kehidupan sehari-hari, studi akademis, dan tempat kerja di Jepang.</p>
+        <p class="txt-ru">Мы развиваем у учащихся способность самостоятельно решать проблемы и проактивно сотрудничать с другими в различных условиях — включая повседневную жизнь, академическую учёбу и японские рабочие места.</p>
+        <p class="txt-my">နေ့စဉ်ဘဝ၊ ပညာရပ်ဆိုင်ရာသင်ယူမှုနှင့် ဂျပန်အလုပ်ခွင်များအပါအဝင် အခြေအနေအမျိုးမျိုးတွင် သင်ယူသူများ ကိုယ်တိုင်ပြဿနာဖြေရှင်းနိုင်မှုနှင့် တက်ကြွစွာ သူတစ်ပါးနှင့် ပူးပေါင်းဆောင်ရွက်နိုင်မှုကို ကျွန်ုပ်တို့ မွေးထုတ်ပေးပါသည်။</p>
+      </div>
+      <div class="pillar-card reveal">
+        <div class="pillar-icon">🎌</div>
+        <div class="pillar-num">Pillar 3</div>
+        <h4><span class="txt-zh">支柱三：了解日本文化</span><span class="txt-sc">支柱三：了解日本文化</span><span class="txt-ja">柱③：日本文化の理解</span><span class="txt-en">Understanding Japanese Culture</span><span class="txt-vi">Trụ cột 3: Hiểu biết văn hóa Nhật Bản</span><span class="txt-uk">Стовп 3: Розуміння японської культури</span><span class="txt-id">Pilar 3: Memahami Budaya Jepang</span><span class="txt-ru">Столп 3: Понимание японской культуры</span><span class="txt-my">တိုင် ၃: ဂျပန်ယဉ်ကျေးမှု နားလည်မှု</span></h4>
+        <p class="txt-zh">我校的日語教學將文化背景、價值觀和社會習俗融入課堂學習。學生將培養理解和尊重日本文化以及自身文化背景的能力，從而促進跨文化相互理解。</p>
+        <p class="txt-sc">我校的日语教学将文化背景、价值观和社会习俗融入课堂学习。学生将培养理解和尊重日本文化以及自身文化背景的能力，从而促进跨文化相互理解。</p>
+        <p class="txt-ja">本校の日本語教育では、文化的背景、価値観、社会習慣を授業に取り入れています。学生は日本文化と自身の文化的背景の両方を理解し尊重する力を養い、異文化相互理解を促進します。</p>
+        <p class="txt-en">Our Japanese language teaching weaves cultural background, values, and social customs into classroom learning. Students develop the ability to understand and respect both Japanese culture and their own cultural background, fostering mutual cross-cultural understanding.</p>
+        <p class="txt-vi">Việc giảng dạy tiếng Nhật của trường chúng tôi lồng ghép bối cảnh văn hóa, giá trị quan và phong tục xã hội vào việc học trên lớp. Học viên sẽ phát triển khả năng hiểu và tôn trọng cả văn hóa Nhật Bản lẫn nền văn hóa của chính mình, từ đó thúc đẩy sự hiểu biết lẫn nhau giữa các nền văn hóa.</p>
+        <p class="txt-uk">Наше навчання японської мови вплітає культурне тло, цінності та соціальні звичаї в навчання на заняттях. Студенти розвивають здатність розуміти й поважати як японську культуру, так і власне культурне тло, сприяючи взаємному міжкультурному розумінню.</p>
+        <p class="txt-id">Pengajaran bahasa Jepang di sekolah kami memasukkan latar belakang budaya, nilai-nilai, dan adat istiadat sosial ke dalam pembelajaran di kelas. Siswa akan mengembangkan kemampuan memahami dan menghormati budaya Jepang maupun latar belakang budaya mereka sendiri, sehingga mendorong saling pengertian lintas budaya.</p>
+        <p class="txt-ru">Наше преподавание японского языка вплетает культурный фон, ценности и социальные обычаи в занятия. Студенты развивают способность понимать и уважать как японскую культуру, так и собственный культурный фон, способствуя взаимному межкультурному пониманию.</p>
+        <p class="txt-my">ကျွန်ုပ်တို့ကျောင်း၏ ဂျပန်ဘာသာသင်ကြားမှုတွင် ယဉ်ကျေးမှုနောက်ခံ၊ တန်ဖိုးထားမှုများနှင့် လူမှုဓလေ့ထုံးတမ်းများကို အတန်းသင်ယူမှုထဲသို့ ထည့်သွင်းထားပါသည်။ ကျောင်းသားများသည် ဂျပန်ယဉ်ကျေးမှုနှင့် မိမိကိုယ်ပိုင် ယဉ်ကျေးမှုနောက်ခံ နှစ်ခုစလုံးကို နားလည်လေးစားနိုင်မှုကို တည်ဆောက်ကာ ယဉ်ကျေးမှုကူးလူး အပြန်အလှန်နားလည်မှုကို မြှင့်တင်ပေးပါသည်။</p>
+      </div>
+    </div>
+
+    <div class="pillar-foundation reveal">
+      <div class="pf-label">Foundation</div>
+      <h4>
+        <span class="txt-zh">核心基礎：培養自主學習能力</span><span class="txt-sc">核心基础：培养自主学习能力</span><span class="txt-ja">基盤：自律学習力の育成</span><span class="txt-en">Foundation: Building Learner Autonomy</span><span class="txt-vi">Nền tảng: Xây dựng tính tự chủ học tập</span><span class="txt-uk">Основа: Розвиток автономності учнів</span><span class="txt-id">Fondasi: Membangun Kemandirian Belajar</span><span class="txt-ru">Основа: Развитие самостоятельности учащихся</span><span class="txt-my">အခြေခံအုတ်မြစ်: လွတ်လပ်စွာသင်ယူနိုင်မှု တည်ဆောက်ခြင်း</span>
+      </h4>
+      <p class="txt-zh">作為支撐這三大教育支柱的基礎，我們高度重視培養學生的自主學習能力。我們鼓勵學生設定自己的學習目標，制定學習計劃，付諸實踐，反思學習進度，並在整個學習過程中不斷改進學習策略。</p>
+      <p class="txt-sc">作为支撑这三大教育支柱的基础，我们高度重视培养学生的自主学习能力。我们鼓励学生设定自己的学习目标，制定学习计划，付诸实践，反思学习进度，并在整个学习过程中不断改进学习策略。</p>
+      <p class="txt-ja">この3つの教育の柱を支える基盤として、私たちは学生の自律学習力の育成を重視しています。学生自身が学習目標を設定し、学習計画を立てて実行し、進捗を振り返りながら、学習過程全体を通じて学習方法を絶えず改善していくことを奨励しています。</p>
+      <p class="txt-en">As the foundation supporting these three educational pillars, we place great importance on developing students' learner autonomy. We encourage students to set their own learning goals, create study plans, put them into practice, reflect on their progress, and continuously refine their learning strategies throughout the process.</p>
+      <p class="txt-vi">Là nền tảng hỗ trợ ba trụ cột giáo dục này, chúng tôi đặc biệt coi trọng việc xây dựng tính tự chủ học tập của học viên. Chúng tôi khuyến khích học viên tự đặt mục tiêu học tập, lập kế hoạch học tập, thực hiện nó, tự nhìn lại tiến độ học tập, và không ngừng cải thiện chiến lược học tập trong suốt quá trình học.</p>
+      <p class="txt-uk">Як основа, що підтримує ці три освітні стовпи, ми надаємо велике значення розвитку автономності навчання студентів. Ми заохочуємо студентів ставити власні навчальні цілі, складати навчальні плани, втілювати їх у життя, осмислювати свій прогрес і постійно вдосконалювати навчальні стратегії протягом усього процесу навчання.</p>
+      <p class="txt-id">Sebagai fondasi yang menopang ketiga pilar pendidikan ini, kami sangat mengutamakan pengembangan kemandirian belajar siswa. Kami mendorong siswa untuk menetapkan tujuan belajar mereka sendiri, menyusun rencana belajar, melaksanakannya, merefleksikan kemajuan belajar, dan terus menyempurnakan strategi belajar sepanjang proses.</p>
+      <p class="txt-ru">Как основа, поддерживающая эти три образовательных столпа, мы придаём большое значение развитию самостоятельности обучения студентов. Мы поощряем студентов ставить собственные учебные цели, составлять учебные планы, воплощать их в жизнь, анализировать свой прогресс и постоянно совершенствовать учебные стратегии на протяжении всего процесса.</p>
+      <p class="txt-my">ဤပညာရေးတိုင် ၃ ခုကို ထောက်ပံ့ပေးသော အခြေခံအုတ်မြစ်အနေဖြင့် ကျောင်းသားများ၏ လွတ်လပ်စွာသင်ယူနိုင်မှုကို ပြုစုပျိုးထောင်ရန် ကျွန်ုပ်တို့ အလေးထားပါသည်။ ကျောင်းသားများ ကိုယ်တိုင် သင်ယူမှုပန်းတိုင်များ သတ်မှတ်ကာ၊ သင်ယူမှုအစီအစဉ် ရေးဆွဲကာ လက်တွေ့ကျင့်သုံးကာ၊ တိုးတက်မှုကို ပြန်လည်သုံးသပ်ကာ၊ သင်ယူမှုလုပ်ငန်းစဉ်တစ်လျှောက်လုံးတွင် သင်ယူမှုနည်းဗျူဟာများကို အဆက်မပြတ် တိုးတက်အောင်လုပ်ဆောင်ရန် ကျွန်ုပ်တို့ အားပေးပါသည်။</p>
+    </div>
+  </div>
+
 
   <div class="achieve-split">
     <div class="gauge-panel reveal" id="gaugeZone">
