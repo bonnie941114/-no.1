@@ -23,7 +23,7 @@
 <meta name="twitter:image" content="http://tokyo1-school.com/wp/wp-content/uploads/2026/04/%E6%96%B0%E6%A0%A1%E8%88%8EHP%E7%94%A8-1.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Space+Grotesk:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@600;700&family=Space+Grotesk:wght@500;700;900&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     /* Wafu Heavy Yellow Theme (Aged Old Japanese Paper) */
@@ -212,6 +212,7 @@
 
   /* 滑鼠懸停提示框：讓數字自己說話 */
   .big-number[data-tip] { position: relative; cursor: help; }
+  .big-number[data-tip] { text-decoration: underline; text-decoration-style: dotted; text-decoration-color: rgba(211,35,42,0.5); text-underline-offset: 6px; }
   .big-number[data-tip]::after {
     position: absolute; left: 50%; bottom: calc(100% + 12px); transform: translateX(-50%) translateY(6px);
     width: max-content; max-width: 260px; background: #FBF6EF; color: var(--ink-main);
@@ -223,6 +224,7 @@
   .big-number[data-tip]:hover::after, .big-number[data-tip]:focus::after { opacity: 1; transform: translateX(-50%) translateY(0); }
   body.lang-ja .big-number[data-tip]::after { content: attr(data-tip-ja); }
   body.lang-zh .big-number[data-tip]::after { content: attr(data-tip-zh); }
+  body.lang-sc .big-number[data-tip]::after { content: attr(data-tip-sc); }
   body.lang-en .big-number[data-tip]::after { content: attr(data-tip-en); }
   body.lang-vi .big-number[data-tip]::after { content: attr(data-tip-vi); }
   body.lang-uk .big-number[data-tip]::after { content: attr(data-tip-uk); }
@@ -321,12 +323,33 @@
 
   .achieve-split { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 60px; align-items: center; margin-bottom: 50px; }
   .gauge-panel { background: var(--bg-white); padding: 44px; border-radius: var(--radius); text-align: center; border: 1px solid var(--line); display: flex; flex-direction: column; align-items: center; }
-  .gauge-svg-container { position: relative; width: 180px; height: 180px; margin-bottom: 20px; }
-  .gauge-svg-container svg { transform: rotate(-90deg); width: 100%; height: 100%; }
-  .gauge-track { fill: none; stroke: var(--bg-washi); stroke-width: 14; }
-  .gauge-fill { fill: none; stroke: var(--vibrant-red); stroke-width: 14; stroke-linecap: round; stroke-dasharray: 440; stroke-dashoffset: 440; transition: stroke-dashoffset 1.4s cubic-bezier(0.4, 0, 0.2, 1); }
-  .gauge-panel.in .gauge-fill { stroke-dashoffset: 9; }
-  .gauge-counter { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: "Space Grotesk", sans-serif; font-size: 46px; font-weight: 700; }
+  .year-flip { display: flex; gap: 8px; justify-content: center; margin-bottom: 16px; }
+  .year-tile {
+    position: relative; width: 54px; height: 74px;
+    background: var(--bg-washi); border: 1px solid var(--line); border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 6px 14px rgba(35,33,32,0.08), inset 0 1px 0 rgba(255,255,255,0.6);
+    overflow: hidden;
+  }
+  .year-tile::before {
+    content: ""; position: absolute; inset: 0 0 50% 0;
+    background: linear-gradient(rgba(255,255,255,0.35), rgba(255,255,255,0));
+  }
+  .year-tile::after {
+    content: ""; position: absolute; left: 0; right: 0; top: 50%;
+    height: 3px; margin-top: -1.5px;
+    background: rgba(35,33,32,0.35);
+    box-shadow: 0 1px 0 rgba(255,255,255,0.4);
+  }
+  .year-tile span {
+    position: relative; z-index: 1;
+    font-family: "Space Grotesk", sans-serif; font-weight: 900; font-size: 36px;
+    color: var(--ink-main); line-height: 1;
+  }
+  @media (max-width: 480px) {
+    .year-tile { width: 44px; height: 62px; }
+    .year-tile span { font-size: 30px; }
+  }
   .num-stat-row { display: grid; grid-template-columns: 120px 1fr; gap: 24px; align-items: center; background: rgba(255,255,255,0.3); padding: 24px 32px; border-radius: var(--radius); border-left: 4px solid var(--line); margin-bottom: 16px; }
   .num-stat-row .big-number { font-family: "Space Grotesk", sans-serif; font-size: 37px; font-weight: 700; }
   
@@ -1998,9 +2021,11 @@
 
   <div class="achieve-split">
     <div class="gauge-panel reveal" id="gaugeZone">
-      <div class="gauge-svg-container">
-        <svg viewBox="0 0 160 160"><circle cx="80" cy="80" r="70" class="gauge-track" /><circle cx="80" cy="80" r="70" class="gauge-fill" /></svg>
-        <div class="gauge-counter num" data-target="2016" data-suffix="">0</div>
+      <div class="year-flip">
+        <div class="year-tile"><span>2</span></div>
+        <div class="year-tile"><span>0</span></div>
+        <div class="year-tile"><span>1</span></div>
+        <div class="year-tile"><span>6</span></div>
       </div>
       <div class="gauge-label"><span class="txt-ja">設立年</span><span class="txt-zh">設立年份</span><span class="txt-sc">设立年份</span><span class="txt-en">Founded</span><span class="txt-vi">Thành lập</span><span class="txt-uk">Засновано</span><span class="txt-id">Didirikan</span><span class="txt-ru">Основана</span><span class="txt-my">တည်ထောင်နှစ်</span></div>
     </div>
@@ -2010,6 +2035,7 @@
           data-tip
           data-tip-ja="日本の法律で定められた留学生の合法的な労働時間の上限です。学校はアルバイト探しを全力でサポートします。"
           data-tip-zh="此為日本法律保障之留學生最高打工工時，校方全力支持打工媒合。"
+          data-tip-sc="此为日本法律保障之留学生最高打工工时，校方全力支持打工媒合。"
           data-tip-en="This is the legal maximum working hours for international students under Japanese law. The school fully supports job matching."
           data-tip-vi="Đây là giới hạn giờ làm thêm hợp pháp tối đa cho du học sinh theo luật Nhật Bản. Trường hỗ trợ toàn diện việc tìm việc làm thêm."
           data-tip-uk="Це законний максимум робочих годин для іноземних студентів за японським законодавством. Школа повністю підтримує пошук роботи."
@@ -2039,6 +2065,7 @@
           data-tip
           data-tip-ja="完全な初心者から上級者まで、5段階のレベル別クラスで自分の進度に合った学習ができます。"
           data-tip-zh="從零基礎到高階，共5個級別分班教學，讓每位學生都能依自己的進度學習。"
+          data-tip-sc="从零基础到高阶，共5个级别分班教学，让每位学生都能依自己的进度学习。"
           data-tip-en="From complete beginner to advanced, 5 level-based classes let every student learn at their own pace."
           data-tip-vi="Từ mới bắt đầu đến nâng cao, 5 cấp độ lớp học giúp mỗi học viên học theo tốc độ của riêng mình."
           data-tip-uk="Від повного початківця до просунутого рівня — 5 класів за рівнями дозволяють кожному вчитися у своєму темпі."
