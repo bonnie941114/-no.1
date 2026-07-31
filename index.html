@@ -211,6 +211,30 @@
   .reason-card, .course-card, .access-card, .doc-card, .life-card, .req-card, .testimonial-card { transition: transform 0.3s ease, box-shadow 0.3s ease, opacity 0.7s cubic-bezier(0.22,1,0.36,1), border-color 0.25s ease; }
   .reason-card:hover, .course-card:hover, .life-card:hover, .req-card:hover, .access-card:hover, .doc-card:hover, .testimonial-card:hover { transform: translateY(-6px); box-shadow: 0 14px 28px rgba(35,33,32,0.08); border-color: var(--vibrant-red); }
   .reason-card:active, .course-card:active, .life-card:active, .req-card:active, .access-card:active, .doc-card:active, .testimonial-card:active { transform: translateY(-3px) scale(0.99); transition: transform 0.12s ease; }
+
+  /* Level tabs + accordion (curriculum) */
+  .staircase { display:flex; gap:8px; margin:28px 0 32px; overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch; flex-wrap:wrap; }
+  .stair-step { flex:0 0 auto; background:var(--bg-white); border:1.5px solid var(--line); border-radius:999px; text-align:center; padding:9px 18px; font-weight:700; font-size:13px; line-height:1.3; color:var(--ink-soft); cursor:pointer; display:inline-flex; align-items:center; justify-content:center; transition: all .2s ease; white-space:nowrap; }
+  .stair-step:hover { color:var(--vibrant-red); border-color:var(--vibrant-red); }
+  .stair-step.active { color:var(--bg-white); background:var(--vibrant-red); border-color:var(--vibrant-red); }
+  .curriculum-accordion { border-top:2px solid var(--line); padding-top:4px; }
+  .accordion-item { border:1px solid var(--line); border-radius:var(--radius); margin-top:12px; overflow:hidden; background:var(--bg-white); }
+  .accordion-header { width:100%; text-align:left; background:transparent; border:none; padding:18px 20px; font-weight:700; font-size:15px; cursor:pointer; display:flex; align-items:flex-start; gap:12px; font-family:inherit; color:var(--ink-main); }
+  .accordion-header .acc-plus { font-size:20px; color:var(--vibrant-red); font-weight:400; transition: transform .25s ease; flex-shrink:0; line-height:1.2; }
+  .accordion-item.open .acc-plus { transform:rotate(45deg); }
+  .accordion-item.open .accordion-header { border-bottom:1px dashed var(--line); }
+  .accordion-body { max-height:0; overflow:hidden; transition: max-height .4s ease; }
+  .accordion-item.open .accordion-body { max-height:1200px; }
+  .level-skills { display:grid; grid-template-columns: repeat(3, 1fr); gap:16px; padding:20px; }
+  .skill-item { display:flex; gap:12px; background: rgba(35,33,32,0.035); padding:16px; border-radius:var(--radius); border:1px solid var(--line); }
+  .skill-icon { font-size:20px; flex-shrink:0; line-height:1.4; }
+  .skill-body b { color:var(--ink-main); }
+  .skill-body p { color:var(--ink-soft); font-size:13.5px; line-height:1.6; }
+  @media (max-width: 768px) {
+    .stair-step { font-size:12px; padding:8px 14px; }
+    .accordion-header { padding:14px 16px; font-size:14px; }
+    .level-skills { grid-template-columns: 1fr; padding:14px; }
+  }
   .num-stat-row .big-number { transition: transform 0.3s ease; }
   .num-stat-row:hover .big-number { transform: scale(1.06); color: var(--vibrant-red); }
 
@@ -2676,99 +2700,443 @@
   </div>
 
   <div class="schedule-block reveal" style="background:var(--bg-white); padding:40px; border:1px solid var(--line); border-radius:var(--radius); margin-bottom:40px;">
-    <h3 class="txt-ja" style="margin-top:0;">レベル別カリキュラムと教材 (Curriculum & Materials)</h3>
-    <h3 class="txt-zh" style="margin-top:0;">課程級別與教材 (Curriculum & Materials)</h3><h3 class="txt-sc" style="margin-top:0;">课程级別与教材 (Curriculum & Materials)</h3>
-    <h3 class="txt-en" style="margin-top:0;">Curriculum & Materials by Level</h3><h3 class="txt-hi" style="margin-top:0;">स्तर के अनुसार पाठ्यक्रम और सामग्री</h3><h3 class="txt-ne" style="margin-top:0;">तहअनुसार पाठ्यक्रम र सामग्री</h3><h3 class="txt-si" style="margin-top:0;">මට්ටම අනුව විෂය මාලාව සහ ද්‍රව්‍ය</h3>
+            <h3 class="txt-ja" style="margin-top:0;">レベル別カリキュラムと教材</h3>
+    <h3 class="txt-zh" style="margin-top:0;">課程級別與教材</h3>
+    <h3 class="txt-sc" style="margin-top:0;">课程级别与教材</h3>
+    <h3 class="txt-en" style="margin-top:0;">Curriculum & Materials by Level</h3>
     <h3 class="txt-vi" style="margin-top:0;">Chương trình học & Giáo trình theo cấp độ</h3>
     <h3 class="txt-uk" style="margin-top:0;">Навчальна програма та матеріали за рівнями</h3>
     <h3 class="txt-id" style="margin-top:0;">Kurikulum & Materi per Tingkat</h3>
     <h3 class="txt-ru" style="margin-top:0;">Учебная программа и материалы по уровням</h3>
     <h3 class="txt-my" style="margin-top:0;">အဆင့်အလိုက် သင်ရိုးနှင့် သင်ကြားရေးပစ္စည်းများ</h3>
-    <div class="reason-grid" style="margin-bottom:0; margin-top:24px;">
-      <div class="reason-card" style="padding:26px 22px;">
-        <span class="course-tag"><span class="txt-ja">N5 目標</span><span class="txt-zh">N5 目標</span><span class="txt-sc">N5 目标</span><span class="txt-en">N5 Target</span><span class="txt-hi">N5 लक्ष्य</span><span class="txt-ne">N5 लक्ष्य</span><span class="txt-si">N5 ඉලක්කය</span><span class="txt-vi">Mục tiêu N5</span><span class="txt-uk">Ціль N5</span><span class="txt-id">Target N5</span><span class="txt-ru">Цель N5</span><span class="txt-my">N5 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size: 18px;" class="txt-ja">初級：みんなの日本語 I</h3>
-        <h3 style="font-size: 18px;" class="txt-en">Beginner: Minna no Nihongo I</h3>
-        <h3 style="font-size: 18px;" class="txt-vi">Sơ cấp: Minna no Nihongo I</h3>
-        <h3 style="font-size: 18px;" class="txt-uk">Початковий: Мінна но Ніхонго I</h3>
-        <h3 style="font-size: 18px;" class="txt-id">Pemula: Minna no Nihongo I</h3>
-        <h3 style="font-size: 18px;" class="txt-ru">Начальный: Минна но Нихонго I</h3>
-        <h3 style="font-size: 18px;" class="txt-my">အခြေခံအဆင့်：Minna no Nihongo I</h3>
-        <p class="txt-zh">扎實復習並掌握基礎日語變化與基本句型、平假名與片假名書寫，培養教室與生活簡單對話聽力。</p><p class="txt-sc">扎实復習並掌握基礎日语变化与基本句型、平假名与片假名书寫，培养教室与生活简單对话听力。</p>
-        <p class="txt-en">Master basic Japanese conjugation, core sentence patterns, and Hiragana/Katakana writing, while building listening skills for simple classroom and daily conversation.</p><p class="txt-hi">मूल जापानी क्रिया रूपांतरण, मुख्य वाक्य पैटर्न, और हीरागाना/काताकाना लेखन में महारत हासिल करें, साथ ही सरल कक्षा और दैनिक बातचीत के लिए सुनने का कौशल विकसित करें।</p><p class="txt-ne">आधारभूत जापानी क्रिया रूप, मूल वाक्य ढाँचा, र हिरागाना/काताकाना लेखनमा दक्ष हुनुहोस्, साथै सामान्य कक्षा र दैनिक कुराकानीका लागि सुन्ने सीप निर्माण गर्दै।</p><p class="txt-si">සරල පන්ති කාමර සහ දෛනික සංවාද සඳහා ශ්‍රවණ කුසලතා ගොඩනඟමින්, මූලික ජපන් ක්‍රියා පද, මූලික වාක්‍ය රටා සහ හිරගනා/කටකනා ලිවීම ප්‍රගුණ කරන්න.</p>
-        <p class="txt-vi">Nắm vững chia động từ cơ bản, mẫu câu cốt lõi và cách viết Hiragana/Katakana, đồng thời xây dựng kỹ năng nghe cho hội thoại đơn giản trong lớp và đời sống.</p>
-        <p class="txt-uk">Опануйте базове відмінювання дієслів, основні речові конструкції та письмо Хіраґана/Катакана, розвиваючи навички слухання для простих розмов у класі та побуті.</p>
-        <p class="txt-id">Kuasai konjugasi dasar bahasa Jepang, pola kalimat inti, dan penulisan Hiragana/Katakana, sambil membangun keterampilan mendengarkan untuk percakapan sederhana di kelas dan sehari-hari.</p>
-        <p class="txt-ru">Освойте базовое спряжение японских глаголов, основные конструкции предложений и письмо Хирагана/Катакана, развивая навыки аудирования для простых разговоров в классе и в быту.</p>
-        <p class="txt-my">ဂျပန်ကြိယာ အခြေခံပြောင်းလဲမှု၊ အခြေခံဝါကျပုံစံများနှင့် Hiragana/Katakana စာရေးနည်းကို ကျွမ်းကျင်စွာသင်ယူကာ အတန်းနှင့် နေ့စဉ်ရိုးရှင်းသောစကားပြောမှုအတွက် နားထောင်နားလည်စွမ်းရည်ကို တည်ဆောက်ပါ။</p>
+    <h3 class="txt-hi" style="margin-top:0;">स्तर के अनुसार पाठ्यक्रम और सामग्री</h3>
+    <h3 class="txt-ne" style="margin-top:0;">तहअनुसार पाठ्यक्रम र सामग्री</h3>
+    <h3 class="txt-si" style="margin-top:0;">මට්ටම අනුව විෂය මාලාව සහ ද්‍රව්‍ය</h3>
+    <div class="staircase" role="tablist">
+      <div class="stair-step active" data-level="1" onclick="toggleAccordion(1)" role="tab" aria-selected="true">
+        <span class="txt-ja">N5 入門</span>
+        <span class="txt-zh">N5 入門</span>
+        <span class="txt-sc">N5 入门</span>
+        <span class="txt-en">N5 Basics</span>
+        <span class="txt-vi">N5 Cơ bản</span>
+        <span class="txt-uk">N5 Основи</span>
+        <span class="txt-id">N5 Dasar</span>
+        <span class="txt-ru">N5 Основы</span>
+        <span class="txt-my">N5 အခြေခံ</span>
+        <span class="txt-hi">N5 आधार</span>
+        <span class="txt-ne">N5 आधार</span>
+        <span class="txt-si">N5 මූලික</span>
       </div>
-      <div class="reason-card" style="padding:26px 22px;">
-        <span class="course-tag"><span class="txt-ja">N4–N3 目標</span><span class="txt-zh">N4–N3 目標</span><span class="txt-sc">N4–N3 目标</span><span class="txt-en">N4–N3 Target</span><span class="txt-hi">N4–N3 लक्ष्य</span><span class="txt-ne">N4–N3 लक्ष्य</span><span class="txt-si">N4–N3 ඉලක්කය</span><span class="txt-vi">Mục tiêu N4–N3</span><span class="txt-uk">Ціль N4–N3</span><span class="txt-id">Target N4–N3</span><span class="txt-ru">Цель N4–N3</span><span class="txt-my">N4–N3 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size: 18px;" class="txt-ja">初中級：みんなの日本語 II</h3>
-        <h3 style="font-size: 18px;" class="txt-en">Elementary-Intermediate: Minna no Nihongo II</h3>
-        <h3 style="font-size: 18px;" class="txt-vi">Sơ trung cấp: Minna no Nihongo II</h3>
-        <h3 style="font-size: 18px;" class="txt-uk">Нижче середнього: Мінна но Ніхонго II</h3>
-        <h3 style="font-size: 18px;" class="txt-id">Pra-Menengah: Minna no Nihongo II</h3>
-        <h3 style="font-size: 18px;" class="txt-ru">Ниже среднего: Минна но Нихонго II</h3>
-        <h3 style="font-size: 18px;" class="txt-my">အလယ်အလတ်အောက်အဆင့်：Minna no Nihongo II</h3>
-        <p class="txt-zh">深度掌握自動詞與他動詞、被動態、使役態以及基本敬語文法。熟練掌握基本漢字讀寫。</p><p class="txt-sc">深度掌握自动词与他动词、被动态、使役态以及基本敬语文法。熟練掌握基本汉字读寫。</p>
-        <p class="txt-en">Deepen mastery of transitive/intransitive verbs, passive and causative forms, and basic honorific grammar, along with core Kanji reading and writing.</p><p class="txt-hi">सकर्मक/अकर्मक क्रियाओं, कर्मवाच्य और प्रेरणार्थक रूपों, तथा मूल सम्मानसूचक व्याकरण के साथ-साथ मुख्य कांजी पढ़ना और लिखना गहन करें।</p><p class="txt-ne">सकर्मक/अकर्मक क्रियाहरू, कर्मवाच्य र प्रेरणार्थक रूपहरू, र आधारभूत सम्मानसूचक व्याकरणसँगै मूल काञ्जी पढ्ने र लेख्नेमा दक्षता गहिरो बनाउनुहोस्।</p><p class="txt-si">සකර්මක/අකර්මක ක්‍රියා පද, කර්තෘ භාව හා හේතුකාරක ස්වරූප, සහ මූලික ගෞරවනීය ව්‍යාකරණ මෙන්ම මූලික කන්ජි කියවීම හා ලිවීම ගැඹුරු කරන්න.</p>
-        <p class="txt-vi">Nâng cao khả năng sử dụng động từ tự động/tha động, thể bị động và sai khiến, ngữ pháp kính ngữ cơ bản, cùng đọc viết Kanji cốt lõi.</p>
-        <p class="txt-uk">Поглибте володіння перехідними/неперехідними дієсловами, пасивним і каузативним станом та базовою ввічливою граматикою разом з основним читанням і письмом кандзі.</p>
-        <p class="txt-id">Perdalam penguasaan kata kerja transitif/intransitif, bentuk pasif dan kausatif, serta tata bahasa hormat dasar, bersama dengan membaca dan menulis Kanji inti.</p>
-        <p class="txt-ru">Углубите владение переходными/непереходными глаголами, страдательным и побудительным залогом, базовой вежливой грамматикой, а также основным чтением и письмом кандзи.</p>
-        <p class="txt-my">ကူးပြောင်း/မကူးပြောင်းကြိယာများ၊ ခံစားချက်ဝါကျနှင့် ပြုစေကြိယာ၊ အခြေခံယဉ်ကျေးသောသဒ္ဒါနှင့် အခြေခံ Kanji ဖတ်ခြင်းနှင့်ရေးခြင်းကို နက်ရှိုင်းစွာကျွမ်းကျင်အောင်လုပ်ပါ။</p>
+      <div class="stair-step" data-level="2" onclick="toggleAccordion(2)" role="tab" aria-selected="false">
+        <span class="txt-ja">N4-N3 進階</span>
+        <span class="txt-zh">N4-N3 進階</span>
+        <span class="txt-sc">N4-N3 进阶</span>
+        <span class="txt-en">N4-N3 Elementary</span>
+        <span class="txt-vi">N4-N3 Sơ trung</span>
+        <span class="txt-uk">N4-N3 Елементарний</span>
+        <span class="txt-id">N4-N3 Menengah Awal</span>
+        <span class="txt-ru">N4-N3 Элементарный</span>
+        <span class="txt-my">N4-N3 အလယ်အလတ်အောက်</span>
+        <span class="txt-hi">N4-N3 प्रारंभिक-मध्य</span>
+        <span class="txt-ne">N4-N3 प्रारम्भिक-मध्य</span>
+        <span class="txt-si">N4-N3 මූලික-මධ්‍යම</span>
       </div>
-      <div class="reason-card" style="padding:26px 22px;">
-        <span class="course-tag"><span class="txt-ja">N3–N2 目標</span><span class="txt-zh">N3–N2 目標</span><span class="txt-sc">N3–N2 目标</span><span class="txt-en">N3–N2 Target</span><span class="txt-hi">N3–N2 लक्ष्य</span><span class="txt-ne">N3–N2 लक्ष्य</span><span class="txt-si">N3–N2 ඉලක්කය</span><span class="txt-vi">Mục tiêu N3–N2</span><span class="txt-uk">Ціль N3–N2</span><span class="txt-id">Target N3–N2</span><span class="txt-ru">Цель N3–N2</span><span class="txt-my">N3–N2 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size: 18px;" class="txt-ja">中級：中級を学ぼう</h3>
-        <h3 style="font-size: 18px;" class="txt-en">Intermediate: Chukyu wo Manabou</h3>
-        <h3 style="font-size: 18px;" class="txt-vi">Trung cấp: Chukyu wo Manabou</h3>
-        <h3 style="font-size: 18px;" class="txt-uk">Середній: Чукю о Манабо</h3>
-        <h3 style="font-size: 18px;" class="txt-id">Menengah: Chukyu wo Manabou</h3>
-        <h3 style="font-size: 18px;" class="txt-ru">Средний: Тюкю о Манабо</h3>
-        <h3 style="font-size: 18px;" class="txt-my">အလယ်အလတ်အဆင့်：Chukyu wo Manabou</h3>
-        <p class="txt-zh">完全熟練N3進階文法並延伸理解N2。培養接近日本人日常語速的聽解力，以及閱讀報紙新聞摘要之能力。</p><p class="txt-sc">完全熟練N3进階文法並延伸理解N2。培养接近日本人日常语速的听解力，以及閱读报纸新聞摘要之能力。</p>
-        <p class="txt-en">Fully master advanced N3 grammar and extend into N2. Build listening comprehension close to natural speaking speed, and the ability to read newspaper summaries.</p><p class="txt-hi">उन्नत N3 व्याकरण में पूरी तरह महारत हासिल करें और N2 तक विस्तार करें। स्वाभाविक बोलने की गति के करीब सुनने की समझ, तथा समाचार पत्र सारांश पढ़ने की क्षमता विकसित करें।</p><p class="txt-ne">उन्नत N3 व्याकरणमा पूर्ण दक्षता हासिल गर्नुहोस् र N2 सम्म विस्तार गर्नुहोस्। स्वाभाविक बोल्ने गतिनजिकको सुनाइ बुझाइ, र पत्रिका सारांश पढ्ने क्षमता निर्माण गर्नुहोस्।</p><p class="txt-si">උසස් N3 ව්‍යාකරණ සම්පූර්ණයෙන් ප්‍රගුණ කර N2 දක්වා දිගු කරන්න. ස්වාභාවික කථන වේගයට ආසන්න ශ්‍රවණ අවබෝධය, සහ පුවත්පත් සාරාංශ කියවීමේ හැකියාව ගොඩනඟන්න.</p>
-        <p class="txt-vi">Nắm vững hoàn toàn ngữ pháp N3 nâng cao và mở rộng sang N2. Xây dựng khả năng nghe hiểu gần với tốc độ nói tự nhiên, và khả năng đọc tóm tắt báo chí.</p>
-        <p class="txt-uk">Повністю опануйте просунуту граматику N3 та розширте знання до N2. Розвивайте розуміння на слух, близьке до природної швидкості мовлення, та вміння читати газетні резюме.</p>
-        <p class="txt-id">Kuasai sepenuhnya tata bahasa N3 tingkat lanjut dan perluas ke N2. Bangun pemahaman mendengarkan mendekati kecepatan bicara alami, dan kemampuan membaca ringkasan surat kabar.</p>
-        <p class="txt-ru">Полностью освойте продвинутую грамматику N3 и расширьте знания до N2. Развивайте понимание на слух, близкое к естественной скорости речи, и умение читать газетные резюме.</p>
-        <p class="txt-my">N3 အဆင့်မြင့်သဒ္ဒါကို လုံးဝကျွမ်းကျင်စေပြီး N2 အထိ တိုးချဲ့ပါ။ သဘာဝပြောနှုန်းနှင့်နီးစပ်သော နားထောင်နားလည်မှုနှင့် သတင်းစာအကျဉ်းချုပ်ဖတ်နိုင်စွမ်းကို တည်ဆောက်ပါ။</p>
+      <div class="stair-step" data-level="3" onclick="toggleAccordion(3)" role="tab" aria-selected="false">
+        <span class="txt-ja">N3-N2 中級</span>
+        <span class="txt-zh">N3-N2 中級</span>
+        <span class="txt-sc">N3-N2 中级</span>
+        <span class="txt-en">N3-N2 Intermediate</span>
+        <span class="txt-vi">N3-N2 Trung cấp</span>
+        <span class="txt-uk">N3-N2 Середній</span>
+        <span class="txt-id">N3-N2 Menengah</span>
+        <span class="txt-ru">N3-N2 Средний</span>
+        <span class="txt-my">N3-N2 အလယ်အလတ်</span>
+        <span class="txt-hi">N3-N2 मध्यवर्ती</span>
+        <span class="txt-ne">N3-N2 मध्यवर्ती</span>
+        <span class="txt-si">N3-N2 මධ්‍යම</span>
       </div>
-      <div class="reason-card" style="padding:26px 22px;">
-        <span class="course-tag"><span class="txt-ja">N2 目標</span><span class="txt-zh">N2 目標</span><span class="txt-sc">N2 目标</span><span class="txt-en">N2 Target</span><span class="txt-hi">N2 लक्ष्य</span><span class="txt-ne">N2 लक्ष्य</span><span class="txt-si">N2 ඉලක්කය</span><span class="txt-vi">Mục tiêu N2</span><span class="txt-uk">Ціль N2</span><span class="txt-id">Target N2</span><span class="txt-ru">Цель N2</span><span class="txt-my">N2 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size: 18px;" class="txt-ja">中上級：読解源泉10［中級］</h3>
-        <h3 style="font-size: 18px;" class="txt-en">Upper-Intermediate: Dokkai Gensen 10 (Intermediate)</h3>
-        <h3 style="font-size: 18px;" class="txt-vi">Trung cao cấp: Dokkai Gensen 10 (Trung cấp)</h3>
-        <h3 style="font-size: 18px;" class="txt-uk">Вище середнього: Доккай Ґенсен 10 (Середній)</h3>
-        <h3 style="font-size: 18px;" class="txt-id">Menengah Atas: Dokkai Gensen 10 (Menengah)</h3>
-        <h3 style="font-size: 18px;" class="txt-ru">Выше среднего: Доккай Гэнсэн 10 (Средний)</h3>
-        <h3 style="font-size: 18px;" class="txt-my">အလယ်အလတ်အထက်：Dokkai Gensen 10 (အလယ်အလတ်)</h3>
-        <p class="txt-zh">能順暢閱讀日本主流報章雜誌之評論、說明文，精確掌握文章脈絡，具備撰寫嚴謹段落作文之能力。</p><p class="txt-sc">能順暢閱读日本主流报章雜誌之评论、说明文，精确掌握文章脈絡，具备撰寫严謹段落作文之能力。</p>
-        <p class="txt-en">Read commentary and explanatory articles in major Japanese newspapers and magazines fluently, grasp context precisely, and write well-structured paragraphs.</p><p class="txt-hi">प्रमुख जापानी समाचार पत्रों और पत्रिकाओं में टिप्पणी और व्याख्यात्मक लेखों को धाराप्रवाह पढ़ें, संदर्भ को सटीक रूप से समझें, और सुव्यवस्थित अनुच्छेद लिखें।</p><p class="txt-ne">प्रमुख जापानी पत्रिका र समाचारपत्रका टिप्पणी र व्याख्यात्मक लेखहरू धाराप्रवाह पढ्नुहोस्, सन्दर्भ सटीक रूपमा बुझ्नुहोस्, र राम्रोसँग संरचित अनुच्छेद लेख्नुहोस्।</p><p class="txt-si">ප්‍රධාන ජපන් පුවත්පත් සහ සඟරාවල විවරණ හා පැහැදිලි කිරීමේ ලිපි නිදහසේ කියවා, සන්දර්භය නිවැරදිව අවබෝධ කරගෙන, හොඳින් සංවිධානය වූ ඡේද ලියන්න.</p>
-        <p class="txt-vi">Đọc trôi chảy các bài bình luận, giải thích trên báo và tạp chí lớn của Nhật, nắm bắt chính xác ngữ cảnh, và viết đoạn văn có cấu trúc tốt.</p>
-        <p class="txt-uk">Вільно читайте коментарі та пояснювальні статті в провідних японських газетах і журналах, точно розумійте контекст та пишіть добре структуровані абзаци.</p>
-        <p class="txt-id">Baca komentar dan artikel penjelasan di surat kabar dan majalah besar Jepang dengan lancar, pahami konteks secara akurat, dan tulis paragraf yang terstruktur dengan baik.</p>
-        <p class="txt-ru">Свободно читайте комментарии и пояснительные статьи в ведущих японских газетах и журналах, точно понимайте контекст и пишите хорошо структурированные абзацы.</p>
-        <p class="txt-my">ဂျပန်ခေါင်းဆောင်သတင်းစာများနှင့် မဂ္ဂဇင်းများရှိ မှတ်ချက်များနှင့် ရှင်းလင်းချက်ဆောင်းပါးများကို ကျွမ်းကျင်စွာဖတ်ပြီး အကြောင်းအရာကို တိကျစွာနားလည်ကာ ကောင်းစွာဖွဲ့စည်းထားသော အပိုဒ်များကို ရေးသားပါ။</p>
+      <div class="stair-step" data-level="4" onclick="toggleAccordion(4)" role="tab" aria-selected="false">
+        <span class="txt-ja">N2 中上級</span>
+        <span class="txt-zh">N2 中高階</span>
+        <span class="txt-sc">N2 中高阶</span>
+        <span class="txt-en">N2 Upper-Intermediate</span>
+        <span class="txt-vi">N2 Trung cao</span>
+        <span class="txt-uk">N2 Вище середнього</span>
+        <span class="txt-id">N2 Menengah Atas</span>
+        <span class="txt-ru">N2 Выше среднего</span>
+        <span class="txt-my">N2 အလယ်အလတ်အထက်</span>
+        <span class="txt-hi">N2 मध्य-उच्च</span>
+        <span class="txt-ne">N2 मध्य-उच्च</span>
+        <span class="txt-si">N2 මධ්‍ය-උසස්</span>
       </div>
-      <div class="reason-card" style="padding:26px 22px;">
-        <span class="course-tag"><span class="txt-ja">N1 目標</span><span class="txt-zh">N1 目標</span><span class="txt-sc">N1 目标</span><span class="txt-en">N1 Target</span><span class="txt-hi">N1 लक्ष्य</span><span class="txt-ne">N1 लक्ष्य</span><span class="txt-si">N1 ඉලක්කය</span><span class="txt-vi">Mục tiêu N1</span><span class="txt-uk">Ціль N1</span><span class="txt-id">Target N1</span><span class="txt-ru">Цель N1</span><span class="txt-my">N1 ရည်မှန်းချက်</span></span>
-        <h3 style="font-size: 18px;" class="txt-ja">上級：読解源泉10［中上級］</h3>
-        <h3 style="font-size: 18px;" class="txt-en">Advanced: Dokkai Gensen 10 (Upper-Intermediate)</h3>
-        <h3 style="font-size: 18px;" class="txt-vi">Cao cấp: Dokkai Gensen 10 (Trung cao cấp)</h3>
-        <h3 style="font-size: 18px;" class="txt-uk">Просунутий: Доккай Ґенсен 10 (Вище середнього)</h3>
-        <h3 style="font-size: 18px;" class="txt-id">Lanjutan: Dokkai Gensen 10 (Menengah Atas)</h3>
-        <h3 style="font-size: 18px;" class="txt-ru">Продвинутый: Доккай Гэнсэн 10 (Выше среднего)</h3>
-        <h3 style="font-size: 18px;" class="txt-my">အဆင့်မြင့်：Dokkai Gensen 10 (အလယ်အလတ်အထက်)</h3>
-        <p class="txt-zh">理解日本社論、政經評論等複雜文章。聽懂自然流暢的日語演講、電視新聞與大學講座，掌握邏輯結構。</p><p class="txt-sc">理解日本社论、政經评论等複雜文章。听懂自然流暢的日语演讲、电视新聞与大学讲座，掌握邏輯结構。</p>
-        <p class="txt-en">Understand complex texts such as editorials and political/economic commentary. Follow natural-speed speeches, TV news, and university lectures, grasping logical structure.</p><p class="txt-hi">संपादकीय और राजनीतिक/आर्थिक टिप्पणी जैसे जटिल पाठों को समझें। स्वाभाविक गति के भाषण, टीवी समाचार, और विश्वविद्यालय व्याख्यानों का अनुसरण करें, तार्किक संरचना को समझते हुए।</p><p class="txt-ne">सम्पादकीय र राजनीतिक/आर्थिक टिप्पणी जस्ता जटिल पाठ बुझ्नुहोस्। स्वाभाविक गतिका भाषण, टिभी समाचार, र विश्वविद्यालय व्याख्यानहरू अनुसरण गर्नुहोस्, तार्किक संरचना बुझ्दै।</p><p class="txt-si">සංස්කාරක ලිපි සහ දේශපාලන/ආර්ථික විවරණ වැනි සංකීර්ණ පාඨ තේරුම් ගන්න. තාර්කික ව්‍යුහය අවබෝධ කරගනිමින්, ස්වාභාවික වේගයේ දේශන, රූපවාහිනී පුවත් සහ විශ්ව විද්‍යාල දේශන අනුගමනය කරන්න.</p>
-        <p class="txt-vi">Hiểu các văn bản phức tạp như xã luận và bình luận chính trị/kinh tế. Theo dõi bài phát biểu, tin tức truyền hình và bài giảng đại học với tốc độ tự nhiên, nắm bắt cấu trúc logic.</p>
-        <p class="txt-uk">Розумійте складні тексти, такі як передові статті та політико-економічні коментарі. Слідкуйте за промовами, теленовинами та університетськими лекціями з природною швидкістю, розуміючи логічну структуру.</p>
-        <p class="txt-id">Pahami teks kompleks seperti editorial dan komentar politik/ekonomi. Ikuti pidato, berita TV, dan kuliah universitas dengan kecepatan alami, memahami struktur logis.</p>
-        <p class="txt-ru">Понимайте сложные тексты, такие как передовицы и политико-экономические комментарии. Следите за речами, теленовостями и университетскими лекциями с естественной скоростью, понимая логическую структуру.</p>
-        <p class="txt-my">ခေါင်းကြီးဆောင်းပါးများနှင့် နိုင်ငံရေး/စီးပွားရေးမှတ်ချက်များကဲ့သို့ ရှုပ်ထွေးသောစာသားများကို နားလည်ပါ။ သဘာဝပြောနှုန်းဖြင့် မိန့်ခွန်းများ၊ TV သတင်းများနှင့် တက္ကသိုလ်စာသင်ချိန်များကို လိုက်လျောညီထွေရှိစွာ နားလည်ကာ ယုတ္တိဗေဒဆိုင်ရာဖွဲ့စည်းပုံကို နားလည်ပါ။</p>
+      <div class="stair-step" data-level="5" onclick="toggleAccordion(5)" role="tab" aria-selected="false">
+        <span class="txt-ja">N1 上級</span>
+        <span class="txt-zh">N1 高級</span>
+        <span class="txt-sc">N1 高级</span>
+        <span class="txt-en">N1 Advanced</span>
+        <span class="txt-vi">N1 Cao cấp</span>
+        <span class="txt-uk">N1 Просунутий</span>
+        <span class="txt-id">N1 Lanjutan</span>
+        <span class="txt-ru">N1 Продвинутый</span>
+        <span class="txt-my">N1 အဆင့်မြင့်</span>
+        <span class="txt-hi">N1 उन्नत</span>
+        <span class="txt-ne">N1 उन्नत</span>
+        <span class="txt-si">N1 උසස්</span>
+      </div>
+    </div>
+    <div class="curriculum-accordion" style="margin-top:28px;">
+      <div class="accordion-item open" data-level="1">
+        <button class="accordion-header" onclick="toggleAccordion(1)" type="button">
+          <span class="acc-plus">+</span>
+          <span class="acc-title">
+            <span class="txt-ja">01. 入門基礎（指定教材：《みんなの日本語 I》）</span>
+            <span class="txt-zh">01. 入門基礎（指定教材：《大家的日本語 I》）</span>
+            <span class="txt-sc">01. 入门基础（指定教材：《大家的日本语 I》）</span>
+            <span class="txt-en">01. Beginner Foundation（Textbook：《Minna no Nihongo I》）</span>
+            <span class="txt-vi">01. Nền tảng sơ cấp（Giáo trình：《Minna no Nihongo I》）</span>
+            <span class="txt-uk">01. Початкова основа（Підручник：《Мінна но Ніхонго I》）</span>
+            <span class="txt-id">01. Fondasi Pemula（Buku Teks：《Minna no Nihongo I》）</span>
+            <span class="txt-ru">01. Начальная основа（Учебник：《Минна но Нихонго I》）</span>
+            <span class="txt-my">01. အခြေခံအဆင့်（သတ်မှတ်စာအုပ်：《Minna no Nihongo I》）</span>
+            <span class="txt-hi">01. आधारभूत नींव（निर्धारित पाठ्यपुस्तक：《Minna no Nihongo I》）</span>
+            <span class="txt-ne">01. आधारभूत जग（निर्धारित पाठ्यपुस्तक：《Minna no Nihongo I》）</span>
+            <span class="txt-si">01. මූලික පදනම（නිර්දේශිත පෙළපොත：《Minna no Nihongo I》）</span>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="level-skills">
+            <div class="skill-item">
+              <div class="skill-icon">✏️</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>文法と作文</b><p style="margin:4px 0 0;">初級の基本文型・文法を復習し、基礎的な文型・文法・語彙を用いて、まとまりのある文章を書くことができる。</p></div>
+                <div class="txt-zh"><b>文法與寫作</b><p style="margin:4px 0 0;">復習初級基本句型與文法，能運用基礎句型、文法與詞彙寫出結構完整的文章。</p></div>
+                <div class="txt-sc"><b>语法与写作</b><p style="margin:4px 0 0;">复习初级基本句型与语法，能运用基础句型、语法与词汇写出结构完整的文章。</p></div>
+                <div class="txt-en"><b>Grammar & Writing</b><p style="margin:4px 0 0;">Review beginner-level sentence patterns and grammar; write well-structured passages using basic sentence patterns, grammar, and vocabulary.</p></div>
+                <div class="txt-vi"><b>Ngữ pháp & Viết</b><p style="margin:4px 0 0;">Ôn tập mẫu câu và ngữ pháp sơ cấp cơ bản; có thể viết đoạn văn có cấu trúc hoàn chỉnh bằng mẫu câu, ngữ pháp và từ vựng cơ bản.</p></div>
+                <div class="txt-uk"><b>Граматика та письмо</b><p style="margin:4px 0 0;">Повторення базових речових конструкцій та граматики початкового рівня; вміння писати структуровані тексти, використовуючи базові конструкції, граматику та лексику.</p></div>
+                <div class="txt-id"><b>Tata Bahasa & Menulis</b><p style="margin:4px 0 0;">Meninjau pola kalimat dan tata bahasa dasar tingkat pemula; mampu menulis paragraf terstruktur menggunakan pola kalimat, tata bahasa, dan kosakata dasar.</p></div>
+                <div class="txt-ru"><b>Грамматика и письмо</b><p style="margin:4px 0 0;">Повторение базовых речевых конструкций и грамматики начального уровня; умение писать структурированные тексты с использованием базовых конструкций, грамматики и лексики.</p></div>
+                <div class="txt-my"><b>သဒ္ဒါနှင့် ရေးသားခြင်း</b><p style="margin:4px 0 0;">အခြေခံအဆင့် အခြေခံဝါကျပုံစံများနှင့် သဒ္ဒါကို ပြန်လည်လေ့လာပြီး၊ အခြေခံဝါကျပုံစံ၊ သဒ္ဒါနှင့် ဝေါဟာရများကို အသုံးပြု၍ ဖွဲ့စည်းမှုပြည့်စုံသော စာစီစာကုံးများ ရေးသားနိုင်သည်။</p></div>
+                <div class="txt-hi"><b>व्याकरण और लेखन</b><p style="margin:4px 0 0;">प्रारंभिक स्तर के वाक्य पैटर्न और व्याकरण की समीक्षा करें; बुनियादी वाक्य पैटर्न, व्याकरण और शब्दावली का उपयोग करके सुव्यवस्थित अनुच्छेद लिखें।</p></div>
+                <div class="txt-ne"><b>व्याकरण र लेखन</b><p style="margin:4px 0 0;">प्रारम्भिक तहका वाक्य ढाँचा र व्याकरणको समीक्षा गर्नुहोस्; आधारभूत वाक्य ढाँचा, व्याकरण र शब्दावली प्रयोग गरी राम्रोसँग संरचित अनुच्छेद लेख्नुहोस्।</p></div>
+                <div class="txt-si"><b>ව්‍යාකරණ සහ ලිවීම</b><p style="margin:4px 0 0;">ආරම්භක මට්ටමේ වාක්‍ය රටා සහ ව්‍යාකරණ සමාලෝචනය කරන්න; මූලික වාක්‍ය රටා, ව්‍යාකරණ සහ වචන මාලාව භාවිතා කරමින් හොඳින් සංවිධානය වූ ඡේද ලියන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">📖</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>読解と漢字</b><p style="margin:4px 0 0;">ひらがな、カタカナ及び日常生活でよく使われる基礎的な漢字で書かれた典型的な語句、文、文章を読んで理解することができる。</p></div>
+                <div class="txt-zh"><b>閱讀與漢字</b><p style="margin:4px 0 0;">能閱讀並理解以平假名、片假名及日常生活常用基礎漢字所書寫的典型詞語、句子與文章。</p></div>
+                <div class="txt-sc"><b>阅读与汉字</b><p style="margin:4px 0 0;">能阅读并理解以平假名、片假名及日常生活常用基础汉字所书写的典型词语、句子与文章。</p></div>
+                <div class="txt-en"><b>Reading & Kanji</b><p style="margin:4px 0 0;">Read and understand typical words, sentences, and passages written in Hiragana, Katakana, and basic Kanji used in daily life.</p></div>
+                <div class="txt-vi"><b>Đọc hiểu & Kanji</b><p style="margin:4px 0 0;">Đọc và hiểu các từ, câu và đoạn văn điển hình được viết bằng Hiragana, Katakana và Kanji cơ bản thường dùng trong đời sống.</p></div>
+                <div class="txt-uk"><b>Читання та кандзі</b><p style="margin:4px 0 0;">Читання та розуміння типових слів, речень і текстів, написаних хіраґаною, катаканою та базовими кандзі, що використовуються у повсякденному житті.</p></div>
+                <div class="txt-id"><b>Membaca & Kanji</b><p style="margin:4px 0 0;">Membaca dan memahami kata, kalimat, dan paragraf khas yang ditulis dalam Hiragana, Katakana, dan Kanji dasar yang digunakan dalam kehidupan sehari-hari.</p></div>
+                <div class="txt-ru"><b>Чтение и кандзи</b><p style="margin:4px 0 0;">Чтение и понимание типичных слов, предложений и текстов, написанных хираганой, катаканой и базовыми иероглифами кандзи, используемыми в повседневной жизни.</p></div>
+                <div class="txt-my"><b>ဖတ်ခြင်းနှင့် Kanji</b><p style="margin:4px 0 0;">Hiragana၊ Katakana နှင့် နေ့စဉ်ဘဝတွင် အသုံးများသော အခြေခံ Kanji ဖြင့်ရေးသားထားသော ပုံမှန်ဝေါဟာရများ၊ ဝါကျများနှင့် စာစီစာကုံးများကို ဖတ်ရှုနားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>पठन और कांजी</b><p style="margin:4px 0 0;">दैनिक जीवन में उपयोग होने वाली हीरागाना, काताकाना और बुनियादी कांजी में लिखे गए विशिष्ट शब्दों, वाक्यों और अनुच्छेदों को पढ़ें और समझें।</p></div>
+                <div class="txt-ne"><b>पठन र काञ्जी</b><p style="margin:4px 0 0;">दैनिक जीवनमा प्रयोग हुने हिरागाना, काताकाना र आधारभूत काञ्जीमा लेखिएका सामान्य शब्द, वाक्य र अनुच्छेदहरू पढ्नुहोस् र बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>කියවීම සහ කන්ජි</b><p style="margin:4px 0 0;">දෛනික ජීවිතයේ භාවිතා වන හිරගනා, කටකනා සහ මූලික කන්ජිවලින් ලියා ඇති සාමාන්‍ය වචන, වාක්‍ය සහ ඡේද කියවා තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">👂</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>聴解とコミュニケーション</b><p style="margin:4px 0 0;">教室や日常のよくある場面で、相手がゆっくり話す短い会話を聞いて、必要な情報を聞き取ることができる。</p></div>
+                <div class="txt-zh"><b>聽力溝通</b><p style="margin:4px 0 0;">在教室或日常常見情境下，若對方以較慢語速進行簡短對話，能聽懂並擷取所需的資訊。</p></div>
+                <div class="txt-sc"><b>听力沟通</b><p style="margin:4px 0 0;">在教室或日常常见情境下，若对方以较慢语速进行简短对话，能听懂并撷取所需的信息。</p></div>
+                <div class="txt-en"><b>Listening & Communication</b><p style="margin:4px 0 0;">In classroom or common daily situations, understand and pick out needed information from short conversations spoken slowly.</p></div>
+                <div class="txt-vi"><b>Nghe & Giao tiếp</b><p style="margin:4px 0 0;">Trong lớp học hoặc tình huống thường ngày, có thể nghe hiểu và nắm bắt thông tin cần thiết khi đối phương nói chuyện ngắn với tốc độ chậm.</p></div>
+                <div class="txt-uk"><b>Аудіювання та спілкування</b><p style="margin:4px 0 0;">У класі або звичайних повсякденних ситуаціях розуміти та вловлювати потрібну інформацію з коротких розмов, сказаних повільно.</p></div>
+                <div class="txt-id"><b>Mendengarkan & Komunikasi</b><p style="margin:4px 0 0;">Dalam situasi kelas atau sehari-hari yang umum, memahami dan menangkap informasi yang diperlukan dari percakapan singkat yang diucapkan perlahan.</p></div>
+                <div class="txt-ru"><b>Аудирование и общение</b><p style="margin:4px 0 0;">В классе или обычных повседневных ситуациях понимать и извлекать нужную информацию из коротких разговоров, произносимых медленно.</p></div>
+                <div class="txt-my"><b>နားထောင်ခြင်းနှင့် ဆက်သွယ်ရေး</b><p style="margin:4px 0 0;">စာသင်ခန်း သို့မဟုတ် နေ့စဉ်ဘဝ အခြေအနေများတွင် နှေးညင်းစွာ ပြောဆိုသော တိုတောင်းသည့် စကားဝိုင်းများမှ လိုအပ်သောအချက်အလက်များကို နားထောင်နားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>सुनना और संचार</b><p style="margin:4px 0 0;">कक्षा या सामान्य दैनिक स्थितियों में, धीमी गति से बोली गई छोटी बातचीत से आवश्यक जानकारी को समझें और निकालें।</p></div>
+                <div class="txt-ne"><b>सुन्ने र सञ्चार</b><p style="margin:4px 0 0;">कक्षाकोठा वा सामान्य दैनिक परिस्थितिमा, बिस्तारै बोलिएको छोटो कुराकानीबाट आवश्यक जानकारी बुझ्न र निकाल्न सक्नुहोस्।</p></div>
+                <div class="txt-si"><b>ශ්‍රවණය සහ සන්නිවේදනය</b><p style="margin:4px 0 0;">පන්ති කාමරයේ හෝ සාමාන්‍ය දෛනික අවස්ථාවලදී, සෙමින් කථා කරන ලද කෙටි සංවාදවලින් අවශ්‍ය තොරතුරු තේරුම් ගෙන උකහා ගන්න.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item" data-level="2">
+        <button class="accordion-header" onclick="toggleAccordion(2)" type="button">
+          <span class="acc-plus">+</span>
+          <span class="acc-title">
+            <span class="txt-ja">02. 初中級（指定教材：《みんなの日本語 II》）</span>
+            <span class="txt-zh">02. 進階基礎（指定教材：《大家的日本語 II》）</span>
+            <span class="txt-sc">02. 进阶基础（指定教材：《大家的日本语 II》）</span>
+            <span class="txt-en">02. Elementary Stage（Textbook：《Minna no Nihongo II》）</span>
+            <span class="txt-vi">02. Giai đoạn sơ trung cấp（Giáo trình：《Minna no Nihongo II》）</span>
+            <span class="txt-uk">02. Елементарний етап（Підручник：《Мінна но Ніхонго II》）</span>
+            <span class="txt-id">02. Tahap Menengah Awal（Buku Teks：《Minna no Nihongo II》）</span>
+            <span class="txt-ru">02. Элементарный этап（Учебник：《Минна но Нихонго II》）</span>
+            <span class="txt-my">02. အလယ်အလတ်အောက်အဆင့်（သတ်မှတ်စာအုပ်：《Minna no Nihongo II》）</span>
+            <span class="txt-hi">02. प्रारंभिक-मध्य चरण（निर्धारित पाठ्यपुस्तक：《Minna no Nihongo II》）</span>
+            <span class="txt-ne">02. प्रारम्भिक-मध्य चरण（निर्धारित पाठ्यपुस्तक：《Minna no Nihongo II》）</span>
+            <span class="txt-si">02. මූලික-මධ්‍යම අදියර（නිර්දේශිත පෙළපොත：《Minna no Nihongo II》）</span>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="level-skills">
+            <div class="skill-item">
+              <div class="skill-icon">✏️</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>文法と語形変化</b><p style="margin:4px 0 0;">初級の基本文型・文法を復習し、自動詞・他動詞、受身形、使役形及び敬語表現などを確実に習得する。</p></div>
+                <div class="txt-zh"><b>文法與語法變化</b><p style="margin:4px 0 0;">復習初級基本句型與文法，確實掌握自動詞、他動詞、被動形、使役形及敬語表現等。</p></div>
+                <div class="txt-sc"><b>语法与词形变化</b><p style="margin:4px 0 0;">复习初级基本句型与语法，确实掌握自动词、他动词、被动形、使役形及敬语表现等。</p></div>
+                <div class="txt-en"><b>Grammar & Conjugation</b><p style="margin:4px 0 0;">Review beginner-level sentence patterns and grammar; firmly master transitive/intransitive verbs, passive form, causative form, and honorific expressions.</p></div>
+                <div class="txt-vi"><b>Ngữ pháp & Chia động từ</b><p style="margin:4px 0 0;">Ôn tập mẫu câu và ngữ pháp sơ cấp cơ bản; nắm vững động từ tự động/tha động, thể bị động, thể sai khiến và cách dùng kính ngữ.</p></div>
+                <div class="txt-uk"><b>Граматика та відмінювання</b><p style="margin:4px 0 0;">Повторення базових речових конструкцій та граматики початкового рівня; впевнене володіння перехідними/неперехідними дієсловами, пасивним, каузативним станом та ввічливими виразами.</p></div>
+                <div class="txt-id"><b>Tata Bahasa & Konjugasi</b><p style="margin:4px 0 0;">Meninjau pola kalimat dan tata bahasa dasar tingkat pemula; menguasai dengan pasti kata kerja transitif/intransitif, bentuk pasif, bentuk kausatif, dan ungkapan hormat.</p></div>
+                <div class="txt-ru"><b>Грамматика и спряжение</b><p style="margin:4px 0 0;">Повторение базовых конструкций и грамматики начального уровня; уверенное владение переходными/непереходными глаголами, страдательным, побудительным залогом и вежливыми выражениями.</p></div>
+                <div class="txt-my"><b>သဒ္ဒါနှင့် ကြိယာပြောင်းလဲမှု</b><p style="margin:4px 0 0;">အခြေခံအဆင့် ဝါကျပုံစံများနှင့် သဒ္ဒါကို ပြန်လည်လေ့လာပြီး၊ ကူးပြောင်း/မကူးပြောင်းကြိယာ၊ ခံစားချက်ပုံစံ၊ ပြုစေကြိယာနှင့် ယဉ်ကျေးသောအသုံးအနှုန်းများကို သေချာစွာ ကျွမ်းကျင်အောင်လုပ်သည်။</p></div>
+                <div class="txt-hi"><b>व्याकरण और क्रिया रूपांतरण</b><p style="margin:4px 0 0;">प्रारंभिक स्तर के वाक्य पैटर्न और व्याकरण की समीक्षा करें; सकर्मक/अकर्मक क्रियाओं, कर्मवाच्य, प्रेरणार्थक रूप और सम्मानसूचक अभिव्यक्तियों में दक्षता प्राप्त करें।</p></div>
+                <div class="txt-ne"><b>व्याकरण र क्रिया रूप परिवर्तन</b><p style="margin:4px 0 0;">प्रारम्भिक तहका वाक्य ढाँचा र व्याकरणको समीक्षा गर्नुहोस्; सकर्मक/अकर्मक क्रिया, कर्मवाच्य, प्रेरणार्थक रूप र सम्मानसूचक अभिव्यक्तिमा दृढतापूर्वक दक्षता हासिल गर्नुहोस्।</p></div>
+                <div class="txt-si"><b>ව්‍යාකරණ සහ ක්‍රියා පද වෙනස්වීම්</b><p style="margin:4px 0 0;">ආරම්භක මට්ටමේ වාක්‍ය රටා සහ ව්‍යාකරණ සමාලෝචනය කරන්න; සකර්මක/අකර්මක ක්‍රියා පද, කර්තෘ භාවය, හේතුකාරක ස්වරූපය සහ ගෞරවනීය ප්‍රකාශන තදින් ප්‍රගුණ කරන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">📖</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>読解と語彙</b><p style="margin:4px 0 0;">基礎的な漢字の読み書きと語彙を習得する。基礎的な語彙・漢字で書かれた日常会話や身近な話題の文章を読んで理解することができる。</p></div>
+                <div class="txt-zh"><b>閱讀與詞彙</b><p style="margin:4px 0 0;">掌握基礎漢字的讀寫與詞彙；能閱讀並理解使用基礎詞彙與漢字所書寫的日常對話及身邊常見主題文章。</p></div>
+                <div class="txt-sc"><b>阅读与词汇</b><p style="margin:4px 0 0;">掌握基础汉字的读写与词汇；能阅读并理解使用基础词汇与汉字所书写的日常对话及身边常见主题文章。</p></div>
+                <div class="txt-en"><b>Reading & Vocabulary</b><p style="margin:4px 0 0;">Master basic Kanji reading/writing and vocabulary; read and understand daily conversations and familiar-topic passages written with basic vocabulary and Kanji.</p></div>
+                <div class="txt-vi"><b>Đọc hiểu & Từ vựng</b><p style="margin:4px 0 0;">Nắm vững cách đọc viết Kanji cơ bản và từ vựng; đọc và hiểu hội thoại hàng ngày và đoạn văn về chủ đề quen thuộc viết bằng từ vựng và Kanji cơ bản.</p></div>
+                <div class="txt-uk"><b>Читання та лексика</b><p style="margin:4px 0 0;">Опанувати базове читання/письмо кандзі та лексику; читати й розуміти повсякденні розмови та тексти на знайомі теми, написані базовою лексикою та кандзі.</p></div>
+                <div class="txt-id"><b>Membaca & Kosakata</b><p style="margin:4px 0 0;">Menguasai membaca/menulis Kanji dasar dan kosakata; membaca dan memahami percakapan sehari-hari serta paragraf topik akrab yang ditulis dengan kosakata dan Kanji dasar.</p></div>
+                <div class="txt-ru"><b>Чтение и лексика</b><p style="margin:4px 0 0;">Освоить базовое чтение/письмо кандзи и лексику; читать и понимать повседневные разговоры и тексты на знакомые темы, написанные базовой лексикой и кандзи.</p></div>
+                <div class="txt-my"><b>ဖတ်ခြင်းနှင့် ဝေါဟာရ</b><p style="margin:4px 0 0;">အခြေခံ Kanji ဖတ်ခြင်း/ရေးခြင်းနှင့် ဝေါဟာရများကို ကျွမ်းကျင်စေသည်။ အခြေခံဝေါဟာရနှင့် Kanji ဖြင့်ရေးထားသော နေ့စဉ်စကားဝိုင်းများနှင့် အသိအကျွမ်းရှိသော ခေါင်းစဉ်ဆောင်းပါးများကို ဖတ်ရှုနားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>पठन और शब्दावली</b><p style="margin:4px 0 0;">बुनियादी कांजी पढ़ना/लिखना और शब्दावली में महारत हासिल करें; बुनियादी शब्दावली और कांजी से लिखी गई दैनिक बातचीत और परिचित विषयों के अनुच्छेद पढ़ें और समझें।</p></div>
+                <div class="txt-ne"><b>पठन र शब्दावली</b><p style="margin:4px 0 0;">आधारभूत काञ्जी पढ्ने/लेख्ने र शब्दावलीमा दक्षता हासिल गर्नुहोस्; आधारभूत शब्दावली र काञ्जीले लेखिएका दैनिक कुराकानी र परिचित विषयका अनुच्छेदहरू पढ्नुहोस् र बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>කියවීම සහ වචන මාලාව</b><p style="margin:4px 0 0;">මූලික කන්ජි කියවීම/ලිවීම සහ වචන මාලාව ප්‍රගුණ කරන්න; මූලික වචන මාලාව සහ කන්ජිවලින් ලියා ඇති දෛනික සංවාද සහ හුරුපුරුදු මාතෘකා පිළිබඳ ඡේද කියවා තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">👂</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>聴解とコミュニケーション</b><p style="margin:4px 0 0;">教室内や身の回りの生活で、やや遅いスピードで話される日本語を理解することができる。</p></div>
+                <div class="txt-zh"><b>聽力溝通</b><p style="margin:4px 0 0;">能理解在教室內或生活周遭以稍慢語速所講述的日語。</p></div>
+                <div class="txt-sc"><b>听力沟通</b><p style="margin:4px 0 0;">能理解在教室内或生活周遭以稍慢语速所讲述的日语。</p></div>
+                <div class="txt-en"><b>Listening & Communication</b><p style="margin:4px 0 0;">Understand Japanese spoken at a slightly slower pace, in the classroom or in daily life around you.</p></div>
+                <div class="txt-vi"><b>Nghe & Giao tiếp</b><p style="margin:4px 0 0;">Hiểu được tiếng Nhật nói với tốc độ hơi chậm trong lớp học hoặc trong cuộc sống xung quanh.</p></div>
+                <div class="txt-uk"><b>Аудіювання та спілкування</b><p style="margin:4px 0 0;">Розуміти японську мову, яку говорять трохи повільніше, у класі або в повсякденному житті навколо вас.</p></div>
+                <div class="txt-id"><b>Mendengarkan & Komunikasi</b><p style="margin:4px 0 0;">Memahami bahasa Jepang yang diucapkan dengan kecepatan sedikit lebih lambat, di kelas atau dalam kehidupan sehari-hari di sekitar Anda.</p></div>
+                <div class="txt-ru"><b>Аудирование и общение</b><p style="margin:4px 0 0;">Понимать японскую речь, произносимую немного медленнее, в классе или в повседневной жизни вокруг вас.</p></div>
+                <div class="txt-my"><b>နားထောင်ခြင်းနှင့် ဆက်သွယ်ရေး</b><p style="margin:4px 0 0;">စာသင်ခန်းအတွင်း သို့မဟုတ် ပတ်ဝန်းကျင်ဘဝတွင် အနည်းငယ်နှေးသောအရှိန်ဖြင့် ပြောဆိုသော ဂျပန်စာကို နားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>सुनना और संचार</b><p style="margin:4px 0 0;">कक्षा में या आपके आस-पास के दैनिक जीवन में, थोड़ी धीमी गति से बोली जाने वाली जापानी को समझें।</p></div>
+                <div class="txt-ne"><b>सुन्ने र सञ्चार</b><p style="margin:4px 0 0;">कक्षाकोठाभित्र वा तपाईंको वरपरको दैनिक जीवनमा, अलि ढिलो गतिमा बोलिने जापानी बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>ශ්‍රවණය සහ සන්නිවේදනය</b><p style="margin:4px 0 0;">පන්ති කාමරයේ හෝ ඔබ අවට දෛනික ජීවිතයේ, ටිකක් සෙමින් කථා කරන ජපන් භාෂාව තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item" data-level="3">
+        <button class="accordion-header" onclick="toggleAccordion(3)" type="button">
+          <span class="acc-plus">+</span>
+          <span class="acc-title">
+            <span class="txt-ja">03. 中級接続（指定教材：《中級を学ぼう》）</span>
+            <span class="txt-zh">03. 中級銜接（指定教材：《學習中級》）</span>
+            <span class="txt-sc">03. 中级衔接（指定教材：《学习中级》）</span>
+            <span class="txt-en">03. Intermediate Bridge（Textbook：《Chukyu wo Manabou》）</span>
+            <span class="txt-vi">03. Cầu nối trung cấp（Giáo trình：《Chukyu wo Manabou》）</span>
+            <span class="txt-uk">03. Проміжний етап（Підручник：《Чукю о Манабо》）</span>
+            <span class="txt-id">03. Jembatan Menengah（Buku Teks：《Chukyu wo Manabou》）</span>
+            <span class="txt-ru">03. Промежуточный этап（Учебник：《Тюкю о Манабо》）</span>
+            <span class="txt-my">03. အလယ်အလတ်ဆက်စပ်အဆင့်（သတ်မှတ်စာအုပ်：《Chukyu wo Manabou》）</span>
+            <span class="txt-hi">03. मध्यवर्ती सेतु（निर्धारित पाठ्यपुस्तक：《Chukyu wo Manabou》）</span>
+            <span class="txt-ne">03. मध्यवर्ती सेतु（निर्धारित पाठ्यपुस्तक：《Chukyu wo Manabou》）</span>
+            <span class="txt-si">03. මධ්‍යම පාලමය（නිර්දේශිත පෙළපොත：《Chukyu wo Manabou》）</span>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="level-skills">
+            <div class="skill-item">
+              <div class="skill-icon">✏️</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>文法と理解</b><p style="margin:4px 0 0;">N3レベルの文法・文型を完全に習得し、N2レベル前半の文法・文型を理解することができる。</p></div>
+                <div class="txt-zh"><b>文法與理解</b><p style="margin:4px 0 0;">完全掌握N3水準的文法與句型，並能理解N2水準前半段的文法與句型。</p></div>
+                <div class="txt-sc"><b>语法与理解</b><p style="margin:4px 0 0;">完全掌握N3水准的语法与句型，并能理解N2水准前半段的语法与句型。</p></div>
+                <div class="txt-en"><b>Grammar & Comprehension</b><p style="margin:4px 0 0;">Fully master N3-level grammar and sentence patterns, and understand the first half of N2-level grammar and sentence patterns.</p></div>
+                <div class="txt-vi"><b>Ngữ pháp & Hiểu biết</b><p style="margin:4px 0 0;">Nắm vững hoàn toàn ngữ pháp và mẫu câu trình độ N3, và hiểu được ngữ pháp, mẫu câu nửa đầu trình độ N2.</p></div>
+                <div class="txt-uk"><b>Граматика та розуміння</b><p style="margin:4px 0 0;">Повністю опанувати граматику та речові конструкції рівня N3 та розуміти граматику й конструкції першої половини рівня N2.</p></div>
+                <div class="txt-id"><b>Tata Bahasa & Pemahaman</b><p style="margin:4px 0 0;">Menguasai sepenuhnya tata bahasa dan pola kalimat tingkat N3, dan memahami tata bahasa serta pola kalimat paruh pertama tingkat N2.</p></div>
+                <div class="txt-ru"><b>Грамматика и понимание</b><p style="margin:4px 0 0;">Полностью освоить грамматику и речевые конструкции уровня N3 и понимать грамматику и конструкции первой половины уровня N2.</p></div>
+                <div class="txt-my"><b>သဒ္ဒါနှင့် နားလည်မှု</b><p style="margin:4px 0 0;">N3 အဆင့် သဒ္ဒါနှင့် ဝါကျပုံစံများကို လုံးဝကျွမ်းကျင်ပြီး N2 အဆင့်၏ ပထမပိုင်း သဒ္ဒါနှင့် ဝါကျပုံစံများကို နားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>व्याकरण और समझ</b><p style="margin:4px 0 0;">N3 स्तर के व्याकरण और वाक्य पैटर्न में पूरी तरह महारत हासिल करें, और N2 स्तर के पहले भाग के व्याकरण और वाक्य पैटर्न को समझें।</p></div>
+                <div class="txt-ne"><b>व्याकरण र बुझाइ</b><p style="margin:4px 0 0;">N3 तहको व्याकरण र वाक्य ढाँचामा पूर्ण दक्षता हासिल गर्नुहोस्, र N2 तहको पहिलो आधाको व्याकरण र वाक्य ढाँचा बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>ව්‍යාකරණ සහ අවබෝධය</b><p style="margin:4px 0 0;">N3 මට්ටමේ ව්‍යාකරණ සහ වාක්‍ය රටා සම්පූර්ණයෙන් ප්‍රගුණ කර, N2 මට්ටමේ පළමු භාගයේ ව්‍යාකරණ සහ වාක්‍ය රටා තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">📖</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>読解と情報把握</b><p style="margin:4px 0 0;">日常的な話題の具体的な文章を読んで理解することができ、新聞の見出しなどから情報の概要を把握することができる。やや難易度の高い文章についても、ヒントがあれば要旨を理解できる。</p></div>
+                <div class="txt-zh"><b>閱讀與資訊擷取</b><p style="margin:4px 0 0;">能閱讀並理解日常話題的具體文章，並從報紙標題等掌握資訊概要；對難度稍高文章，給予提示後可理解要旨。</p></div>
+                <div class="txt-sc"><b>阅读与信息撷取</b><p style="margin:4px 0 0;">能阅读并理解日常话题的具体文章，并从报纸标题等掌握信息概要；对难度稍高文章，给予提示后可理解要旨。</p></div>
+                <div class="txt-en"><b>Reading & Information Gathering</b><p style="margin:4px 0 0;">Read and understand specific passages on daily topics, and grasp the gist of information from newspaper headlines and the like; for somewhat more difficult passages, understand the main point when given a hint.</p></div>
+                <div class="txt-vi"><b>Đọc hiểu & Nắm bắt thông tin</b><p style="margin:4px 0 0;">Đọc và hiểu các bài viết cụ thể về chủ đề hàng ngày, nắm được tóm tắt thông tin từ tiêu đề báo chí; với bài viết khó hơn một chút, có thể hiểu ý chính khi được gợi ý.</p></div>
+                <div class="txt-uk"><b>Читання та збір інформації</b><p style="margin:4px 0 0;">Читати й розуміти конкретні тексти на повсякденні теми та вловлювати суть інформації із заголовків газет тощо; для дещо складніших текстів розуміти основну думку за наявності підказки.</p></div>
+                <div class="txt-id"><b>Membaca & Mengumpulkan Informasi</b><p style="margin:4px 0 0;">Membaca dan memahami paragraf spesifik tentang topik sehari-hari, dan menangkap inti informasi dari judul surat kabar dan sejenisnya; untuk paragraf yang sedikit lebih sulit, memahami poin utama bila diberi petunjuk.</p></div>
+                <div class="txt-ru"><b>Чтение и сбор информации</b><p style="margin:4px 0 0;">Читать и понимать конкретные тексты на повседневные темы, улавливать суть информации из заголовков газет и подобного; для несколько более сложных текстов понимать основную мысль при наличии подсказки.</p></div>
+                <div class="txt-my"><b>ဖတ်ခြင်းနှင့် အချက်အလက်ရယူခြင်း</b><p style="margin:4px 0 0;">နေ့စဉ်ခေါင်းစဉ်များအကြောင်း တိကျသောစာစီစာကုံးများကို ဖတ်ရှုနားလည်နိုင်ပြီး၊ သတင်းစာခေါင်းစီးများမှ အချက်အလက်အနှစ်ချုပ်ကို ရယူနိုင်သည်။ အနည်းငယ်ခက်ခဲသော စာစီစာကုံးများအတွက်လည်း အညွှန်းပေးပါက အဓိကအချက်ကို နားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>पठन और सूचना संग्रह</b><p style="margin:4px 0 0;">दैनिक विषयों पर विशिष्ट अनुच्छेदों को पढ़ें और समझें, तथा समाचार पत्र की सुर्खियों आदि से जानकारी का सार समझें; कुछ अधिक कठिन अनुच्छेदों के लिए, संकेत मिलने पर मुख्य बिंदु समझें।</p></div>
+                <div class="txt-ne"><b>पठन र सूचना सङ्कलन</b><p style="margin:4px 0 0;">दैनिक विषयका ठोस अनुच्छेदहरू पढ्नुहोस् र बुझ्नुहोस्, र समाचारपत्रका शीर्षकहरूबाट जानकारीको सार बुझ्नुहोस्; अलि कठिन अनुच्छेदका लागि, संकेत दिइएमा मुख्य बुँदा बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>කියවීම සහ තොරතුරු රැස් කිරීම</b><p style="margin:4px 0 0;">දෛනික මාතෘකා පිළිබඳ නිශ්චිත ඡේද කියවා තේරුම් ගෙන, පුවත්පත් සිරස්තල වැනි ඒවායින් තොරතුරු සාරාංශය ග්‍රහණය කරගන්න; තරමක් අපහසු ඡේද සඳහා ඉඟියක් ලැබුණහොත් ප්‍රධාන කරුණ තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">👂</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>聴解とコミュニケーション</b><p style="margin:4px 0 0;">日常的な場面で、自然に近い速さのまとまりのある会話を聞いた場合、登場人物などの情報も合わせて、話の具体的な内容がほぼ理解できる。</p></div>
+                <div class="txt-zh"><b>聽力溝通</b><p style="margin:4px 0 0;">在日常情境中聽到語速接近自然連貫的對話時，能搭配登場人物等要素大致理解講話的具體內容。</p></div>
+                <div class="txt-sc"><b>听力沟通</b><p style="margin:4px 0 0;">在日常情境中听到语速接近自然连贯的对话时，能搭配登场人物等要素大致理解讲话的具体内容。</p></div>
+                <div class="txt-en"><b>Listening & Communication</b><p style="margin:4px 0 0;">When hearing coherent conversation at close to natural speed in daily situations, mostly understand the specific content of the talk, along with cues such as the characters involved.</p></div>
+                <div class="txt-vi"><b>Nghe & Giao tiếp</b><p style="margin:4px 0 0;">Khi nghe hội thoại mạch lạc với tốc độ gần tự nhiên trong tình huống hàng ngày, có thể hiểu phần lớn nội dung cụ thể của cuộc nói chuyện cùng với các yếu tố như nhân vật liên quan.</p></div>
+                <div class="txt-uk"><b>Аудіювання та спілкування</b><p style="margin:4px 0 0;">Почувши зв'язну розмову з майже природною швидкістю у повсякденних ситуаціях, здебільшого розуміти конкретний зміст розмови разом з такими деталями, як задіяні особи.</p></div>
+                <div class="txt-id"><b>Mendengarkan & Komunikasi</b><p style="margin:4px 0 0;">Saat mendengar percakapan koheren dengan kecepatan mendekati alami dalam situasi sehari-hari, sebagian besar memahami isi spesifik pembicaraan, bersama petunjuk seperti tokoh yang terlibat.</p></div>
+                <div class="txt-ru"><b>Аудирование и общение</b><p style="margin:4px 0 0;">При прослушивании связного разговора с почти естественной скоростью в повседневных ситуациях в основном понимать конкретное содержание разговора, а также такие детали, как участвующие лица.</p></div>
+                <div class="txt-my"><b>နားထောင်ခြင်းနှင့် ဆက်သွယ်ရေး</b><p style="margin:4px 0 0;">နေ့စဉ်ဘဝ အခြေအနေများတွင် သဘာဝနှုန်းနှင့်နီးစပ်သော ဆက်စပ်စကားဝိုင်းများကို ကြားသောအခါ ပါဝင်သူများကဲ့သို့သော အချက်များနှင့်အတူ စကားဝိုင်း၏ တိကျသောအကြောင်းအရာကို အများစုနားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>सुनना और संचार</b><p style="margin:4px 0 0;">दैनिक स्थितियों में स्वाभाविक गति के करीब सुसंगत बातचीत सुनते समय, शामिल पात्रों जैसे संकेतों के साथ बातचीत की विशिष्ट सामग्री को अधिकांशतः समझें।</p></div>
+                <div class="txt-ne"><b>सुन्ने र सञ्चार</b><p style="margin:4px 0 0;">दैनिक परिस्थितिमा स्वाभाविक गतिनजिकको सुसंगत कुराकानी सुन्दा, संलग्न पात्रहरू जस्ता संकेतसहित कुराकानीको ठोस सामग्री प्रायः बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>ශ්‍රවණය සහ සන්නිවේදනය</b><p style="margin:4px 0 0;">දෛනික අවස්ථාවලදී ස්වාභාවික වේගයට ආසන්න ගැළපුම් සහගත සංවාදයක් ඇසෙන විට, සම්බන්ධ චරිත වැනි ඉඟි සමඟ සංවාදයේ නිශ්චිත අන්තර්ගතය බොහෝ දුරට තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item" data-level="4">
+        <button class="accordion-header" onclick="toggleAccordion(4)" type="button">
+          <span class="acc-plus">+</span>
+          <span class="acc-title">
+            <span class="txt-ja">04. 中上級実用（指定教材：《読解厳選テーマ10【中級】》）</span>
+            <span class="txt-zh">04. 中高階實用（指定教材：《讀解嚴選主題10【中級】》）</span>
+            <span class="txt-sc">04. 中高阶实用（指定教材：《读解严选主题10【中级】》）</span>
+            <span class="txt-en">04. Upper-Intermediate Practical（Textbook：《Dokkai Gensen Theme 10 (Intermediate)》）</span>
+            <span class="txt-vi">04. Ứng dụng trung cao cấp（Giáo trình：《Dokkai Gensen Theme 10 (Trung cấp)》）</span>
+            <span class="txt-uk">04. Практика вище середнього（Підручник：《Доккай Ґенсен Тема 10 (Середній)》）</span>
+            <span class="txt-id">04. Praktik Menengah Atas（Buku Teks：《Dokkai Gensen Theme 10 (Menengah)》）</span>
+            <span class="txt-ru">04. Практика выше среднего（Учебник：《Доккай Гэнсэн Тема 10 (Средний)》）</span>
+            <span class="txt-my">04. အလယ်အလတ်အထက် လက်တွေ့ကျင့်သုံးမှု（သတ်မှတ်စာအုပ်：《Dokkai Gensen Theme 10 (အလယ်အလတ်)》）</span>
+            <span class="txt-hi">04. मध्य-उच्च व्यावहारिक（निर्धारित पाठ्यपुस्तक：《Dokkai Gensen Theme 10 (मध्यवर्ती)》）</span>
+            <span class="txt-ne">04. मध्य-उच्च व्यावहारिक（निर्धारित पाठ्यपुस्तक：《Dokkai Gensen Theme 10 (मध्यवर्ती)》）</span>
+            <span class="txt-si">04. මධ්‍ය-උසස් ප්‍රායෝගික（නිර්දේශිත පෙළපොත：《Dokkai Gensen Theme 10 (මධ්‍යම)》）</span>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="level-skills">
+            <div class="skill-item">
+              <div class="skill-icon">✏️</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>読解と論述分析</b><p style="margin:4px 0 0;">幅広い話題を扱う新聞・雑誌記事、解説、平易な評論など、論旨が明快な文章を読むことができる。文章の流れと表現意図を理解することができる。</p></div>
+                <div class="txt-zh"><b>閱讀與論述分析</b><p style="margin:4px 0 0;">能閱讀涉及廣泛話題的報紙、雜誌文章、解說及平易評論等論旨明快的文章；理解文章脈絡與表達意圖。</p></div>
+                <div class="txt-sc"><b>阅读与论述分析</b><p style="margin:4px 0 0;">能阅读涉及广泛话题的报纸、杂志文章、解说及平易评论等论旨明快的文章；理解文章脉络与表达意图。</p></div>
+                <div class="txt-en"><b>Reading & Argument Analysis</b><p style="margin:4px 0 0;">Read clearly argued texts such as newspaper and magazine articles, explanatory pieces, and accessible commentary covering a wide range of topics; understand the flow and intent of the writing.</p></div>
+                <div class="txt-vi"><b>Đọc hiểu & Phân tích lập luận</b><p style="margin:4px 0 0;">Đọc các bài báo, tạp chí, bài giải thích và bình luận dễ hiểu với luận điểm rõ ràng về nhiều chủ đề; hiểu mạch văn và ý đồ diễn đạt.</p></div>
+                <div class="txt-uk"><b>Читання та аналіз аргументації</b><p style="margin:4px 0 0;">Читати чітко аргументовані тексти, такі як статті в газетах і журналах, пояснювальні матеріали та доступні коментарі на широкий спектр тем; розуміти хід думки та намір автора.</p></div>
+                <div class="txt-id"><b>Membaca & Analisis Argumen</b><p style="margin:4px 0 0;">Membaca teks dengan argumen jelas seperti artikel surat kabar dan majalah, tulisan penjelasan, dan komentar yang mudah dipahami mencakup berbagai topik; memahami alur dan maksud tulisan.</p></div>
+                <div class="txt-ru"><b>Чтение и анализ аргументации</b><p style="margin:4px 0 0;">Читать чётко аргументированные тексты, такие как статьи в газетах и журналах, пояснительные материалы и доступные комментарии на широкий круг тем; понимать ход мысли и намерение автора.</p></div>
+                <div class="txt-my"><b>ဖတ်ခြင်းနှင့် ဆွေးနွေးမှုခွဲခြမ်းစိတ်ဖြာခြင်း</b><p style="margin:4px 0 0;">ကျယ်ပြန့်သောခေါင်းစဉ်များပါဝင်သည့် သတင်းစာ၊ မဂ္ဂဇင်းဆောင်းပါးများ၊ ရှင်းလင်းချက်များနှင့် ရိုးရှင်းသောသုံးသပ်ချက်များကဲ့သို့ ရှင်းလင်းသောဆွေးနွေးချက်ပါသည့် စာစီစာကုံးများကို ဖတ်နိုင်သည်။ စာသား၏ စီးဆင်းမှုနှင့် ဖော်ပြလိုသည့်ရည်ရွယ်ချက်ကို နားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>पठन और तर्क विश्लेषण</b><p style="margin:4px 0 0;">विविध विषयों को कवर करने वाले समाचार पत्र और पत्रिका लेख, व्याख्यात्मक लेख, तथा सुलभ टिप्पणी जैसे स्पष्ट रूप से तर्कसंगत पाठ पढ़ें; लेखन के प्रवाह और आशय को समझें।</p></div>
+                <div class="txt-ne"><b>पठन र तर्क विश्लेषण</b><p style="margin:4px 0 0;">विविध विषय समेट्ने समाचारपत्र र पत्रिका लेख, व्याख्यात्मक लेख, र सहज टिप्पणी जस्ता स्पष्ट तर्कसहितका पाठ पढ्नुहोस्; लेखनको प्रवाह र आशय बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>කියවීම සහ තර්ක විශ්ලේෂණය</b><p style="margin:4px 0 0;">පුළුල් මාතෘකා ආවරණය කරන පුවත්පත් හා සඟරා ලිපි, පැහැදිලි කිරීම් සහ පහසුවෙන් තේරුම් ගත හැකි විවරණ වැනි පැහැදිලි තර්කයෙන් යුත් පාඨ කියවන්න; ලේඛනයේ ගලායාම සහ අභිප්‍රාය තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">📖</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>聴解とニュース理解</b><p style="margin:4px 0 0;">日常生活及びより幅広い場面で、自然に近い速さの会話やニュースを聞き、話の流れ、内容、人物関係を理解し、要旨を把握することができる。</p></div>
+                <div class="txt-zh"><b>聽力與新聞理解</b><p style="margin:4px 0 0;">在日常及更廣泛情境下收聽接近自然語速的對話或新聞，能理解說話脈絡、內容及人物關係並掌握要旨。</p></div>
+                <div class="txt-sc"><b>听力与新闻理解</b><p style="margin:4px 0 0;">在日常及更广泛情境下收听接近自然语速的对话或新闻，能理解说话脉络、内容及人物关系并掌握要旨。</p></div>
+                <div class="txt-en"><b>Listening & News Comprehension</b><p style="margin:4px 0 0;">Listen to conversations or news at close to natural speed in daily and broader settings, understand the flow, content, and relationships between people, and grasp the main point.</p></div>
+                <div class="txt-vi"><b>Nghe & Hiểu tin tức</b><p style="margin:4px 0 0;">Nghe hội thoại hoặc tin tức với tốc độ gần tự nhiên trong tình huống hàng ngày và rộng hơn, hiểu mạch chuyện, nội dung, mối quan hệ nhân vật và nắm được ý chính.</p></div>
+                <div class="txt-uk"><b>Аудіювання та розуміння новин</b><p style="margin:4px 0 0;">Слухати розмови чи новини з майже природною швидкістю у повсякденних та ширших ситуаціях, розуміти хід розмови, зміст і стосунки між людьми, вловлювати основну думку.</p></div>
+                <div class="txt-id"><b>Mendengarkan & Pemahaman Berita</b><p style="margin:4px 0 0;">Mendengarkan percakapan atau berita dengan kecepatan mendekati alami dalam situasi sehari-hari dan lebih luas, memahami alur, isi, dan hubungan antar orang, serta menangkap poin utama.</p></div>
+                <div class="txt-ru"><b>Аудирование и понимание новостей</b><p style="margin:4px 0 0;">Слушать разговоры или новости с почти естественной скоростью в повседневных и более широких ситуациях, понимать ход разговора, содержание и отношения между людьми, улавливать главную мысль.</p></div>
+                <div class="txt-my"><b>နားထောင်ခြင်းနှင့် သတင်းနားလည်မှု</b><p style="margin:4px 0 0;">နေ့စဉ်ဘဝနှင့် ပိုမိုကျယ်ပြန့်သော အခြေအနေများတွင် သဘာဝနှုန်းနှင့်နီးစပ်သော စကားဝိုင်းများ သို့မဟုတ် သတင်းများကို နားထောင်ပြီး၊ စကားစီးဆင်းမှု၊ အကြောင်းအရာနှင့် ဆက်ဆံရေးများကို နားလည်ကာ အဓိကအချက်ကို ရယူနိုင်သည်။</p></div>
+                <div class="txt-hi"><b>सुनना और समाचार समझ</b><p style="margin:4px 0 0;">दैनिक और व्यापक परिस्थितियों में स्वाभाविक गति के करीब बातचीत या समाचार सुनें, प्रवाह, सामग्री और लोगों के बीच संबंधों को समझें, तथा मुख्य बिंदु समझें।</p></div>
+                <div class="txt-ne"><b>सुन्ने र समाचार बुझाइ</b><p style="margin:4px 0 0;">दैनिक र व्यापक परिस्थितिमा स्वाभाविक गतिनजिक कुराकानी वा समाचार सुन्नुहोस्, प्रवाह, सामग्री र मानिसहरूबीचको सम्बन्ध बुझ्नुहोस्, र मुख्य बुँदा बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>ශ්‍රවණය සහ පුවත් අවබෝධය</b><p style="margin:4px 0 0;">දෛනික සහ පුළුල් අවස්ථාවලදී ස්වාභාවික වේගයට ආසන්න සංවාද හෝ පුවත් අසා, ගලායාම, අන්තර්ගතය සහ පුද්ගලයන් අතර සබඳතා තේරුම් ගෙන, ප්‍රධාන කරුණ ග්‍රහණය කරගන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">👂</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>論理的な作文</b><p style="margin:4px 0 0;">句読点の使い方や段落分けの技法に習熟し、文体を統一し、正しく原稿用紙を使って論理的な文章を書くことができる。</p></div>
+                <div class="txt-zh"><b>邏輯寫作</b><p style="margin:4px 0 0;">熟練標點符號用法與分段歸納技巧，能統一文體並正確使用稿紙寫出具邏輯性的文章。</p></div>
+                <div class="txt-sc"><b>逻辑写作</b><p style="margin:4px 0 0;">熟练标点符号用法与分段归纳技巧，能统一文体并正确使用稿纸写出具逻辑性的文章。</p></div>
+                <div class="txt-en"><b>Logical Writing</b><p style="margin:4px 0 0;">Master punctuation use and paragraph-organizing techniques; write logically structured essays with a consistent writing style, using manuscript paper correctly.</p></div>
+                <div class="txt-vi"><b>Viết văn logic</b><p style="margin:4px 0 0;">Thành thạo cách dùng dấu câu và kỹ thuật phân đoạn; viết bài văn có tính logic với văn phong thống nhất, sử dụng giấy viết bài đúng cách.</p></div>
+                <div class="txt-uk"><b>Логічне письмо</b><p style="margin:4px 0 0;">Опанувати використання пунктуації та техніки організації абзаців; писати логічно структуровані твори з послідовним стилем, правильно використовуючи аркуш для твору.</p></div>
+                <div class="txt-id"><b>Menulis Logis</b><p style="margin:4px 0 0;">Menguasai penggunaan tanda baca dan teknik pengorganisasian paragraf; menulis esai yang terstruktur logis dengan gaya penulisan konsisten, menggunakan kertas naskah dengan benar.</p></div>
+                <div class="txt-ru"><b>Логичное письмо</b><p style="margin:4px 0 0;">Освоить использование пунктуации и приёмы организации абзацев; писать логично структурированные сочинения с последовательным стилем, правильно используя бланк для сочинения.</p></div>
+                <div class="txt-my"><b>ယုတ္တိကျသော ရေးသားမှု</b><p style="margin:4px 0 0;">ရပ်ချက်ကျမှတ်ကျားများနှင့် အပိုဒ်ခွဲစိတ်စည်းနည်းများကို ကျွမ်းကျင်ပြီး၊ စာရေးဟန်ကို တညီတညွတ်တည်း ပြုလုပ်ကာ ကျန်စာစာမူစာရွက်ကို မှန်ကန်စွာအသုံးပြု၍ ယုတ္တိကျသော စာစီစာကုံးရေးသားနိုင်သည်။</p></div>
+                <div class="txt-hi"><b>तार्किक लेखन</b><p style="margin:4px 0 0;">विराम चिह्न उपयोग और अनुच्छेद-संगठन तकनीकों में महारत हासिल करें; निरंतर लेखन शैली के साथ तार्किक रूप से संरचित निबंध लिखें, पांडुलिपि पत्र का सही उपयोग करते हुए।</p></div>
+                <div class="txt-ne"><b>तार्किक लेखन</b><p style="margin:4px 0 0;">विरामचिह्न प्रयोग र अनुच्छेद-संगठन प्रविधिमा दक्षता हासिल गर्नुहोस्; निरन्तर लेखन शैलीसाथ तार्किक रूपमा संरचित निबन्ध लेख्नुहोस्, पाण्डुलिपि पत्रको सही प्रयोग गर्दै।</p></div>
+                <div class="txt-si"><b>තාර්කික ලිවීම</b><p style="margin:4px 0 0;">විරාම ලකුණු භාවිතය සහ ඡේද සංවිධාන ශිල්පීය ක්‍රම ප්‍රගුණ කරන්න; අත්පිටපත් කඩදාසි නිවැරදිව භාවිතා කරමින්, ස්ථාවර ලිවීමේ ශෛලියක් සමඟ තාර්කිකව සංවිධානය වූ රචනා ලියන්න.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="accordion-item" data-level="5">
+        <button class="accordion-header" onclick="toggleAccordion(5)" type="button">
+          <span class="acc-plus">+</span>
+          <span class="acc-title">
+            <span class="txt-ja">05. 上級研磨（指定教材：《読解厳選テーマ10【中上級】》）</span>
+            <span class="txt-zh">05. 高級精進（指定教材：《讀解嚴選主題10【中上級】》）</span>
+            <span class="txt-sc">05. 高级精进（指定教材：《读解严选主题10【中上级】》）</span>
+            <span class="txt-en">05. Advanced Mastery（Textbook：《Dokkai Gensen Theme 10 (Upper-Intermediate)》）</span>
+            <span class="txt-vi">05. Hoàn thiện cao cấp（Giáo trình：《Dokkai Gensen Theme 10 (Trung cao cấp)》）</span>
+            <span class="txt-uk">05. Просунута майстерність（Підручник：《Доккай Ґенсен Тема 10 (Вище середнього)》）</span>
+            <span class="txt-id">05. Penyempurnaan Lanjutan（Buku Teks：《Dokkai Gensen Theme 10 (Menengah Atas)》）</span>
+            <span class="txt-ru">05. Продвинутое мастерство（Учебник：《Доккай Гэнсэн Тема 10 (Выше среднего)》）</span>
+            <span class="txt-my">05. အဆင့်မြင့်ကျွမ်းကျင်မှု（သတ်မှတ်စာအုပ်：《Dokkai Gensen Theme 10 (အလယ်အလတ်အထက်)》）</span>
+            <span class="txt-hi">05. उन्नत निपुणता（निर्धारित पाठ्यपुस्तक：《Dokkai Gensen Theme 10 (मध्य-उच्च)》）</span>
+            <span class="txt-ne">05. उन्नत निपुणता（निर्धारित पाठ्यपुस्तक：《Dokkai Gensen Theme 10 (मध्य-उच्च)》）</span>
+            <span class="txt-si">05. උසස් ප්‍රවීණත්වය（නිර්දේශිත පෙළපොත：《Dokkai Gensen Theme 10 (මධ්‍ය-උසස්)》）</span>
+          </span>
+        </button>
+        <div class="accordion-body">
+          <div class="level-skills">
+            <div class="skill-item">
+              <div class="skill-icon">✏️</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>高度な読解と抽象理解</b><p style="margin:4px 0 0;">新聞の社説や評論など、論理的にやや複雑な文章や抽象度の高い文章を読んで、文章の構成や内容を理解することができる。内容に深みのある、いろいろな話題の読み物を読み、きめ細かい表現意図を理解することができる。</p></div>
+                <div class="txt-zh"><b>高階閱讀與抽象理解</b><p style="margin:4px 0 0;">能閱讀報社社論、評論等邏輯較複雜或抽象度高的文章，理解文章結構與內容；閱讀具深度且主題多元的讀物並理解細致的表達意圖。</p></div>
+                <div class="txt-sc"><b>高阶阅读与抽象理解</b><p style="margin:4px 0 0;">能阅读报社社论、评论等逻辑较复杂或抽象度高的文章，理解文章结构与内容；阅读具深度且主题多元的读物并理解细致的表达意图。</p></div>
+                <div class="txt-en"><b>Advanced Reading & Abstract Comprehension</b><p style="margin:4px 0 0;">Read logically complex or highly abstract texts such as newspaper editorials and commentary, understanding their structure and content; read in-depth material on diverse topics and grasp nuanced intent.</p></div>
+                <div class="txt-vi"><b>Đọc nâng cao & Hiểu trừu tượng</b><p style="margin:4px 0 0;">Đọc các bài xã luận, bình luận báo chí có tính logic phức tạp hoặc trừu tượng cao, hiểu cấu trúc và nội dung bài viết; đọc tài liệu chuyên sâu về nhiều chủ đề và hiểu ý đồ diễn đạt tinh tế.</p></div>
+                <div class="txt-uk"><b>Просунуте читання та абстрактне розуміння</b><p style="margin:4px 0 0;">Читати логічно складні або дуже абстрактні тексти, такі як редакційні статті та коментарі, розуміючи їхню структуру та зміст; читати глибокі матеріали на різноманітні теми та вловлювати тонкі нюанси наміру.</p></div>
+                <div class="txt-id"><b>Membaca Lanjutan & Pemahaman Abstrak</b><p style="margin:4px 0 0;">Membaca teks yang secara logis kompleks atau sangat abstrak seperti editorial dan komentar surat kabar, memahami struktur dan isinya; membaca materi mendalam tentang berbagai topik dan menangkap maksud yang bernuansa.</p></div>
+                <div class="txt-ru"><b>Продвинутое чтение и абстрактное понимание</b><p style="margin:4px 0 0;">Читать логически сложные или весьма абстрактные тексты, такие как редакционные статьи и комментарии, понимая их структуру и содержание; читать глубокие материалы на разнообразные темы и улавливать тонкие нюансы намерения.</p></div>
+                <div class="txt-my"><b>အဆင့်မြင့် ဖတ်ခြင်းနှင့် စိတ္တဇနားလည်မှု</b><p style="margin:4px 0 0;">သတင်းစာတည်းဖြတ်ရေးဆောင်းပါးများ၊ သုံးသပ်ချက်များကဲ့သို့ ယုတ္တိအရ အနည်းငယ်ရှုပ်ထွေးသော သို့မဟုတ် စိတ္တဇအဆင့်မြင့်သော စာစီစာကုံးများကို ဖတ်ရှုကာ ဖွဲ့စည်းပုံနှင့် အကြောင်းအရာကို နားလည်နိုင်သည်။ ခေါင်းစဉ်စုံလင်သော နက်နဲသည့် စာဖတ်ရွက်များကို ဖတ်ရှုပြီး တိကျသေချာသော ဖော်ပြလိုရင်းကို နားလည်နိုင်သည်။</p></div>
+                <div class="txt-hi"><b>उन्नत पठन और अमूर्त समझ</b><p style="margin:4px 0 0;">समाचार पत्र संपादकीय और टिप्पणी जैसे तार्किक रूप से जटिल या उच्च अमूर्त पाठों को पढ़ें, उनकी संरचना और सामग्री को समझें; विविध विषयों पर गहन सामग्री पढ़ें और सूक्ष्म आशय को समझें।</p></div>
+                <div class="txt-ne"><b>उन्नत पठन र अमूर्त बुझाइ</b><p style="margin:4px 0 0;">समाचारपत्र सम्पादकीय र टिप्पणी जस्ता तार्किक रूपमा जटिल वा उच्च अमूर्त पाठ पढ्नुहोस्, तिनको संरचना र सामग्री बुझ्नुहोस्; विविध विषयमा गहिरो सामग्री पढ्नुहोस् र सूक्ष्म आशय बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>උසස් කියවීම සහ වියුක්ත අවබෝධය</b><p style="margin:4px 0 0;">පුවත්පත් සංස්කාරක ලිපි සහ විවරණ වැනි තාර්කිකව සංකීර්ණ හෝ ඉතා වියුක්ත පාඨ කියවා, ඒවායේ ව්‍යුහය හා අන්තර්ගතය තේරුම් ගන්න; විවිධ මාතෘකා පිළිබඳ ගැඹුරු ද්‍රව්‍ය කියවා සියුම් අභිප්‍රාය තේරුම් ගන්න.</p></div>
+              </div>
+            </div>
+            <div class="skill-item">
+              <div class="skill-icon">📖</div>
+              <div class="skill-body">
+                <div class="txt-ja"><b>高度な聴解と論理分析</b><p style="margin:4px 0 0;">幅広い場面で自然な速さの会話、ニュース、講義などを聞き、話の流れ、内容、人物関係、論理構成を詳細に理解し、要旨を的確に把握することができる。</p></div>
+                <div class="txt-zh"><b>高階聽力與邏輯分析</b><p style="margin:4px 0 0;">在廣泛情境下收聽自然語速的對話、新聞或講座，詳細理解說話脈絡、內容、人物關係與邏輯結構並精確掌握要旨。</p></div>
+                <div class="txt-sc"><b>高阶听力与逻辑分析</b><p style="margin:4px 0 0;">在广泛情境下收听自然语速的对话、新闻或讲座，详细理解说话脉络、内容、人物关系与逻辑结构并精确掌握要旨。</p></div>
+                <div class="txt-en"><b>Advanced Listening & Logical Analysis</b><p style="margin:4px 0 0;">Listen to conversations, news, or lectures at natural speed in a wide range of settings, understand the flow, content, relationships between people, and logical structure in detail, and precisely grasp the main point.</p></div>
+                <div class="txt-vi"><b>Nghe nâng cao & Phân tích logic</b><p style="margin:4px 0 0;">Nghe hội thoại, tin tức hoặc bài giảng với tốc độ tự nhiên trong nhiều tình huống, hiểu chi tiết mạch chuyện, nội dung, mối quan hệ nhân vật và cấu trúc logic, nắm chính xác ý chính.</p></div>
+                <div class="txt-uk"><b>Просунуте аудіювання та логічний аналіз</b><p style="margin:4px 0 0;">Слухати розмови, новини чи лекції з природною швидкістю у широкому спектрі ситуацій, детально розуміти хід, зміст, стосунки між людьми та логічну структуру, точно вловлювати основну думку.</p></div>
+                <div class="txt-id"><b>Mendengarkan Lanjutan & Analisis Logis</b><p style="margin:4px 0 0;">Mendengarkan percakapan, berita, atau kuliah dengan kecepatan alami dalam berbagai situasi, memahami alur, isi, hubungan antar orang, dan struktur logis secara rinci, serta menangkap poin utama dengan tepat.</p></div>
+                <div class="txt-ru"><b>Продвинутое аудирование и логический анализ</b><p style="margin:4px 0 0;">Слушать разговоры, новости или лекции с естественной скоростью в широком спектре ситуаций, детально понимать ход, содержание, отношения между людьми и логическую структуру, точно улавливать главную мысль.</p></div>
+                <div class="txt-my"><b>အဆင့်မြင့် နားထောင်ခြင်းနှင့် ယုတ္တိခွဲခြမ်းစိတ်ဖြာခြင်း</b><p style="margin:4px 0 0;">ကျယ်ပြန့်သော အခြေအနေများတွင် သဘာဝနှုန်းဖြင့် စကားဝိုင်းများ၊ သတင်းများ သို့မဟုတ် ဟောပြောပွဲများကို နားထောင်ပြီး စကားစီးဆင်းမှု၊ အကြောင်းအရာ၊ ဆက်ဆံရေးနှင့် ယုတ္တိဖွဲ့စည်းပုံကို အသေးစိတ်နားလည်ကာ အဓိကအချက်ကို တိကျစွာရယူနိုင်သည်။</p></div>
+                <div class="txt-hi"><b>उन्नत सुनना और तार्किक विश्लेषण</b><p style="margin:4px 0 0;">विभिन्न परिस्थितियों में स्वाभाविक गति से बातचीत, समाचार या व्याख्यान सुनें, प्रवाह, सामग्री, लोगों के बीच संबंधों और तार्किक संरचना को विस्तार से समझें, तथा मुख्य बिंदु को सटीक रूप से समझें।</p></div>
+                <div class="txt-ne"><b>उन्नत सुनाइ र तार्किक विश्लेषण</b><p style="margin:4px 0 0;">विविध परिस्थितिमा स्वाभाविक गतिमा कुराकानी, समाचार वा व्याख्यान सुन्नुहोस्, प्रवाह, सामग्री, मानिसहरूबीचको सम्बन्ध र तार्किक संरचना विस्तृत रूपमा बुझ्नुहोस्, र मुख्य बुँदा सटीक रूपमा बुझ्नुहोस्।</p></div>
+                <div class="txt-si"><b>උසස් ශ්‍රවණය සහ තාර්කික විශ්ලේෂණය</b><p style="margin:4px 0 0;">පුළුල් අවස්ථා පරාසයක ස්වාභාවික වේගයෙන් සංවාද, පුවත් හෝ දේශන අසා, ගලායාම, අන්තර්ගතය, පුද්ගලයන් අතර සබඳතා සහ තාර්කික ව්‍යුහය විස්තරාත්මකව තේරුම් ගෙන, ප්‍රධාන කරුණ නිවැරදිව ග්‍රහණය කරගන්න.</p></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -3934,6 +4302,19 @@
       openLangSheet();
     } else {
       toggleLangMenu(e);
+    }
+  }
+
+  function toggleAccordion(n) {
+    var item = document.querySelector('.accordion-item[data-level="' + n + '"]');
+    var step = document.querySelector('.stair-step[data-level="' + n + '"]');
+    var wasOpen = item && item.classList.contains('open');
+    document.querySelectorAll('.accordion-item').forEach(function(i){ i.classList.remove('open'); });
+    document.querySelectorAll('.stair-step').forEach(function(s){ s.classList.remove('active'); s.setAttribute('aria-selected', 'false'); });
+    if (!wasOpen) {
+      if (item) item.classList.add('open');
+      if (step) { step.classList.add('active'); step.setAttribute('aria-selected', 'true'); }
+      if (item) item.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
 
