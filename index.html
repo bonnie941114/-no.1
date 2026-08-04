@@ -822,6 +822,21 @@
   }
   .photo-placeholder .ph-icon { font-size: 28px; opacity: 0.5; }
   .photo-placeholder .ph-caption { font-weight: 700; max-width: 85%; line-height: 1.5; }
+
+  /* ---------- 影片預留位元件 (Video Placeholder) ---------- */
+  /* 之後只要把 .video-placeholder 換成真實影片 <video> 或 <iframe>（YouTube 等）即可 */
+  .video-placeholder {
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px;
+    background: repeating-linear-gradient(45deg, rgba(35,33,32,0.03), rgba(35,33,32,0.03) 10px, rgba(35,33,32,0.05) 10px, rgba(35,33,32,0.05) 20px);
+    border: 1.5px dashed rgba(35,33,32,0.25); border-radius: var(--radius);
+    color: var(--ink-soft); font-size: 14px; text-align: center; padding: 20px;
+    aspect-ratio: 16 / 9; width: 100%; max-width: 780px; margin: 0 auto 28px;
+  }
+  .video-placeholder .vph-icon { width: 56px; height: 56px; border-radius: 50%; background: var(--vibrant-red); color: var(--bg-white);
+    display: flex; align-items: center; justify-content: center; font-size: 22px; opacity: 0.85; }
+  .video-placeholder .vph-caption { font-weight: 700; max-width: 85%; line-height: 1.5; }
+  .video-placeholder .vph-sub { font-size: 12.5px; opacity: 0.75; }
+  @media (max-width: 600px) { .video-placeholder { aspect-ratio: 4 / 3; } }
   .life-card .photo-slider { position: relative; margin-bottom: 18px; }
   .life-card .photo-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; gap: 10px;
     scrollbar-width: none; -ms-overflow-style: none; border-radius: 18px; scroll-padding-left: 0; }
@@ -980,8 +995,12 @@
 
   /* ---------- 社會參與亮點時間軸 (Community Highlight) ---------- */
   .highlight-timeline { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px 36px; margin: 54px 0 10px; position: relative; overflow: hidden; }
+  .campus-video-section { background: var(--bg-white); border: 1px solid var(--line); border-radius: var(--radius); padding: 40px 36px; margin: 54px 0 10px; position: relative; overflow: hidden; text-align:center; }
+  .campus-video-section h3, .campus-video-section p { text-align:left; max-width:640px; margin-left:auto; margin-right:auto; }
+  .campus-video-section .video-placeholder { margin-top:24px; }
+  @media (max-width: 768px) { .campus-video-section { padding: 28px 20px; } }
   .highlight-timeline::before { content: ""; position: absolute; top: 0; left: 0; width: 6px; height: 100%; background: linear-gradient(180deg, var(--vibrant-red), var(--vibrant-yellow), var(--vibrant-green)); }
-  .highlight-photo-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin: 22px 0 32px; max-width: 620px; }
+  .highlight-photo-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin: 22px 0 32px; max-width: 100%; }
   .highlight-photo-grid .photo-placeholder { aspect-ratio: 4 / 3; }
   .ht-groups { display: grid; grid-template-columns: repeat(2, 1fr); gap: 36px; }
   .ht-group h5 { font-family: "Shippori Mincho", serif; font-size: 16px; font-weight: 700; color: var(--vibrant-red); margin: 0 0 14px; }
@@ -2331,8 +2350,7 @@
 
   <section class="campus-life-section">
     <div class="eyebrow">CAMPUS LIFE</div>
-    <h2 data-i18n="title_life">四季のキャンパスライフ</h2>
-    <div class="reveal" style="margin-bottom:28px;">
+    <h2 data-i18n="title_life">四季のキャンパスライフ</h2>    <div class="reveal" style="margin-bottom:28px;">
       <a href="http://tokyo1-school.com/wp/wp-content/uploads/2026/03/Tokyo-One%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%A6%E6%A0%A1%E5%B9%B4%E9%96%93%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB2026-1.pdf" target="_blank" class="btn btn-ghost">
         <span class="txt-ja">年間スケジュールをダウンロード (PDF)</span><span class="txt-zh">下載年度課表 (PDF)</span><span class="txt-sc">下载年度课表 (PDF)</span><span class="txt-en">Download Annual Schedule (PDF)</span><span class="txt-hi">वार्षिक कार्यक्रम डाउनलोड करें (PDF)</span><span class="txt-ne">वार्षिक तालिका डाउनलोड गर्नुहोस् (PDF)</span><span class="txt-si">වාර්ෂික කාලසටහන බාගන්න (PDF)</span><span class="txt-vi">Tải lịch năm học (PDF)</span><span class="txt-uk">Завантажити річний розклад (PDF)</span><span class="txt-id">Unduh Jadwal Tahunan (PDF)</span><span class="txt-ru">Скачать годовое расписание (PDF)</span><span class="txt-my">နှစ်ချုပ်ဇယားဒေါင်းလုဒ် (PDF)</span>
       </a>
@@ -2402,7 +2420,7 @@
             <span class="photo-swipe-hint">左右滑動</span>
             <span class="photo-counter">1 / 3</span>
             <div class="photo-track" data-multi>
-              <div class="photo-slide" style="aspect-ratio:16/9;"><div class="photo-placeholder" style="width:100%;height:100%;margin-bottom:0;border-radius:0;"><span class="ph-icon">📷</span><span class="ph-caption">示意照片 1<br>Demo photo 1</span></div></div>
+              <div class="photo-slide" style="aspect-ratio:16/9;"><img src="images/yukata-tanabata.jpg" alt="浴衣體驗合照" style="width:100%;height:100%;object-fit:cover;display:block;"></div>
               <div class="photo-slide" style="aspect-ratio:16/9;"><div class="photo-placeholder" style="width:100%;height:100%;margin-bottom:0;border-radius:0;"><span class="ph-icon">📷</span><span class="ph-caption">示意照片 2<br>Demo photo 2</span></div></div>
               <div class="photo-slide" style="aspect-ratio:16/9;"><div class="photo-placeholder" style="width:100%;height:100%;margin-bottom:0;border-radius:0;"><span class="ph-icon">📷</span><span class="ph-caption">示意照片 3<br>Demo photo 3</span></div></div>
             </div>
@@ -2454,11 +2472,38 @@
 
 </section>
 
+  <section class="campus-video-section reveal">
+    <div class="eyebrow">VIDEO</div>
+    <h3 style="margin-bottom:10px;">
+      <span class="txt-ja">キャンパスライフ動画</span><span class="txt-zh">校園生活影片</span><span class="txt-sc">校园生活影片</span><span class="txt-en">Campus Life Video</span><span class="txt-hi">कैंपस जीवन वीडियो</span><span class="txt-ne">क्याम्पस जीवन भिडियो</span><span class="txt-si">මණ්ඩප ජීවිත වීඩියෝව</span><span class="txt-vi">Video cuộc sống trong trường</span><span class="txt-uk">Відео студентського життя</span><span class="txt-id">Video Kehidupan Kampus</span><span class="txt-ru">Видео о студенческой жизни</span><span class="txt-my">ကျောင်းဘဝ ဗီဒီယို</span>
+    </h3>
+    <p style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">
+      <span class="txt-ja">写真だけでは伝えきれない、リアルな学校生活の雰囲気を動画でご覧ください。</span><span class="txt-zh">照片說不完的，用影片帶您感受最真實的校園氛圍。</span><span class="txt-sc">照片说不完的，用影片带您感受最真实的校园氛围。</span><span class="txt-en">See the real atmosphere of campus life in motion — more than photos alone can show.</span><span class="txt-hi">फोटो जो नहीं दिखा सकतीं, वह वीडियो में देखें — कैंपस जीवन का असली माहौल।</span><span class="txt-ne">फोटोले नदेखाउन सक्ने कुरा भिडियोमा हेर्नुहोस् — क्याम्पस जीवनको वास्तविक वातावरण।</span><span class="txt-si">ඡායාරූපවලට වඩා, වීඩියෝවෙන් මණ්ඩප ජීවිතයේ සැබෑ වාතාවරණය බලන්න.</span><span class="txt-vi">Xem không khí thực sự của cuộc sống trong trường qua video — điều mà ảnh chụp không thể truyền tải hết.</span><span class="txt-uk">Подивіться справжню атмосферу студентського життя у відео — те, що не передадуть самі лише фотографії.</span><span class="txt-id">Lihat suasana nyata kehidupan kampus dalam video — lebih dari yang bisa ditunjukkan foto saja.</span><span class="txt-ru">Посмотрите настоящую атмосферу студенческой жизни в видео — больше, чем могут показать одни фотографии.</span><span class="txt-my">ဓာတ်ပုံများသက်သက်ဖြင့် မဖော်ပြနိုင်သော ကျောင်းဘဝ၏ တကယ့်ပတ်ဝန်းကျင်ကို ဗီဒီယိုဖြင့် ကြည့်ရှုပါ။</span>
+    </p>
+
+    <div class="video-placeholder reveal">
+      <span class="vph-icon">▶</span>
+      <span class="vph-caption txt-ja">校園生活影片<br><span class="vph-sub">待放入影片</span></span>
+      <span class="vph-caption txt-zh">校園生活影片<br><span class="vph-sub">待放入影片</span></span>
+      <span class="vph-caption txt-sc">校园生活影片<br><span class="vph-sub">待放入影片</span></span>
+      <span class="vph-caption txt-en">Campus Life Video<br><span class="vph-sub">Video coming soon</span></span>
+      <span class="vph-caption txt-vi">Video cuộc sống trong trường<br><span class="vph-sub">Video sẽ được cập nhật sau</span></span>
+      <span class="vph-caption txt-uk">Відео студентського життя<br><span class="vph-sub">Відео буде додано пізніше</span></span>
+      <span class="vph-caption txt-id">Video Kehidupan Kampus<br><span class="vph-sub">Video akan segera hadir</span></span>
+      <span class="vph-caption txt-ru">Видео о студенческой жизни<br><span class="vph-sub">Видео появится позже</span></span>
+      <span class="vph-caption txt-my">ကျောင်းဘဝ ဗီဒီယို<br><span class="vph-sub">ဗီဒီယို မကြာမီ ထည့်သွင်းပါမည်</span></span>
+      <span class="vph-caption txt-hi">कैंपस जीवन वीडियो<br><span class="vph-sub">वीडियो जल्द ही जोड़ा जाएगा</span></span>
+      <span class="vph-caption txt-ne">क्याम्पस जीवन भिडियो<br><span class="vph-sub">भिडियो चाँडै थपिनेछ</span></span>
+      <span class="vph-caption txt-si">මණ්ඩප ජීවිත වීඩියෝව<br><span class="vph-sub">වීඩියෝව ඉක්මනින් එකතු කෙරේ</span></span>
+    </div>
+  </section>
+
   <section class="highlight-timeline reveal">
     <div class="eyebrow">COMMUNITY &amp; PARTICIPATION</div>
     <h3 style="margin-bottom:10px;">
       <span class="txt-ja">生活と社会参加</span><span class="txt-zh">日常交流與社會參與</span><span class="txt-sc">日常交流与社会参与</span><span class="txt-en">Daily Life &amp; Community Engagement</span><span class="txt-ru">Повседневная жизнь и участие в жизни общества</span><span class="txt-my">နေ့စဉ်ဘဝနှင့် အသိုင်းအဝိုင်း ပါဝင်ဆောင်ရွက်မှု</span><span class="txt-hi">दैनिक जीवन और सामुदायिक सहभागिता</span><span class="txt-ne">दैनिक जीवन र सामुदायिक सहभागिता</span><span class="txt-si">දෛනික ජීවිතය සහ ප්‍රජා සහභාගීත්වය</span><span class="txt-vi">Cuộc sống hằng ngày &amp; Tham gia cộng đồng</span><span class="txt-uk">Повсякденне життя та участь у громаді</span><span class="txt-id">Kehidupan Sehari-hari &amp; Keterlibatan Komunitas</span><span class="txt-ru">Повседневная жизнь и участие в жизни общества</span><span class="txt-my">နေ့စဉ်ဘဝ &amp; လူ့အသိုင်းအဝိုင်း ပါဝင်မှု</span>
     </h3>
+
     <p class="txt-zh" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">在多國籍校園交流、適應日本社會生活之外，學生們也親身參與在地公益與志願服務，實踐學校「熱愛生活・參與社會」的教育理念。</p>
     <p class="txt-en" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">Beyond multinational campus exchange and daily-life support, students also take part in local charity and volunteer work — living out the school's philosophy of embracing life and society.</p><p class="txt-vi" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">Ngoài giao lưu khuôn viên đa quốc gia và hỗ trợ sinh hoạt hàng ngày, học viên còn tham gia các hoạt động từ thiện và tình nguyện tại địa phương — sống theo triết lý của nhà trường về việc đón nhận cuộc sống và xã hội.</p><p class="txt-uk" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">Окрім багатонаціонального кампусного обміну та підтримки повсякденного життя, студенти також беруть участь у місцевій благодійності та волонтерській роботі — втілюючи філософію школи щодо прийняття життя та суспільства.</p><p class="txt-id" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">Selain pertukaran kampus multinasional dan dukungan kehidupan sehari-hari, siswa juga berpartisipasi dalam kegiatan amal dan sukarelawan lokal — mewujudkan filosofi sekolah dalam merangkul kehidupan dan masyarakat.</p><p class="txt-ru" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">Помимо многонационального кампусного обмена и поддержки повседневной жизни, студенты также участвуют в местной благотворительности и волонтёрской работе — воплощая философию школы о принятии жизни и общества.</p><p class="txt-my" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">နိုင်ငံပေါင်းစုံမှ ကျောင်းဝန်းဖလှယ်မှုနှင့် နေ့စဉ်ဘဝထောက်ပံ့မှုအပြင် ကျောင်းသားများသည် ဒေသန္တရ ရက်ရောစွန့်ကြဲမှုနှင့် စေတနာ့ဝန်ထမ်းလုပ်ငန်းများတွင်လည်း ပါဝင်ကြသည် — ဘဝနှင့် လူ့အဖွဲ့အစည်းကို လက်ခံကျင့်သုံးသော ကျောင်း၏ဒဿနကို ဘဝတစ်လျှောက် ကျင့်သုံးကြသည်။</p><p class="txt-hi" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">बहुराष्ट्रीय कैंपस आदान-प्रदान और दैनिक जीवन सहायता के अलावा, छात्र स्थानीय दान और स्वयंसेवी कार्य में भी भाग लेते हैं — विद्यालय के जीवन और समाज को अपनाने के दर्शन को जीते हुए।</p><p class="txt-ne" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">बहुराष्ट्रिय क्याम्पस आदानप्रदान र दैनिक जीवन सहयोगबाहेक, विद्यार्थीहरूले स्थानीय दान र स्वयंसेवी काममा पनि भाग लिन्छन् — विद्यालयको जीवन र समाज अँगाल्ने दर्शन बाँचेर।</p><p class="txt-si" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">බහුජාතික මණ්ඩප හුවමාරුව සහ දෛනික ජීවන සහාය ඉක්මවා, ශිෂ්‍යයෝ ද පළාත් පුණ්‍ය කටයුතු හා ස්වේච්ඡා සේවයේ ද යෙදෙති — ජීවිතය හා සමාජය වැළඳගැනීමේ පාසලේ දර්ශනය ජීවත් කරමින්.</p>
     <p class="txt-vi" style="max-width:640px;color:var(--ink-soft);margin-bottom:0;">Ngoài giao lưu đa quốc gia trong khuôn viên trường và hỗ trợ thích nghi với cuộc sống Nhật Bản, học viên còn trực tiếp tham gia các hoạt động từ thiện và tình nguyện tại địa phương — thực hành triết lý giáo dục "yêu cuộc sống, tham gia xã hội" của nhà trường.</p>
