@@ -872,6 +872,10 @@
     .facility-photo-grid { grid-template-columns: repeat(2, 1fr); }
     .staff-photo-grid { grid-template-columns: repeat(2, 1fr); }
   }
+  @media (max-width: 560px) {
+    .facility-photo-grid { grid-template-columns: 1fr; gap: 16px; }
+    .staff-photo-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  }
   /* 季節色改由卡片斜切角落＋頂邊呈現，見 .life-card::before/::after 及 border-top */
   .season-mark { position: absolute; right: -12px; bottom: -28px; font-size: 100px; color: rgba(35,33,32,0.03); font-family: "Shippori Mincho", serif; pointer-events: none; z-index: 1; }
   .life-card.season-spring .season-mark { color: rgba(216,168,162,0.16); }
@@ -944,7 +948,11 @@
   .col-winter .mt-item::before { border-color: var(--tl-winter); }
   .mt-event { display: block; font-size: 13px; font-weight: 700; line-height: 1.5; }
   @media (max-width: 760px) { .chevron-details { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 480px) { .chevron-details { grid-template-columns: 1fr; } }
+  @media (max-width: 480px) {
+    .chevron-details { grid-template-columns: 1fr; }
+    .chevron-detail-col { display: none; }
+    .chevron-detail-col.mobile-active { display: block; }
+  }
 
   .mosaic-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
     background: repeating-linear-gradient(45deg, rgba(35,33,32,0.04), rgba(35,33,32,0.04) 10px, rgba(35,33,32,0.07) 10px, rgba(35,33,32,0.07) 20px);
@@ -1008,6 +1016,7 @@
   .ht-group .timeline-list { border-left: 2px solid var(--line); }
   .ht-group .timeline-list li::before { background: var(--vibrant-yellow); }
   @media (max-width: 900px) { .ht-groups { grid-template-columns: 1fr; gap: 30px; } .highlight-photo-grid { grid-template-columns: repeat(2, 1fr); max-width: 100%; } }
+  @media (max-width: 560px) { .highlight-photo-grid { grid-template-columns: 1fr; gap: 14px; } }
   
   .access-card { background: var(--bg-white); padding: 36px 30px; border-radius: var(--radius); border: 1px solid var(--line); cursor: pointer; transition: all 0.3s; }
   .quick-facts-strip { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin: 36px 0 0; }
@@ -1288,10 +1297,10 @@
       border-radius: 6px;
     }
 
-    /* 4. 校園生活卡片: 橫向2欄（不要單欄全寬） */
+    /* 4. 校園生活卡片: 手機版單欄，一次顯示一張 */
     .campus-life-grid {
-      grid-template-columns: repeat(2, 1fr) !important;
-      gap: 12px;
+      grid-template-columns: 1fr !important;
+      gap: 20px;
     }
     .life-card img, .life-card .photo-placeholder {
       aspect-ratio: 16/9;
@@ -4977,9 +4986,11 @@
   (function initChevronTactile() {
     const steps = Array.from(document.querySelectorAll('.chevron-step[data-season]'));
     if (!steps.length) return;
+    const detailCols = Array.from(document.querySelectorAll('.chevron-detail-col'));
 
     function showSeason(season) {
       steps.forEach((step) => step.classList.toggle('active', step.getAttribute('data-season') === season));
+      detailCols.forEach((col) => col.classList.toggle('mobile-active', col.classList.contains('col-' + season)));
 
       // 觸覺回饋：支援的裝置(多為 Android 瀏覽器)會有短震動；不支援則安靜略過
       if (window.navigator && typeof window.navigator.vibrate === 'function') {
@@ -4990,6 +5001,12 @@
     steps.forEach((step) => {
       step.addEventListener('click', () => showSeason(step.getAttribute('data-season')));
     });
+
+    // 初始狀態：預設顯示第一個 active 的季節（手機版用）
+    const initialStep = steps.find((s) => s.classList.contains('active')) || steps[0];
+    if (initialStep) {
+      detailCols.forEach((col) => col.classList.toggle('mobile-active', col.classList.contains('col-' + initialStep.getAttribute('data-season'))));
+    }
   })();
 
   /* ---------- 多張照片可滑動相簿：箭頭按鈕、圓點、頁碼、滑動提示 ---------- */
