@@ -937,6 +937,35 @@
   .chevron-icon { font-size: 19px; transition: transform 0.2s ease; }
   .chevron-step.active .chevron-icon { transform: scale(1.08); }
   @media (max-width: 560px) { .chevron-shape { height: 40px; } .chevron-icon { font-size: 15px; } .chevron-label { font-size: 11px; } .chevron-timeline { gap: 6px; } }
+  .chevron-tap-hint { display: none; }
+
+  @media (max-width: 480px) {
+    /* 讓「哪個是選中的季節」在手機上一眼就能看出來 */
+    .chevron-step { opacity: 0.5; transition: opacity 0.25s ease; }
+    .chevron-step.active { opacity: 1; }
+    .chevron-step .chevron-shape { filter: grayscale(0.35); transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease; }
+    .chevron-step.active .chevron-shape { filter: grayscale(0); }
+    /* 選中季節下方加一個小箭頭指標，指向下方對應的清單 */
+    .chevron-step::after {
+      content: "";
+      width: 0; height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 7px solid var(--dot-color, #C9BFB4);
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .chevron-step.active::after { opacity: 1; transform: translateY(0); }
+    /* 提示文字：告訴使用者這裡可以點擊切換 */
+    .chevron-tap-hint { display: block; text-align: center; font-size: 12px; color: var(--ink-soft); opacity: 0.7; margin: -18px 0 18px; }
+    /* 內容切換時的淡入動畫，讓「換內容了」這件事更明顯 */
+    .chevron-detail-col.mobile-active { animation: chevronFadeIn 0.28s ease; }
+    @keyframes chevronFadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  }
 
 
 
@@ -2406,6 +2435,8 @@
       <button class="chevron-step chevron-step-autumn" data-season="autumn" type="button"><span class="chevron-shape"><span class="chevron-icon">🍁</span></span><span class="chevron-label">秋季</span></button>
       <button class="chevron-step chevron-step-winter" data-season="winter" type="button"><span class="chevron-shape"><span class="chevron-icon">❄️</span></span><span class="chevron-label">冬季</span></button>
     </div>
+
+    <span class="chevron-tap-hint">👆 點選上方季節查看活動清單</span>
 
     <div class="chevron-details">
       <div class="chevron-detail-col col-spring">
