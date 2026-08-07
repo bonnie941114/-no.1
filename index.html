@@ -1417,13 +1417,15 @@
       padding: 5px 10px;
     }
 
-    /* 8. 地圖區塊縮小、允許橫向捲動 */
+    /* 8. 地圖區塊：手機版全部改用「縮放到 100% 寬度、不用橫向捲動」（設定與上面 760px 區塊一致，
+       避免 min-width 把 SVG 撐超過容器寬度導致被裁切、看起來過小） */
     .map-scroll-wrapper {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
+      overflow-x: hidden;
     }
     .map-scroll-wrapper svg {
-      min-width: 600px;
+      min-width: 0;
+      width: 100%;
+      height: auto;
     }
 
     /* 9. 大數字區塊: 2欄 */
@@ -5406,23 +5408,20 @@
       tooltip.classList.remove('show');
     }
 
-    // 判斷裝置是否「真的」支援滑鼠 hover（桌機／滑鼠／觸控筆），觸控裝置一律用點擊模式，
-    // 避免手機上先觸發 mouseenter 顯示、緊接著 click 又把它收起、卡片一閃即逝的問題
-    const supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-
+    // 統一以 click 作為「顯示／收起」的核心動作（滑鼠點擊、觸控點按都會觸發 click，任何裝置都保證有效）
     spots.forEach((spot) => {
-      if (supportsHover) {
-        // 桌機：滑鼠移入／移出即可顯示／收起，不需要額外處理 click
-        spot.addEventListener('mouseenter', () => showTooltip(spot));
-        spot.addEventListener('mouseleave', hideTooltip);
-      } else {
-        // 觸控裝置：點一下顯示；再點一次同一個圖示則收起
-        spot.addEventListener('click', (e) => {
-          e.stopPropagation();
-          e.preventDefault();
-          if (activeSpot === spot) { hideTooltip(); } else { showTooltip(spot); }
-        });
-      }
+      spot.addEventListener('click', (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        if (activeSpot === spot) { hideTooltip(); } else { showTooltip(spot); }
+      });
+
+      // 額外的桌機滑鼠 hover 預覽：用 Pointer Events 的 pointerType 即時判斷，
+      // 只有「真的是滑鼠」才會生效，觸控裝置一律不受影響，避免先 hover 顯示、
+      // 緊接著 click 又把它收起的問題（用 matchMedia 靜態偵測在部分裝置上不準確）
+      spot.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') showTooltip(spot); });
+      spot.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') hideTooltip(); });
+
       // 鍵盤操作（Tab 移動到圖示）：任何裝置都支援
       spot.addEventListener('focus', () => showTooltip(spot));
       spot.addEventListener('blur', hideTooltip);
@@ -5435,4 +5434,3 @@
 </script>
 </body>
 </html>
-
