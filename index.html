@@ -208,6 +208,7 @@
   .custom-lang-dropdown:hover .lang-dropdown-content { display: block; }
 
   .menu-toggle { display: none; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--ink-main); }
+  .mobile-pane-label { display: none; }
   
   /* ---------- STAGGER PANELS BLOCK ---------- */
   .view-pane { display: none; }
@@ -1445,6 +1446,10 @@
     nav.main-nav button.nav-tab-btn { padding: 18px 28px; width: 100%; text-align: left; border-bottom: 1px solid var(--line); }
     nav.main-nav button.nav-tab-btn::after { display: none; }
     .menu-toggle { display: block; }
+    .mobile-pane-label {
+      display: inline-block; font-size: 13px; font-weight: 700; color: var(--vibrant-red);
+      max-width: 92px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
     
     .hero-inner, .achieve-split, .support-columns, .quick-access-grid, .campus-life-grid, .doc-grid, .req-grid { grid-template-columns: 1fr; }
     /* testimonial-grid 在 761px 以上單欄，以下由手機版 CSS 控制 */
@@ -1587,6 +1592,7 @@
         </div>
       </div>
 
+      <span id="mobilePaneLabel" class="mobile-pane-label" aria-hidden="true"></span>
       <button class="menu-toggle" id="menuToggle" aria-label="menu">☰</button>
     </div>
   </div>
@@ -4713,6 +4719,9 @@
       const currentFilterBtn = document.querySelector('.news-filter-btn.active');
       window.renderNewsSection(currentFilterBtn ? currentFilterBtn.getAttribute('data-filter') : 'all');
     }
+
+    // 語言切換後，手機版選單按鈕旁的「目前分頁」文字也要跟著更新
+    if (typeof updateMobilePaneLabel === 'function') updateMobilePaneLabel();
   }
 
   // 頁面載入時，預設標示日文為目前選中的語言
@@ -4872,6 +4881,26 @@
   const logoTrigger = document.getElementById('logoHomeTrigger');
   let counterAnimated = false;
 
+  // 手機版選單收合按鈕旁的「目前分頁」文字：有分頁 active 就顯示該分頁名稱，
+  // 回到首頁（沒有分頁 active）時顯示「首頁」，並依目前語言顯示對應翻譯
+  const HOME_PANE_LABELS = {
+    ja: 'ホーム', zh: '首頁', sc: '首页', en: 'Home', vi: 'Trang chủ', uk: 'Головна',
+    id: 'Beranda', ru: 'Главная', my: 'ပင်မစာမျက်နှာ', hi: 'होम', ne: 'गृह', si: 'මුල් පිටුව'
+  };
+  function updateMobilePaneLabel() {
+    const label = document.getElementById('mobilePaneLabel');
+    if (!label) return;
+    const activeBtn = document.querySelector('.nav-tab-btn.active');
+    if (activeBtn) {
+      label.textContent = activeBtn.textContent.trim();
+    } else {
+      const langMatch = document.body.className.match(/lang-([a-z]+)/);
+      const lang = langMatch ? langMatch[1] : 'ja';
+      label.textContent = HOME_PANE_LABELS[lang] || HOME_PANE_LABELS.ja;
+    }
+  }
+  updateMobilePaneLabel();
+
   function switchModule(targetPaneId, pushHistory) {
     if (pushHistory === undefined) pushHistory = true;
     viewPanes.forEach(pane => pane.classList.remove('active'));
@@ -4893,6 +4922,7 @@
 
     const coreButton = document.querySelector(`.nav-tab-btn[data-target="${targetPaneId}"]`);
     if(coreButton) { coreButton.classList.add('active'); coreButton.setAttribute('aria-selected', 'true'); }
+    updateMobilePaneLabel();
 
     if (targetPaneId === 'pane-achievements' && !counterAnimated) {
       document.getElementById('gaugeZone').classList.add('in');
