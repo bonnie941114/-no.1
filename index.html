@@ -120,7 +120,7 @@
 
   /* ---------- FILM INTRO ---------- */
   #loading-shutter-wrap { position: fixed; inset: 0; z-index: 9999; display: flex; width: 100%; height: 100%; pointer-events: auto; background: var(--bg-washi); }
-  .shutter-door { flex: 1; height: 100%; position: relative; overflow: hidden; background: var(--bg-washi); opacity: 0; pointer-events: none; transition: opacity 0.4s ease, transform 1.3s cubic-bezier(0.76, 0, 0.24, 1); }
+  .shutter-door { flex: 1; height: 100%; position: relative; overflow: hidden; background: var(--bg-washi); opacity: 0; pointer-events: none; transition: opacity 0.3s ease, transform 0.9s cubic-bezier(0.76, 0, 0.24, 1); }
   .shutter-door.visible { opacity: 1; }
   .door-left { border-right: 6px solid var(--ink-main); transform-origin: left; box-shadow: inset -4px 0 10px rgba(0,0,0,0.03); }
   .door-right { border-left: 6px solid var(--ink-main); transform-origin: right; box-shadow: inset 4px 0 10px rgba(0,0,0,0.03); }
@@ -198,11 +198,12 @@
   .custom-lang-dropdown { position: relative; display: inline-block; }
   .lang-dropbtn { background: var(--bg-white); color: var(--ink-main); border: 1px solid var(--ink-main); padding: 8px 16px; border-radius: 20px; font-family: "Space Grotesk", sans-serif; font-weight: 700; font-size: 15px; cursor: pointer; display: flex; align-items: center; gap: 6px; transition: all 0.25s; }
   .lang-dropbtn:hover { background: var(--ink-main); color: var(--bg-white); }
-  .lang-dropdown-content { display: none; position: absolute; right: 0; background-color: var(--bg-white); min-width: 170px; box-shadow: 0px 8px 24px rgba(35,33,32,0.12); border: 1px solid var(--line); border-radius: var(--radius); z-index: 200; margin-top: 6px; overflow: hidden; }
-  .lang-dropdown-content button { background: none; border: none; width: 100%; text-align: left; color: var(--ink-main); padding: 10px 16px; cursor: pointer; font-size: 15px; font-weight: 500; transition: background 0.2s; font-family: inherit; }
+  .lang-dropdown-content { display: none; position: absolute; right: 0; background-color: var(--bg-white); min-width: 200px; max-height: 70vh; overflow-y: auto; box-shadow: 0px 8px 24px rgba(35,33,32,0.12); border: 1px solid var(--line); border-radius: var(--radius); z-index: 200; margin-top: 6px; overflow-x: hidden; }
+  .lang-dropdown-content button { background: none; border: none; width: 100%; text-align: left; color: var(--ink-main); padding: 10px 16px; cursor: pointer; font-size: 15px; font-weight: 500; transition: background 0.2s; font-family: inherit; display: flex; align-items: center; gap: 8px; }
   .lang-dropdown-content button:hover { background-color: rgba(234, 220, 185, 0.4); color: var(--vibrant-red); font-weight: 700; }
   .lang-dropdown-content button.lang-active { background-color: rgba(234, 220, 185, 0.6); color: var(--vibrant-red); font-weight: 700; }
   .lang-dropdown-content button.lang-active::before { content: "✓ "; }
+  .lang-flag-sm { font-size: 15px; line-height: 1; flex: none; }
   /* Hover 支援桌面端 */
   .custom-lang-dropdown:hover .lang-dropdown-content { display: block; }
 
@@ -370,6 +371,32 @@
   .map-info ul li { margin-bottom: 10px; }
   .map-iframe-container { border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); height: 320px; position: relative; }
   .map-iframe-container iframe { width: 100%; height: 100%; border: none; }
+
+  /* 生活機能圖：互動熱點圖示 + 彈出小卡片 */
+  .map-hotspot { cursor: pointer; transform-box: fill-box; transform-origin: center; }
+  .map-hotspot:focus { outline: none; }
+  .map-hotspot circle:first-child, .map-hotspot ellipse:first-child { transition: filter 0.18s ease; }
+  .map-hotspot:hover circle:first-child, .map-hotspot:focus circle:first-child, .map-hotspot.hs-active circle:first-child,
+  .map-hotspot:hover ellipse:first-child, .map-hotspot:focus ellipse:first-child, .map-hotspot.hs-active ellipse:first-child { filter: drop-shadow(0 0 5px rgba(255,255,255,0.9)) drop-shadow(0 3px 8px rgba(35,33,32,0.4)); }
+  #mapHotspotTooltip {
+    position: absolute; z-index: 50; pointer-events: none; opacity: 0; transform: translate(-50%, -100%) translateY(-10px) scale(0.96);
+    transition: opacity 0.16s ease, transform 0.16s ease;
+    background: var(--ink-main); color: #fff; border-radius: 10px; padding: 10px 14px;
+    min-width: 150px; max-width: 220px; box-shadow: 0 10px 28px rgba(35,33,32,0.28);
+    font-size: 13px; line-height: 1.5;
+  }
+  #mapHotspotTooltip.show { opacity: 1; transform: translate(-50%, -100%) translateY(-16px) scale(1); }
+  #mapHotspotTooltip .hs-name { font-weight: 800; font-size: 14px; margin-bottom: 2px; color: #fff; }
+  #mapHotspotTooltip .hs-row { display: flex; align-items: center; gap: 6px; color: rgba(255,255,255,0.78); font-size: 12.5px; }
+  #mapHotspotTooltip .hs-row + .hs-row { margin-top: 2px; }
+  #mapHotspotTooltip::after {
+    content: ""; position: absolute; left: 50%; bottom: -6px; transform: translateX(-50%);
+    border-width: 6px 6px 0 6px; border-style: solid; border-color: var(--ink-main) transparent transparent transparent;
+  }
+  @media (max-width: 900px) {
+    #mapHotspotTooltip { min-width: 130px; max-width: 180px; font-size: 12px; padding: 8px 11px; }
+    #mapHotspotTooltip .hs-name { font-size: 13px; }
+  }
 
   /* ACHIEVEMENTS PANE STYLES */
   .plaque-box { background: var(--bg-white); border: 1px solid var(--ink-main); padding: 50px 40px; margin-bottom: 60px; text-align: center; position: relative; box-shadow: 4px 4px 0 rgba(35,33,32,0.05); }
@@ -1545,18 +1572,18 @@
       <div class="custom-lang-dropdown">
         <button class="lang-dropbtn" onclick="handleLangBtnClick(event)" aria-haspopup="true" aria-expanded="false" aria-label="Language selector / 語言選單">🌐 Language</button>
         <div class="lang-dropdown-content" id="langMenuContent" role="menu" aria-label="Language options / 語言選項">
-          <button onclick="changeLanguage('ja')" role="menuitem">日本語</button>
-          <button onclick="changeLanguage('zh')" role="menuitem">繁體中文</button>
-          <button onclick="changeLanguage('sc')" role="menuitem">简体中文</button>
-          <button onclick="changeLanguage('en')" role="menuitem">English</button>
-          <button onclick="changeLanguage('vi')" role="menuitem">Tiếng Việt</button>
-          <button onclick="changeLanguage('uk')" role="menuitem">Українська</button>
-          <button onclick="changeLanguage('id')" role="menuitem">Bahasa Indonesia</button>
-          <button onclick="changeLanguage('ru')" role="menuitem">Русский</button>
-          <button onclick="changeLanguage('my')" role="menuitem">မြန်မာဘာသာ</button>
-          <button onclick="changeLanguage('hi')" role="menuitem">हिन्दी</button>
-          <button onclick="changeLanguage('ne')" role="menuitem">नेपाली</button>
-          <button onclick="changeLanguage('si')" role="menuitem">සිංහල</button>
+          <button onclick="changeLanguage('ja')" role="menuitem" data-lang="ja"><span class="lang-flag-sm">🇯🇵</span>日本語</button>
+          <button onclick="changeLanguage('zh')" role="menuitem" data-lang="zh"><span class="lang-flag-sm">🇹🇼</span>繁體中文</button>
+          <button onclick="changeLanguage('sc')" role="menuitem" data-lang="sc"><span class="lang-flag-sm">🇨🇳</span>简体中文</button>
+          <button onclick="changeLanguage('en')" role="menuitem" data-lang="en"><span class="lang-flag-sm">🇬🇧</span>English</button>
+          <button onclick="changeLanguage('vi')" role="menuitem" data-lang="vi"><span class="lang-flag-sm">🇻🇳</span>Tiếng Việt</button>
+          <button onclick="changeLanguage('id')" role="menuitem" data-lang="id"><span class="lang-flag-sm">🇮🇩</span>Bahasa Indonesia</button>
+          <button onclick="changeLanguage('my')" role="menuitem" data-lang="my"><span class="lang-flag-sm">🇲🇲</span>မြန်မာဘာသာ</button>
+          <button onclick="changeLanguage('hi')" role="menuitem" data-lang="hi"><span class="lang-flag-sm">🇮🇳</span>हिन्दी</button>
+          <button onclick="changeLanguage('ne')" role="menuitem" data-lang="ne"><span class="lang-flag-sm">🇳🇵</span>नेपाली</button>
+          <button onclick="changeLanguage('si')" role="menuitem" data-lang="si"><span class="lang-flag-sm">🇱🇰</span>සිංහල</button>
+          <button onclick="changeLanguage('uk')" role="menuitem" data-lang="uk"><span class="lang-flag-sm">🇺🇦</span>Українська</button>
+          <button onclick="changeLanguage('ru')" role="menuitem" data-lang="ru"><span class="lang-flag-sm">🇷🇺</span>Русский</button>
         </div>
       </div>
 
@@ -1570,54 +1597,54 @@
 <div class="lang-bottom-sheet" id="langBottomSheet">
   <div class="lang-sheet-handle"></div>
   <div class="lang-sheet-title">🌐 SELECT LANGUAGE</div>
-  <div class="lang-sheet-grid">
-    <button class="lang-sheet-btn" onclick="changeLanguage('ja'); closeLangSheet()">
+  <div class="lang-sheet-grid" id="langSheetGrid">
+    <button class="lang-sheet-btn" data-lang="ja" onclick="changeLanguage('ja'); closeLangSheet()">
       <span class="lang-flag">🇯🇵</span>
       <span class="lang-name">日本語<br><span class="lang-native">Japanese</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('zh'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="zh" onclick="changeLanguage('zh'); closeLangSheet()">
       <span class="lang-flag">🇹🇼</span>
       <span class="lang-name">繁體中文<br><span class="lang-native">Traditional Chinese</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('sc'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="sc" onclick="changeLanguage('sc'); closeLangSheet()">
       <span class="lang-flag">🇨🇳</span>
       <span class="lang-name">简体中文<br><span class="lang-native">Simplified Chinese</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('en'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="en" onclick="changeLanguage('en'); closeLangSheet()">
       <span class="lang-flag">🇬🇧</span>
       <span class="lang-name">English<br><span class="lang-native">English</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('vi'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="vi" onclick="changeLanguage('vi'); closeLangSheet()">
       <span class="lang-flag">🇻🇳</span>
       <span class="lang-name">Tiếng Việt<br><span class="lang-native">Vietnamese</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('uk'); closeLangSheet()">
-      <span class="lang-flag">🇺🇦</span>
-      <span class="lang-name">Українська<br><span class="lang-native">Ukrainian</span></span>
-    </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('id'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="id" onclick="changeLanguage('id'); closeLangSheet()">
       <span class="lang-flag">🇮🇩</span>
       <span class="lang-name">Bahasa Indonesia<br><span class="lang-native">Indonesian</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('ru'); closeLangSheet()">
-      <span class="lang-flag">🇷🇺</span>
-      <span class="lang-name">Русский<br><span class="lang-native">Russian</span></span>
-    </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('my'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="my" onclick="changeLanguage('my'); closeLangSheet()">
       <span class="lang-flag">🇲🇲</span>
       <span class="lang-name">မြန်မာဘာသာ<br><span class="lang-native">Burmese</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('hi'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="hi" onclick="changeLanguage('hi'); closeLangSheet()">
       <span class="lang-flag">🇮🇳</span>
       <span class="lang-name">हिन्दी<br><span class="lang-native">Hindi</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('ne'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="ne" onclick="changeLanguage('ne'); closeLangSheet()">
       <span class="lang-flag">🇳🇵</span>
       <span class="lang-name">नेपाली<br><span class="lang-native">Nepali</span></span>
     </button>
-    <button class="lang-sheet-btn" onclick="changeLanguage('si'); closeLangSheet()">
+    <button class="lang-sheet-btn" data-lang="si" onclick="changeLanguage('si'); closeLangSheet()">
       <span class="lang-flag">🇱🇰</span>
       <span class="lang-name">සිංහල<br><span class="lang-native">Sinhala</span></span>
+    </button>
+    <button class="lang-sheet-btn" data-lang="uk" onclick="changeLanguage('uk'); closeLangSheet()">
+      <span class="lang-flag">🇺🇦</span>
+      <span class="lang-name">Українська<br><span class="lang-native">Ukrainian</span></span>
+    </button>
+    <button class="lang-sheet-btn" data-lang="ru" onclick="changeLanguage('ru'); closeLangSheet()">
+      <span class="lang-flag">🇷🇺</span>
+      <span class="lang-name">Русский<br><span class="lang-native">Russian</span></span>
     </button>
   </div>
 </div>
@@ -1641,6 +1668,150 @@
       <p class="txt-my">ဂျပန်စာလွဲမှားသမျှသည် သင့်တိုးတက်မှု၏ သက်သေပင်ဖြစ်သည်။ချစ်ဘား၏ သာယာသော ပင်လယ်လေနှင့် ကျယ်ပြန့်သော ကောင်းကင်အောက်တွင် တစ်ဆင့်ချင်း စိတ်ရှည်စွာ ကျွန်ုပ်တို့နှင့်အတူ အသစ်သော အသက်မွေးဝမ်းကျောင်းလောကကို ချဲ့ထွင်ကြပါစို့။</p>
     </div>
   </section>
+
+  <!-- ============================================== -->
+  <!-- 年度新聞專區 (News Section)                      -->
+  <!-- 之後要新增新聞，只需要編輯下方 <script> 裡的 newsData 陣列，   -->
+  <!-- 不需要更動任何 HTML／CSS。詳細說明請看陣列上方的註解。         -->
+  <!-- ============================================== -->
+  <style>
+    .news-section { padding: 44px 28px 8px; max-width: var(--maxw); margin: 0 auto; }
+    .news-section .eyebrow { margin-bottom: 6px; }
+    .news-section h2 { margin: 0 0 20px; }
+    .news-filter-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 22px; }
+    .news-filter-btn {
+      font-family: "Shippori Mincho", serif; font-weight: 700; font-size: 13px;
+      padding: 6px 18px; border-radius: 999px; border: 1.5px solid var(--line);
+      background: #fff; color: var(--ink-soft); cursor: pointer; transition: all 0.2s ease;
+    }
+    .news-filter-btn:hover { border-color: var(--vibrant-red); color: var(--vibrant-red); }
+    .news-filter-btn.active { background: var(--vibrant-red); border-color: var(--vibrant-red); color: #fff; }
+    .news-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-bottom: 12px; }
+    .news-card {
+      display: block; text-decoration: none; color: inherit;
+      border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;
+      background: #fff; transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+    .news-card:hover { box-shadow: 0 6px 20px rgba(35,33,32,0.08); transform: translateY(-2px); }
+    .news-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .news-card-date { font-family: "Space Grotesk", sans-serif; font-size: 12.5px; color: var(--ink-soft); }
+    .news-card-tag {
+      font-size: 11.5px; font-weight: 700; padding: 3px 12px; border-radius: 999px; color: #fff;
+    }
+    .news-card-tag.tag-event { background: var(--vibrant-green); }
+    .news-card-tag.tag-notice { background: #85C0DF; }
+    .news-card-tag.tag-admission { background: var(--vibrant-red); }
+    .news-card h4 { margin: 0 0 8px; font-family: "Shippori Mincho", serif; font-size: 16.5px; line-height: 1.5; }
+    .news-card p { margin: 0; font-size: 13.5px; color: var(--ink-soft); line-height: 1.6; }
+    .news-empty { text-align: center; padding: 30px; color: var(--ink-soft); font-size: 14px; display: none; }
+    @media (max-width: 900px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } .news-section { padding: 32px 20px 4px; } }
+  </style>
+
+  <section class="news-section reveal">
+    <div class="eyebrow">NEWS</div>
+    <h2><span class="txt-ja">年度ニュース</span><span class="txt-zh">年度新聞</span><span class="txt-sc">年度新闻</span><span class="txt-en">Annual News</span></h2>
+
+    <div class="news-filter-tags" id="newsFilterTags">
+      <button class="news-filter-btn active" data-filter="all">
+        <span class="txt-ja">すべて</span><span class="txt-zh">全部</span><span class="txt-sc">全部</span><span class="txt-en">All</span>
+      </button>
+      <button class="news-filter-btn" data-filter="event">
+        <span class="txt-ja">イベント</span><span class="txt-zh">活動</span><span class="txt-sc">活动</span><span class="txt-en">Events</span>
+      </button>
+      <button class="news-filter-btn" data-filter="notice">
+        <span class="txt-ja">お知らせ</span><span class="txt-zh">公告</span><span class="txt-sc">公告</span><span class="txt-en">Notices</span>
+      </button>
+      <button class="news-filter-btn" data-filter="admission">
+        <span class="txt-ja">募集</span><span class="txt-zh">招生</span><span class="txt-sc">招生</span><span class="txt-en">Admissions</span>
+      </button>
+    </div>
+
+    <div class="news-grid" id="newsGrid"></div>
+    <p class="news-empty" id="newsEmpty">
+      <span class="txt-ja">該当するニュースがありません</span><span class="txt-zh">目前沒有符合的新聞</span><span class="txt-sc">目前没有符合的新闻</span><span class="txt-en">No news in this category yet</span>
+    </p>
+  </section>
+
+  <script>
+    /* ===========================================================
+       年度新聞資料 — 之後新增新聞，只要在下面陣列裡「複製一組、貼上、改內容」即可
+       每一則新聞的欄位說明：
+         date     : 日期，格式 YYYY-MM-DD（用來排序，最新的會自動排在最前面）
+         category : 分類，只能填 "event"(活動) / "notice"(公告) / "admission"(招生)
+         title    : { zh: "中文標題", en: "English title" }  →  沒有 en 也可以省略，會自動用中文代替
+         summary  : { zh: "中文摘要一小段", en: "English summary" }
+       =========================================================== */
+    const newsData = [
+      {
+        date: "2026-04-10",
+        category: "admission",
+        title: { zh: "2026年度春季班招生開始", en: "2026 Spring Term Admissions Open" },
+        summary: { zh: "即日起開放2026年度春季班報名，名額有限，歡迎提前洽詢申請。", en: "Applications for the 2026 Spring term are now open. Limited seats available." }
+      },
+      {
+        date: "2026-01-15",
+        category: "event",
+        title: { zh: "新年書初活動圓滿舉行", en: "New Year Kakizome Event a Success" },
+        summary: { zh: "全體學生齊聚一堂，體驗傳統日本新年書法文化，氣氛熱鬧溫馨。", en: "Students gathered to experience traditional Japanese New Year calligraphy." }
+      },
+      {
+        date: "2025-12-01",
+        category: "notice",
+        title: { zh: "寒假期間辦公室服務時間調整公告", en: "Winter Break Office Hours Notice" },
+        summary: { zh: "寒假期間辦公室服務時間將有調整，詳情請見公告內容。", en: "Office hours will be adjusted during the winter break period." }
+      }
+    ];
+
+    (function initNewsSection() {
+      const grid = document.getElementById('newsGrid');
+      const emptyMsg = document.getElementById('newsEmpty');
+      const filterBtns = document.querySelectorAll('.news-filter-btn');
+      if (!grid) return;
+
+      const tagLabel = { event: '活動', notice: '公告', admission: '招生' };
+      const tagClass = { event: 'tag-event', notice: 'tag-notice', admission: 'tag-admission' };
+
+      function currentLangCode() {
+        const m = document.body.className.match(/lang-(\w+)/);
+        return m ? m[1] : 'zh';
+      }
+
+      function pick(field) {
+        const lang = currentLangCode();
+        return field[lang] || field.zh || field.en || '';
+      }
+
+      function render(filter) {
+        const sorted = [...newsData].sort((a, b) => new Date(b.date) - new Date(a.date));
+        const filtered = filter === 'all' ? sorted : sorted.filter(n => n.category === filter);
+        grid.innerHTML = filtered.map(n => `
+          <div class="news-card">
+            <div class="news-card-top">
+              <span class="news-card-date">${n.date}</span>
+              <span class="news-card-tag ${tagClass[n.category] || ''}">${tagLabel[n.category] || n.category}</span>
+            </div>
+            <h4>${pick(n.title)}</h4>
+            <p>${pick(n.summary)}</p>
+          </div>
+        `).join('');
+        emptyMsg.style.display = filtered.length ? 'none' : 'block';
+      }
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          render(btn.getAttribute('data-filter'));
+        });
+      });
+
+      render('all');
+
+      // 讓 changeLanguage() 切換語言時，可以呼叫這個函式重新渲染新聞內容
+      window.renderNewsSection = render;
+    })();
+  </script>
 
   <section class="home-intro-summary wrap">
     <div class="quick-access-grid">
@@ -1805,7 +1976,7 @@
         <span class="txt-ja">周辺の生活機能マップ</span><span class="txt-zh">周邊生活機能圖</span><span class="txt-sc">周邊生活机能图</span><span class="txt-en">Neighborhood Amenities Map</span><span class="txt-hi">आसपास की सुविधाओं का मानचित्र</span><span class="txt-ne">छिमेकी सुविधाहरूको नक्सा</span><span class="txt-si">අවට පහසුකම් සිතියම</span><span class="txt-vi">Bản đồ tiện ích khu vực</span><span class="txt-uk">Карта зручностей району</span><span class="txt-id">Peta Fasilitas Sekitar</span><span class="txt-ru">Карта удобств района</span><span class="txt-my">ပတ်ဝန်းကျင် အဆင်ပြေမှု မြေပုံ</span>
       </h3>
       <p style="font-size: 15px;color:var(--ink-soft);max-width:820px;margin-bottom:20px;"><span class="txt-ja">学校を中心とした徒歩圏の生活機能マップです。実在する周辺施設に加え、JR東千葉駅からの徒歩ルート（赤）と、千葉駅方面からのバスルート（青）も示しています。</span><span class="txt-zh">以學校為中心、步行範圍內的生活機能示意圖。除了周邊真實店家外，也標示了從 JR 東千葉站步行過來的路線（紅色）與從千葉站方向搭公車的路線（藍色）。</span><span class="txt-sc">以学校为中心、步行范围內的生活机能示意图。除了周邊真实店家外，也标示了从 JR 東千葉站步行过来的路线（紅色）与从千葉站方向搭公车的路线（藍色）。</span><span class="txt-en">A walking-distance amenities map centred on the school. Alongside real nearby shops, it shows the walking route from JR Higashi-Chiba Station (red) and the bus route from the Chiba Station direction (blue).</span><span class="txt-my">ကျောင်းကို ဗဟိုပြုသော လမ်းလျှောက်အကွာအဝေး အဆင်ပြေမှုမြေပုံ။ အနီးအနားရှိ တကယ့်ဆိုင်များအပြင် JR Higashi-Chiba ဘူတာမှ လမ်းလျှောက်လမ်းကြောင်း (အနီ) နှင့် Chiba ဘူတာဘက်မှ ဘတ်စ်ကားလမ်းကြောင်း (အပြာ) ကိုပါ ပြထားသည်။</span><span class="txt-vi">Bản đồ tiện ích trong tầm đi bộ quanh trường. Bên cạnh các cửa hàng thực tế gần đó, bản đồ còn hiển thị lộ trình đi bộ từ ga JR Higashi-Chiba (đỏ) và tuyến xe buýt từ hướng ga Chiba (xanh).</span><span class="txt-uk">Карта зручностей у пішій доступності від школи. Окрім реальних закладів поблизу, показано пішохідний маршрут від станції JR Хіґасі-Чіба (червоний) та автобусний маршрут з боку станції Чіба (синій).</span><span class="txt-id">Peta fasilitas dalam jarak jalan kaki dari sekolah. Selain toko nyata di sekitar, peta ini menunjukkan rute jalan kaki dari Stasiun JR Higashi-Chiba (merah) dan rute bus dari arah Stasiun Chiba (biru).</span><span class="txt-ru">Карта удобств в пешей доступности от школы. Помимо реальных заведений рядом, показан пешеходный маршрут от станции JR Хигаси-Тиба (красный) и автобусный маршрут со стороны станции Тиба (синий).</span><span class="txt-my">ကျောင်းကို ဗဟိုပြုသော လမ်းလျှောက်အကွာအဝေး အဆင်ပြေမှုမြေပုံ။ အနီးအနားရှိ တကယ့်ဆိုင်များအပြင် JR Higashi-Chiba ဘူတာမှ လမ်းလျှောက်လမ်းကြောင်း (အနီ) နှင့် Chiba ဘူတာဘက်မှ ဘတ်စ်ကားလမ်းကြောင်း (အပြာ) ကိုပါ ပြထားသည်။</span><span class="txt-hi">स्कूल के केंद्र में पैदल दूरी की सुविधाओं का मानचित्र। वास्तविक आसपास की दुकानों के साथ-साथ, यह JR हिगाशी-चिबा स्टेशन से पैदल मार्ग (लाल) और चिबा स्टेशन की दिशा से बस मार्ग (नीला) दिखाता है।</span><span class="txt-ne">विद्यालयलाई केन्द्रमा राखेर पैदल दूरीका सुविधाहरूको नक्सा। वास्तविक नजिकका पसलहरूसँगै, यसले JR हिगाशी-चिबा स्टेशनबाट पैदल मार्ग (रातो) र चिबा स्टेशनतर्फको बस मार्ग (निलो) देखाउँछ।</span><span class="txt-si">පාසල කේන්ද්‍ර කරගත් ඇවිදින දුරින් ඇති පහසුකම් සිතියමකි. සැබෑ අවට සාප්පු සමඟම, එය JR හිගාෂි-චිබා දුම්රිය ස්ථානයේ සිට ඇවිදින මාර්ගය (රතු) සහ චිබා දුම්රිය ස්ථානය දෙසින් බස් මාර්ගය (නිල්) පෙන්වයි.</span><span class="txt-vi">Bản đồ tiện ích trong tầm đi bộ quanh trường. Ngoài các cửa hàng thực tế gần đó, bản đồ còn hiển thị lộ trình đi bộ từ ga JR Higashi-Chiba (đỏ) và tuyến xe buýt từ hướng ga Chiba (xanh).</span><span class="txt-uk">Карта зручностей у пішій доступності від школи. Окрім реальних закладів поблизу, показано пішохідний маршрут від станції JR Хіґасі-Чіба (червоний) та автобусний маршрут з боку станції Чіба (синій).</span><span class="txt-id">Peta fasilitas dalam jarak jalan kaki dari sekolah. Selain toko nyata di sekitar, ditampilkan juga rute jalan kaki dari Stasiun JR Higashi-Chiba (merah) dan rute bus dari arah Stasiun Chiba (biru).</span><span class="txt-ru">Карта удобств в пешей доступности от школы. Помимо реальных заведений рядом, показан пешеходный маршрут от станции JR Хигаси-Тиба (красный) и автобусный маршрут со стороны станции Тиба (синий).</span><span class="txt-my">ကျောင်းကို ဗဟိုပြုသော လမ်းလျှောက်အကွာအဝေး အဆင်ပြေမှုမြေပုံ။ အနီးအနားရှိ တကယ့်ဆိုင်များအပြင် JR Higashi-Chiba ဘူတာမှ လမ်းလျှောက်လမ်းကြောင်း (အနီ) နှင့် Chiba ဘူတာဘက်မှ ဘတ်စ်ကားလမ်းကြောင်း (အပြာ) ကိုပါ ပြထားသည်။</span></p>
-      <div class="map-scroll-wrapper" style="border:1px solid var(--line);border-radius:var(--radius);padding:10px;background:#FCFBF7;overflow:hidden;">
+      <div class="map-scroll-wrapper" style="border:1px solid var(--line);border-radius:var(--radius);padding:10px;background:#FCFBF7;overflow:visible;position:relative;">
         <svg viewBox="0 0 1000 520" xmlns="http://www.w3.org/2000/svg" role="img"
   aria-label="学校を中心とした周辺生活機能マップ（徒歩圏）"
   style="width:100%;height:auto;display:block;border-radius:var(--radius);background:#FCFBF7;">
@@ -1818,68 +1989,68 @@
   </marker>
 </defs>
 
-<!-- Horizontal roads -->
-<line x1="0" y1="155" x2="1000" y2="155" stroke="#E2CBA8" stroke-width="32" stroke-linecap="round"/>
-<line x1="0" y1="310" x2="1000" y2="310" stroke="#E2CBA8" stroke-width="32" stroke-linecap="round"/>
-<line x1="0" y1="435" x2="1000" y2="435" stroke="#E2CBA8" stroke-width="22" stroke-linecap="round"/>
+<!-- Main road running through the school / Matsuya / Karayama (祐光の東西のメイン通り) -->
+<line x1="0" y1="330" x2="1000" y2="330" stroke="#E2CBA8" stroke-width="30" stroke-linecap="round"/>
+<!-- North side street where BOOKOFF・Don Quijote・park sit -->
+<line x1="120" y1="180" x2="1000" y2="180" stroke="#E2CBA8" stroke-width="24" stroke-linecap="round"/>
+<!-- Connector near the school linking the two streets -->
+<line x1="610" y1="180" x2="610" y2="330" stroke="#E2CBA8" stroke-width="20" stroke-linecap="round"/>
+<!-- Connector down toward the station -->
+<line x1="270" y1="330" x2="270" y2="470" stroke="#E2CBA8" stroke-width="20" stroke-linecap="round"/>
 
-<!-- Vertical roads -->
-<line x1="430" y1="0" x2="430" y2="520" stroke="#E2CBA8" stroke-width="26" stroke-linecap="round"/>
-<line x1="690" y1="0" x2="690" y2="520" stroke="#E2CBA8" stroke-width="26" stroke-linecap="round"/>
-<line x1="870" y1="80" x2="870" y2="480" stroke="#E2CBA8" stroke-width="18" stroke-linecap="round"/>
-
-<!-- Walking route: L-shape red dashed — Higashi-Chiba → up V2 column → right to school -->
-<path d="M 310 155 H 430 V 370 H 690"
+<!-- Walking route: red dashed — Higashi-Chiba station (south-west) → north to the main road → east to school -->
+<path d="M 220 470 L 270 400 V 330 H 650"
   fill="none" stroke="#D3232A" stroke-width="2.5" stroke-dasharray="8 5"
   marker-end="url(#arrR)" opacity="0.9"/>
 
-<!-- Bus route: blue dashed — from top of V2 down to bus stop -->
-<line x1="430" y1="20" x2="430" y2="292"
+<!-- Bus route: blue dashed — from Chiba-station direction (north) down to the bus stop -->
+<line x1="270" y1="40" x2="270" y2="330"
   stroke="#2F6DB0" stroke-width="2.5" stroke-dasharray="8 5"
   marker-end="url(#arrB)" opacity="0.9"/>
 
-<!-- Park -->
-<ellipse cx="855" cy="390" rx="32" ry="22" fill="#B7D19E" opacity="0.85"/>
-<text x="855" y="395" text-anchor="middle" font-size="14">🌳</text>
-<text x="855" y="424" text-anchor="middle" font-size="12" font-weight="700" fill="#0d5c30" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">城の下公園</text>
+<!-- Park (城の下公園) — just north-east of the school -->
+<g class="map-hotspot" tabindex="0" role="button" data-name="城の下公園" data-dist="学校まで徒歩約2分" data-hours="24時間開放（トイレ・水飲み場あり）">
+<ellipse cx="800" cy="230" rx="34" ry="22" fill="#B7D19E" opacity="0.85"/>
+<text x="800" y="235" text-anchor="middle" font-size="14">🌳</text>
+<text x="800" y="264" text-anchor="middle" font-size="12" font-weight="700" fill="#0d5c30" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">城の下公園</text>
+</g>
 
 <!-- Markers -->
-<g transform="translate(310,155)"><circle r="13" fill="#26211F"/><circle r="13" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🚉</text></g>
-<g transform="translate(430,310)"><circle r="11" fill="#2F6DB0"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🚌</text></g>
-<g transform="translate(590,310)"><circle r="12" fill="#E08A00"/><circle r="12" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🍚</text></g>
-<g transform="translate(770,310)"><circle r="12" fill="#E08A00"/><circle r="12" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🍗</text></g>
-<g transform="translate(590,155)"><circle r="11" fill="#D3232A"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">📚</text></g>
-<g transform="translate(870,310)"><circle r="11" fill="#D3232A"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🛍️</text></g>
-<g transform="translate(350,435)"><circle r="11" fill="#007A3B"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🏪</text></g>
+<g class="map-hotspot" tabindex="0" role="button" data-name="JR東千葉駅" data-dist="学校まで徒歩約8分（約600m）" data-hours="JR総武本線" transform="translate(220,470)"><circle r="13" fill="#26211F"/><circle r="13" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🚉</text></g>
+<g class="map-hotspot" tabindex="0" role="button" data-name="祐光三丁目 バス停" data-dist="学校まで徒歩約2分" data-hours="千葉駅方面ゆき" transform="translate(270,330)"><circle r="11" fill="#2F6DB0"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🚌</text></g>
+<g class="map-hotspot" tabindex="0" role="button" data-name="松屋 東千葉店" data-dist="学校まで徒歩約1分" data-hours="24時間営業" transform="translate(430,330)"><circle r="12" fill="#E08A00"/><circle r="12" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🍚</text></g>
+<g class="map-hotspot" tabindex="0" role="button" data-name="からやま 千葉祐光店" data-dist="学校のすぐ隣（徒歩1分未満）" data-hours="10:30〜23:00" transform="translate(560,330)"><circle r="12" fill="#E08A00"/><circle r="12" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🍗</text></g>
+<g class="map-hotspot" tabindex="0" role="button" data-name="BOOKOFF SUPER BAZAAR 東千葉祐光店" data-dist="学校まで徒歩約2分" data-hours="10:00〜21:00" transform="translate(560,180)"><circle r="11" fill="#D3232A"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">📚</text></g>
+<g class="map-hotspot" tabindex="0" role="button" data-name="ドン・キホーテ 東千葉祐光店" data-dist="学校まで徒歩約2分（BOOKOFFと同じ駐車場）" data-hours="9:00〜翌5:00" transform="translate(660,180)"><circle r="11" fill="#D3232A"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🛍️</text></g>
+<g class="map-hotspot" tabindex="0" role="button" data-name="ローソン 千葉祐光四丁目店" data-dist="学校まで徒歩約4分" data-hours="24時間営業" transform="translate(910,330)"><circle r="11" fill="#007A3B"/><circle r="11" fill="none" stroke="#FCFBF7" stroke-width="2"/><text x="0" y="0.5" text-anchor="middle" dominant-baseline="central" font-size="12">🏪</text></g>
 
 <!-- Labels -->
-<text x="310" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#26211F" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">JR 東千葉駅</text>
-<text x="430" y="338" text-anchor="middle" font-size="12" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">祐光三丁目</text>
-<text x="430" y="352" text-anchor="middle" font-size="12" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">バス停</text>
-<text x="590" y="286" text-anchor="middle" font-size="13" font-weight="700" fill="#E08A00" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">松屋</text>
-<text x="770" y="286" text-anchor="middle" font-size="13" font-weight="700" fill="#E08A00" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">からやま</text>
-<text x="590" y="133" text-anchor="middle" font-size="13" font-weight="700" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">BOOKOFF</text>
-<text x="870" y="288" text-anchor="middle" font-size="12" font-weight="700" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">ドン・キホーテ</text>
-<text x="350" y="462" text-anchor="middle" font-size="13" font-weight="700" fill="#007A3B" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">ローソン</text>
+<text x="220" y="446" text-anchor="middle" font-size="13" font-weight="700" fill="#26211F" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">JR 東千葉駅</text>
+<text x="270" y="358" text-anchor="middle" font-size="12" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">祐光三丁目</text>
+<text x="270" y="372" text-anchor="middle" font-size="12" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">バス停</text>
+<text x="430" y="306" text-anchor="middle" font-size="13" font-weight="700" fill="#E08A00" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">松屋</text>
+<text x="560" y="306" text-anchor="middle" font-size="13" font-weight="700" fill="#E08A00" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">からやま</text>
+<text x="560" y="158" text-anchor="middle" font-size="13" font-weight="700" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">BOOKOFF</text>
+<text x="660" y="158" text-anchor="middle" font-size="12" font-weight="700" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">ドン・キホーテ</text>
+<text x="610" y="207" text-anchor="middle" font-size="10.5" fill="#5C5654" paint-order="stroke" stroke="#FCFBF7" stroke-width="3" stroke-linejoin="round">（同じ駐車場を共有）</text>
+<text x="910" y="306" text-anchor="middle" font-size="13" font-weight="700" fill="#007A3B" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">ローソン</text>
 
-<!-- Chiba Sta label left edge -->
-<text x="12" y="304" text-anchor="start" font-size="12" font-weight="700" fill="#26211F" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">千葉駅</text>
-<text x="12" y="320" text-anchor="start" font-size="12" font-weight="700" fill="#26211F" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">方面→</text>
+<!-- Chiba Sta direction label -->
+<text x="230" y="30" text-anchor="middle" font-size="12" font-weight="700" fill="#26211F" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">千葉駅方面</text>
 
 <!-- Route labels -->
-<text x="460" y="141" text-anchor="middle" font-size="12" font-weight="700" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">徒歩 約10分</text>
-<text x="492" y="90" text-anchor="start" font-size="12" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">バス 約8分</text>
-<text x="434" y="292" text-anchor="start" font-size="11" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">千葉駅方面</text>
+<text x="300" y="392" text-anchor="start" font-size="12" font-weight="700" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">徒歩 約10分</text>
+<text x="282" y="150" text-anchor="start" font-size="12" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">バス 約8分</text>
 
 <!-- SCHOOL -->
-<g transform="translate(690,370)">
+<g class="map-hotspot" tabindex="0" role="button" data-name="Tokyo One 日本語学校（本校）" data-dist="祐光4-1-18" data-hours="窓口：月・水・木・金 8:00〜17:30" transform="translate(650,330)">
   <circle r="40" fill="#D3232A" opacity="0.13"/>
   <circle r="26" fill="#D3232A"/>
   <circle r="26" fill="none" stroke="#FCFBF7" stroke-width="3"/>
   <text x="0" y="1" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="800" fill="#FCFBF7">本校</text>
 </g>
-<text x="722" y="360" text-anchor="start" font-size="13.5" font-weight="800" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">Tokyo One</text>
-<text x="722" y="378" text-anchor="start" font-size="13.5" font-weight="800" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">日本語学校</text>
+<text x="650" y="392" text-anchor="middle" font-size="13.5" font-weight="800" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">Tokyo One</text>
+<text x="650" y="410" text-anchor="middle" font-size="13.5" font-weight="800" fill="#D3232A" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">日本語学校</text>
 
 <!-- Compass -->
 <g transform="translate(955,48)">
@@ -1888,7 +2059,12 @@
   <text x="0" y="-21" text-anchor="middle" font-size="10" font-weight="700" fill="#5C5654">N</text>
 </g>
 </svg>
+        <div id="mapHotspotTooltip" role="status" aria-live="polite"></div>
       </div>
+      <p style="font-size:13px;color:var(--ink-soft);margin-top:8px;display:flex;align-items:center;gap:6px;">
+        <span aria-hidden="true">👆</span>
+        <span class="txt-ja">図中のアイコンをタップ／ホバーすると、お店の名前・距離・営業時間が表示されます。より詳しい道順は、上の Google マップもあわせてご確認ください。</span><span class="txt-zh">點擊／滑過圖示可以看到店名、距離與營業時間。更詳細的路線請一併參考上方的 Google 地圖。</span><span class="txt-sc">点击／滑过图示可以看到店名、距离与营业时间。更详细的路线请一併参考上方的 Google 地图。</span><span class="txt-en">Tap or hover an icon to see the shop's name, distance and hours. For turn-by-turn directions, please also check the Google Map above.</span><span class="txt-hi">आइकन पर टैप या होवर करने पर दुकान का नाम, दूरी और समय दिखाई देगा। विस्तृत रास्ते के लिए ऊपर दिए गए Google मानचित्र को भी देखें।</span><span class="txt-ne">आइकनमा ट्याप वा होभर गर्दा पसलको नाम, दूरी र समय देखिन्छ। विस्तृत बाटोको लागि माथिको Google नक्सा पनि हेर्नुहोस्।</span><span class="txt-si">අයිකනය මත ස්පර්ශ කිරීමෙන් හෝ රැඳවීමෙන් සාප්පුවේ නම, දුර සහ වේලාව පෙන්වයි. විස්තරාත්මක මාර්ග සඳහා ඉහත Google සිතියම ද බලන්න.</span><span class="txt-vi">Chạm hoặc di chuột vào biểu tượng để xem tên cửa hàng, khoảng cách và giờ mở cửa. Để biết đường đi chi tiết, vui lòng xem thêm Google Map ở trên.</span><span class="txt-uk">Торкніться або наведіть курсор на значок, щоб побачити назву закладу, відстань і години роботи. Детальний маршрут дивіться на карті Google вище.</span><span class="txt-id">Ketuk atau arahkan kursor ke ikon untuk melihat nama toko, jarak, dan jam buka. Untuk rute lebih detail, silakan lihat juga Google Map di atas.</span><span class="txt-ru">Нажмите или наведите курсор на значок, чтобы увидеть название, расстояние и часы работы. Подробный маршрут смотрите на карте Google выше.</span><span class="txt-my">အိုင်ကွန်ကို တို့ထိ သို့မဟုတ် ကာဆာထားခြင်းဖြင့် ဆိုင်အမည်၊ အကွာအဝေးနှင့် ဖွင့်ချိန်ကို ကြည့်ရှုနိုင်သည်။ အသေးစိတ် လမ်းကြောင်းအတွက် အထက်ပါ Google မြေပုံကိုလည်း ကြည့်ပါ။</span>
+      </p>
       <div style="margin-top:16px;display:flex;flex-wrap:wrap;align-items:center;"><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#E08A00;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🍚</span><span class="txt-ja">飲食店</span><span class="txt-zh">餐飲店</span><span class="txt-sc">餐飲店</span><span class="txt-en">Restaurants</span><span class="txt-hi">रेस्तराँ</span><span class="txt-ne">रेस्टुराँ</span><span class="txt-si">අවන්හල්</span><span class="txt-vi">Nhà hàng</span><span class="txt-uk">Ресторани</span><span class="txt-id">Restoran</span><span class="txt-ru">Рестораны</span><span class="txt-my">စားသောက်ဆိုင်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#D3232A;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🛍️</span><span class="txt-ja">買い物</span><span class="txt-zh">購物</span><span class="txt-sc">购物</span><span class="txt-en">Shopping</span><span class="txt-hi">खरीदारी</span><span class="txt-ne">किनमेल</span><span class="txt-si">සාප්පු සවාරි</span><span class="txt-vi">Mua sắm</span><span class="txt-uk">Покупки</span><span class="txt-id">Belanja</span><span class="txt-ru">Покупки</span><span class="txt-my">ဈေးဝယ်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#007A3B;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🏪</span><span class="txt-ja">コンビニ</span><span class="txt-zh">便利商店</span><span class="txt-sc">便利商店</span><span class="txt-en">Convenience</span><span class="txt-hi">कन्वीनियंस स्टोर</span><span class="txt-ne">कन्भिनियन्स स्टोर</span><span class="txt-si">පහසු සාප්පුව</span><span class="txt-vi">Tiện lợi</span><span class="txt-uk">Магазин</span><span class="txt-id">Minimarket</span><span class="txt-ru">Магазин</span><span class="txt-my">ကွန်ဗီးနီးယင့်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#007A3B;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🌳</span><span class="txt-ja">公園</span><span class="txt-zh">公園</span><span class="txt-sc">公园</span><span class="txt-en">Park</span><span class="txt-hi">पार्क</span><span class="txt-ne">पार्क</span><span class="txt-si">උද්‍යානය</span><span class="txt-vi">Công viên</span><span class="txt-uk">Парк</span><span class="txt-id">Taman</span><span class="txt-ru">Парк</span><span class="txt-my">ပန်းခြံ</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:16px;height:16px;border-radius:50%;background:#26211F;display:inline-flex;align-items:center;justify-content:center;font-size: 11px;">🚉</span><span class="txt-ja">駅・バス停</span><span class="txt-zh">車站・巴士站</span><span class="txt-sc">车站・巴士站</span><span class="txt-en">Station / Bus</span><span class="txt-hi">स्टेशन / बस</span><span class="txt-ne">स्टेशन / बस</span><span class="txt-si">දුම්රිය ස්ථානය / බස්</span><span class="txt-vi">Ga / Xe buýt</span><span class="txt-uk">Станція / Автобус</span><span class="txt-id">Stasiun / Bus</span><span class="txt-ru">Станция / Автобус</span><span class="txt-my">ဘူတာ / ဘတ်စ်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:22px;height:0;border-top:2.6px dashed #D3232A;display:inline-block;"></span><span class="txt-ja">徒歩ルート</span><span class="txt-zh">步行路線</span><span class="txt-sc">步行路线</span><span class="txt-en">Walking route</span><span class="txt-hi">पैदल मार्ग</span><span class="txt-ne">पैदल मार्ग</span><span class="txt-si">ඇවිදින මාර්ගය</span><span class="txt-vi">Lộ trình đi bộ</span><span class="txt-uk">Пішки</span><span class="txt-id">Rute jalan</span><span class="txt-ru">Пешком</span><span class="txt-my">လမ်းလျှောက်</span></span><span style="display:inline-flex;align-items:center;gap:6px;margin:0 14px 8px 0;font-size: 15px;font-weight:700;"><span style="width:22px;height:0;border-top:2.6px dashed #2F6DB0;display:inline-block;"></span><span class="txt-ja">バスルート</span><span class="txt-zh">公車路線</span><span class="txt-sc">公车路线</span><span class="txt-en">Bus route</span><span class="txt-hi">बस मार्ग</span><span class="txt-ne">बस मार्ग</span><span class="txt-si">බස් මාර්ගය</span><span class="txt-vi">Tuyến bus</span><span class="txt-uk">Автобус</span><span class="txt-id">Rute bus</span><span class="txt-ru">Автобус</span><span class="txt-my">ဘတ်စ်လမ်း</span></span></div>
       <p style="font-size: 14px;color:var(--ink-soft);margin-top:6px;"><span class="txt-ja">※ 位置・所要時間は概略の目安です。店舗名・情報・ダイヤは変更される場合があります。</span><span class="txt-zh">※ 位置與所需時間為概略示意，店家名稱、資訊與班次可能會有變動。</span><span class="txt-sc">※ 位置与所需时間为概略示意，店家名称、资訊与班次可能会有变动。</span><span class="txt-en">※ Positions and times are approximate. Shop names, details and schedules may change.</span><span class="txt-hi">※ स्थान और समय अनुमानित हैं। दुकानों के नाम, विवरण और समय-सारणी बदल सकती है।</span><span class="txt-ne">※ स्थान र समय अनुमानित हुन्। पसलका नाम, विवरण र समय तालिका परिवर्तन हुन सक्छन्।</span><span class="txt-si">※ ස්ථාන සහ වේලාවන් ආසන්න වේ. සාප්පු නම්, විස්තර සහ කාලසටහන් වෙනස් විය හැක.</span><span class="txt-vi">※ Vị trí và thời gian chỉ mang tính tương đối. Tên cửa hàng, thông tin và lịch trình có thể thay đổi.</span><span class="txt-uk">※ Розташування і час приблизні. Назви, деталі та розклад можуть змінюватися.</span><span class="txt-id">※ Posisi dan waktu bersifat perkiraan. Nama toko, detail, dan jadwal dapat berubah.</span><span class="txt-ru">※ Расположение и время приблизительные. Названия, детали и расписание могут меняться.</span><span class="txt-my">※ တည်နေရာနှင့် အချိန်များသည် ခန့်မှန်းခြေဖြစ်သည်။ ဆိုင်အမည်၊ အချက်အလက်နှင့် အချိန်ဇယား ပြောင်းလဲနိုင်သည်။</span></p>
     </div>
@@ -4531,6 +4707,12 @@
     document.querySelectorAll('.lang-sheet-btn').forEach(btn => btn.classList.remove('lang-active'));
     const activeSheetBtn = document.querySelector('.lang-sheet-btn[onclick*="changeLanguage(\'' + langCode + '\'"]');
     if (activeSheetBtn) activeSheetBtn.classList.add('lang-active');
+
+    // 語言切換後，年度新聞區塊也要跟著換語言重新渲染
+    if (typeof window.renderNewsSection === 'function') {
+      const currentFilterBtn = document.querySelector('.news-filter-btn.active');
+      window.renderNewsSection(currentFilterBtn ? currentFilterBtn.getAttribute('data-filter') : 'all');
+    }
   }
 
   // 頁面載入時，預設標示日文為目前選中的語言
@@ -4538,6 +4720,7 @@
     const defaultBtn = document.querySelector('.lang-dropdown-content button[onclick="changeLanguage(\'ja\')"]');
     if (defaultBtn) defaultBtn.classList.add('lang-active');
   });
+
   // 確保無論何時點擊 🌐 Language 按鈕，選單都一定會強制展開/收合
   function toggleLangMenu(e) {
     e.stopPropagation();
@@ -4650,7 +4833,8 @@
 
       window.addEventListener('DOMContentLoaded', () => {
         spawnElement();
-        setTimeout(() => { isSpawning = false; }, 1800);
+        // 縮短整體動畫節奏：停止散花約提前到 1 秒
+        setTimeout(() => { isSpawning = false; }, 1000);
         setTimeout(() => {
           if (introSkipped) return;
           const introText = document.getElementById('introText');
@@ -4661,17 +4845,16 @@
           if (brandDots) brandDots.classList.add('assembled');
           if (introTagline) introTagline.classList.add('assembled');
           if (loadingProgress) loadingProgress.classList.add('fade-out');
-        }, 2500);
+        }, 1400);
         setTimeout(() => {
           if (introSkipped) return;
           document.querySelectorAll('.shutter-door').forEach(door => { door.classList.add('visible'); });
-        }, 3800);
+        }, 2100);
         setTimeout(() => {
           if (introSkipped) return;
           if (shutterWrap) shutterWrap.classList.add('open');
-          setTimeout(() => { if (shutterWrap && !introSkipped) {} }, 0);
-          setTimeout(() => { if (shutterWrap) shutterWrap.classList.add('hidden'); visualField.innerHTML = ''; }, 1300);
-        }, 4200);
+          setTimeout(() => { if (shutterWrap) shutterWrap.classList.add('hidden'); visualField.innerHTML = ''; }, 900);
+        }, 2400);
       });
     }
   }
@@ -5120,6 +5303,76 @@
 
       refresh();
     });
+  })();
+
+  /* ---------- 生活機能圖：SVG 圖示 hover／tap 彈出小卡片 ---------- */
+  (function initMapHotspots() {
+    const tooltip = document.getElementById('mapHotspotTooltip');
+    const wrapper = document.querySelector('.map-scroll-wrapper');
+    const spots = document.querySelectorAll('.map-hotspot');
+    if (!tooltip || !wrapper || !spots.length) return;
+
+    let activeSpot = null;
+
+    function renderTooltip(spot) {
+      const name = spot.getAttribute('data-name') || '';
+      const dist = spot.getAttribute('data-dist') || '';
+      const hours = spot.getAttribute('data-hours') || '';
+      tooltip.innerHTML =
+        '<div class="hs-name">' + name + '</div>' +
+        (dist ? '<div class="hs-row">📍 ' + dist + '</div>' : '') +
+        (hours ? '<div class="hs-row">🕒 ' + hours + '</div>' : '');
+    }
+
+    function positionTooltip(spot) {
+      const wrapRect = wrapper.getBoundingClientRect();
+      const spotRect = spot.getBoundingClientRect();
+      const x = (spotRect.left + spotRect.width / 2) - wrapRect.left;
+      const y = spotRect.top - wrapRect.top;
+      tooltip.style.left = x + 'px';
+      tooltip.style.top = y + 'px';
+    }
+
+    function showTooltip(spot) {
+      if (activeSpot && activeSpot !== spot) activeSpot.classList.remove('hs-active');
+      activeSpot = spot;
+      spot.classList.add('hs-active');
+      renderTooltip(spot);
+      positionTooltip(spot);
+      tooltip.classList.add('show');
+    }
+
+    function hideTooltip() {
+      if (activeSpot) activeSpot.classList.remove('hs-active');
+      activeSpot = null;
+      tooltip.classList.remove('show');
+    }
+
+    // 判斷裝置是否「真的」支援滑鼠 hover（桌機／滑鼠／觸控筆），觸控裝置一律用點擊模式，
+    // 避免手機上先觸發 mouseenter 顯示、緊接著 click 又把它收起、卡片一閃即逝的問題
+    const supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    spots.forEach((spot) => {
+      if (supportsHover) {
+        // 桌機：滑鼠移入／移出即可顯示／收起，不需要額外處理 click
+        spot.addEventListener('mouseenter', () => showTooltip(spot));
+        spot.addEventListener('mouseleave', hideTooltip);
+      } else {
+        // 觸控裝置：點一下顯示；再點一次同一個圖示則收起
+        spot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          if (activeSpot === spot) { hideTooltip(); } else { showTooltip(spot); }
+        });
+      }
+      // 鍵盤操作（Tab 移動到圖示）：任何裝置都支援
+      spot.addEventListener('focus', () => showTooltip(spot));
+      spot.addEventListener('blur', hideTooltip);
+    });
+
+    document.addEventListener('click', hideTooltip);
+    window.addEventListener('scroll', hideTooltip, { passive: true });
+    window.addEventListener('resize', () => { if (activeSpot) positionTooltip(activeSpot); });
   })();
 </script>
 </body>
