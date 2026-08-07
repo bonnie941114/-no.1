@@ -208,7 +208,7 @@
   .custom-lang-dropdown:hover .lang-dropdown-content { display: block; }
 
   .menu-toggle { display: none; background: none; border: none; font-size: 26px; cursor: pointer; color: var(--ink-main); }
-  .mobile-pane-label { display: none; }
+  .mobile-subnav { display: none; }
   
   /* ---------- STAGGER PANELS BLOCK ---------- */
   .view-pane { display: none; }
@@ -1441,16 +1441,35 @@
 
   @media (max-width: 900px) {
     .nav-right-group { gap: 14px; }
-    nav.main-nav { position: fixed; top: 84px; left: 0; right: 0; background: var(--bg-white); flex-direction: column; gap: 0; padding: 10px 0; border-bottom: 2px solid var(--vibrant-red); transform: translateY(-130%); opacity: 0; transition: all 0.4s ease; pointer-events: none; }
-    nav.main-nav.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
-    nav.main-nav button.nav-tab-btn { padding: 18px 28px; width: 100%; text-align: left; border-bottom: 1px solid var(--line); }
-    nav.main-nav button.nav-tab-btn::after { display: none; }
-    .menu-toggle { display: block; }
-    .mobile-pane-label {
-      display: inline-block; font-size: 13px; font-weight: 700; color: var(--vibrant-red);
-      max-width: 92px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    /* 手機版不再用漢堡選單收合分頁，改用 header 下方常駐的橫向分頁列，所以桌機版下拉選單與漢堡鈕都隱藏 */
+    nav.main-nav { display: none; }
+    .menu-toggle { display: none; }
+
+    /* 常駐橫向分頁列：不用點開任何選單，一直顯示在 header 正下方 */
+    .mobile-subnav {
+      display: flex; gap: 8px; padding: 10px 16px; overflow-x: auto;
+      -webkit-overflow-scrolling: touch; scrollbar-width: none;
+      position: sticky; top: 84px; z-index: 90;
+      background: rgba(234, 220, 185, 0.92); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
     }
-    
+    .mobile-subnav::-webkit-scrollbar { display: none; }
+    .mobile-subnav-btn {
+      flex: 0 0 auto; padding: 8px 16px; border-radius: 20px;
+      border: 1.5px solid var(--line); background: var(--bg-white);
+      font-family: inherit; font-size: 13.5px; font-weight: 700; color: var(--ink-soft);
+      white-space: nowrap; cursor: pointer; transition: all 0.2s ease;
+    }
+    .mobile-subnav-btn:active { transform: scale(0.95); }
+    .mobile-subnav-btn.active { color: #fff; border-color: transparent; box-shadow: 0 4px 10px rgba(35,33,32,0.18); }
+    .mobile-subnav-btn.t-home.active { background: var(--ink-main); }
+    .mobile-subnav-btn.t-ach.active { background: var(--vibrant-yellow); color: var(--ink-main); }
+    .mobile-subnav-btn.t-camp.active { background: var(--vibrant-red); }
+    .mobile-subnav-btn.t-cour.active { background: var(--vibrant-green); }
+    .mobile-subnav-btn.t-adm.active { background: var(--ink-main); }
+
+    .mobile-subnav-btn span[class^="txt-"] { font-size: inherit; font-weight: inherit; color: inherit; margin-bottom: 0; }
+
     .hero-inner, .achieve-split, .support-columns, .quick-access-grid, .campus-life-grid, .doc-grid, .req-grid { grid-template-columns: 1fr; }
     /* testimonial-grid 在 761px 以上單欄，以下由手機版 CSS 控制 */
     .reason-grid { grid-template-columns: 1fr; }
@@ -1591,12 +1610,20 @@
           <button onclick="changeLanguage('ru')" role="menuitem" data-lang="ru"><span class="lang-flag-sm">🇷🇺</span>Русский</button>
         </div>
       </div>
-
-      <span id="mobilePaneLabel" class="mobile-pane-label" aria-hidden="true"></span>
-      <button class="menu-toggle" id="menuToggle" aria-label="menu">☰</button>
     </div>
   </div>
 </header>
+
+<!-- 手機版常駐分頁列：不用點開任何選單，一路橫向滑動就能看到＋切換所有分頁，並清楚標示目前所在位置 -->
+<nav class="mobile-subnav" id="mobileSubnav" role="tablist" aria-label="Section navigation (mobile) / 分頁導覽（手機版）">
+  <button class="mobile-subnav-btn t-home" data-target="pane-home-index" role="tab" aria-selected="false">
+    <span class="txt-ja">ホーム</span><span class="txt-zh">首頁</span><span class="txt-sc">首页</span><span class="txt-en">Home</span><span class="txt-hi">होम</span><span class="txt-ne">गृह</span><span class="txt-si">මුල් පිටුව</span><span class="txt-vi">Trang chủ</span><span class="txt-uk">Головна</span><span class="txt-id">Beranda</span><span class="txt-ru">Главная</span><span class="txt-my">ပင်မစာမျက်နှာ</span>
+  </button>
+  <button class="mobile-subnav-btn t-ach" data-target="pane-achievements" data-i18n="nav_ach" role="tab" aria-selected="false">学校紹介</button>
+  <button class="mobile-subnav-btn t-camp" data-target="pane-campus" data-i18n="nav_camp" role="tab" aria-selected="false">キャンパス</button>
+  <button class="mobile-subnav-btn t-cour" data-target="pane-courses" data-i18n="nav_cour" role="tab" aria-selected="false">コース</button>
+  <button class="mobile-subnav-btn t-adm" data-target="pane-admission" data-i18n="nav_adm" role="tab" aria-selected="false">入学案内</button>
+</nav>
 
 <!-- 手機版語言底部選單 -->
 <div class="lang-sheet-overlay" id="langSheetOverlay" onclick="closeLangSheet()"></div>
@@ -4721,7 +4748,11 @@
     }
 
     // 語言切換後，手機版選單按鈕旁的「目前分頁」文字也要跟著更新
-    if (typeof updateMobilePaneLabel === 'function') updateMobilePaneLabel();
+    // 語言切換後，手機版常駐分頁列的選中樣式也要跟著同步（分頁本身沒變，只是重新套用 active 狀態即可）
+    if (typeof updateMobileSubnav === 'function') {
+      const activePane = document.querySelector('.view-pane.active');
+      updateMobileSubnav(activePane ? activePane.id : 'pane-home-index');
+    }
   }
 
   // 頁面載入時，預設標示日文為目前選中的語言
@@ -4876,30 +4907,22 @@
 
   // ---------- APP TABS ENGINE ----------
   const navButtons = document.querySelectorAll('.nav-tab-btn');
+  const mobileSubnavButtons = document.querySelectorAll('.mobile-subnav-btn');
   const viewPanes = document.querySelectorAll('.view-pane');
   const homePane = document.getElementById('pane-home-index');
   const logoTrigger = document.getElementById('logoHomeTrigger');
   let counterAnimated = false;
 
-  // 手機版選單收合按鈕旁的「目前分頁」文字：有分頁 active 就顯示該分頁名稱，
-  // 回到首頁（沒有分頁 active）時顯示「首頁」，並依目前語言顯示對應翻譯
-  const HOME_PANE_LABELS = {
-    ja: 'ホーム', zh: '首頁', sc: '首页', en: 'Home', vi: 'Trang chủ', uk: 'Головна',
-    id: 'Beranda', ru: 'Главная', my: 'ပင်မစာမျက်နှာ', hi: 'होम', ne: 'गृह', si: 'මුල් පිටුව'
-  };
-  function updateMobilePaneLabel() {
-    const label = document.getElementById('mobilePaneLabel');
-    if (!label) return;
-    const activeBtn = document.querySelector('.nav-tab-btn.active');
-    if (activeBtn) {
-      label.textContent = activeBtn.textContent.trim();
-    } else {
-      const langMatch = document.body.className.match(/lang-([a-z]+)/);
-      const lang = langMatch ? langMatch[1] : 'ja';
-      label.textContent = HOME_PANE_LABELS[lang] || HOME_PANE_LABELS.ja;
-    }
+  // 手機版常駐分頁列：同步目前選中的分頁樣式，並讓選中的分頁自動捲動到可視範圍內
+  function updateMobileSubnav(targetPaneId) {
+    mobileSubnavButtons.forEach(btn => {
+      const isActive = btn.getAttribute('data-target') === targetPaneId;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+      if (isActive) btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    });
   }
-  updateMobilePaneLabel();
+  updateMobileSubnav('pane-home-index');
 
   function switchModule(targetPaneId, pushHistory) {
     if (pushHistory === undefined) pushHistory = true;
@@ -4922,7 +4945,7 @@
 
     const coreButton = document.querySelector(`.nav-tab-btn[data-target="${targetPaneId}"]`);
     if(coreButton) { coreButton.classList.add('active'); coreButton.setAttribute('aria-selected', 'true'); }
-    updateMobilePaneLabel();
+    updateMobileSubnav(targetPaneId);
 
     if (targetPaneId === 'pane-achievements' && !counterAnimated) {
       document.getElementById('gaugeZone').classList.add('in');
@@ -4999,10 +5022,14 @@
     }
   });
 
-  const menuToggle = document.getElementById('menuToggle');
-  const mainNav = document.getElementById('mainNav');
-  menuToggle.addEventListener('click', () => mainNav.classList.toggle('open'));
-  mainNav.querySelectorAll('button').forEach(b => b.addEventListener('click', () => mainNav.classList.remove('open')));
+  // 手機版常駐分頁列：點擊任一分頁按鈕即可切換（含「ホーム」回首頁）
+  mobileSubnavButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const target = btn.getAttribute('data-target');
+      if (target !== 'pane-home-index') homePane.classList.remove('active');
+      switchModule(target);
+    });
+  });
 
   // ---------- ADMISSION TIMELINE JS ----------
   const tlBtns = document.querySelectorAll('.tl-btn');
