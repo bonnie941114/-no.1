@@ -1723,9 +1723,19 @@
     .news-card {
       display: block; text-decoration: none; color: inherit;
       border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;
-      background: #fff; transition: box-shadow 0.2s ease, transform 0.2s ease;
+      background: #fff; transition: box-shadow 0.2s ease, transform 0.15s ease, border-color 0.2s ease;
+      position: relative;
     }
-    .news-card:hover { box-shadow: 0 6px 20px rgba(35,33,32,0.08); transform: translateY(-2px); }
+    .news-card.is-clickable { cursor: pointer; }
+    .news-card.is-clickable:hover { box-shadow: 0 6px 20px rgba(35,33,32,0.08); transform: translateY(-2px); border-color: var(--vibrant-red); }
+    .news-card.is-clickable:active { transform: translateY(0) scale(0.97); box-shadow: 0 2px 8px rgba(35,33,32,0.1); transition-duration: 0.05s; }
+    .news-card.is-clickable::after {
+      content: "詳細を見る ›"; position: absolute; right: 20px; bottom: 16px;
+      font-size: 12px; font-weight: 600; color: var(--vibrant-red); opacity: 0; transform: translateX(-4px);
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .news-card.is-clickable:hover::after { opacity: 1; transform: translateX(0); }
+    .news-card.is-clickable h4 { padding-right: 4px; }
     .news-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .news-card-date { font-family: "Space Grotesk", sans-serif; font-size: 12.5px; color: var(--ink-soft); }
     .news-card-tag {
@@ -1764,87 +1774,208 @@
     <p class="news-empty" id="newsEmpty">
       <span class="txt-ja">該当するニュースがありません</span><span class="txt-zh">目前沒有符合的新聞</span><span class="txt-sc">目前没有符合的新闻</span><span class="txt-en">No news in this category yet</span>
     </p>
+    <div style="text-align:center; margin-top:8px;">
+      <button class="news-filter-btn" id="newsLoadMoreBtn" style="display:none;">
+        <span class="txt-ja">もっと見る</span><span class="txt-zh">查看更多</span><span class="txt-sc">查看更多</span><span class="txt-en">Load More</span>
+      </button>
+    </div>
   </section>
+
+  <div id="newsModalOverlay" style="display:none; position:fixed; inset:0; background:rgba(35,33,32,0.55); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div id="newsModalBox" style="background:#fff; max-width:560px; width:100%; max-height:82vh; overflow-y:auto; border-radius:16px; padding:32px 28px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,0.3);">
+      <button id="newsModalClose" aria-label="Close" style="position:absolute; top:14px; right:14px; width:34px; height:34px; border-radius:50%; border:1px solid #e5e0da; background:#fff; font-size:18px; line-height:1; cursor:pointer; color:var(--ink-soft);">&times;</button>
+      <div class="news-card-top" style="margin-bottom:14px;">
+        <span class="news-card-date" id="newsModalDate"></span>
+        <span class="news-card-tag" id="newsModalTag"></span>
+      </div>
+      <h3 id="newsModalTitle" style="margin:0 0 14px; font-family:'Shippori Mincho', serif; font-size:21px; line-height:1.5;"></h3>
+      <div id="newsModalBody" style="font-size:14.5px; line-height:1.85; color:var(--ink-soft); white-space:pre-line;"></div>
+      <div id="newsModalLinkWrap" style="margin-top:20px;"></div>
+    </div>
+  </div>
 
   <script>
     /* ===========================================================
-       年度新聞資料 — 之後新增新聞，只要在下面陣列裡「複製一組、貼上、改內容」即可
-       每一則新聞的欄位說明：
-         date     : 日期，格式 YYYY-MM-DD（用來排序，最新的會自動排在最前面）
-         category : 分類，只能填 "event"(活動) / "notice"(公告) / "admission"(招生)
-         title    : { zh: "中文標題", en: "English title" }  →  沒有 en 也可以省略，會自動用中文代替
-         summary  : { zh: "中文摘要一小段", en: "English summary" }
+       お知らせ・ニュース データ
+       新しいニュースを追加する時は、下の配列に「1つコピーして貼り付け、内容を書き換える」だけでOKです。
+
+       各項目の説明：
+         date     : 日付。「YYYY-MM-DD」の形式で入力（新しい日付が自動的に一番上に表示されます）
+         category : 分類。"event"（イベント）／ "notice"（お知らせ）／ "admission"（募集）のいずれかを入力
+         title    : タイトル（日本語のみでOK）
+         summary  : カード上に表示される短い要約文
+
+         ※ content と link は「省略可能」です。
+         　 この2つを両方とも書かなければ、そのニュースはクリックしてもポップアップが開きません
+         　（単純なお知らせだけで済む場合は、書かなくて大丈夫です）
+
+         content  : クリックした時のポップアップに表示する詳しい内容（長文でも可）
+                    ※ content を省略した場合、summary の内容がそのままポップアップに表示されます
+         link     : ポップアップ内に表示するボタン（PDFや外部リンクなど）
+                    { type: "pdf", url: "files/xxx.pdf", label: "資料をダウンロード" }
+                    { type: "url", url: "https://example.com", label: "詳しくはこちら" }
        =========================================================== */
     const newsData = [
       {
         date: "2026-04-10",
         category: "admission",
-        title: { zh: "2026年度春季班招生開始", en: "2026 Spring Term Admissions Open" },
-        summary: { zh: "即日起開放2026年度春季班報名，名額有限，歡迎提前洽詢申請。", en: "Applications for the 2026 Spring term are now open. Limited seats available." }
+        title: "2026年度春季クラス募集開始",
+        summary: "本日より2026年度春季クラスの出願受付を開始しました。定員に限りがございますので、お早めにお問い合わせください。"
+        // content や link を書かなければ、クリックしてもポップアップは表示されません（お知らせのみ）
       },
       {
         date: "2026-01-15",
         category: "event",
-        title: { zh: "新年書初活動圓滿舉行", en: "New Year Kakizome Event a Success" },
-        summary: { zh: "全體學生齊聚一堂，體驗傳統日本新年書法文化，氣氛熱鬧溫馨。", en: "Students gathered to experience traditional Japanese New Year calligraphy." }
+        title: "書き初めイベントを実施しました",
+        summary: "全校生徒が参加し、日本の伝統的な新年の書道文化を体験しました。"
       },
       {
         date: "2025-12-01",
         category: "notice",
-        title: { zh: "寒假期間辦公室服務時間調整公告", en: "Winter Break Office Hours Notice" },
-        summary: { zh: "寒假期間辦公室服務時間將有調整，詳情請見公告內容。", en: "Office hours will be adjusted during the winter break period." }
+        title: "冬季休暇中の事務窓口対応について",
+        summary: "冬季休暇期間中は事務窓口の対応時間が変更となります。"
+      },
+      {
+        date: "2026-03-20",
+        category: "event",
+        title: "春の遠足を実施しました",
+        summary: "全校生徒で千葉公園へ遠足に行きました。当日の様子を詳しくご紹介します。",
+        // content のみを書いた例：ファイルやリンクは付けず、詳しい文章だけをポップアップに表示します
+        content: "3月20日、全校生徒で千葉公園へ春の遠足に行ってまいりました。当日は天候にも恵まれ、生徒たちは日本の桜を楽しみながら、クラスの垣根を越えて交流を深めることができました。お弁当を持参し、公園内でグループごとにレクリエーションを行うなど、和やかな一日となりました。学生たちからは「日本の春を実際に感じることができて嬉しかった」といった声が多く聞かれました。"
+      },
+      {
+        date: "2026-05-01",
+        category: "admission",
+        title: "2026年度 募集要項を公開しました",
+        summary: "2026年度の募集要項を公開しました。出願資格・必要書類・出願方法の詳細は以下よりご確認ください。",
+        // content を書くと、クリック時のポップアップに表示されます（省略した場合は summary が表示されます）
+        content: "2026年度の募集要項を公開いたしました。出願資格、必要書類、出願の流れ、学費のお支払い方法などの詳細を記載しております。ご不明な点がございましたら、事務局までお気軽にお問い合わせください。",
+        // link を書くと、ポップアップの下部にボタンが表示されます（PDFや外部リンクなど）
+        link: { type: "pdf", url: "files/admission-guide-2026.pdf", label: "募集要項をダウンロード" }
       }
     ];
 
     (function initNewsSection() {
       const grid = document.getElementById('newsGrid');
       const emptyMsg = document.getElementById('newsEmpty');
-      const filterBtns = document.querySelectorAll('.news-filter-btn');
+      const filterBtns = document.querySelectorAll('.news-filter-btn[data-filter]');
+      const loadMoreBtn = document.getElementById('newsLoadMoreBtn');
+      const overlay = document.getElementById('newsModalOverlay');
+      const modalBox = document.getElementById('newsModalBox');
+      const modalClose = document.getElementById('newsModalClose');
+      const modalDate = document.getElementById('newsModalDate');
+      const modalTag = document.getElementById('newsModalTag');
+      const modalTitle = document.getElementById('newsModalTitle');
+      const modalBody = document.getElementById('newsModalBody');
+      const modalLinkWrap = document.getElementById('newsModalLinkWrap');
       if (!grid) return;
+
+      // .view-pane 等父層容器有套用 CSS transform，會讓 position:fixed 的彈窗失效（被限制在該容器內）。
+      // 這裡把彈窗搬到 <body> 最外層，確保一定能正確覆蓋整個畫面置中顯示。
+      if (overlay && overlay.parentElement !== document.body) {
+        document.body.appendChild(overlay);
+      }
+
+      const PAGE_SIZE = 6;
+      let currentFilter = 'all';
+      let visibleCount = PAGE_SIZE;
 
       const tagLabel = { event: '活動', notice: '公告', admission: '招生' };
       const tagClass = { event: 'tag-event', notice: 'tag-notice', admission: 'tag-admission' };
+      const linkLabelFallback = { pdf: '資料をダウンロード', url: 'リンクへ移動' };
 
-      function currentLangCode() {
-        const m = document.body.className.match(/lang-(\w+)/);
-        return m ? m[1] : 'zh';
+      function hasDetail(n) {
+        return !!(n.content || n.link);
       }
 
-      function pick(field) {
-        const lang = currentLangCode();
-        return field[lang] || field.zh || field.en || '';
+      function getSorted() {
+        return [...newsData].sort((a, b) => new Date(b.date) - new Date(a.date));
       }
 
-      function render(filter) {
-        const sorted = [...newsData].sort((a, b) => new Date(b.date) - new Date(a.date));
-        const filtered = filter === 'all' ? sorted : sorted.filter(n => n.category === filter);
-        grid.innerHTML = filtered.map(n => `
-          <div class="news-card">
+      function getFiltered() {
+        const sorted = getSorted();
+        return currentFilter === 'all' ? sorted : sorted.filter(n => n.category === currentFilter);
+      }
+
+      function openModal(n) {
+        modalDate.textContent = n.date;
+        modalTag.textContent = tagLabel[n.category] || n.category;
+        modalTag.className = 'news-card-tag ' + (tagClass[n.category] || '');
+        modalTitle.textContent = n.title;
+        modalBody.textContent = n.content || n.summary;
+
+        modalLinkWrap.innerHTML = '';
+        if (n.link && n.link.url) {
+          const a = document.createElement('a');
+          a.href = n.link.url;
+          a.target = '_blank';
+          a.rel = 'noopener';
+          a.className = 'btn btn-primary';
+          a.style.textDecoration = 'none';
+          a.textContent = n.link.label || linkLabelFallback[n.link.type] || '詳細を見る';
+          modalLinkWrap.appendChild(a);
+        }
+
+        overlay.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeModal() {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+
+      modalClose.addEventListener('click', closeModal);
+      overlay.addEventListener('click', (e) => { if (e.target === overlay) closeModal(); });
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+
+      function render() {
+        const filtered = getFiltered();
+        const toShow = filtered.slice(0, visibleCount);
+
+        grid.innerHTML = toShow.map((n, i) => `
+          <div class="news-card${hasDetail(n) ? ' is-clickable' : ''}" data-idx="${i}">
             <div class="news-card-top">
               <span class="news-card-date">${n.date}</span>
               <span class="news-card-tag ${tagClass[n.category] || ''}">${tagLabel[n.category] || n.category}</span>
             </div>
-            <h4>${pick(n.title)}</h4>
-            <p>${pick(n.summary)}</p>
+            <h4>${n.title}</h4>
+            <p>${n.summary}</p>
           </div>
         `).join('');
+
+        grid.querySelectorAll('.news-card').forEach((card, i) => {
+          if (hasDetail(toShow[i])) {
+            card.addEventListener('click', () => openModal(toShow[i]));
+          }
+        });
+
         emptyMsg.style.display = filtered.length ? 'none' : 'block';
+        loadMoreBtn.style.display = (filtered.length > visibleCount) ? 'inline-block' : 'none';
       }
 
       filterBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           filterBtns.forEach(b => b.classList.remove('active'));
           btn.classList.add('active');
-          render(btn.getAttribute('data-filter'));
+          currentFilter = btn.getAttribute('data-filter');
+          visibleCount = PAGE_SIZE;
+          render();
         });
       });
 
-      render('all');
+      loadMoreBtn.addEventListener('click', () => {
+        visibleCount += PAGE_SIZE;
+        render();
+      });
 
-      // 讓 changeLanguage() 切換語言時，可以呼叫這個函式重新渲染新聞內容
-      window.renderNewsSection = render;
+      render();
+
+      // 言語切り替え時にニュース欄も再描画するための関数（内容は日本語固定のため見た目は変わりません）
+      window.renderNewsSection = function() { render(); };
     })();
   </script>
+
 
   <section class="home-intro-summary wrap">
     <div class="quick-access-grid">
