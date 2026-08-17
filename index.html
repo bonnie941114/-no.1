@@ -1417,15 +1417,13 @@
       padding: 5px 10px;
     }
 
-    /* 8. 地圖區塊：手機版全部改用「縮放到 100% 寬度、不用橫向捲動」（設定與上面 760px 區塊一致，
-       避免 min-width 把 SVG 撐超過容器寬度導致被裁切、看起來過小） */
+    /* 8. 地圖區塊縮小、允許橫向捲動 */
     .map-scroll-wrapper {
-      overflow-x: hidden;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
     }
     .map-scroll-wrapper svg {
-      min-width: 0;
-      width: 100%;
-      height: auto;
+      min-width: 600px;
     }
 
     /* 9. 大數字區塊: 2欄 */
@@ -2547,25 +2545,25 @@
       <div class="doc-card reveal">
         <h4 class="doc-title"><span style="margin:0;">日本語学校 学則</span> <span class="icon">📄</span></h4>
         <p class="doc-desc txt-ja">2026年度の最新の学則、カリキュラム構成、および留学生の基本的な権利義務を詳細に定めています。</p><p class="doc-desc txt-zh">詳細載明 2026 年度最新官方修業學則細則、課程架構以及每位留學生的基本權利義務。</p><p class="doc-desc txt-en">Sets out the latest 2026 school regulations, curriculum structure, and the basic rights and obligations of every international student.</p><p class="doc-desc txt-vi">Quy định nội quy trường mới nhất năm 2026, cấu trúc chương trình học, và quyền lợi, nghĩa vụ cơ bản của mỗi du học sinh.</p><p class="doc-desc txt-uk">Викладає найновіші шкільні правила 2026 року, структуру навчальної програми та основні права й обов'язки кожного іноземного студента.</p><p class="doc-desc txt-id">Menetapkan peraturan sekolah terbaru tahun 2026, struktur kurikulum, dan hak serta kewajiban dasar setiap siswa internasional.</p><p class="doc-desc txt-ru">Устанавливает новейшие правила школы 2026 года, структуру учебной программы и основные права и обязанности каждого иностранного студента.</p><p class="doc-desc txt-my">၂၀၂၆ ခုနှစ်၏ နောက်ဆုံးကျောင်းစည်းမျဉ်းများ၊ သင်ရိုးဖွဲ့စည်းပုံနှင့် နိုင်ငံခြားကျောင်းသားတိုင်း၏ အခြေခံအခွင့်အရေးနှင့် တာဝန်များကို သတ်မှတ်ထားသည်။</p>
-        <a href="http://tokyo1-school.com/wp/wp-content/uploads/2026/06/Tokyo-One-%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%A6%E6%A0%A1%E5%8D%83%E8%91%89%E6%9C%AC%E6%A0%A1%E5%AD%A6%E5%89%87%EF%BC%88202610%EF%BC%89%E5%AD%A6%E8%B2%BB84%E4%B8%87%E5%86%86.pdf" target="_blank" class="doc-link">Download PDF</a>
+        <a href="files/school-regulations.pdf" target="_blank" class="doc-link">Download PDF</a>
       </div>
       
       <div class="doc-card reveal">
         <h4 class="doc-title"><span style="margin:0;">第45号 自己点検評価</span> <span class="icon">📑</span></h4>
         <p class="doc-desc txt-ja">教育の質の透明性を確保するため、全教職員がキャンパスの安全、教員体制、教育環境について実施した年次自己点検です。</p><p class="doc-desc txt-zh">教學品質公開透明化，由全體教職員針對校園安全、師資與教育環境開展的年度全方位自主點檢。</p><p class="doc-desc txt-en">An annual self-assessment by all staff covering campus safety, teaching staff, and the learning environment, to keep educational quality transparent.</p><p class="doc-desc txt-vi">Báo cáo tự đánh giá hàng năm của toàn thể nhân viên về an toàn trường học, đội ngũ giảng dạy và môi trường học tập, nhằm giữ tính minh bạch về chất lượng giáo dục.</p><p class="doc-desc txt-uk">Щорічна самооцінка всього персоналу щодо безпеки кампусу, викладацького складу та навчального середовища для збереження прозорості якості освіти.</p><p class="doc-desc txt-id">Penilaian mandiri tahunan oleh seluruh staf yang mencakup keamanan kampus, staf pengajar, dan lingkungan belajar, untuk menjaga transparansi kualitas pendidikan.</p><p class="doc-desc txt-ru">Ежегодная самооценка всего персонала, охватывающая безопасность кампуса, преподавательский состав и учебную среду, для сохранения прозрачности качества образования.</p><p class="doc-desc txt-my">ပညာရေးအရည်အသွေး ပွင့်လင်းမြင်သာမှုကို ထိန်းသိမ်းရန် ဝန်ထမ်းအားလုံးမှ ကျောင်းဝန်းကျင် လုံခြုံရေး၊ ဆရာဝန်ထမ်းအင်အားနှင့် သင်ကြားရေးပတ်ဝန်းကျင်ကို ဆန်းစစ်ထားသော နှစ်စဉ်ကိုယ်ပိုင်စစ်ဆေးမှု။</p>
-        <a href="http://tokyo1-school.com/wp/wp-content/uploads/2026/05/2026%E7%82%B9%E6%A4%9C%E8%A9%95%E4%BE%A145%E5%8F%B7%E9%96%A2%E4%BF%82.pdf" target="_blank" class="doc-link">Download PDF</a>
+        <a href="files/2026-inspection-report-45.pdf" target="_blank" class="doc-link">Download PDF</a>
       </div>
 
       <div class="doc-card reveal">
         <h4 class="doc-title"><span style="margin:0;">外部評価報告書</span> <span class="icon">📄</span></h4>
         <p class="doc-desc txt-ja">第三者の専門評価機関による独立した審査を受け、本校のカリキュラムと生活指導が高い水準を維持していることを確認しています。</p><p class="doc-desc txt-zh">接受第三方專家權威評估機關之獨立辦學審查，確保本校教學大綱與生活指導常年維持於高水平標準。</p><p class="doc-desc txt-en">An independent review by a third-party expert body, confirming that our curriculum and student guidance maintain consistently high standards.</p><p class="doc-desc txt-vi">Đánh giá độc lập bởi tổ chức chuyên gia bên thứ ba, xác nhận chương trình học và hướng dẫn học viên của trường luôn duy trì tiêu chuẩn cao.</p><p class="doc-desc txt-uk">Незалежна перевірка сторонньою експертною установою, яка підтверджує, що наша навчальна програма та супровід студентів постійно відповідають високим стандартам.</p><p class="doc-desc txt-id">Tinjauan independen oleh badan ahli pihak ketiga, mengonfirmasi bahwa kurikulum dan bimbingan siswa kami secara konsisten mempertahankan standar tinggi.</p><p class="doc-desc txt-ru">Независимая проверка сторонним экспертным органом, подтверждающая, что наша учебная программа и сопровождение студентов постоянно поддерживают высокие стандарты.</p><p class="doc-desc txt-my">ကျွန်ုပ်တို့၏ သင်ရိုးနှင့် ကျောင်းသားလမ်းညွှန်မှုသည် အမြဲတမ်း အဆင့်မြင့်စံနှုန်းများကို ထိန်းသိမ်းထားကြောင်း အတည်ပြုသော တတိယအဖွဲ့ကျွမ်းကျင်ပညာရှင်များ၏ လွတ်လပ်သော စစ်ဆေးမှု။</p>
-        <a href="http://tokyo1-school.com/wp/wp-content/uploads/2026/07/%E5%A4%96%E9%83%A8%E8%A9%95%E4%BE%A1.pdf" target="_blank" class="doc-link">Download PDF</a>
+        <a href="files/external-evaluation.pdf" target="_blank" class="doc-link">Download PDF</a>
       </div>
 
       <div class="doc-card reveal">
         <h4 class="doc-title"><span style="margin:0;">日本語能力習得状況</span> <span class="icon">📊</span></h4>
         <p class="doc-desc txt-ja">客観的なデータを公開し、修了生のJLPT取得状況の分布を詳細に記録。実際の成果で教育の質を証明します。</p><p class="doc-desc txt-zh">真實客觀 Facts 數據公開，詳實紀錄歷屆修了生之日語檢定實力分布，用真實成果印證精緻教學成效。</p><p class="doc-desc txt-en">Objective data recording graduates' JLPT results in detail — real outcomes as proof of teaching quality.</p><p class="doc-desc txt-vi">Dữ liệu khách quan ghi lại chi tiết kết quả JLPT của học viên tốt nghiệp — kết quả thực tế minh chứng cho chất lượng giảng dạy.</p><p class="doc-desc txt-uk">Об'єктивні дані, що детально фіксують результати JLPT випускників — реальні результати як доказ якості викладання.</p><p class="doc-desc txt-id">Data objektif yang mencatat hasil JLPT lulusan secara rinci — hasil nyata sebagai bukti kualitas pengajaran.</p><p class="doc-desc txt-ru">Объективные данные, подробно фиксирующие результаты JLPT выпускников — реальные результаты как доказательство качества преподавания.</p><p class="doc-desc txt-my">ဘွဲ့ရများ၏ JLPT ရလဒ်များကို အသေးစိတ် မှတ်တမ်းတင်သော ဓမ္မဓိဋ္ဌာန်ကျသည့် အချက်အလက်များ — သင်ကြားမှုအရည်အသွေး၏ သက်သေအဖြစ် အမှန်တကယ်ရလဒ်များ။</p>
-        <a href="http://tokyo1-school.com/wp/wp-content/uploads/2026/04/%E7%AC%AC44%E5%8F%B7%EF%BC%88%E8%AA%B2%E7%A8%8B%E4%BF%AE%E4%BA%86%E8%80%85%E3%81%AE%E6%97%A5%E6%9C%AC%E8%AA%9E%E8%83%BD%E5%8A%9B%E7%BF%92%E5%BE%97%E7%8A%B6%E6%B3%81%EF%BC%892026.3%E4%BF%AE%E4%BA%86%E8%80%85.pdf" target="_blank" class="doc-link">Download PDF</a>
+        <a href="files/jlpt-outcomes-44.pdf" target="_blank" class="doc-link">Download PDF</a>
       </div>
     </div>
     
@@ -2636,7 +2634,7 @@
   <section class="campus-life-section">
     <div class="eyebrow">CAMPUS LIFE</div>
     <h2 data-i18n="title_life">四季のキャンパスライフ</h2>    <div class="reveal" style="margin-bottom:28px;">
-      <a href="http://tokyo1-school.com/wp/wp-content/uploads/2026/03/Tokyo-One%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%A6%E6%A0%A1%E5%B9%B4%E9%96%93%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB2026-1.pdf" target="_blank" class="btn btn-ghost">
+      <a href="files/annual-schedule-2026.pdf" target="_blank" class="btn btn-ghost">
         <span class="txt-ja">年間スケジュールをダウンロード (PDF)</span><span class="txt-zh">下載年度課表 (PDF)</span><span class="txt-sc">下载年度课表 (PDF)</span><span class="txt-en">Download Annual Schedule (PDF)</span><span class="txt-hi">वार्षिक कार्यक्रम डाउनलोड करें (PDF)</span><span class="txt-ne">वार्षिक तालिका डाउनलोड गर्नुहोस् (PDF)</span><span class="txt-si">වාර්ෂික කාලසටහන බාගන්න (PDF)</span><span class="txt-vi">Tải lịch năm học (PDF)</span><span class="txt-uk">Завантажити річний розклад (PDF)</span><span class="txt-id">Unduh Jadwal Tahunan (PDF)</span><span class="txt-ru">Скачать годовое расписание (PDF)</span><span class="txt-my">နှစ်ချုပ်ဇယားဒေါင်းလုဒ် (PDF)</span>
       </a>
     </div>
@@ -3625,7 +3623,7 @@
     </div>
     <p class="reveal" style="text-align:center; font-size:13px; color:var(--ink-soft); margin-top:14px;"><span class="txt-ja">※年間スケジュールを基準とします</span><span class="txt-zh">※以年度行事曆為準</span><span class="txt-sc">※以年度行事历为准</span><span class="txt-en">*Subject to the official annual academic calendar</span><span class="txt-hi">*आधिकारिक वार्षिक शैक्षणिक कैलेंडर के अधीन</span><span class="txt-ne">*आधिकारिक वार्षिक शैक्षिक पात्रोको अधीनमा</span><span class="txt-si">*නිල වාර්ෂික අධ්‍යාපන දින දර්ශනයට යටත් වේ</span><span class="txt-vi">*Theo lịch năm học chính thức</span><span class="txt-uk">*Відповідно до річного навчального календаря</span><span class="txt-id">*Sesuai kalender akademik tahunan resmi</span><span class="txt-ru">*Согласно официальному годовому учебному календарю</span><span class="txt-my">*နှစ်ချုပ်ပြက္ခဒိန်အတိုင်း သတ်မှတ်သည်</span></p>
     <div class="reveal" style="text-align: center; margin-top: 30px;">
-      <a href="http://tokyo1-school.com/wp/wp-content/uploads/2026/03/Tokyo-One%E6%97%A5%E6%9C%AC%E8%AA%9E%E5%AD%A6%E6%A0%A1%E5%B9%B4%E9%96%93%E3%82%B9%E3%82%B1%E3%82%B8%E3%83%A5%E3%83%BC%E3%83%AB2026-1.pdf" target="_blank" class="btn btn-ghost">
+      <a href="files/annual-schedule-2026.pdf" target="_blank" class="btn btn-ghost">
         <span class="txt-ja">年間スケジュールをダウンロード (PDF)</span><span class="txt-zh">下載年度課表 (PDF)</span><span class="txt-sc">下载年度课表 (PDF)</span><span class="txt-en">Download Annual Schedule (PDF)</span><span class="txt-hi">वार्षिक कार्यक्रम डाउनलोड करें (PDF)</span><span class="txt-ne">वार्षिक तालिका डाउनलोड गर्नुहोस् (PDF)</span><span class="txt-si">වාර්ෂික කාලසටහන බාගන්න (PDF)</span><span class="txt-vi">Tải lịch năm học (PDF)</span><span class="txt-uk">Завантажити річний розклад (PDF)</span><span class="txt-id">Unduh Jadwal Tahunan (PDF)</span><span class="txt-ru">Скачать годовое расписание (PDF)</span><span class="txt-my">နှစ်ချုပ်ဇယားဒေါင်းလုဒ် (PDF)</span>
       </a>
     </div>
@@ -5408,20 +5406,23 @@
       tooltip.classList.remove('show');
     }
 
-    // 統一以 click 作為「顯示／收起」的核心動作（滑鼠點擊、觸控點按都會觸發 click，任何裝置都保證有效）
+    // 判斷裝置是否「真的」支援滑鼠 hover（桌機／滑鼠／觸控筆），觸控裝置一律用點擊模式，
+    // 避免手機上先觸發 mouseenter 顯示、緊接著 click 又把它收起、卡片一閃即逝的問題
+    const supportsHover = window.matchMedia && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
     spots.forEach((spot) => {
-      spot.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        if (activeSpot === spot) { hideTooltip(); } else { showTooltip(spot); }
-      });
-
-      // 額外的桌機滑鼠 hover 預覽：用 Pointer Events 的 pointerType 即時判斷，
-      // 只有「真的是滑鼠」才會生效，觸控裝置一律不受影響，避免先 hover 顯示、
-      // 緊接著 click 又把它收起的問題（用 matchMedia 靜態偵測在部分裝置上不準確）
-      spot.addEventListener('pointerenter', (e) => { if (e.pointerType === 'mouse') showTooltip(spot); });
-      spot.addEventListener('pointerleave', (e) => { if (e.pointerType === 'mouse') hideTooltip(); });
-
+      if (supportsHover) {
+        // 桌機：滑鼠移入／移出即可顯示／收起，不需要額外處理 click
+        spot.addEventListener('mouseenter', () => showTooltip(spot));
+        spot.addEventListener('mouseleave', hideTooltip);
+      } else {
+        // 觸控裝置：點一下顯示；再點一次同一個圖示則收起
+        spot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          e.preventDefault();
+          if (activeSpot === spot) { hideTooltip(); } else { showTooltip(spot); }
+        });
+      }
       // 鍵盤操作（Tab 移動到圖示）：任何裝置都支援
       spot.addEventListener('focus', () => showTooltip(spot));
       spot.addEventListener('blur', hideTooltip);
