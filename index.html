@@ -3210,11 +3210,11 @@
     <p class="txt-id">Rincian biaya kuliah tahun pertama (berlaku untuk semua kursus)</p>
     <p class="txt-ru">Разбивка стоимости обучения за первый год (общая для всех курсов)</p>
     <p class="txt-my">ပထမနှစ် ကျောင်းလခ အသေးစိတ် (သင်တန်းအားလုံးအတွက် သက်ဆိုင်သည်)</p>
-    <div class="fee-visual-grid" style="margin-top:24px;">
-      <div class="fee-donut" style="background: conic-gradient(var(--vibrant-green) 0% 88.1%, var(--vibrant-red) 88.1% 95.24%, var(--vibrant-yellow) 95.24% 97.62%, var(--ink-soft) 97.62% 100%);">
-        <div class="fee-donut-hole"><span class="num">¥840,000</span><small><span class="txt-ja">初年度総額</span><span class="txt-zh">第一年總額</span><span class="txt-sc">第一年总額</span><span class="txt-en">Year 1 Total</span><span class="txt-hi">वर्ष 1 कुल</span><span class="txt-ne">वर्ष १ कुल</span><span class="txt-si">වසර 1 එකතුව</span><span class="txt-vi">Tổng năm 1</span><span class="txt-uk">Всього за рік 1</span><span class="txt-id">Total Tahun 1</span><span class="txt-ru">Итого за 1 год</span><span class="txt-my">ပထမနှစ်စုစုပေါင်း</span></small></div>
+    <div class="fee-visual-grid" style="margin-top:24px;" id="feeVisualGrid">
+      <div class="fee-donut" id="feeDonut">
+        <div class="fee-donut-hole"><span class="num" id="feeDonutTotal">¥840,000</span><small><span class="txt-ja">初年度総額</span><span class="txt-zh">第一年總額</span><span class="txt-sc">第一年总額</span><span class="txt-en">Year 1 Total</span><span class="txt-hi">वर्ष 1 कुल</span><span class="txt-ne">वर्ष १ कुल</span><span class="txt-si">වසර 1 එකතුව</span><span class="txt-vi">Tổng năm 1</span><span class="txt-uk">Всього за рік 1</span><span class="txt-id">Total Tahun 1</span><span class="txt-ru">Итого за 1 год</span><span class="txt-my">ပထမနှစ်စုစုပေါင်း</span></small></div>
       </div>
-      <ul class="fee-legend">
+      <ul class="fee-legend" id="feeLegend">
         <li><span class="dot" style="background:var(--vibrant-green);"></span><span class="fee-label"><span class="txt-ja">授業料 (12ヶ月)</span><span class="txt-zh">授業料（12個月）</span><span class="txt-sc">授业料（12个月）</span><span class="txt-en">Tuition (12 months)</span><span class="txt-hi">शुल्क (12 माह)</span><span class="txt-ne">शुल्क (१२ महिना)</span><span class="txt-si">ගාස්තුව (මාස 12)</span><span class="txt-vi">Học phí (12 tháng)</span><span class="txt-uk">Навчання (12 місяців)</span><span class="txt-id">Uang Kuliah (12 bulan)</span><span class="txt-ru">Обучение (12 месяцев)</span><span class="txt-my">သင်ကြားခ (၁၂လ)</span></span><span class="fee-amount">¥740,000</span></li>
         <li><span class="dot" style="background:var(--vibrant-red);"></span><span class="fee-label"><span class="txt-ja">入学金</span><span class="txt-zh">入學金</span><span class="txt-sc">入学金</span><span class="txt-en">Admission Fee</span><span class="txt-hi">प्रवेश शुल्क</span><span class="txt-ne">भर्ना शुल्क</span><span class="txt-si">ඇතුළත් වීමේ ගාස්තුව</span><span class="txt-vi">Phí nhập học</span><span class="txt-uk">Вступний внесок</span><span class="txt-id">Biaya Masuk</span><span class="txt-ru">Вступительный взнос</span><span class="txt-my">ဝင်ခွင့်ခ</span></span><span class="fee-amount">¥60,000</span></li>
         <li><span class="dot" style="background:var(--vibrant-yellow);"></span><span class="fee-label"><span class="txt-ja">選考料</span><span class="txt-zh">選考料</span><span class="txt-sc">选考料</span><span class="txt-en">Screening Fee</span><span class="txt-hi">जाँच शुल्क</span><span class="txt-ne">जाँच शुल्क</span><span class="txt-si">පරීක්ෂණ ගාස්තුව</span><span class="txt-vi">Phí xét tuyển</span><span class="txt-uk">Плата за відбір</span><span class="txt-id">Biaya Seleksi</span><span class="txt-ru">Плата за отбор</span><span class="txt-my">ရွေးချယ်ခ</span></span><span class="fee-amount">¥20,000</span></li>
@@ -5564,5 +5564,56 @@
     window.addEventListener('resize', () => { if (activeSpot) positionTooltip(activeSpot); });
   })();
 </script>
+  <script>
+    /* ===========================================================
+       學費甜甜圈圖表 — 自動同步
+       原理：這段程式會自動讀取下方「費用明細清單」(#feeLegend 裡的每個 <li>) 
+       上顯示的金額文字跟圓點顏色，自動算出圖表的扇形比例跟中間總額，
+       不需要再手動去改 conic-gradient 的百分比數字。
+
+       以後如果要調整費用金額，只要修改 HTML 裡 <li> 裡面
+       <span class="fee-amount">¥740,000</span> 這個文字（改成新金額）即可，
+       圖表會在頁面載入時自動重新計算、自動同步。
+
+       如果要新增或刪除一個項目，只要複製/刪除整個 <li>，圖表一樣會自動跟著調整。
+       =========================================================== */
+    (function initFeeDonut() {
+      const donut = document.getElementById('feeDonut');
+      const legend = document.getElementById('feeLegend');
+      const totalEl = document.getElementById('feeDonutTotal');
+      if (!donut || !legend || !totalEl) return;
+
+      function syncDonut() {
+        const items = [...legend.querySelectorAll('li')];
+        const data = items.map(li => {
+          const dot = li.querySelector('.dot');
+          const amountEl = li.querySelector('.fee-amount');
+          const amount = amountEl ? parseInt(amountEl.textContent.replace(/[^0-9]/g, ''), 10) : 0;
+          const color = dot ? getComputedStyle(dot).backgroundColor : '#ccc';
+          return { amount: isNaN(amount) ? 0 : amount, color };
+        }).filter(d => d.amount > 0);
+
+        const total = data.reduce((sum, d) => sum + d.amount, 0);
+        if (total <= 0) return;
+
+        let cumulative = 0;
+        const stops = data.map(d => {
+          const start = (cumulative / total) * 100;
+          cumulative += d.amount;
+          const end = (cumulative / total) * 100;
+          return `${d.color} ${start.toFixed(2)}% ${end.toFixed(2)}%`;
+        });
+
+        donut.style.background = `conic-gradient(${stops.join(', ')})`;
+        totalEl.textContent = '¥' + total.toLocaleString('en-US');
+      }
+
+      syncDonut();
+
+      // 監看 #feeLegend 內容變化（例如以後改成後台可編輯），有變動時自動重新計算
+      const observer = new MutationObserver(syncDonut);
+      observer.observe(legend, { childList: true, subtree: true, characterData: true });
+    })();
+  </script>
 </body>
 </html>
