@@ -175,9 +175,11 @@
 
   /* ---------- APP NAVIGATION ---------- */
   header { position: sticky; top: 0; z-index: 100; background: rgba(234, 220, 185, 0.88); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
-  .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; height: 84px; }
+  .nav-inner { max-width: var(--maxw); margin: 0 auto; padding: 0 28px; display: flex; align-items: center; justify-content: space-between; min-height: 84px; }
   
   .brand { font-family: "Space Grotesk", sans-serif; font-size: 26px; font-weight: 700; letter-spacing: 0.08em; color: var(--ink-main); cursor: pointer; display: flex; align-items: center; gap: 8px; }
+  .brand-logo-img { height: 54px; width: auto; display: block; }
+  @media (max-width: 640px) { .brand-logo-img { height: 42px; } }
   .brand span { color: var(--vibrant-red); }
   .brand-icon { width: 14px; height: 14px; background: var(--vibrant-red); border-radius: 50%; display: inline-block; box-shadow: 8px 0 0 var(--vibrant-yellow), 16px 0 0 var(--vibrant-green); margin-right: 16px; transform: translateY(-2px); }
   
@@ -192,7 +194,8 @@
   nav.main-nav button.nav-tab-btn.t-camp.active::after { width: 100%; background: var(--vibrant-red); }
   nav.main-nav button.nav-tab-btn.t-cour.active::after { width: 100%; background: var(--vibrant-green); }
   nav.main-nav button.nav-tab-btn.t-adm.active::after { width: 100%; background: var(--ink-main); }
-  .nav-right-group { display: flex; align-items: center; gap: 24px; }
+  .nav-right-group { display: flex; flex-direction: column; align-items: flex-end; gap: 6px; padding: 12px 0; }
+  .nav-right-group .nav-controls-row { display: flex; align-items: center; gap: 24px; }
 
   /* 7國語言現代下拉選單美化 (Pure Frontend) */
   .custom-lang-dropdown { position: relative; display: inline-block; }
@@ -362,6 +365,23 @@
   .course-interest-link:hover .arr-ic { transform: translateX(3px); }
   .cross-link-btn:hover { background: var(--vibrant-red); color: #fff; transform: translateX(3px); }
   .cross-link-btn:active { transform: translateX(1px) scale(0.97); transition: transform 0.1s ease; }
+
+  /* Header 內建的合規資訊列（學則／評鑑報告／寮規則 快速連結 + 聯絡方式） */
+  .header-compliance-bar { text-align: right; overflow-x: auto; white-space: nowrap; max-width: 100%; }
+  .header-compliance-bar .compliance-links { display: flex; flex-wrap: nowrap; justify-content: flex-end; align-items: center; gap: 0; }
+  .header-compliance-bar .compliance-sep { color: var(--ink-main); opacity: 0.35; margin: 0 8px; font-size: 11px; flex-shrink: 0; }
+  .header-compliance-bar .compliance-link { background: none; border: none; padding: 0; margin: 0; color: var(--ink-main); opacity: 0.68; font-size: 11.5px; font-weight: 700; cursor: pointer; text-decoration: none; transition: all 0.2s ease; white-space: nowrap; flex-shrink: 0; }
+  .header-compliance-bar .compliance-link:hover { opacity: 1; color: var(--vibrant-red); }
+  .header-compliance-bar .compliance-contact { font-size: 10.5px; color: var(--ink-main); opacity: 0.5; line-height: 1.5; margin-top: 2px; white-space: nowrap; }
+  .header-compliance-bar .compliance-contact a { color: inherit; text-decoration: none; }
+  .header-compliance-bar .compliance-contact a:hover { opacity: 1; text-decoration: underline; }
+  @media (max-width: 900px) {
+    .header-compliance-bar .compliance-contact { display: none; }
+  }
+  @media (max-width: 640px) {
+    .header-compliance-bar { display: none; }
+  }
+  #docCabinetSection, #dormRulesSection { scroll-margin-top: 150px; }
 
   /* MAP & ACCESS SECTION */
   .map-section { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line); }
@@ -1131,10 +1151,10 @@
 
   .modal-overlay { position: fixed; inset: 0; background: rgba(35,33,32,0.5); z-index: 998; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; display: flex; align-items: center; justify-content: center; padding: 20px; }
   .modal-overlay.open { opacity: 1; pointer-events: auto; }
-  .modal-box { background: var(--bg-white); border-radius: var(--radius); padding: 40px; max-width: 420px; width: 100%; transform: translateY(20px) scale(0.97); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); }
+  .modal-box { background: var(--bg-white); border-radius: var(--radius); padding: 32px; max-width: 400px; width: 100%; transform: translateY(20px) scale(0.97); transition: transform 0.35s cubic-bezier(0.22,1,0.36,1); max-height: 88vh; overflow-y: auto; }
   .modal-overlay.open .modal-box { transform: translateY(0) scale(1); }
-  .modal-box h3 { margin: 0 0 6px; }
-  .modal-box .modal-sub { font-size: 15px; color: var(--ink-soft); margin-bottom: 26px; }
+  .modal-box h3 { margin: 0 0 6px; font-size: 20px; }
+  .modal-box .modal-sub { font-size: 14px; color: var(--ink-soft); margin-bottom: 20px; }
   .modal-choice-group { display: flex; gap: 10px; margin-bottom: 20px; }
   .modal-choice { flex: 1; padding: 12px; border: 1px solid var(--line); border-radius: var(--radius); text-align: center; font-size: 15px; cursor: pointer; transition: all 0.2s ease; }
   .modal-choice:hover { border-color: var(--vibrant-red); color: var(--vibrant-red); }
@@ -1145,8 +1165,68 @@
   .modal-box { position: relative; }
   .modal-success { display: none; text-align: center; padding: 10px 0; }
   .modal-success.show { display: block; }
+
+  /* 表格下載 + 上傳送出 流程 */
+  .modal-step-label { display: flex; align-items: center; gap: 8px; font-size: 12.5px; font-weight: 800; color: var(--vibrant-red); margin: 0 0 8px; letter-spacing: 0.02em; }
+  .modal-step-label .num { display: inline-flex; align-items: center; justify-content: center; width: 18px; height: 18px; border-radius: 50%; background: var(--vibrant-red); color: #fff; font-size: 11px; flex-shrink: 0; }
+  .modal-download-box { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: var(--bg-washi); border: 1px dashed var(--line); border-radius: var(--radius); padding: 12px 14px; margin-bottom: 18px; }
+  .modal-download-box p { margin: 0; font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+  .modal-download-box .docs-dl-btn { flex-shrink: 0; padding: 7px 13px; font-size: 12.5px; }
+  .modal-file-upload { margin-bottom: 4px; }
+  .modal-file-upload label.file-drop { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; border: 1.5px dashed var(--line); border-radius: var(--radius); padding: 16px 14px; cursor: pointer; text-align: center; background: var(--bg-washi); transition: border-color 0.2s ease, background 0.2s ease; }
+  .modal-file-upload label.file-drop:hover { border-color: var(--vibrant-red); }
+  .modal-file-upload label.file-drop .file-drop-icon { font-size: 20px; }
+  .modal-file-upload label.file-drop .file-drop-text { font-size: 13px; color: var(--ink-soft); font-weight: 700; }
+  .modal-file-upload label.file-drop .file-drop-name { font-size: 12px; color: var(--vibrant-red); font-weight: 700; margin-top: 2px; word-break: break-all; }
+  .modal-file-upload input[type="file"] { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+  .modal-file-upload .modal-file-hint { margin: 6px 0 0; font-size: 11.5px; color: var(--ink-soft); opacity: 0.75; text-align: center; }
+  .modal-box .modal-submit-note { font-size: 12px; color:var(--ink-soft); text-align:center; margin:8px 0 0; }
+  .modal-box .modal-error-note { display: none; font-size: 12px; color: var(--vibrant-red); text-align: center; margin: 8px 0 0; }
+  .modal-box .modal-error-note.show { display: block; }
   
   footer { background: var(--bg-dark-accent); color: rgba(255,255,255,0.4); padding: 60px 0 40px; font-size: 15px; border-top: 1px solid var(--line); }
+  .foot-grid { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 36px; margin-bottom: 10px; }
+  .foot-grid h5 { color: #FFF; margin: 0 0 16px 0; font-family: 'Space Grotesk', sans-serif; font-size: 13px; letter-spacing: 0.06em; }
+  .foot-nav-links { display: flex; flex-direction: column; align-items: flex-start; gap: 11px; }
+  .foot-nav-links button.cross-link-btn,
+  .foot-nav-links button.foot-inquiry-link,
+  .foot-nav-links a { background: none; border: none; padding: 0; margin: 0; color: rgba(255,255,255,0.72); font-size: 14.5px; font-weight: 400; text-decoration: none; cursor: pointer; text-align: left; transition: color 0.2s ease, transform 0.2s ease; }
+  .foot-nav-links button.cross-link-btn:hover,
+  .foot-nav-links button.foot-inquiry-link:hover,
+  .foot-nav-links a:hover { color: #FFF; transform: translateX(2px); }
+  @media (max-width: 860px) {
+    .foot-grid { grid-template-columns: 1fr 1fr; gap: 30px 24px; }
+  }
+  @media (max-width: 560px) {
+    .foot-grid { grid-template-columns: 1fr; gap: 28px; }
+  }
+  /* .txt-ja/.txt-zh 等全域樣式預設是給淺色背景用的深色文字，在頁尾深色背景中會幾乎看不見，這裡強制改回繼承（跟著按鈕/連結本身的淺色文字走） */
+  footer .foot-nav-links .txt-ja,
+  footer .foot-nav-links .txt-zh,
+  footer .foot-nav-links .txt-sc,
+  footer .foot-nav-links .txt-en,
+  footer .foot-nav-links .txt-hi,
+  footer .foot-nav-links .txt-ne,
+  footer .foot-nav-links .txt-si,
+  footer .foot-nav-links .txt-vi,
+  footer .foot-nav-links .txt-uk,
+  footer .foot-nav-links .txt-id,
+  footer .foot-nav-links .txt-ru,
+  footer .foot-nav-links .txt-my,
+  footer .foot-grid h5 .txt-ja,
+  footer .foot-grid h5 .txt-zh,
+  footer .foot-grid h5 .txt-sc,
+  footer .foot-grid h5 .txt-en,
+  footer .foot-grid h5 .txt-hi,
+  footer .foot-grid h5 .txt-ne,
+  footer .foot-grid h5 .txt-si,
+  footer .foot-grid h5 .txt-vi,
+  footer .foot-grid h5 .txt-uk,
+  footer .foot-grid h5 .txt-id,
+  footer .foot-grid h5 .txt-ru,
+  footer .foot-grid h5 .txt-my {
+    color: inherit; font-size: inherit; font-weight: inherit; margin-bottom: 0;
+  }
 
   /* Mobile Layout Adjustment */
   
@@ -1581,9 +1661,29 @@
 <header id="topAnchor">
   <div class="nav-inner">
     <div class="brand notranslate" translate="no" id="logoHomeTrigger" role="button" tabindex="0" aria-label="Back to home / 回到首頁">
-      <span class="brand-icon" aria-hidden="true"></span>Tokyo <span>One</span>
+      <img src="images/logo-tokyo-one.png" alt="Tokyo One 日本語学校 千葉本校" class="brand-logo-img">
     </div>
     <div class="nav-right-group">
+      <div class="header-compliance-bar">
+        <div class="compliance-links">
+          <button class="compliance-link" data-trigger="pane-achievements" data-anchor="docCabinetSection">
+            <span class="txt-ja">学則・学費返還規定</span><span class="txt-zh">學則．學費退費規定</span><span class="txt-sc">学则．学费退费规定</span><span class="txt-en">School Regulations &amp; Tuition Refund Policy</span><span class="txt-hi">विद्यालय नियम एवं शुल्क वापसी नीति</span><span class="txt-ne">विद्यालय नियम र शुल्क फिर्ता नीति</span><span class="txt-si">පාසල් නීති සහ ගාස්තු ආපසු ගෙවීමේ ප්‍රතිපත්තිය</span><span class="txt-vi">Nội quy trường &amp; Chính sách hoàn học phí</span><span class="txt-uk">Правила школи та Політика повернення оплати</span><span class="txt-id">Peraturan Sekolah &amp; Kebijakan Pengembalian Biaya</span><span class="txt-ru">Правила школы и Политика возврата платы</span><span class="txt-my">ကျောင်းစည်းမျဉ်းနှင့် ကျောင်းလခပြန်အမ်းမှုမူဝါဒ</span>
+          </button>
+          <span class="compliance-sep">｜</span>
+          <button class="compliance-link" data-trigger="pane-achievements" data-anchor="docCabinetSection">
+            <span class="txt-ja">44号・45号・外部評価</span><span class="txt-zh">第44號．第45號．外部評鑑</span><span class="txt-sc">第44号．第45号．外部评鉴</span><span class="txt-en">No.44 &amp; No.45 Self-Assessment / External Evaluation</span><span class="txt-hi">क्रमांक 44 और 45 स्व-मूल्यांकन एवं बाह्य मूल्यांकन</span><span class="txt-ne">नं. ४४ र ४५ स्व-मूल्याङ्कन एवं बाह्य मूल्याङ्कन</span><span class="txt-si">අංක 44 සහ 45 ස්වයං-තක්සේරුව සහ බාහිර ඇගයීම</span><span class="txt-vi">Tự đánh giá số 44 &amp; 45 và Đánh giá bên ngoài</span><span class="txt-uk">Самооцінка №44 та №45 і Зовнішня оцінка</span><span class="txt-id">Penilaian Mandiri No.44 &amp; No.45 serta Evaluasi Eksternal</span><span class="txt-ru">Самооценка №44 и №45 и Внешняя оценка</span><span class="txt-my">အမှတ် ၄၄ နှင့် ၄၅ ကိုယ်ပိုင်အကဲဖြတ်မှုနှင့် ပြင်ပအကဲဖြတ်မှု</span>
+          </button>
+          <span class="compliance-sep">｜</span>
+          <button class="compliance-link" data-trigger="pane-campus" data-anchor="dormRulesSection">
+            <span class="txt-ja">寮・Dormitory、寮規則</span><span class="txt-zh">宿舍．Dormitory、宿舍規則</span><span class="txt-sc">宿舍．Dormitory、宿舍规则</span><span class="txt-en">Dormitory &amp; Dormitory Rules</span><span class="txt-hi">छात्रावास एवं छात्रावास नियम</span><span class="txt-ne">छात्रावास र छात्रावास नियमहरू</span><span class="txt-si">නේවාසිකාගාරය සහ නේවාසිකාගාර නීති</span><span class="txt-vi">Ký túc xá &amp; Quy định ký túc xá</span><span class="txt-uk">Гуртожиток і Правила гуртожитку</span><span class="txt-id">Asrama &amp; Aturan Asrama</span><span class="txt-ru">Общежитие и Правила общежития</span><span class="txt-my">ကျောင်းအိပ်ဆောင်နှင့် ကျောင်းအိပ်ဆောင်စည်းမျဉ်းများ</span>
+          </button>
+        </div>
+        <div class="compliance-contact">
+          Contact: <a href="mailto:tokyo1.school@gmail.com">tokyo1.school@gmail.com</a> ・
+          Available by phone <a href="tel:+81433303300">+81-43-330-3300</a>：Japanese, English, Chinese and Korean
+        </div>
+      </div>
+      <div class="nav-controls-row">
       <nav class="main-nav" id="mainNav" role="tablist" aria-label="Section navigation / 分頁導覽">
         <!-- 套用多語系字典 ID -->
         <button class="nav-tab-btn t-ach" data-target="pane-achievements" data-i18n="nav_ach" role="tab" aria-selected="false" aria-controls="pane-achievements">学校紹介</button>
@@ -1609,6 +1709,7 @@
           <button onclick="changeLanguage('uk')" role="menuitem" data-lang="uk"><span class="lang-flag-sm">🇺🇦</span>Українська</button>
           <button onclick="changeLanguage('ru')" role="menuitem" data-lang="ru"><span class="lang-flag-sm">🇷🇺</span>Русский</button>
         </div>
+      </div>
       </div>
     </div>
   </div>
@@ -1701,6 +1802,7 @@
       <p class="txt-my">ဂျပန်စာလွဲမှားသမျှသည် သင့်တိုးတက်မှု၏ သက်သေပင်ဖြစ်သည်။ချစ်ဘား၏ သာယာသော ပင်လယ်လေနှင့် ကျယ်ပြန့်သော ကောင်းကင်အောက်တွင် တစ်ဆင့်ချင်း စိတ်ရှည်စွာ ကျွန်ုပ်တို့နှင့်အတူ အသစ်သော အသက်မွေးဝမ်းကျောင်းလောကကို ချဲ့ထွင်ကြပါစို့။</p>
     </div>
   </section>
+
 
   <!-- ============================================== -->
   <!-- 年度新聞專區 (News Section)                      -->
@@ -2115,6 +2217,122 @@
   </section>
 
 
+  <!-- ============================================== -->
+  <!-- What We Aim For + Exciting Classes（首頁教育理念，並排雙欄，圖片保留待補） -->
+  <!-- ============================================== -->
+  <style>
+    .aim-section { padding: 56px 28px; max-width: var(--maxw); margin: 0 auto; }
+    .aim-section .eyebrow { display: flex; align-items: center; gap: 10px; }
+    .aim-section .eyebrow::before { content: ""; display: inline-block; width: 26px; height: 26px; border-radius: 50%; border: 5px solid #8FB8D8; flex-shrink: 0; }
+    .aim-section h2 { margin: 6px 0 22px; }
+    .aim-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+    .aim-photo-placeholder { aspect-ratio: 16 / 9; width: 100%; margin: 0 auto 22px; }
+    .aim-col p.aim-text { font-size: 15.5px; line-height: 1.85; color: var(--ink-main); margin: 0 0 16px; }
+    .aim-col .aim-more { margin-top: 20px; }
+    @media (max-width: 900px) {
+      .aim-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media (max-width: 640px) {
+      .aim-section { padding: 40px 20px; }
+      .aim-col p.aim-text { font-size: 14.5px; }
+    }
+  </style>
+  <section class="aim-section reveal">
+    <div class="aim-grid">
+      <div class="aim-col">
+        <div class="eyebrow">WHAT WE AIM FOR</div>
+        <h2><span class="txt-ja">私たちが目指すもの</span><span class="txt-zh">我們的教育目標</span><span class="txt-sc">我们的教育目标</span><span class="txt-en">What We Aim For</span><span class="txt-hi">हमारा लक्ष्य</span><span class="txt-ne">हाम्रो लक्ष्य</span><span class="txt-si">අප ඉලක්ක කරන්නේ</span><span class="txt-vi">Mục tiêu của chúng tôi</span><span class="txt-uk">Наша мета</span><span class="txt-id">Yang Kami Tuju</span><span class="txt-ru">Наша цель</span><span class="txt-my">ကျွန်ုပ်တို့ ရည်မှန်းချက်</span></h2>
+
+        <div class="photo-placeholder aim-photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <span class="ph-caption"><span class="txt-ja">写真（差し替え予定）</span><span class="txt-zh">照片（待替換）</span><span class="txt-sc">照片（待替换）</span><span class="txt-en">Photo — to be added</span></span>
+        </div>
+
+        <p class="aim-text">
+          <span class="txt-ja">開校以来、私たちは学生の日本語習得を支援するだけでなく、日本の文化や社会習慣への理解を深めることにも力を注いできました。私たちの教育理念の根底にあるのは、日本の学校教育の根本目標である「生きる力」です。日本語教育を通じて、学生が自ら考え、正しく判断し、自分を効果的に表現し、社会と意味のあるつながりを築く力を育み、充実した人生を歩めるよう支援します。</span>
+          <span class="txt-zh">自建校以來，我們不僅致力於協助學生掌握日語，更致力於加深他們對日本文化與社會習俗的理解。我們教育理念的核心，是日本學校教育的根本目標——「熱愛生活」。透過日語教育，我們培養學生獨立思考、做出正確判斷、有效表達自我，並與社會建立有意義的連結，讓每一位學生都能擁有充實的人生。</span>
+          <span class="txt-sc">自建校以来，我们不仅致力于协助学生掌握日语，更致力于加深他们对日本文化与社会习俗的理解。我们教育理念的核心，是日本学校教育的根本目标——「热爱生活」。透过日语教育，我们培养学生独立思考、做出正确判断、有效表达自我，并与社会建立有意义的连结，让每一位学生都能拥有充实的人生。</span>
+          <span class="txt-en">Since our founding, we have been committed not only to helping students master Japanese but also to deepening their understanding of Japanese culture and social customs. At the heart of our philosophy is "Zest for Living" — the fundamental goal of Japanese school education. Through Japanese language education, we nurture students' ability to think independently, make sound judgments, express themselves effectively, and build meaningful connections with society, so they can lead fulfilling lives.</span>
+          <span class="txt-hi">स्थापना के बाद से, हमने न केवल छात्रों को जापानी भाषा में महारत हासिल करने में मदद की है, बल्कि जापानी संस्कृति और सामाजिक रीति-रिवाजों की उनकी समझ को भी गहरा किया है। हमारे दर्शन के केंद्र में है "जीवन के प्रति उत्साह" — जापानी स्कूली शिक्षा का मूलभूत लक्ष्य। जापानी भाषा शिक्षा के माध्यम से, हम छात्रों में स्वतंत्र रूप से सोचने, सही निर्णय लेने, प्रभावी ढंग से खुद को व्यक्त करने और समाज के साथ सार्थक संबंध बनाने की क्षमता विकसित करते हैं, ताकि वे संतोषजनक जीवन जी सकें।</span>
+          <span class="txt-ne">स्थापनादेखि नै, हामीले विद्यार्थीहरूलाई जापानी भाषामा दक्ष बनाउन मात्र होइन, जापानी संस्कृति र सामाजिक रीतिरिवाजको बारेमा उनीहरूको बुझाइलाई पनि गहिरो बनाउन प्रतिबद्ध छौं। हाम्रो दर्शनको केन्द्रमा छ "जीवनप्रतिको जोश" — जापानी विद्यालय शिक्षाको आधारभूत लक्ष्य। जापानी भाषा शिक्षामार्फत, हामी विद्यार्थीहरूमा स्वतन्त्र रूपमा सोच्ने, सही निर्णय गर्ने, प्रभावकारी रूपमा आफूलाई व्यक्त गर्ने र समाजसँग अर्थपूर्ण सम्बन्ध निर्माण गर्ने क्षमता विकास गर्छौं।</span>
+          <span class="txt-si">අපගේ ආරම්භයේ සිටම, ශිෂ්‍යයන්ට ජපන් භාෂාව ප්‍රගුණ කිරීමට උපකාර කිරීම පමණක් නොව, ජපන් සංස්කෘතිය හා සමාජ චාරිත්‍ර පිළිබඳ ඔවුන්ගේ අවබෝධය ගැඹුරු කිරීමටද අප කැපවී සිටිමු. අපගේ දර්ශනයේ හදවතේ ඇත්තේ "ජීවත් වීමට ඇති උද්‍යෝගය" — ජපන් පාසල් අධ්‍යාපනයේ මූලික ඉලක්කයයි. ජපන් භාෂා අධ්‍යාපනය හරහා, ශිෂ්‍යයන්ට ස්වාධීනව සිතීමට, නිවැරදි තීන්දු ගැනීමට, ඵලදායීව තමන් ප්‍රකාශ කිරීමට සහ සමාජය සමඟ අර්ථවත් සම්බන්ධතා ගොඩනැගීමට හැකියාව වර්ධනය කරමු.</span>
+          <span class="txt-vi">Kể từ khi thành lập, chúng tôi không chỉ tận tâm giúp học viên thành thạo tiếng Nhật mà còn nỗ lực làm sâu sắc thêm sự hiểu biết của họ về văn hóa và phong tục xã hội Nhật Bản. Trọng tâm trong triết lý của chúng tôi là "yêu thích cuộc sống" — mục tiêu căn bản của giáo dục trường học Nhật Bản. Thông qua giáo dục tiếng Nhật, chúng tôi nuôi dưỡng khả năng tư duy độc lập, đưa ra phán đoán đúng đắn, thể hiện bản thân hiệu quả và xây dựng những kết nối ý nghĩa với xã hội của học viên, để họ có thể sống một cuộc đời trọn vẹn.</span>
+          <span class="txt-uk">Від заснування ми прагнули не лише допомогти студентам опанувати японську мову, а й поглибити їхнє розуміння японської культури та соціальних звичаїв. В основі нашої філософії лежить «любов до життя» — фундаментальна мета японської шкільної освіти. Через навчання японської мови ми розвиваємо в студентів здатність мислити самостійно, приймати правильні рішення, ефективно виражати себе та будувати значущі зв'язки із суспільством, щоб вони могли прожити повноцінне життя.</span>
+          <span class="txt-id">Sejak didirikan, kami berkomitmen tidak hanya membantu siswa menguasai bahasa Jepang, tetapi juga memperdalam pemahaman mereka tentang budaya dan adat istiadat sosial Jepang. Inti filosofi kami adalah "semangat hidup" — tujuan mendasar pendidikan sekolah Jepang. Melalui pendidikan bahasa Jepang, kami menumbuhkan kemampuan siswa untuk berpikir mandiri, membuat penilaian yang tepat, mengekspresikan diri secara efektif, dan membangun hubungan bermakna dengan masyarakat, agar mereka dapat menjalani kehidupan yang memuaskan.</span>
+          <span class="txt-ru">С момента основания мы стремились не только помочь студентам овладеть японским языком, но и углубить их понимание японской культуры и социальных обычаев. В основе нашей философии лежит «жажда жизни» — фундаментальная цель японского школьного образования. Через обучение японскому языку мы развиваем у студентов способность мыслить самостоятельно, принимать взвешенные решения, эффективно выражать себя и строить значимые связи с обществом, чтобы они могли прожить полноценную жизнь.</span>
+          <span class="txt-my">တည်ထောင်ချိန်မှစ၍ ကျွန်ုပ်တို့သည် ကျောင်းသားများအား ဂျပန်ဘာသာစကား ကျွမ်းကျင်စေရန်သာမက ဂျပန်ယဉ်ကျေးမှုနှင့် လူမှုထုံးတမ်းများအား ပိုမိုနားလည်စေရန်လည်း ကြိုးပမ်းခဲ့ပါသည်။ ကျွန်ုပ်တို့၏ ရည်ရွယ်ချက်၏ အခြေခံမှာ ဂျပန်ကျောင်းပညာရေး၏ အခြေခံရည်မှန်းချက်ဖြစ်သော "ဘဝကို နှစ်သက်မြတ်နိုးမှု" ဖြစ်ပါသည်။ ဂျပန်ဘာသာပညာရေးမှတစ်ဆင့် ကျောင်းသားများအား လွတ်လပ်စွာ တွေးခေါ်၊ မှန်ကန်စွာ ဆုံးဖြတ်၊ ထိရောက်စွာ ကိုယ်ကိုယ်တိုင်ဖော်ပြနိုင်ပြီး လူ့အဖွဲ့အစည်းနှင့် အဓိပ္ပာယ်ရှိသော ဆက်ဆံရေးတည်ဆောက်နိုင်စွမ်းကို ပျိုးထောင်ပေးပါသည်။</span>
+        </p>
+
+        <p class="aim-text">
+          <span class="txt-ja">この目標を達成するため、私たちは語学習得にとどまらない教育を提供しています。学習者一人ひとりの日常生活、将来のキャリア、社会参加、そして文化理解を全面的にサポート。実践的な日本語力を身につけながら、自ら学び、自信を持って生きていく力を育み、進学や就職をはじめとする様々な未来への可能性を広げています。私たちの学校は単に日本語を学ぶ場ではなく、将来のキャリア、社会統合、異文化理解の基盤を築きながら、自分の未来を切り拓く自信と力を育む場所です。</span>
+          <span class="txt-zh">為了達成這個目標，我們提供的教育超越單純的語言學習——為每位學習者的日常生活、未來職涯、社會參與與文化理解，提供全方位的支持。學生不僅能習得實用的日語能力，也能培養獨立學習與自信生活的能力，為升學、就業等未來各種可能性拓展更寬廣的道路。我們的學校不只是學習日語的地方，更是學生建立未來職涯基礎、融入社會、理解跨文化差異的場所，同時培養開創自己未來的信心與能力。</span>
+          <span class="txt-sc">为了达成这个目标，我们提供的教育超越单纯的语言学习——为每位学习者的日常生活、未来职涯、社会参与与文化理解，提供全方位的支持。学生不僅能習得實用的日語能力，也能培養獨立學習與自信生活的能力，為升學、就業等未來各種可能性拓展更寬廣的道路。我们的学校不只是学习日语的地方，更是学生建立未来职涯基础、融入社会、理解跨文化差异的场所，同时培养开创自己未来的信心与能力。</span>
+          <span class="txt-en">To achieve this, we provide education that goes beyond language acquisition — offering comprehensive support for each learner's daily life, future career, social participation, and cultural understanding. Learners gain not only practical Japanese skills but also the confidence to learn independently and thrive in society, opening up wider opportunities for further study, employment, and beyond. Our school is not simply a place to learn Japanese; it is where students build the foundation for their future careers and intercultural understanding while developing the confidence to shape their own future.</span>
+          <span class="txt-hi">इस लक्ष्य को प्राप्त करने के लिए, हम भाषा अधिग्रहण से परे शिक्षा प्रदान करते हैं — प्रत्येक शिक्षार्थी के दैनिक जीवन, भविष्य के करियर, सामाजिक भागीदारी और सांस्कृतिक समझ के लिए व्यापक सहायता प्रदान करते हुए। शिक्षार्थी न केवल व्यावहारिक जापानी कौशल प्राप्त करते हैं, बल्कि स्वतंत्र रूप से सीखने और समाज में आगे बढ़ने का आत्मविश्वास भी विकसित करते हैं। हमारा विद्यालय केवल जापानी सीखने की जगह नहीं है; यह वह स्थान है जहाँ छात्र अपने भविष्य के करियर की नींव रखते हैं।</span>
+          <span class="txt-ne">यो लक्ष्य हासिल गर्न, हामी भाषा सिकाइभन्दा बाहिरको शिक्षा प्रदान गर्छौं — हरेक सिकारुको दैनिक जीवन, भविष्यको करियर, सामाजिक सहभागिता र सांस्कृतिक बुझाइका लागि व्यापक सहयोग प्रदान गर्दै। सिकारुहरूले व्यावहारिक जापानी सीप मात्र होइन, स्वतन्त्र रूपमा सिक्ने र समाजमा फस्टाउने आत्मविश्वास पनि प्राप्त गर्छन्। हाम्रो विद्यालय केवल जापानी सिक्ने ठाउँ मात्र होइन; यो विद्यार्थीहरूले आफ्नो भविष्यको करियरको जग निर्माण गर्ने ठाउँ हो।</span>
+          <span class="txt-si">මෙම ඉලක්කය සාක්ෂාත් කර ගැනීම සඳහා, අපි භාෂා ප්‍රගුණයෙන් ඔබ්බට යන අධ්‍යාපනයක් සපයමු — සෑම ඉගෙන ගන්නෙකුගේම දෛනික ජීවිතය, අනාගත වෘත්තිය, සමාජ සහභාගීත්වය සහ සංස්කෘතික අවබෝධය සඳහා පුළුල් සහයෝගයක් ලබා දෙමින්. ඉගෙන ගන්නන්ට ප්‍රායෝගික ජපන් කුසලතා පමණක් නොව ස්වාධීනව ඉගෙනීමට හා සමාජයේ දියුණු වීමට ආත්ම විශ්වාසයද ලැබේ. අපගේ පාසල හුදෙක් ජපන් ඉගෙන ගන්නා ස්ථානයක් නොව, ශිෂ්‍යයන් තම අනාගත වෘත්තියේ පදනම ගොඩනගන ස්ථානයකි.</span>
+          <span class="txt-vi">Để đạt được mục tiêu này, chúng tôi cung cấp nền giáo dục vượt xa việc học ngôn ngữ — hỗ trợ toàn diện cho cuộc sống hàng ngày, sự nghiệp tương lai, tham gia xã hội và hiểu biết văn hóa của mỗi học viên. Học viên không chỉ đạt được kỹ năng tiếng Nhật thực tiễn mà còn xây dựng sự tự tin để học tập độc lập và phát triển trong xã hội. Trường của chúng tôi không đơn thuần là nơi học tiếng Nhật; đó là nơi học viên xây dựng nền tảng cho sự nghiệp tương lai của mình.</span>
+          <span class="txt-uk">Щоб досягти цієї мети, ми надаємо освіту, яка виходить за межі вивчення мови — пропонуючи всебічну підтримку повсякденного життя, майбутньої кар'єри, соціальної участі та культурного розуміння кожного студента. Студенти отримують не лише практичні навички японської мови, а й впевненість вчитися самостійно та процвітати в суспільстві. Наша школа — це не просто місце для вивчення японської мови; це місце, де студенти закладають основу своєї майбутньої кар'єри.</span>
+          <span class="txt-id">Untuk mencapai tujuan ini, kami memberikan pendidikan yang melampaui pembelajaran bahasa — menawarkan dukungan komprehensif untuk kehidupan sehari-hari, karier masa depan, partisipasi sosial, dan pemahaman budaya setiap pembelajar. Pembelajar tidak hanya memperoleh keterampilan bahasa Jepang praktis tetapi juga kepercayaan diri untuk belajar mandiri dan berkembang dalam masyarakat. Sekolah kami bukan sekadar tempat belajar bahasa Jepang; ini adalah tempat siswa membangun fondasi karier masa depan mereka.</span>
+          <span class="txt-ru">Чтобы достичь этой цели, мы предлагаем образование, выходящее за рамки изучения языка — обеспечивая всестороннюю поддержку повседневной жизни, будущей карьеры, социального участия и культурного понимания каждого учащегося. Учащиеся получают не только практические навыки японского языка, но и уверенность учиться самостоятельно и процветать в обществе. Наша школа — это не просто место для изучения японского языка; это место, где студенты закладывают основу своей будущей карьеры.</span>
+          <span class="txt-my">ဤရည်မှန်းချက်ကို အောင်မြင်ရန်အတွက် ကျွန်ုပ်တို့သည် ဘာသာစကားသင်ယူမှုထက် ကျော်လွန်သော ပညာရေးကို ပေးအပ်ပါသည် — သင်ယူသူတိုင်း၏ နေ့စဉ်ဘဝ၊ အနာဂတ်အသက်မွေးဝမ်းကျောင်း၊ လူမှုပါဝင်မှုနှင့် ယဉ်ကျေးမှုနားလည်မှုအတွက် ပြည့်စုံသောပံ့ပိုးမှုကို ပေးလျက်။ သင်ယူသူများသည် လက်တွေ့ကျင့်သုံးနိုင်သော ဂျပန်စွမ်းရည်များသာမက လွတ်လပ်စွာ သင်ယူနိုင်ပြီး လူ့အဖွဲ့အစည်းတွင် တိုးတက်ဖွံ့ဖြိုးနိုင်သော ယုံကြည်မှုကိုပါ ရရှိကြသည်။</span>
+        </p>
+
+        <div class="aim-more">
+          <button class="cross-link-btn" data-trigger="pane-achievements">
+            <span class="txt-ja">教育理念をもっと見る</span><span class="txt-zh">深入了解教育理念</span><span class="txt-sc">深入了解教育理念</span><span class="txt-en">Learn more about our philosophy</span><span class="txt-hi">हमारे दर्शन के बारे में और जानें</span><span class="txt-ne">हाम्रो दर्शनको बारेमा थप जान्नुहोस्</span><span class="txt-si">අපගේ දර්ශනය ගැන තව දැනගන්න</span><span class="txt-vi">Tìm hiểu thêm về triết lý của chúng tôi</span><span class="txt-uk">Дізнатися більше про нашу філософію</span><span class="txt-id">Pelajari lebih lanjut filosofi kami</span><span class="txt-ru">Узнать больше о нашей философии</span><span class="txt-my">ကျွန်ုပ်တို့၏ ရည်ရွယ်ချက်အကြောင်း ပိုမိုလေ့လာရန်</span> →
+          </button>
+        </div>
+      </div>
+
+      <div class="aim-col">
+        <div class="eyebrow">EXCITING CLASSES</div>
+        <h2><span class="txt-ja">授業の3つの柱</span><span class="txt-zh">課程三大教育支柱</span><span class="txt-sc">课程三大教育支柱</span><span class="txt-en">Exciting Classes</span><span class="txt-hi">रोमांचक कक्षाएँ</span><span class="txt-ne">रोमाञ्चक कक्षाहरू</span><span class="txt-si">උද්‍යෝගිමත් පන්ති</span><span class="txt-vi">Những lớp học thú vị</span><span class="txt-uk">Захопливі заняття</span><span class="txt-id">Kelas yang Seru</span><span class="txt-ru">Увлекательные занятия</span><span class="txt-my">စိတ်လှုပ်ရှားစရာ သင်တန်းများ</span></h2>
+
+        <div class="photo-placeholder aim-photo-placeholder">
+          <span class="ph-icon">📷</span>
+          <span class="ph-caption"><span class="txt-ja">写真（差し替え予定）</span><span class="txt-zh">照片（待替換）</span><span class="txt-sc">照片（待替换）</span><span class="txt-en">Photo — to be added</span></span>
+        </div>
+
+        <p class="aim-text">
+          <span class="txt-ja">日本で成功する生活に必要なスキルを育むため、私たちのカリキュラムは3つの教育の柱の上に築かれています。まず「日本語力」では、聴く・読む・話す（やり取り・発表）・書くの言語活動を通じて、語彙・文法・談話構成といった基礎力から、進学や就職に必要な実践的コミュニケーション力まで、実生活で活かせる日本語を体系的に身につけます。次に「日本社会への適応力」では、日常生活・学業・職場など様々な場面で、他者と協力しながら自ら課題を解決し、主体的に行動する力を育みます。</span>
+          <span class="txt-zh">為了培養在日本成功生活所需的技能，我們的課程建立在三大教育支柱之上。首先是「日語能力」——透過聽、讀、說（互動與發表）、寫五大語言活動，從詞彙、文法、篇章結構等基礎能力，到升學與就業所需的實用溝通技巧，系統性地培養能在真實生活中靈活運用的日語能力。其次是「適應日本社會」——在日常生活、學業與職場等各種情境中，培養學生與他人合作、獨立解決問題並主動行動的能力。</span>
+          <span class="txt-sc">为了培养在日本成功生活所需的技能，我们的课程建立在三大教育支柱之上。首先是「日语能力」——透过听、读、说（互动与发表）、写五大语言活动，从词汇、文法、篇章结构等基础能力，到升学与就业所需的实用沟通技巧，系统性地培养能在真实生活中灵活运用的日语能力。其次是「适应日本社会」——在日常生活、学业与职场等各种情境中，培养学生与他人合作、独立解决问题并主动行动的能力。</span>
+          <span class="txt-en">To cultivate the skills necessary for living successfully in Japan, our curriculum is built on three educational pillars. First, Japanese Language Proficiency — students systematically develop their Japanese through five language activities: listening, reading, speaking (interaction and presentation), and writing. From fundamentals like vocabulary, grammar, and discourse organization to the practical communication skills needed for further study and employment, learners acquire Japanese they can use effectively in real life. Second, Adaptation to Japanese Society — we foster learners' ability to solve problems independently and act proactively while cooperating with others across daily life, academic study, and the workplace.</span>
+          <span class="txt-hi">जापान में सफल जीवन जीने के लिए आवश्यक कौशल विकसित करने हेतु, हमारा पाठ्यक्रम तीन शैक्षणिक स्तंभों पर बना है। पहला, जापानी भाषा दक्षता — सुनना, पढ़ना, बोलना (बातचीत और प्रस्तुति) और लिखना, इन पाँच भाषा गतिविधियों के माध्यम से, शब्दावली और व्याकरण जैसी बुनियादी क्षमताओं से लेकर उच्च शिक्षा और रोजगार के लिए आवश्यक व्यावहारिक संचार कौशल तक। दूसरा, जापानी समाज में अनुकूलन — दैनिक जीवन, अध्ययन और कार्यस्थल में दूसरों के साथ सहयोग करते हुए स्वतंत्र रूप से समस्याओं को हल करने और सक्रिय रूप से कार्य करने की क्षमता विकसित करना।</span>
+          <span class="txt-ne">जापानमा सफलतापूर्वक बाँच्न आवश्यक सीप विकास गर्न, हाम्रो पाठ्यक्रम तीन शैक्षिक स्तम्भमा निर्मित छ। पहिलो, जापानी भाषा दक्षता — सुन्ने, पढ्ने, बोल्ने (अन्तरक्रिया र प्रस्तुति) र लेख्ने, यी पाँच भाषा गतिविधिमार्फत, शब्दावली र व्याकरण जस्ता आधारभूत क्षमताबाट उच्च शिक्षा र रोजगारका लागि आवश्यक व्यावहारिक सञ्चार सीपसम्म। दोस्रो, जापानी समाजमा अनुकूलन — दैनिक जीवन, अध्ययन र कार्यस्थलमा अरूसँग सहकार्य गर्दै स्वतन्त्र रूपमा समस्या समाधान गर्ने र सक्रिय रूपमा कार्य गर्ने क्षमता विकास गर्ने।</span>
+          <span class="txt-si">ජපානයේ සාර්ථක ජීවිතයක් සඳහා අවශ්‍ය කුසලතා වර්ධනය කිරීම සඳහා, අපගේ විෂය මාලාව අධ්‍යාපනික ස්තම්භ තුනක් මත ගොඩනගා ඇත. පළමුව, ජපන් භාෂා ප්‍රවීණත්වය — සවන්දීම, කියවීම, කථා කිරීම (අන්තර්ක්‍රියා සහ ඉදිරිපත් කිරීම) සහ ලිවීම යන භාෂා ක්‍රියාකාරකම් පහ හරහා, වචන මාලාව හා ව්‍යාකරණ වැනි මූලික හැකියාවලින් ඇරඹී වැඩිදුර අධ්‍යාපනයට හා රැකියාවලට අවශ්‍ය ප්‍රායෝගික සන්නිවේදන කුසලතා දක්වා. දෙවනුව, ජපන් සමාජයට අනුගත වීම — දෛනික ජීවිතය, අධ්‍යයනය සහ රැකියා ස්ථානයේදී අන් අය සමඟ සහයෝගයෙන් ගැටලු ස්වාධීනව විසඳීමට හා ක්‍රියාශීලීව ක්‍රියා කිරීමට හැකියාව වර්ධනය කිරීම.</span>
+          <span class="txt-vi">Để bồi dưỡng những kỹ năng cần thiết cho một cuộc sống thành công tại Nhật Bản, chương trình học của chúng tôi được xây dựng trên ba trụ cột giáo dục. Thứ nhất, Năng lực tiếng Nhật — học viên phát triển tiếng Nhật một cách có hệ thống thông qua năm hoạt động ngôn ngữ: nghe, đọc, nói (tương tác và thuyết trình) và viết, từ các năng lực nền tảng như từ vựng, ngữ pháp đến kỹ năng giao tiếp thực tiễn cần thiết cho việc học tiếp và làm việc. Thứ hai, Thích nghi với xã hội Nhật Bản — chúng tôi bồi dưỡng khả năng giải quyết vấn đề độc lập và hành động chủ động trong khi hợp tác với người khác ở nhiều bối cảnh khác nhau.</span>
+          <span class="txt-uk">Щоб розвинути навички, необхідні для успішного життя в Японії, наша навчальна програма побудована на трьох освітніх стовпах. По-перше, володіння японською мовою — студенти систематично розвивають японську мову через п'ять видів мовної діяльності: аудіювання, читання, говоріння (взаємодія та презентація) і письмо, від базових навичок, таких як лексика та граматика, до практичних комунікативних навичок, необхідних для подальшого навчання та працевлаштування. По-друге, адаптація до японського суспільства — ми розвиваємо здатність студентів самостійно вирішувати проблеми та діяти проактивно, співпрацюючи з іншими.</span>
+          <span class="txt-id">Untuk membina keterampilan yang diperlukan bagi kehidupan sukses di Jepang, kurikulum kami dibangun di atas tiga pilar pendidikan. Pertama, Kemahiran Bahasa Jepang — siswa mengembangkan bahasa Jepang secara sistematis melalui lima aktivitas bahasa: mendengarkan, membaca, berbicara (interaksi dan presentasi), dan menulis, dari kemampuan dasar seperti kosakata dan tata bahasa hingga keterampilan komunikasi praktis yang diperlukan untuk studi lanjut dan pekerjaan. Kedua, Adaptasi terhadap Masyarakat Jepang — kami membina kemampuan siswa untuk memecahkan masalah secara mandiri dan bertindak proaktif sambil bekerja sama dengan orang lain.</span>
+          <span class="txt-ru">Чтобы развить навыки, необходимые для успешной жизни в Японии, наша учебная программа построена на трёх образовательных столпах. Во-первых, владение японским языком — студенты систематически развивают японский через пять видов языковой деятельности: аудирование, чтение, говорение (взаимодействие и презентация) и письмо, от базовых навыков, таких как лексика и грамматика, до практических коммуникативных навыков, необходимых для дальнейшей учёбы и трудоустройства. Во-вторых, адаптация к японскому обществу — мы развиваем способность студентов самостоятельно решать проблемы и действовать проактивно, сотрудничая с другими.</span>
+          <span class="txt-my">ဂျပန်တွင် အောင်မြင်သောဘဝတစ်ခု ရရှိစေရန် လိုအပ်သော ကျွမ်းကျင်မှုများကို မွေးထုတ်ရန် ကျွန်ုပ်တို့၏ သင်ရိုးညွှန်းတမ်းကို ပညာရေးတိုင် ၃ ခုအပေါ် တည်ဆောက်ထားပါသည်။ ပထမတိုင်မှာ ဂျပန်ဘာသာစွမ်းရည်ဖြစ်ပြီး၊ နားထောင်ခြင်း၊ ဖတ်ခြင်း၊ ပြောဆိုခြင်း (အပြန်အလှန်ဆက်သွယ်ခြင်းနှင့် တင်ပြခြင်း) နှင့် ရေးသားခြင်းဟူသော ဘာသာစကားလှုပ်ရှားမှု ၅ ခုမှတစ်ဆင့် ဝေါဟာရနှင့် သဒ္ဒါကဲ့သို့သော အခြေခံစွမ်းရည်များမှသည် ပညာသင်ဆက်ခြင်းနှင့် အလုပ်အကိုင်အတွက် လိုအပ်သော လက်တွေ့ဆက်သွယ်ရေးစွမ်းရည်များအထိ စနစ်တကျ တည်ဆောက်ပါသည်။ ဒုတိယတိုင်မှာ ဂျပန်လူ့အဖွဲ့အစည်းသို့ လိုက်လျောညီထွေဖြစ်မှုဖြစ်ပြီး၊ နေ့စဉ်ဘဝ၊ ပညာရေးနှင့် အလုပ်ခွင်တွင် အခြားသူများနှင့် ပူးပေါင်းလျက် ပြဿနာများကို လွတ်လပ်စွာ ဖြေရှင်းနိုင်ပြီး တက်ကြွစွာ လုပ်ဆောင်နိုင်သော စွမ်းရည်ကို မွေးထုတ်ပါသည်။</span>
+        </p>
+
+        <p class="aim-text">
+          <span class="txt-ja">そして「日本文化の理解」では、授業の中に日本の文化的背景や価値観、社会習慣を取り入れ、学生が日本文化と自分自身の文化的背景の両方を理解し、尊重し合う力を育みます。これら3つの柱を支える基盤として、私たちは学習者の自律学習力の育成を重視しています。学生自身が学習目標を設定し、計画を立てて実行し、進捗を振り返りながら、学びの過程全体を通じて自分の学習方法を継続的に改善していくことを奨励しています。</span>
+          <span class="txt-zh">最後是「理解日本文化」——我們將日本的文化背景、價值觀與社會習俗融入課堂教學，培養學生理解並尊重日本文化與自身文化背景的能力，促進相互的跨文化理解。作為支撐這三大支柱的基礎，我們特別重視培養學生的自主學習能力，鼓勵學生在整個學習過程中，自行設定學習目標、擬定並執行學習計畫、反思學習進度，並持續改善自己的學習方法。</span>
+          <span class="txt-sc">最后是「理解日本文化」——我们将日本的文化背景、价值观与社会习俗融入课堂教学，培养学生理解并尊重日本文化与自身文化背景的能力，促进相互的跨文化理解。作为支撑这三大支柱的基础，我们特别重视培养学生的自主学习能力，鼓励学生在整个学习过程中，自行设定学习目标、拟定并执行学习计划、反思学习进度，并持续改善自己的学习方法。</span>
+          <span class="txt-en">Third, Understanding Japanese Culture — our Japanese language education incorporates cultural backgrounds, values, and social customs into classroom learning, helping students understand and respect both Japanese culture and their own. As the foundation supporting all three pillars, we place strong emphasis on learner autonomy: students are encouraged to set their own learning goals, make plans, put them into practice, reflect on their progress, and continuously improve their learning strategies throughout their studies.</span>
+          <span class="txt-hi">तीसरा, जापानी संस्कृति की समझ — हमारी जापानी भाषा शिक्षा कक्षा की पढ़ाई में सांस्कृतिक पृष्ठभूमि, मूल्यों और सामाजिक रीति-रिवाजों को शामिल करती है, जिससे छात्रों को जापानी संस्कृति और अपनी स्वयं की सांस्कृतिक पृष्ठभूमि दोनों को समझने और सम्मान करने में मदद मिलती है। इन तीनों स्तंभों के आधार के रूप में, हम शिक्षार्थी की स्वायत्तता पर विशेष जोर देते हैं: छात्रों को अपने सीखने के लक्ष्य निर्धारित करने, योजनाएँ बनाने, उन्हें क्रियान्वित करने और अपनी प्रगति पर विचार करने के लिए प्रोत्साहित किया जाता है।</span>
+          <span class="txt-ne">तेस्रो, जापानी संस्कृतिको बुझाइ — हाम्रो जापानी भाषा शिक्षाले कक्षाकोठाको पढाइमा सांस्कृतिक पृष्ठभूमि, मूल्यहरू र सामाजिक रीतिरिवाजहरू समावेश गर्छ, जसले विद्यार्थीहरूलाई जापानी संस्कृति र आफ्नै सांस्कृतिक पृष्ठभूमि दुवैलाई बुझ्न र सम्मान गर्न मद्दत गर्छ। यी तीनवटा स्तम्भको आधारको रूपमा, हामी सिकारुको स्वायत्ततामा विशेष जोड दिन्छौं: विद्यार्थीहरूलाई आफ्नै सिकाइ लक्ष्य तय गर्न, योजना बनाउन, कार्यान्वयन गर्न र आफ्नो प्रगतिमा प्रतिबिम्बित हुन प्रोत्साहित गरिन्छ।</span>
+          <span class="txt-si">තෙවනුව, ජපන් සංස්කෘතිය අවබෝධ කර ගැනීම — අපගේ ජපන් භාෂා අධ්‍යාපනය පන්ති කාමර ඉගෙනීමට සංස්කෘතික පසුබිම්, වටිනාකම් සහ සමාජ චාරිත්‍ර ඇතුළත් කරයි, එමගින් ශිෂ්‍යයන්ට ජපන් සංස්කෘතිය සහ ඔවුන්ගේම සංස්කෘතික පසුබිම යන දෙකම තේරුම් ගැනීමට හා ගරු කිරීමට උපකාර වේ. මෙම ස්තම්භ තුනටම පදනම ලෙස, අපි ඉගෙන ගන්නාගේ ස්වාධීනත්වයට විශේෂ අවධානයක් යොමු කරමු: ශිෂ්‍යයන් තමන්ගේම ඉගෙනුම් ඉලක්ක සැකසීමට, සැලසුම් සකස් කිරීමට, ක්‍රියාත්මක කිරීමට සහ ප්‍රගතිය පිළිබිඹු කිරීමට දිරිමත් කරනු ලැබේ.</span>
+          <span class="txt-vi">Thứ ba, Hiểu biết văn hóa Nhật Bản — nền giáo dục tiếng Nhật của chúng tôi lồng ghép bối cảnh văn hóa, giá trị và phong tục xã hội vào việc học trên lớp, giúp học viên hiểu và tôn trọng cả văn hóa Nhật Bản lẫn nền văn hóa của chính mình. Là nền tảng hỗ trợ cả ba trụ cột, chúng tôi đặc biệt chú trọng đến tính tự chủ của học viên: học viên được khuyến khích tự đặt mục tiêu học tập, lập kế hoạch, thực hiện và suy ngẫm về tiến độ của mình.</span>
+          <span class="txt-uk">По-третє, розуміння японської культури — наша освіта з японської мови включає культурне тло, цінності та соціальні звичаї в навчання в класі, допомагаючи студентам розуміти та поважати як японську культуру, так і власну. Як основу, що підтримує всі три стовпи, ми надаємо особливого значення автономності студента: студентів заохочують самостійно встановлювати навчальні цілі, складати плани, втілювати їх та обмірковувати свій прогрес.</span>
+          <span class="txt-id">Ketiga, Pemahaman Budaya Jepang — pendidikan bahasa Jepang kami memasukkan latar belakang budaya, nilai, dan adat istiadat sosial ke dalam pembelajaran di kelas, membantu siswa memahami dan menghormati baik budaya Jepang maupun budaya mereka sendiri. Sebagai fondasi yang mendukung ketiga pilar, kami sangat menekankan kemandirian pembelajar: siswa didorong untuk menetapkan tujuan belajar mereka sendiri, membuat rencana, melaksanakannya, dan merefleksikan kemajuan mereka.</span>
+          <span class="txt-ru">В-третьих, понимание японской культуры — наше обучение японскому языку включает культурный контекст, ценности и социальные обычаи в занятия, помогая студентам понимать и уважать как японскую культуру, так и свою собственную. В качестве основы, поддерживающей все три столпа, мы уделяем особое внимание самостоятельности учащегося: студентов поощряют самостоятельно ставить учебные цели, составлять планы, воплощать их и осмыслять свой прогресс.</span>
+          <span class="txt-my">တတိယတိုင်မှာ ဂျပန်ယဉ်ကျေးမှု နားလည်မှုဖြစ်ပြီး၊ ကျွန်ုပ်တို့၏ ဂျပန်ဘာသာပညာရေးသည် ယဉ်ကျေးမှုနောက်ခံ၊ တန်ဖိုးများနှင့် လူမှုထုံးတမ်းများကို စာသင်ခန်းသင်ကြားမှုတွင် ထည့်သွင်းထားပြီး ကျောင်းသားများအား ဂျပန်ယဉ်ကျေးမှုနှင့် ၎င်းတို့၏ကိုယ်ပိုင် ယဉ်ကျေးမှုနောက်ခံ နှစ်မျိုးလုံးကို နားလည်ရှုမြင်ပြီး လေးစားနိုင်ရန် ကူညီပေးပါသည်။ ဤတိုင် ၃ ခုလုံးကို ထောက်ပံ့သော အခြေခံအဖြစ် ကျွန်ုပ်တို့သည် သင်ယူသူ၏ မိမိကိုယ်ပိုင်စီမံနိုင်မှုကို အထူးအလေးထားပါသည် — ကျောင်းသားများအား မိမိကိုယ်ပိုင် သင်ယူမှုပန်းတိုင်များ သတ်မှတ်ရန်၊ အစီအစဉ်များ ရေးဆွဲရန်၊ အကောင်အထည်ဖော်ရန်နှင့် ၎င်းတို့၏ တိုးတက်မှုကို ပြန်လည်သုံးသပ်ရန် အားပေးထားပါသည်။</span>
+        </p>
+
+        <div class="aim-more">
+          <button class="cross-link-btn" data-trigger="pane-achievements" data-anchor="pillarsSection">
+            <span class="txt-ja">3つの柱についてもっと見る</span><span class="txt-zh">深入了解三大教育支柱</span><span class="txt-sc">深入了解三大教育支柱</span><span class="txt-en">Learn more about our three pillars</span><span class="txt-hi">हमारे तीन स्तंभों के बारे में और जानें</span><span class="txt-ne">हाम्रा तीन स्तम्भको बारेमा थप जान्नुहोस्</span><span class="txt-si">අපගේ ස්තම්භ තුන ගැන තව දැනගන්න</span><span class="txt-vi">Tìm hiểu thêm về ba trụ cột của chúng tôi</span><span class="txt-uk">Дізнатися більше про наші три стовпи</span><span class="txt-id">Pelajari lebih lanjut tiga pilar kami</span><span class="txt-ru">Узнать больше о наших трёх столпах</span><span class="txt-my">ကျွန်ုပ်တို့၏ တိုင် ၃ ခုအကြောင်း ပိုမိုလေ့လာရန်</span> →
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- 嵌入 Google 地圖 -->
   <section class="map-section wrap reveal">
     <div class="eyebrow">ACCESS</div>
@@ -2170,6 +2388,8 @@
 <line x1="660" y1="0" x2="660" y2="600" stroke="#E2CBA8" stroke-width="20" stroke-linecap="round"/>
 <!-- Vertical cross street B (in front of the school) -->
 <line x1="840" y1="118" x2="840" y2="600" stroke="#E2CBA8" stroke-width="20" stroke-linecap="round"/>
+<!-- Bus loop / turnaround at Chiba Station where the No.13 bus terminates -->
+<circle cx="90" cy="390" r="50" fill="none" stroke="#E2CBA8" stroke-width="24"/>
 
 <!-- Walking route: red dashed — from each station along the main road, all the way to the school entrance -->
 <path d="M 90 320 H 830 V 384"
@@ -2208,8 +2428,26 @@
 <!-- Markers rendered from mapShops[] -->
 <g id="shopMarkersLayer"></g>
 
+<!-- Bus-stop sign icon next to the 千葉駅 marker (pole + roundel, like real bus-stop signage) -->
+<g class="map-hotspot" tabindex="0" role="button" data-name="千葉駅 バス乗り場（13號公車）" data-dist="学校まで（バス+徒歩）" data-hours="13號公車のりば" transform="translate(122,355)">
+  <!-- pole -->
+  <line x1="0" y1="16" x2="0" y2="42" stroke="#5C5654" stroke-width="3" stroke-linecap="round"/>
+  <!-- sign roundel -->
+  <circle cy="6" r="16" fill="#2F6DB0"/>
+  <circle cy="6" r="16" fill="none" stroke="#FCFBF7" stroke-width="2.5"/>
+  <!-- bus glyph -->
+  <g transform="translate(0,6)">
+    <rect x="-9" y="-8" width="18" height="12" rx="2.5" fill="#FCFBF7"/>
+    <rect x="-6.5" y="-5.5" width="13" height="4.5" rx="1" fill="#2F6DB0"/>
+    <circle cx="-5" cy="5" r="2.2" fill="#26211F"/>
+    <circle cx="5" cy="5" r="2.2" fill="#26211F"/>
+  </g>
+</g>
+
 <!-- 千葉駅方面 -->
 <text x="90" y="20" text-anchor="middle" font-size="12" font-weight="700" fill="#26211F" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">千葉駅方面</text>
+<!-- 13號公車可抵達 -->
+<text x="90" y="42" text-anchor="middle" font-size="12" font-weight="700" fill="#2F6DB0" paint-order="stroke" stroke="#FCFBF7" stroke-width="3.2" stroke-linejoin="round">13號公車可抵達</text>
 
 <!-- SCHOOL -->
 <g class="map-hotspot" tabindex="0" role="button" data-name="Tokyo One 日本語学校（本校）" data-dist="祐光4-1-18" data-hours="窓口：月・水・木・金 8:00〜17:30" transform="translate(830,412)">
@@ -2586,8 +2824,7 @@
 
 
 
-  <div class="phil-section reveal">
-    <p class="pillar-intro">
+  <div class="phil-section reveal" id="pillarsSection">
       <span class="txt-zh">為了培養在日本成功生活所需的技能，我們的課程建立在以下三個教育支柱之上。</span>
       <span class="txt-sc">为了培养在日本成功生活所需的技能，我们的课程建立在以下三个教育支柱之上。</span>
       <span class="txt-ja">日本で成功する生活に必要なスキルを育むため、私たちのカリキュラムは以下の3つの教育の柱の上に築かれています。</span>
@@ -2664,7 +2901,7 @@
 
 
 
-  <div class="doc-cabinet">
+  <div class="doc-cabinet" id="docCabinetSection">
     <div class="eyebrow">OFFICIAL DOCUMENTS</div>
     <h2 data-i18n="title_doc">公式規程・評価報告書</h2>
     <p class="txt-ja" style="color:var(--ink-soft); font-size: 16px; margin-bottom:0;">日本の文部科学省および関連教育法令に基づき全面的に情報公開し、留学生が日本で最高水準の権利保障を受けられるようにしています。</p>
@@ -2696,9 +2933,11 @@
       </div>
 
       <div class="doc-card reveal">
-        <h4 class="doc-title"><span style="margin:0;">日本語能力習得状況</span> <span class="icon">📊</span></h4>
-        <p class="doc-desc txt-ja">客観的なデータを公開し、修了生のJLPT取得状況の分布を詳細に記録。実際の成果で教育の質を証明します。</p><p class="doc-desc txt-zh">真實客觀 Facts 數據公開，詳實紀錄歷屆修了生之日語檢定實力分布，用真實成果印證精緻教學成效。</p><p class="doc-desc txt-en">Objective data recording graduates' JLPT results in detail — real outcomes as proof of teaching quality.</p><p class="doc-desc txt-vi">Dữ liệu khách quan ghi lại chi tiết kết quả JLPT của học viên tốt nghiệp — kết quả thực tế minh chứng cho chất lượng giảng dạy.</p><p class="doc-desc txt-uk">Об'єктивні дані, що детально фіксують результати JLPT випускників — реальні результати як доказ якості викладання.</p><p class="doc-desc txt-id">Data objektif yang mencatat hasil JLPT lulusan secara rinci — hasil nyata sebagai bukti kualitas pengajaran.</p><p class="doc-desc txt-ru">Объективные данные, подробно фиксирующие результаты JLPT выпускников — реальные результаты как доказательство качества преподавания.</p><p class="doc-desc txt-my">ဘွဲ့ရများ၏ JLPT ရလဒ်များကို အသေးစိတ် မှတ်တမ်းတင်သော ဓမ္မဓိဋ္ဌာန်ကျသည့် အချက်အလက်များ — သင်ကြားမှုအရည်အသွေး၏ သက်သေအဖြစ် အမှန်တကယ်ရလဒ်များ။</p>
-        <a href="files/jlpt-outcomes-44.pdf" target="_blank" class="doc-link">Download PDF</a>
+        <h4 class="doc-title"><span style="margin:0;"><span class="txt-ja">課程修了者の日本語能力習得状況等</span><span class="txt-zh">課程修了者的日語能力習得狀況等</span><span class="txt-sc">课程修了者的日语能力习得状况等</span><span class="txt-en">Japanese Proficiency Outcomes of Program Completers</span><span class="txt-hi">कार्यक्रम पूर्ण करने वालों की जापानी दक्षता परिणाम</span><span class="txt-ne">कार्यक्रम पूरा गर्नेहरूको जापानी दक्षता नतिजा</span><span class="txt-si">වැඩසටහන සම්පූර්ණ කළවුන්ගේ ජපන් ප්‍රවීණතා ප්‍රතිඵල</span><span class="txt-vi">Kết quả năng lực tiếng Nhật của học viên hoàn thành khóa học</span><span class="txt-uk">Результати володіння японською мовою випускників програми</span><span class="txt-id">Hasil Kemahiran Bahasa Jepang Peserta yang Menyelesaikan Program</span><span class="txt-ru">Результаты владения японским языком выпускников программы</span><span class="txt-my">သင်တန်းပြီးဆုံးသူများ၏ ဂျပန်ဘာသာစွမ်းရည် ရလဒ်များ</span></span> <span class="icon">📊</span></h4>
+        <p class="doc-desc txt-ja">客観的なデータを公開し、修了生のJLPT取得状況の分布を詳細に記録。実際の成果で教育の質を証明します。</p><p class="doc-desc txt-zh">真實客觀 Facts 數據公開，詳實紀錄歷屆修了生之日語檢定實力分布，用真實成果印證精緻教學成效。</p><p class="doc-desc txt-sc">真实客观 Facts 数据公开，详实纪录历届修了生之日语检定实力分布，用真实成果印证精致教学成效。</p><p class="doc-desc txt-en">Objective data recording graduates' JLPT results in detail — real outcomes as proof of teaching quality.</p><p class="doc-desc txt-vi">Dữ liệu khách quan ghi lại chi tiết kết quả JLPT của học viên tốt nghiệp — kết quả thực tế minh chứng cho chất lượng giảng dạy.</p><p class="doc-desc txt-uk">Об'єктивні дані, що детально фіксують результати JLPT випускників — реальні результати як доказ якості викладання.</p><p class="doc-desc txt-id">Data objektif yang mencatat hasil JLPT lulusan secara rinci — hasil nyata sebagai bukti kualitas pengajaran.</p><p class="doc-desc txt-ru">Объективные данные, подробно фиксирующие результаты JLPT выпускников — реальные результаты как доказательство качества преподавания.</p><p class="doc-desc txt-my">ဘွဲ့ရများ၏ JLPT ရလဒ်များကို အသေးစိတ် မှတ်တမ်းတင်သော ဓမ္မဓိဋ္ဌာန်ကျသည့် အချက်အလက်များ — သင်ကြားမှုအရည်အသွေး၏ သက်သေအဖြစ် အမှန်တကယ်ရလဒ်များ။</p>
+        <a href="files/jlpt-outcomes-44.pdf" target="_blank" class="doc-link">
+          <span class="txt-ja">44号：課程修了者の日本語能力習得状況等</span><span class="txt-zh">44號：課程修了者的日語能力習得狀況等</span><span class="txt-sc">44号：课程修了者的日语能力习得状况等</span><span class="txt-en">No.44: Download PDF</span><span class="txt-hi">क्रमांक 44: PDF डाउनलोड करें</span><span class="txt-ne">नं. ४४: PDF डाउनलोड गर्नुहोस्</span><span class="txt-si">අංක 44: PDF බාගන්න</span><span class="txt-vi">Số 44: Tải PDF</span><span class="txt-uk">№44: Завантажити PDF</span><span class="txt-id">No.44: Unduh PDF</span><span class="txt-ru">№44: Скачать PDF</span><span class="txt-my">အမှတ် ၄၄: PDF ဒေါင်းလုဒ်လုပ်ရန်</span>
+        </a>
       </div>
     </div>
     
@@ -3062,14 +3301,13 @@
       <p class="txt-my" style="margin:0 0 16px;">မိတ်ဖက်ကျောင်းအိပ်ဆောင်နှင့် နေထိုင်မှုအထောက်အပံ့</p>
 
       <div class="facility-tags">
-        <span class="facility-tag">📶 Wi-Fi</span>
         <span class="facility-tag">❄️ <span class="txt-ja">冷暖房</span><span class="txt-zh">冷暖氣</span><span class="txt-sc">冷暖氣</span><span class="txt-en">AC</span><span class="txt-hi">एसी</span><span class="txt-ne">एयर कन्डिसनर</span><span class="txt-si">වායු සමීකරණය</span><span class="txt-vi">Điều hòa</span><span class="txt-uk">Кондиціонер</span><span class="txt-id">AC</span><span class="txt-ru">Кондиционер</span><span class="txt-my">အအေးခံစက်</span></span>
         <span class="facility-tag">🧊 <span class="txt-ja">冷蔵庫</span><span class="txt-zh">冰箱</span><span class="txt-sc">冰箱</span><span class="txt-en">Fridge</span><span class="txt-hi">फ्रिज</span><span class="txt-ne">फ्रिज</span><span class="txt-si">ශීතකරණය</span><span class="txt-vi">Tủ lạnh</span><span class="txt-uk">Холодильник</span><span class="txt-id">Kulkas</span><span class="txt-ru">Холодильник</span><span class="txt-my">ရေခဲသေတ္တာ</span></span>
         <span class="facility-tag">🍱 <span class="txt-ja">電子レンジ</span><span class="txt-zh">微波爐</span><span class="txt-sc">微波炉</span><span class="txt-en">Microwave</span><span class="txt-hi">माइक्रोवेव</span><span class="txt-ne">माइक्रोवेभ</span><span class="txt-si">මයික්‍රෝවේව්</span><span class="txt-vi">Lò vi sóng</span><span class="txt-uk">Мікрохвильовка</span><span class="txt-id">Microwave</span><span class="txt-ru">Микроволновка</span><span class="txt-my">မိုက်ခရိုဝေ့့</span></span>
         <span class="facility-tag">🧺 <span class="txt-ja">洗濯機</span><span class="txt-zh">洗衣機</span><span class="txt-sc">洗衣机</span><span class="txt-en">Washing Machine</span><span class="txt-hi">वॉशिंग मशीन</span><span class="txt-ne">वासिङ मेसिन</span><span class="txt-si">රෙදි සෝදන යන්ත්‍රය</span><span class="txt-vi">Máy giặt</span><span class="txt-uk">Пральна машина</span><span class="txt-id">Mesin Cuci</span><span class="txt-ru">Стиральная машина</span><span class="txt-my">အဝတ်လျှော်စက်</span></span>
       </div>
 
-      <div class="support-columns">
+      <div class="support-columns" id="dormRulesSection">
         <div class="support-col">
           <h4 class="txt-ja">🏠 寮の環境とルール</h4>
           <h4 class="txt-zh">🏠 宿舍環境與規定</h4><h4 class="txt-sc">🏠 宿舍环境与规定</h4>
@@ -3101,6 +3339,71 @@
           </ul>
         </div>
       </div>
+
+      <div class="dorm-full-rules reveal" style="margin-top:40px; padding-top:32px; border-top:1px solid var(--line);">
+        <h4 class="txt-ja" style="margin:0 0 6px;">📜 学則　第6章　雑則（寄宿舎）</h4>
+        <h4 class="txt-zh" style="margin:0 0 6px;">📜 學則　第六章　雜則（寄宿舍）</h4><h4 class="txt-sc" style="margin:0 0 6px;">📜 学则　第六章　杂则（寄宿舍）</h4>
+        <h4 class="txt-en" style="margin:0 0 6px;">📜 School Regulations — Chapter 6, Miscellaneous (Dormitory)</h4><h4 class="txt-hi" style="margin:0 0 6px;">📜 शिक्षा नियम — अध्याय 6, विविध (छात्रावास)</h4><h4 class="txt-ne" style="margin:0 0 6px;">📜 शिक्षा नियम — अध्याय ६, विविध (छात्रावास)</h4><h4 class="txt-si" style="margin:0 0 6px;">📜 අධ්‍යාපන නීති — පරිච්ඡේදය 6, විවිධ (නේවාසිකාගාරය)</h4><h4 class="txt-vi" style="margin:0 0 6px;">📜 Nội quy trường — Chương 6, Điều khoản khác (Ký túc xá)</h4><h4 class="txt-uk" style="margin:0 0 6px;">📜 Правила школи — Розділ 6, Різне (Гуртожиток)</h4><h4 class="txt-id" style="margin:0 0 6px;">📜 Peraturan Sekolah — Bab 6, Lain-lain (Asrama)</h4><h4 class="txt-ru" style="margin:0 0 6px;">📜 Правила школы — Глава 6, Разное (Общежитие)</h4><h4 class="txt-my" style="margin:0 0 6px;">📜 ကျောင်းစည်းမျဉ်း — အခန်း ၆၊ အထွေထွေ (ကျောင်းအိပ်ဆောင်)</h4>
+        <p style="font-size:13.5px; color:var(--ink-soft); margin:0 0 20px;">
+          <span class="txt-zh">※以下為學則原文（日文），中文僅供參考摘要。如有疑義，請以日文原文為準。</span><span class="txt-sc">※以下为学则原文（日文），中文仅供参考摘要。如有疑义，请以日文原文为准。</span>
+          <span class="txt-en">*The full regulations below are provided in the original Japanese. A Chinese summary is for reference only; the Japanese text is authoritative.</span><span class="txt-hi">*नीचे दिए गए पूर्ण नियम मूल जापानी भाषा में हैं। हिंदी अनुवाद केवल संदर्भ के लिए है; जापानी पाठ प्रामाणिक है।</span><span class="txt-ne">*तलका पूर्ण नियमहरू मूल जापानी भाषामा छन्। नेपाली अनुवाद केवल सन्दर्भका लागि हो; जापानी पाठ प्रामाणिक हो।</span><span class="txt-si">*පහත සම්පූර්ණ නීති මුල් ජපන් භාෂාවෙන් සපයා ඇත. සිංහල පරිවර්තනය යොමු කිරීම සඳහා පමණි; ජපන් පාඨය අවසාන බලයලත් වේ.</span><span class="txt-vi">*Các quy định đầy đủ dưới đây được cung cấp bằng tiếng Nhật gốc. Bản dịch tiếng Việt chỉ mang tính tham khảo; văn bản tiếng Nhật có giá trị chính thức.</span><span class="txt-uk">*Повні правила нижче подано мовою оригіналу (японською). Український переклад наведено лише для довідки; текст японською є визначальним.</span><span class="txt-id">*Peraturan lengkap di bawah disediakan dalam bahasa Jepang asli. Terjemahan bahasa Indonesia hanya sebagai referensi; teks bahasa Jepang bersifat resmi.</span><span class="txt-ru">*Полные правила ниже приведены на языке оригинала (японском). Русский перевод предназначен только для справки; текст на японском языке является официальным.</span><span class="txt-my">*အောက်ပါစည်းမျဉ်းအပြည့်အစုံကို မူရင်းဂျပန်ဘာသာဖြင့် ဖော်ပြထားသည်။ မြန်မာဘာသာပြန်ချက်မှာ ကိုးကားရန်အတွက်သာဖြစ်ပြီး ဂျပန်စာသားသည် တရားဝင်ဖြစ်သည်။</span>
+        </p>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap:40px;">
+          <div>
+            <h5 class="txt-ja" style="margin:0 0 8px; font-size:15px;">（寄宿舎）第24条</h5>
+            <h5 class="txt-zh" style="margin:0 0 8px; font-size:15px;">（寄宿舍）第24條</h5><h5 class="txt-sc" style="margin:0 0 8px; font-size:15px;">（寄宿舍）第24条</h5><h5 class="txt-hi" style="margin:0 0 8px; font-size:15px;">(छात्रावास) अनुच्छेद 24</h5><h5 class="txt-ne" style="margin:0 0 8px; font-size:15px;">(छात्रावास) धारा २४</h5><h5 class="txt-si" style="margin:0 0 8px; font-size:15px;">(නේවාසිකාගාරය) වගන්තිය 24</h5><h5 class="txt-vi" style="margin:0 0 8px; font-size:15px;">(Ký túc xá) Điều 24</h5><h5 class="txt-uk" style="margin:0 0 8px; font-size:15px;">(Гуртожиток) Стаття 24</h5><h5 class="txt-id" style="margin:0 0 8px; font-size:15px;">(Asrama) Pasal 24</h5><h5 class="txt-ru" style="margin:0 0 8px; font-size:15px;">(Общежитие) Статья 24</h5><h5 class="txt-my" style="margin:0 0 8px; font-size:15px;">(ကျောင်းအိပ်ဆောင်) အပိုဒ် ၂၄</h5>
+            <p class="txt-ja" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">寄宿舎に関する事項は、校長が別に定める。</p>
+            <p class="txt-zh" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">有關寄宿舍之事項，由校長另行訂定。</p><p class="txt-sc" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">有关寄宿舍之事项，由校长另行订定。</p><p class="txt-hi" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">छात्रावास से संबंधित मामले प्राचार्य द्वारा अलग से निर्धारित किए जाएंगे।</p><p class="txt-ne" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">छात्रावाससँग सम्बन्धित विषयहरू प्राचार्यले छुट्टै निर्धारण गर्नेछन्।</p><p class="txt-si" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">නේවාසිකාගාරයට අදාළ කරුණු විදුහල්පතිවරයා විසින් වෙන වෙනම නියම කරනු ලැබේ.</p><p class="txt-vi" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">Các vấn đề liên quan đến ký túc xá sẽ do hiệu trưởng quy định riêng.</p><p class="txt-uk" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">Питання, пов'язані з гуртожитком, окремо визначає директор.</p><p class="txt-id" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">Hal-hal yang berkaitan dengan asrama akan ditentukan secara terpisah oleh kepala sekolah.</p><p class="txt-ru" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">Вопросы, связанные с общежитием, отдельно определяются директором школы.</p><p class="txt-my" style="font-size:14.5px; line-height:1.8; margin:0 0 20px;">ကျောင်းအိပ်ဆောင်နှင့်သက်ဆိုင်သောကိစ္စများကို ကျောင်းအုပ်ကြီးက သီးခြားသတ်မှတ်မည်။</p>
+
+            <h5 class="txt-ja" style="margin:0 0 8px; font-size:15px;">（契約）</h5>
+            <h5 class="txt-zh" style="margin:0 0 8px; font-size:15px;">（合約）</h5><h5 class="txt-sc" style="margin:0 0 8px; font-size:15px;">（合约）</h5><h5 class="txt-hi" style="margin:0 0 8px; font-size:15px;">(अनुबंध)</h5><h5 class="txt-ne" style="margin:0 0 8px; font-size:15px;">(सम्झौता)</h5><h5 class="txt-si" style="margin:0 0 8px; font-size:15px;">(ගිවිසුම)</h5><h5 class="txt-vi" style="margin:0 0 8px; font-size:15px;">(Hợp đồng)</h5><h5 class="txt-uk" style="margin:0 0 8px; font-size:15px;">(Договір)</h5><h5 class="txt-id" style="margin:0 0 8px; font-size:15px;">(Kontrak)</h5><h5 class="txt-ru" style="margin:0 0 8px; font-size:15px;">(Договор)</h5><h5 class="txt-my" style="margin:0 0 8px; font-size:15px;">(စာချုပ်)</h5>
+            <ul class="support-list">
+              <li><span class="txt-ja block-item">寮の契約期間は基本6ヶ月で契約更新も6ヶ月単位で行われる。</span><span class="txt-zh block-item">宿舍合約期間基本為6個月，續約亦以6個月為單位。</span><span class="txt-sc block-item">宿舍合约期间基本为6个月，续约亦以6个月为单位。</span><span class="txt-hi block-item">छात्रावास अनुबंध की अवधि मूल रूप से 6 महीने है, और नवीनीकरण भी 6 महीने की इकाइयों में किया जाता है।</span><span class="txt-ne block-item">छात्रावास सम्झौताको अवधि आधारभूत रूपमा ६ महिना हो, र नवीकरण पनि ६ महिनाको एकाइमा गरिन्छ।</span><span class="txt-si block-item">නේවාසිකාගාර ගිවිසුම් කාලය මූලික වශයෙන් මාස 6කි, අළුත් කිරීමද මාස 6ක ඒකක වශයෙන් සිදු කෙරේ.</span><span class="txt-vi block-item">Thời hạn hợp đồng ký túc xá cơ bản là 6 tháng, việc gia hạn cũng được thực hiện theo đơn vị 6 tháng.</span><span class="txt-uk block-item">Базовий термін договору гуртожитку становить 6 місяців, продовження також здійснюється періодами по 6 місяців.</span><span class="txt-id block-item">Masa kontrak asrama pada dasarnya 6 bulan, dan perpanjangan juga dilakukan per unit 6 bulan.</span><span class="txt-ru block-item">Основной срок договора общежития составляет 6 месяцев, продление также осуществляется периодами по 6 месяцев.</span><span class="txt-my block-item">ကျောင်းအိပ်ဆောင်စာချုပ်ကာလသည် အခြေခံအားဖြင့် ၆ လဖြစ်ပြီး သက်တမ်းတိုးခြင်းကိုလည်း ၆ လယူနစ်ဖြင့် ပြုလုပ်သည်။</span></li>
+              <li><span class="txt-ja block-item">契約は、各学期の前月の28日から始まり、6ヶ月後の25日で終了する。例えば４月学期の場合、契約の期間は、3月28日～9月25日となる。</span><span class="txt-zh block-item">合約自各學期前一個月的28日開始，於6個月後的25日終止。例如4月學期，合約期間為3月28日～9月25日。</span><span class="txt-sc block-item">合约自各学期前一个月的28日开始，于6个月后的25日终止。例如4月学期，合约期间为3月28日～9月25日。</span><span class="txt-hi block-item">अनुबंध प्रत्येक सेमेस्टर से पिछले महीने की 28 तारीख से शुरू होकर 6 महीने बाद की 25 तारीख को समाप्त होता है। उदाहरण के लिए, अप्रैल सेमेस्टर के लिए, अनुबंध अवधि 28 मार्च से 25 सितंबर तक होगी।</span><span class="txt-ne block-item">सम्झौता प्रत्येक सेमेस्टरको अघिल्लो महिनाको २८ तारिखबाट सुरु भई ६ महिनापछिको २५ तारिखमा समाप्त हुन्छ। उदाहरणका लागि, अप्रिल सेमेस्टरका लागि, सम्झौता अवधि मार्च २८ देखि सेप्टेम्बर २५ सम्म हुन्छ।</span><span class="txt-si block-item">ගිවිසුම එක් එක් සමමිතියේ පෙර මාසයේ 28 වන දින ආරම්භ වී මාස 6කට පසු 25 වන දින අවසන් වේ. උදාහරණයක් ලෙස, අප්‍රේල් සමමිතිය සඳහා ගිවිසුම් කාලය මාර්තු 28 සිට සැප්තැම්බර් 25 දක්වා වේ.</span><span class="txt-vi block-item">Hợp đồng bắt đầu từ ngày 28 của tháng trước mỗi học kỳ và kết thúc vào ngày 25 sau 6 tháng. Ví dụ, đối với học kỳ tháng 4, thời hạn hợp đồng sẽ là từ 28/3 đến 25/9.</span><span class="txt-uk block-item">Договір починається з 28 числа місяця, що передує кожному семестру, і закінчується 25 числа через 6 місяців. Наприклад, для квітневого семестру термін договору — з 28 березня по 25 вересня.</span><span class="txt-id block-item">Kontrak dimulai pada tanggal 28 bulan sebelum setiap semester dan berakhir pada tanggal 25 enam bulan kemudian. Misalnya, untuk semester April, masa kontrak adalah 28 Maret hingga 25 September.</span><span class="txt-ru block-item">Договор начинается с 28 числа месяца, предшествующего каждому семестру, и заканчивается 25 числа через 6 месяцев. Например, для весеннего семестра (апрель) срок договора — с 28 марта по 25 сентября.</span><span class="txt-my block-item">စာချုပ်သည် ပညာသင်နှစ်တစ်ခုစီ၏ ယခင်လ ၂၈ ရက်နေ့မှစတင်ပြီး ၆ လအကြာ ၂၅ ရက်နေ့တွင် ကုန်ဆုံးသည်။ ဥပမာအားဖြင့် ဧပြီလပညာသင်နှစ်အတွက် စာချုပ်ကာလမှာ မတ်လ ၂၈ ရက်မှ စက်တင်ဘာလ ၂၅ ရက်အထိဖြစ်သည်။</span></li>
+              <li><span class="txt-ja block-item">本人の事情によって契約期間内に退寮する場合、既納の料金は返さない。</span><span class="txt-zh block-item">若因個人因素於合約期間內退宿，已繳納之費用恕不退還。</span><span class="txt-sc block-item">若因个人因素于合约期间内退宿，已缴纳之费用恕不退还。</span><span class="txt-hi block-item">यदि व्यक्तिगत कारणों से अनुबंध अवधि के भीतर छात्रावास छोड़ा जाता है, तो पहले से भुगतान की गई फीस वापस नहीं की जाएगी।</span><span class="txt-ne block-item">व्यक्तिगत कारणले सम्झौता अवधिभित्र छात्रावास छोड्ने भएमा पहिले तिरिसकेको शुल्क फिर्ता गरिँदैन।</span><span class="txt-si block-item">පුද්ගලික හේතූන් මත ගිවිසුම් කාලය තුළ නේවාසිකාගාරයෙන් ඉවත් වුවහොත්, දැනටමත් ගෙවා ඇති ගාස්තු ආපසු නොදෙනු ලැබේ.</span><span class="txt-vi block-item">Nếu rời ký túc xá trong thời hạn hợp đồng vì lý do cá nhân, khoản phí đã đóng sẽ không được hoàn lại.</span><span class="txt-uk block-item">Якщо мешканець залишає гуртожиток протягом терміну дії договору з особистих причин, уже сплачена плата не повертається.</span><span class="txt-id block-item">Jika keluar dari asrama dalam masa kontrak karena alasan pribadi, biaya yang telah dibayarkan tidak akan dikembalikan.</span><span class="txt-ru block-item">Если проживающий покидает общежитие в течение срока действия договора по личным причинам, уже уплаченная плата не возвращается.</span><span class="txt-my block-item">ကိုယ်ရေးကိုယ်တာအကြောင်းကြောင့် စာချုပ်ကာလအတွင်း ကျောင်းအိပ်ဆောင်မှ ထွက်ခွာပါက ကြိုတင်ပေးချေထားသောငွေကို ပြန်အမ်းမည်မဟုတ်ပါ။</span></li>
+            </ul>
+
+            <h5 class="txt-ja" style="margin:20px 0 8px; font-size:15px;">（寮則）</h5>
+            <h5 class="txt-zh" style="margin:20px 0 8px; font-size:15px;">（宿舍規則）</h5><h5 class="txt-sc" style="margin:20px 0 8px; font-size:15px;">（宿舍规则）</h5><h5 class="txt-hi" style="margin:20px 0 8px; font-size:15px;">(छात्रावास नियम)</h5><h5 class="txt-ne" style="margin:20px 0 8px; font-size:15px;">(छात्रावास नियमहरू)</h5><h5 class="txt-si" style="margin:20px 0 8px; font-size:15px;">(නේවාසිකාගාර නීති)</h5><h5 class="txt-vi" style="margin:20px 0 8px; font-size:15px;">(Nội quy ký túc xá)</h5><h5 class="txt-uk" style="margin:20px 0 8px; font-size:15px;">(Правила гуртожитку)</h5><h5 class="txt-id" style="margin:20px 0 8px; font-size:15px;">(Aturan Asrama)</h5><h5 class="txt-ru" style="margin:20px 0 8px; font-size:15px;">(Правила общежития)</h5><h5 class="txt-my" style="margin:20px 0 8px; font-size:15px;">(ကျောင်းအိပ်ဆောင်စည်းမျဉ်းများ)</h5>
+            <ul class="support-list">
+              <li><span class="txt-ja block-item">部屋を出る場合は、必ず鍵を閉める。</span><span class="txt-zh block-item">離開房間時務必上鎖。</span><span class="txt-sc block-item">离开房间时务必上锁。</span><span class="txt-hi block-item">कमरे से बाहर निकलते समय हमेशा दरवाजा बंद करें।</span><span class="txt-ne block-item">कोठाबाट बाहिर निस्कँदा सधैं ताल्चा लगाउनुहोस्।</span><span class="txt-si block-item">කාමරයෙන් පිටව යන විට සැමවිටම දොර අගුළු දමන්න.</span><span class="txt-vi block-item">Khi ra khỏi phòng, luôn khóa cửa.</span><span class="txt-uk block-item">Виходячи з кімнати, завжди замикайте двері.</span><span class="txt-id block-item">Saat keluar kamar, selalu kunci pintu.</span><span class="txt-ru block-item">Выходя из комнаты, всегда запирайте дверь.</span><span class="txt-my block-item">အခန်းမှထွက်သည့်အခါ သော့ချိတ်ပါ။</span></li>
+              <li><span class="txt-ja block-item">部屋を毎日掃除して、いつもきれいに保つ。</span><span class="txt-zh block-item">每日打掃房間，隨時保持整潔。</span><span class="txt-sc block-item">每日打扫房间，随时保持整洁。</span><span class="txt-hi block-item">कमरे को प्रतिदिन साफ करें और हमेशा साफ-सुथरा रखें।</span><span class="txt-ne block-item">कोठालाई दैनिक सफा गर्नुहोस् र सधैं सफा राख्नुहोस्।</span><span class="txt-si block-item">කාමරය දිනපතා පිරිසිදු කර සැමවිටම පිරිසිදුව තබා ගන්න.</span><span class="txt-vi block-item">Dọn dẹp phòng hàng ngày và luôn giữ sạch sẽ.</span><span class="txt-uk block-item">Прибирайте кімнату щодня та завжди тримайте її чистою.</span><span class="txt-id block-item">Bersihkan kamar setiap hari dan selalu jaga kebersihannya.</span><span class="txt-ru block-item">Убирайте комнату ежедневно и всегда поддерживайте чистоту.</span><span class="txt-my block-item">အခန်းကို နေ့စဉ်သန့်ရှင်းရေးလုပ်ပြီး အမြဲသန့်ရှင်းအောင်ထားပါ။</span></li>
+              <li><span class="txt-ja block-item">室内でのタバコは禁止とする。</span><span class="txt-zh block-item">室內禁止吸菸。</span><span class="txt-sc block-item">室内禁止吸烟。</span><span class="txt-hi block-item">कमरे के अंदर धूम्रपान वर्जित है।</span><span class="txt-ne block-item">कोठाभित्र धुम्रपान निषेध छ।</span><span class="txt-si block-item">කාමරය තුළ දුම්පානය තහනම්ය.</span><span class="txt-vi block-item">Cấm hút thuốc trong phòng.</span><span class="txt-uk block-item">Куріння в кімнаті заборонено.</span><span class="txt-id block-item">Merokok di dalam kamar dilarang.</span><span class="txt-ru block-item">Курение в комнате запрещено.</span><span class="txt-my block-item">အခန်းအတွင်း ဆေးလိပ်သောက်ခြင်းကို တားမြစ်သည်။</span></li>
+              <li><span class="txt-ja block-item">建物、付属施設および備品を大切に扱う。壊した時は必ず学校に報告する。</span><span class="txt-zh block-item">請愛惜使用建築物、附屬設施及備品。若有損壞，務必向學校報告。</span><span class="txt-sc block-item">请爱惜使用建筑物、附属设施及备品。若有损坏，务必向学校报告。</span><span class="txt-hi block-item">भवन, संबंधित सुविधाओं और उपकरणों का सावधानीपूर्वक उपयोग करें। क्षति होने पर हमेशा स्कूल को सूचित करें।</span><span class="txt-ne block-item">भवन, सम्बद्ध सुविधाहरू र सामानहरूलाई सावधानीपूर्वक प्रयोग गर्नुहोस्। क्षति भएमा सधैं विद्यालयलाई जानकारी दिनुहोस्।</span><span class="txt-si block-item">ගොඩනැගිල්ල, ආශ්‍රිත පහසුකම් සහ උපකරණ ප්‍රවේශමෙන් හසුරුවන්න. හානි වුවහොත් සැමවිටම පාසලට වාර්තා කරන්න.</span><span class="txt-vi block-item">Hãy sử dụng cẩn thận tòa nhà, các cơ sở vật chất phụ trợ và thiết bị. Nếu làm hỏng, phải báo cáo với nhà trường.</span><span class="txt-uk block-item">Дбайливо поводьтеся з будівлею, супутніми приміщеннями та обладнанням. У разі пошкодження обов'язково повідомте школу.</span><span class="txt-id block-item">Gunakan gedung, fasilitas terkait, dan perlengkapan dengan hati-hati. Jika rusak, selalu laporkan kepada sekolah.</span><span class="txt-ru block-item">Бережно обращайтесь со зданием, сопутствующими помещениями и оборудованием. В случае повреждения обязательно сообщите в школу.</span><span class="txt-my block-item">အဆောက်အအုံ၊ ဆက်စပ်အဆောက်အအုံများနှင့် ပစ္စည်းများကို သေချာစွာ ကိုင်တွယ်ပါ။ ပျက်စီးပါက ကျောင်းသို့ အမြဲတမ်း အစီရင်ခံပါ။</span></li>
+              <li><span class="txt-ja block-item">外来者を入室させる場合は、事前に学校側に届出る。</span><span class="txt-zh block-item">若要讓訪客進入房間，須事先向學校提出申報。</span><span class="txt-sc block-item">若要让访客进入房间，须事先向学校提出申报。</span><span class="txt-hi block-item">यदि किसी बाहरी व्यक्ति को कमरे में प्रवेश दिया जाए, तो पहले से स्कूल को सूचित करें।</span><span class="txt-ne block-item">बाहिरी व्यक्तिलाई कोठाभित्र प्रवेश दिने भएमा अगावै विद्यालयलाई जानकारी दिनुहोस्।</span><span class="txt-si block-item">බාහිර පුද්ගලයෙකු කාමරයට ඇතුළත් කරන්නේ නම්, කලින් පාසලට දැනුම් දෙන්න.</span><span class="txt-vi block-item">Nếu cho người ngoài vào phòng, phải báo trước cho nhà trường.</span><span class="txt-uk block-item">Якщо ви впускаєте стороннього до кімнати, заздалегідь повідомте про це школу.</span><span class="txt-id block-item">Jika mengizinkan orang luar masuk ke kamar, laporkan terlebih dahulu kepada sekolah.</span><span class="txt-ru block-item">Если вы впускаете постороннего в комнату, заранее сообщите об этом в школу.</span><span class="txt-my block-item">ပြင်ပလူတစ်ဦးကို အခန်းထဲသို့ ဝင်ခွင့်ပြုပါက ကြိုတင်၍ ကျောင်းသို့ အကြောင်းကြားပါ။</span></li>
+              <li><span class="txt-ja block-item">外来者を許可なく宿泊させない。</span><span class="txt-zh block-item">未經許可不得讓訪客留宿。</span><span class="txt-sc block-item">未经许可不得让访客留宿。</span><span class="txt-hi block-item">बिना अनुमति के किसी बाहरी व्यक्ति को रात्रि विश्राम की अनुमति न दें।</span><span class="txt-ne block-item">अनुमति बिना बाहिरी व्यक्तिलाई रात बस्न नदिनुहोस्।</span><span class="txt-si block-item">අවසරයකින් තොරව බාහිර පුද්ගලයෙකුට නවාතැන් ගැනීමට ඉඩ නොදෙන්න.</span><span class="txt-vi block-item">Không được cho người ngoài ngủ qua đêm khi chưa được phép.</span><span class="txt-uk block-item">Не дозволяйте стороннім ночувати без дозволу.</span><span class="txt-id block-item">Jangan biarkan orang luar menginap tanpa izin.</span><span class="txt-ru block-item">Не позволяйте посторонним оставаться на ночь без разрешения.</span><span class="txt-my block-item">ခွင့်ပြုချက်မရှိဘဲ ပြင်ပလူများကို တစ်ညအိပ်ခွင့် မပြုပါနှင့်။</span></li>
+              <li><span class="txt-ja block-item">ごみは千葉市のルールにしたがって分別し、決められた容器に入れ、指定の収集日に決められた場所に出す。</span><span class="txt-zh block-item">垃圾請依千葉市規定分類，裝入指定容器，於指定收集日放置於指定地點。</span><span class="txt-sc block-item">垃圾请依千叶市规定分类，装入指定容器，于指定收集日放置于指定地点。</span><span class="txt-hi block-item">कचरे को चिबा शहर के नियमों के अनुसार अलग करें, निर्धारित कंटेनरों में डालें, और निर्दिष्ट संग्रह दिवस पर निर्दिष्ट स्थान पर रखें।</span><span class="txt-ne block-item">फोहोरलाई चिबा सहरको नियमअनुसार छुट्याई, तोकिएको भाँडोमा राखी, तोकिएको सङ्कलन दिनमा तोकिएको स्थानमा राख्नुहोस्।</span><span class="txt-si block-item">කසළ චිබා නගර නීති අනුව වර්ග කර, නියමිත බහාලුම්වලට දමා, නියමිත එකතු කිරීමේ දිනයේ නියමිත ස්ථානයේ තබන්න.</span><span class="txt-vi block-item">Phân loại rác theo quy định của thành phố Chiba, cho vào thùng chỉ định, và để ở nơi quy định vào ngày thu gom chỉ định.</span><span class="txt-uk block-item">Сортуйте сміття відповідно до правил міста Чіба, складайте у визначені контейнери та виносьте у визначене місце у визначений день збору.</span><span class="txt-id block-item">Pisahkan sampah sesuai aturan Kota Chiba, masukkan ke wadah yang ditentukan, dan letakkan di tempat yang ditentukan pada hari pengumpulan yang ditentukan.</span><span class="txt-ru block-item">Сортируйте мусор согласно правилам города Тиба, складывайте в установленные контейнеры и выносите в установленное место в установленный день сбора.</span><span class="txt-my block-item">အမှိုက်ကို ချစ်ဘားမြို့စည်းမျဉ်းအတိုင်း ခွဲခြားပြီး၊ သတ်မှတ်ထားသောပုံးများတွင်ထည့်ကာ၊ သတ်မှတ်ရက်တွင် သတ်မှတ်နေရာသို့ ထုတ်ထားပါ။</span></li>
+              <li><span class="txt-ja block-item">ペットは飼育できません。</span><span class="txt-zh block-item">禁止飼養寵物。</span><span class="txt-sc block-item">禁止饲养宠物。</span><span class="txt-hi block-item">पालतू जानवर नहीं रखे जा सकते।</span><span class="txt-ne block-item">घरपालुवा जनावर पाल्न पाइँदैन।</span><span class="txt-si block-item">සුරතල් සතුන් ඇති කළ නොහැක.</span><span class="txt-vi block-item">Không được nuôi thú cưng.</span><span class="txt-uk block-item">Утримання домашніх тварин заборонено.</span><span class="txt-id block-item">Hewan peliharaan tidak diperbolehkan.</span><span class="txt-ru block-item">Содержание домашних животных запрещено.</span><span class="txt-my block-item">အိမ်မွေးတိရစ္ဆာန် မွေးမြူ၍မရပါ။</span></li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="txt-ja" style="margin:0 0 8px; font-size:15px;">（退寮処分）</h5>
+            <h5 class="txt-zh" style="margin:0 0 8px; font-size:15px;">（退宿處分）</h5><h5 class="txt-sc" style="margin:0 0 8px; font-size:15px;">（退宿处分）</h5><h5 class="txt-hi" style="margin:0 0 8px; font-size:15px;">(छात्रावास से निष्कासन)</h5><h5 class="txt-ne" style="margin:0 0 8px; font-size:15px;">(छात्रावास निष्कासन)</h5><h5 class="txt-si" style="margin:0 0 8px; font-size:15px;">(නේවාසිකාගාරයෙන් නෙරපා හැරීම)</h5><h5 class="txt-vi" style="margin:0 0 8px; font-size:15px;">(Xử phạt buộc rời ký túc xá)</h5><h5 class="txt-uk" style="margin:0 0 8px; font-size:15px;">(Виселення з гуртожитку)</h5><h5 class="txt-id" style="margin:0 0 8px; font-size:15px;">(Pengusiran dari Asrama)</h5><h5 class="txt-ru" style="margin:0 0 8px; font-size:15px;">(Исключение из общежития)</h5><h5 class="txt-my" style="margin:0 0 8px; font-size:15px;">(ကျောင်းအိပ်ဆောင်မှထုတ်ပယ်ခြင်း)</h5>
+            <p class="txt-ja" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">次の場合には、退寮処分とする。</p>
+            <p class="txt-zh" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">符合以下情形者，將處以退宿處分：</p><p class="txt-sc" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">符合以下情形者，将处以退宿处分：</p><p class="txt-hi" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">निम्नलिखित मामलों में छात्रावास से निष्कासन किया जाएगा।</p><p class="txt-ne" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">निम्न अवस्थामा छात्रावासबाट निष्कासन गरिनेछ।</p><p class="txt-si" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">පහත අවස්ථාවලදී නේවාසිකාගාරයෙන් නෙරපා හරිනු ලැබේ.</p><p class="txt-vi" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">Trong các trường hợp sau, sẽ bị buộc rời khỏi ký túc xá.</p><p class="txt-uk" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">У наступних випадках застосовується виселення з гуртожитку.</p><p class="txt-id" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">Dalam kasus berikut, akan dikenakan pengusiran dari asrama.</p><p class="txt-ru" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">В следующих случаях применяется исключение из общежития.</p><p class="txt-my" style="font-size:14.5px; line-height:1.8; margin:0 0 8px;">အောက်ပါအခြေအနေများတွင် ကျောင်းအိပ်ဆောင်မှ ထုတ်ပယ်မည်ဖြစ်သည်။</p>
+            <ul class="support-list">
+              <li><span class="txt-ja block-item">寮則を守らない場合。</span><span class="txt-zh block-item">未遵守宿舍規則者。</span><span class="txt-sc block-item">未遵守宿舍规则者。</span><span class="txt-hi block-item">छात्रावास नियमों का पालन न करने पर।</span><span class="txt-ne block-item">छात्रावास नियम पालना नगरेमा।</span><span class="txt-si block-item">නේවාසිකාගාර නීති පිළිපදින්නේ නැති විට.</span><span class="txt-vi block-item">Không tuân thủ nội quy ký túc xá.</span><span class="txt-uk block-item">Недотримання правил гуртожитку.</span><span class="txt-id block-item">Tidak mematuhi aturan asrama.</span><span class="txt-ru block-item">Несоблюдение правил общежития.</span><span class="txt-my block-item">ကျောင်းအိပ်ဆောင်စည်းမျဉ်းများကို မလိုက်နာပါက။</span></li>
+              <li><span class="txt-ja block-item">寮費の納入を２か月以上怠った場合。</span><span class="txt-zh block-item">積欠宿舍費達2個月以上者。</span><span class="txt-sc block-item">积欠宿舍费达2个月以上者。</span><span class="txt-hi block-item">2 महीने से अधिक समय तक छात्रावास शुल्क का भुगतान न करने पर।</span><span class="txt-ne block-item">२ महिनाभन्दा बढी छात्रावास शुल्क तिर्न ढिलाइ गरेमा।</span><span class="txt-si block-item">මාස 2කට වඩා නේවාසිකාගාර ගාස්තු ගෙවීම පැහැර හැරියහොත්.</span><span class="txt-vi block-item">Chậm nộp phí ký túc xá từ 2 tháng trở lên.</span><span class="txt-uk block-item">Прострочення оплати за гуртожиток на 2 місяці й більше.</span><span class="txt-id block-item">Menunggak biaya asrama selama 2 bulan atau lebih.</span><span class="txt-ru block-item">Просрочка оплаты за общежитие на 2 месяца и более.</span><span class="txt-my block-item">ကျောင်းအိပ်ဆောင်ကြေးကို ၂ လနှင့်အထက် မပေးဆောင်ဘဲ ရှိနေပါက။</span></li>
+              <li><span class="txt-ja block-item">暴力行為を行った場合。</span><span class="txt-zh block-item">有暴力行為者。</span><span class="txt-sc block-item">有暴力行为者。</span><span class="txt-hi block-item">हिंसात्मक व्यवहार करने पर।</span><span class="txt-ne block-item">हिंसात्मक व्यवहार गरेमा।</span><span class="txt-si block-item">ප්‍රචණ්ඩ ක්‍රියාවක් සිදු කළහොත්.</span><span class="txt-vi block-item">Có hành vi bạo lực.</span><span class="txt-uk block-item">Вчинення насильства.</span><span class="txt-id block-item">Melakukan tindakan kekerasan.</span><span class="txt-ru block-item">Совершение насильственных действий.</span><span class="txt-my block-item">အကြမ်းဖက်မှုကျူးလွန်ပါက။</span></li>
+              <li><span class="txt-ja block-item">犯罪にかかわった場合。</span><span class="txt-zh block-item">涉及犯罪行為者。</span><span class="txt-sc block-item">涉及犯罪行为者。</span><span class="txt-hi block-item">किसी अपराध में शामिल होने पर।</span><span class="txt-ne block-item">अपराधमा संलग्न भएमा।</span><span class="txt-si block-item">අපරාධයක සම්බන්ධ වුවහොත්.</span><span class="txt-vi block-item">Có liên quan đến tội phạm.</span><span class="txt-uk block-item">Причетність до злочину.</span><span class="txt-id block-item">Terlibat dalam tindak kriminal.</span><span class="txt-ru block-item">Причастность к преступлению.</span><span class="txt-my block-item">ရာဇဝတ်မှုတွင် ပါဝင်ပါက။</span></li>
+              <li><span class="txt-ja block-item">社会的ルールに違反し、著しく他の寮生および寮関係者に迷惑をかけた場合。</span><span class="txt-zh block-item">違反社會規範，對其他寮生或相關人員造成重大困擾者。</span><span class="txt-sc block-item">违反社会规范，对其他寮生或相关人员造成重大困扰者。</span><span class="txt-hi block-item">सामाजिक नियमों का उल्लंघन कर अन्य छात्रावासियों या संबंधित लोगों को गंभीर असुविधा पहुंचाने पर।</span><span class="txt-ne block-item">सामाजिक नियम उल्लङ्घन गरी अन्य छात्रावासवासी वा सम्बद्ध व्यक्तिहरूलाई गम्भीर असुविधा पुर्‍याएमा।</span><span class="txt-si block-item">සමාජ රීති උල්ලංඝනය කර අනෙකුත් නේවාසිකයින්ට හෝ අදාළ පුද්ගලයින්ට දැඩි අපහසුතාවයක් ඇති කළහොත්.</span><span class="txt-vi block-item">Vi phạm quy tắc xã hội, gây phiền hà nghiêm trọng cho các cư dân ký túc xá khác hoặc người liên quan.</span><span class="txt-uk block-item">Порушення суспільних норм, що спричиняє серйозні незручності іншим мешканцям гуртожитку чи причетним особам.</span><span class="txt-id block-item">Melanggar aturan sosial dan menyebabkan gangguan serius bagi penghuni asrama lain atau pihak terkait.</span><span class="txt-ru block-item">Нарушение общественных норм, причиняющее серьёзные неудобства другим жильцам общежития или связанным лицам.</span><span class="txt-my block-item">လူမှုစည်းမျဉ်းများကို ချိုးဖောက်ကာ အခြားကျောင်းအိပ်ဆောင်သားများ သို့မဟုတ် ဆက်စပ်ပုဂ္ဂိုလ်များအား သိသိသာသာ အနှောင့်အယှက်ဖြစ်စေပါက။</span></li>
+              <li><span class="txt-ja block-item">入寮の際に虚偽申告をしたり、重大な事項を告知しなかった場合。</span><span class="txt-zh block-item">入宿時提交不實申報，或未告知重大事項者。</span><span class="txt-sc block-item">入宿时提交不实申报，或未告知重大事项者。</span><span class="txt-hi block-item">प्रवेश के समय झूठी जानकारी देने या महत्वपूर्ण मामलों की सूचना न देने पर।</span><span class="txt-ne block-item">प्रवेशको बेला झूटो जानकारी दिएमा वा महत्त्वपूर्ण विषय जानकारी नदिएमा।</span><span class="txt-si block-item">ඇතුළත් වන අවස්ථාවේදී වැරදි ප්‍රකාශයක් කිරීම හෝ වැදගත් කරුණු නොදැනුම් දීම.</span><span class="txt-vi block-item">Khai báo sai sự thật khi nhập ở, hoặc không thông báo các vấn đề quan trọng.</span><span class="txt-uk block-item">Подання неправдивої інформації при заселенні або нерозкриття важливих обставин.</span><span class="txt-id block-item">Memberikan pernyataan palsu saat masuk asrama, atau tidak melaporkan hal-hal penting.</span><span class="txt-ru block-item">Предоставление ложной информации при заселении или несообщение важных обстоятельств.</span><span class="txt-my block-item">ကျောင်းအိပ်ဆောင်ဝင်ချိန်တွင် မှားယွင်းသောအချက်အလက်ပေးခြင်း သို့မဟုတ် အရေးကြီးအချက်များကို မဖော်ပြခြင်း။</span></li>
+              <li><span class="txt-ja block-item">無断で部屋を改装した場合。</span><span class="txt-zh block-item">未經許可擅自改裝房間者。</span><span class="txt-sc block-item">未经许可擅自改装房间者。</span><span class="txt-hi block-item">बिना अनुमति के कमरे में परिवर्तन करने पर।</span><span class="txt-ne block-item">अनुमति बिना कोठा परिवर्तन गरेमा।</span><span class="txt-si block-item">අවසරයකින් තොරව කාමරය වෙනස් කළහොත්.</span><span class="txt-vi block-item">Tự ý cải tạo phòng mà không được phép.</span><span class="txt-uk block-item">Самовільне переобладнання кімнати без дозволу.</span><span class="txt-id block-item">Merenovasi kamar tanpa izin.</span><span class="txt-ru block-item">Самовольная перепланировка комнаты без разрешения.</span><span class="txt-my block-item">ခွင့်ပြုချက်မရှိဘဲ အခန်းကို ပြုပြင်ခြင်း။</span></li>
+            </ul>
+
+            <h5 class="txt-ja" style="margin:20px 0 8px; font-size:15px;">（延長・退室）</h5>
+            <h5 class="txt-zh" style="margin:20px 0 8px; font-size:15px;">（延長・退宿）</h5><h5 class="txt-sc" style="margin:20px 0 8px; font-size:15px;">（延长・退宿）</h5><h5 class="txt-hi" style="margin:20px 0 8px; font-size:15px;">(विस्तार और प्रस्थान)</h5><h5 class="txt-ne" style="margin:20px 0 8px; font-size:15px;">(विस्तार र प्रस्थान)</h5><h5 class="txt-si" style="margin:20px 0 8px; font-size:15px;">(දීර්ඝ කිරීම සහ ඉවත් වීම)</h5><h5 class="txt-vi" style="margin:20px 0 8px; font-size:15px;">(Gia hạn & Rời đi)</h5><h5 class="txt-uk" style="margin:20px 0 8px; font-size:15px;">(Продовження та виїзд)</h5><h5 class="txt-id" style="margin:20px 0 8px; font-size:15px;">(Perpanjangan & Keluar)</h5><h5 class="txt-ru" style="margin:20px 0 8px; font-size:15px;">(Продление и выезд)</h5><h5 class="txt-my" style="margin:20px 0 8px; font-size:15px;">(သက်တမ်းတိုးခြင်းနှင့် ထွက်ခွာခြင်း)</h5>
+            <ul class="support-list">
+              <li><span class="txt-ja block-item">契約期間の1ヶ月前までに延長届あるいは退室届を提出する。</span><span class="txt-zh block-item">須於合約到期前1個月提出延長申請或退宿申請。</span><span class="txt-sc block-item">须于合约到期前1个月提出延长申请或退宿申请。</span><span class="txt-hi block-item">अनुबंध अवधि समाप्त होने से 1 महीने पहले तक विस्तार या प्रस्थान की सूचना प्रस्तुत करें।</span><span class="txt-ne block-item">सम्झौता अवधि समाप्त हुनु १ महिना अगावै विस्तार वा प्रस्थान सूचना पेश गर्नुहोस्।</span><span class="txt-si block-item">ගිවිසුම් කාලය අවසන් වීමට මාසයකට පෙර දීර්ඝ කිරීමේ හෝ ඉවත් වීමේ දැනුම්දීම ඉදිරිපත් කරන්න.</span><span class="txt-vi block-item">Nộp đơn xin gia hạn hoặc đơn xin rời đi trước 1 tháng khi hết hạn hợp đồng.</span><span class="txt-uk block-item">Подайте заяву на продовження або виїзд не пізніше ніж за 1 місяць до закінчення терміну договору.</span><span class="txt-id block-item">Ajukan pemberitahuan perpanjangan atau keluar selambat-lambatnya 1 bulan sebelum masa kontrak berakhir.</span><span class="txt-ru block-item">Подайте заявление о продлении или выезде не позднее чем за 1 месяц до окончания срока договора.</span><span class="txt-my block-item">စာချုပ်ကာလကုန်ဆုံးရန် ၁ လကြိုတင်၍ သက်တမ်းတိုးလျှောက်လွှာ သို့မဟုတ် ထွက်ခွာလျှောက်လွှာကို တင်ပြပါ။</span></li>
+              <li><span class="txt-ja block-item">退室時までに部屋の掃除し、ゴミを処理する。（使用した部屋の掃除や片づけに費用が発生すると判断される場合、退室者はその費用を支払う）</span><span class="txt-zh block-item">退宿前須完成房間清掃並處理垃圾。（若判定需額外清潔費用，由退宿者自行負擔）</span><span class="txt-sc block-item">退宿前须完成房间清扫并处理垃圾。（若判定需额外清洁费用，由退宿者自行负担）</span><span class="txt-hi block-item">प्रस्थान से पहले कमरे की सफाई करें और कचरा निपटान करें। (यदि उपयोग किए गए कमरे की सफाई या व्यवस्था के लिए लागत आवश्यक समझी जाती है, तो प्रस्थान करने वाला व्यक्ति उस लागत का भुगतान करेगा।)</span><span class="txt-ne block-item">प्रस्थान गर्नुअघि कोठा सफा गरी फोहोर व्यवस्थापन गर्नुहोस्। (प्रयोग गरिएको कोठाको सफाइ वा व्यवस्थापनका लागि खर्च आवश्यक ठहरिएमा, प्रस्थानकर्ताले सो खर्च तिर्नुपर्नेछ।)</span><span class="txt-si block-item">ඉවත් වීමට පෙර කාමරය පිරිසිදු කර කසළ බැහැර කරන්න. (භාවිත කළ කාමරය පිරිසිදු කිරීමට හෝ සකස් කිරීමට වියදමක් අවශ්‍ය යැයි තීරණය කළහොත්, ඉවත් වන පුද්ගලයා එම වියදම ගෙවිය යුතුය.)</span><span class="txt-vi block-item">Dọn dẹp phòng và xử lý rác trước khi rời đi. (Nếu xét thấy cần chi phí để dọn dẹp hoặc thu dọn phòng đã sử dụng, người rời đi sẽ phải thanh toán chi phí đó.)</span><span class="txt-uk block-item">Приберіть кімнату та утилізуйте сміття перед виїздом. (Якщо буде визначено, що для прибирання чи впорядкування використаної кімнати потрібні витрати, ці витрати оплачує особа, яка виїжджає.)</span><span class="txt-id block-item">Bersihkan kamar dan buang sampah sebelum keluar. (Jika dianggap perlu biaya untuk membersihkan atau merapikan kamar yang telah digunakan, penghuni yang keluar akan menanggung biaya tersebut.)</span><span class="txt-ru block-item">Уберите комнату и утилизируйте мусор перед выездом. (Если будет определено, что для уборки или приведения в порядок использованной комнаты требуются расходы, эти расходы оплачивает выезжающий.)</span><span class="txt-my block-item">ထွက်ခွာမီ အခန်းကို သန့်ရှင်းရေးလုပ်ပြီး အမှိုက်များကို စွန့်ပစ်ပါ။ (အသုံးပြုခဲ့သော အခန်းကို သန့်ရှင်းရေးလုပ်ရန် သို့မဟုတ် စုစည်းရန် ကုန်ကျစရိတ်လိုအပ်သည်ဟု ဆုံးဖြတ်ပါက ထွက်ခွာသူသည် ထိုကုန်ကျစရိတ်ကို ပေးဆောင်ရမည်။)</span></li>
+              <li><span class="txt-ja block-item">鍵は退室の翌日までに学校に返却する。（鍵を紛失した場合は実費を支払う。）</span><span class="txt-zh block-item">鑰匙須於退宿隔日前歸還學校。（若遺失鑰匙，須支付實際費用。）</span><span class="txt-sc block-item">钥匙须于退宿隔日前归还学校。（若遗失钥匙，须支付实际费用。）</span><span class="txt-hi block-item">चाबी को प्रस्थान के अगले दिन तक स्कूल को वापस करें। (यदि चाबी खो जाती है, तो वास्तविक लागत का भुगतान करें।)</span><span class="txt-ne block-item">साँचो प्रस्थानको भोलिपल्टसम्म विद्यालयलाई फिर्ता गर्नुहोस्। (साँचो हराएमा वास्तविक लागत तिर्नुहोस्।)</span><span class="txt-si block-item">යතුර ඉවත් වීමෙන් පසුදින දක්වා පාසලට ආපසු දෙන්න. (යතුර නැති වුවහොත් සත්‍ය පිරිවැය ගෙවන්න.)</span><span class="txt-vi block-item">Trả chìa khóa cho nhà trường trước ngày hôm sau khi rời đi. (Nếu làm mất chìa khóa, phải thanh toán chi phí thực tế.)</span><span class="txt-uk block-item">Поверніть ключ до школи не пізніше наступного дня після виїзду. (У разі втрати ключа сплатіть фактичну вартість.)</span><span class="txt-id block-item">Kembalikan kunci ke sekolah paling lambat sehari setelah keluar. (Jika kunci hilang, bayar biaya sebenarnya.)</span><span class="txt-ru block-item">Верните ключ в школу не позднее следующего дня после выезда. (В случае утери ключа оплатите фактическую стоимость.)</span><span class="txt-my block-item">သော့ကို ထွက်ခွာပြီးနောက်တစ်နေ့အထိ ကျောင်းသို့ ပြန်အပ်ပါ။ (သော့ပျောက်ဆုံးပါက အမှန်တကယ်ကုန်ကျငွေကို ပေးဆောင်ပါ။)</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -3222,17 +3525,17 @@
         <li><span class="dot" style="background:var(--vibrant-green);"></span><span class="fee-label"><span class="txt-ja">授業料 (12ヶ月)</span><span class="txt-zh">授業料（12個月）</span><span class="txt-sc">授业料（12个月）</span><span class="txt-en">Tuition (12 months)</span><span class="txt-hi">शुल्क (12 माह)</span><span class="txt-ne">शुल्क (१२ महिना)</span><span class="txt-si">ගාස්තුව (මාස 12)</span><span class="txt-vi">Học phí (12 tháng)</span><span class="txt-uk">Навчання (12 місяців)</span><span class="txt-id">Uang Kuliah (12 bulan)</span><span class="txt-ru">Обучение (12 месяцев)</span><span class="txt-my">သင်ကြားခ (၁၂လ)</span></span><span class="fee-amount">¥740,000</span></li>
         <li><span class="dot" style="background:var(--vibrant-red);"></span><span class="fee-label"><span class="txt-ja">入学金</span><span class="txt-zh">入學金</span><span class="txt-sc">入学金</span><span class="txt-en">Admission Fee</span><span class="txt-hi">प्रवेश शुल्क</span><span class="txt-ne">भर्ना शुल्क</span><span class="txt-si">ඇතුළත් වීමේ ගාස්තුව</span><span class="txt-vi">Phí nhập học</span><span class="txt-uk">Вступний внесок</span><span class="txt-id">Biaya Masuk</span><span class="txt-ru">Вступительный взнос</span><span class="txt-my">ဝင်ခွင့်ခ</span></span><span class="fee-amount">¥60,000</span></li>
         <li><span class="dot" style="background:var(--vibrant-yellow);"></span><span class="fee-label"><span class="txt-ja">選考料</span><span class="txt-zh">選考料</span><span class="txt-sc">选考料</span><span class="txt-en">Screening Fee</span><span class="txt-hi">जाँच शुल्क</span><span class="txt-ne">जाँच शुल्क</span><span class="txt-si">පරීක්ෂණ ගාස්තුව</span><span class="txt-vi">Phí xét tuyển</span><span class="txt-uk">Плата за відбір</span><span class="txt-id">Biaya Seleksi</span><span class="txt-ru">Плата за отбор</span><span class="txt-my">ရွေးချယ်ခ</span></span><span class="fee-amount">¥20,000</span></li>
-        <li><span class="dot" style="background:var(--ink-soft);"></span><span class="fee-label"><span class="txt-ja">その他 (教材等)</span><span class="txt-zh">其他（教材等）</span><span class="txt-sc">其他（教材等）</span><span class="txt-en">Other (materials, etc.)</span><span class="txt-hi">अन्य (सामग्री, आदि)</span><span class="txt-ne">अन्य (सामग्री, आदि)</span><span class="txt-si">වෙනත් (ද්‍රව්‍ය ආදිය)</span><span class="txt-vi">Khác (tài liệu, v.v.)</span><span class="txt-uk">Інше (матеріали тощо)</span><span class="txt-id">Lainnya (materi, dll.)</span><span class="txt-ru">Прочее (материалы и т.д.)</span><span class="txt-my">အခြား (စာအုပ်စာတမ်းစသည်)</span></span><span class="fee-amount">¥20,000</span></li>
+        <li><span class="dot" style="background:var(--ink-soft);"></span><span class="fee-label"><span class="txt-ja">その他<br>（教科書代、健康診断代）</span><span class="txt-zh">其他<br>（教科書費、健康檢查費）</span><span class="txt-sc">其他<br>（教科书费、健康检查费）</span><span class="txt-en">Other<br>(Textbook fee, health check fee)</span><span class="txt-hi">अन्य<br>(पाठ्यपुस्तक शुल्क, स्वास्थ्य जाँच शुल्क)</span><span class="txt-ne">अन्य<br>(पाठ्यपुस्तक शुल्क, स्वास्थ्य जाँच शुल्क)</span><span class="txt-si">වෙනත්<br>(පෙළපොත් ගාස්තුව, සෞඛ්‍ය පරීක්ෂණ ගාස්තුව)</span><span class="txt-vi">Khác<br>(Phí sách giáo khoa, phí khám sức khỏe)</span><span class="txt-uk">Інше<br>(Плата за підручники, медогляд)</span><span class="txt-id">Lainnya<br>(Biaya buku teks, biaya cek kesehatan)</span><span class="txt-ru">Прочее<br>(Плата за учебники, медосмотр)</span><span class="txt-my">အခြား<br>(စာအုပ်ခ၊ ကျန်းမာရေးစစ်ဆေးခ)</span></span><span class="fee-amount">¥20,000</span></li>
       </ul>
     </div>
-    <p class="txt-ja" style="font-size: 14px;color:var(--ink-soft);margin-top:20px;margin-bottom:0;">※ 2年目以降は1ヶ月ごとに ¥760,000 ÷ 12ヶ月分を加算（例：1年6ヶ月コースは2年目に6ヶ月分 ¥380,000 を追加）。</p>
-    <p class="txt-zh" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※第二年起，每追加一個月加收 ¥760,000 ÷ 12個月的學費（例如1年6個月課程，第二年需再繳6個月份，共 ¥380,000）。</p><p class="txt-sc" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※第二年起，每追加一个月加收 ¥760,000 ÷ 12个月的学费（例如1年6个月课程，第二年需再缴6个月份，共 ¥380,000）。</p>
-    <p class="txt-en" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*From the second year, ¥760,000 ÷ 12 months is added per additional month (e.g. the 1-year-6-month course pays 6 more months = ¥380,000 in year two).</p><p class="txt-hi" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*दूसरे वर्ष से, प्रत्येक अतिरिक्त माह के लिए ¥760,000 ÷ 12 माह जोड़ा जाता है (जैसे, 1-वर्ष-6-माह का पाठ्यक्रम 6 अतिरिक्त माह का भुगतान करता है = दूसरे वर्ष में ¥380,000)।</p><p class="txt-ne" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*दोस्रो वर्षदेखि, प्रत्येक थप महिनाका लागि ¥760,000 ÷ १२ महिना थपिन्छ (जस्तै, १-वर्ष-६-महिनाको पाठ्यक्रमले ६ थप महिना तिर्छ = दोस्रो वर्षमा ¥380,000)।</p><p class="txt-si" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*දෙවන වසරේ සිට, එක් අමතර මාසයකට ¥760,000 ÷ මාස 12 එකතු වේ (උදා: වසර 1 මාස 6 පාඨමාලාව අමතර මාස 6ක් ගෙවයි = දෙවන වසරේ ¥380,000).</p>
-    <p class="txt-vi" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Từ năm thứ hai, mỗi tháng thêm sẽ cộng ¥760,000 ÷ 12 tháng (ví dụ: khóa 1 năm 6 tháng phải đóng thêm 6 tháng = ¥380,000 ở năm thứ hai).</p>
-    <p class="txt-uk" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Починаючи з другого року, за кожен додатковий місяць додається ¥760,000 ÷ 12 місяців (напр., курс 1 рік 6 місяців сплачує ще 6 місяців = ¥380,000 на другому році).</p>
-    <p class="txt-id" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Mulai tahun kedua, setiap bulan tambahan dikenakan ¥760,000 ÷ 12 bulan (misal: kursus 1 tahun 6 bulan membayar 6 bulan tambahan = ¥380,000 di tahun kedua).</p>
-    <p class="txt-ru" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Начиная со второго года, за каждый дополнительный месяц добавляется ¥760,000 ÷ 12 месяцев (напр., курс 1 год 6 месяцев доплачивает ещё 6 месяцев = ¥380,000 на втором году).</p>
-    <p class="txt-my" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※ဒုတိယနှစ်မှစတင်၍ တစ်လထပ်တိုင်း ¥760,000 ÷ ၁၂ လ ထပ်ဆောင်းပေးရမည် (ဥပမာ ၁နှစ်၆လသင်တန်းသည် ဒုတိယနှစ်တွင် ၆လထပ်ဆောင်းငွေ ¥380,000 ပေးရမည်)။</p>
+    <p class="txt-ja" style="font-size: 14px;color:var(--ink-soft);margin-top:20px;margin-bottom:0;">※2年目の学費：12か月、¥760,000（授業料¥740,000およびその他¥20,000）で計算します。例えば6カ月はこの半分になります。</p>
+    <p class="txt-zh" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※第二年學費：以12個月 ¥760,000（授業料 ¥740,000 及其他 ¥20,000）計算。例如6個月則為此金額的一半。</p><p class="txt-sc" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※第二年学费：以12个月 ¥760,000（授业料 ¥740,000 及其他 ¥20,000）计算。例如6个月则为此金额的一半。</p>
+    <p class="txt-en" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Second-year tuition: calculated as ¥760,000 for 12 months (¥740,000 tuition + ¥20,000 other fees). For example, 6 months would be half of this amount.</p><p class="txt-hi" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*दूसरे वर्ष की फीस: 12 महीनों के लिए ¥760,000 (¥740,000 शिक्षण शुल्क + ¥20,000 अन्य शुल्क) के रूप में गणना की जाती है। उदाहरण के लिए, 6 महीने इस राशि का आधा होंगे।</p><p class="txt-ne" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*दोस्रो वर्षको शुल्क: १२ महिनाका लागि ¥760,000 (¥740,000 शिक्षण शुल्क + ¥20,000 अन्य शुल्क) को रूपमा गणना गरिन्छ। उदाहरणका लागि, ६ महिना यो रकमको आधा हुनेछ।</p><p class="txt-si" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*දෙවන වසරේ ගාස්තුව: මාස 12ක් සඳහා ¥760,000 (ගාස්තුව ¥740,000 + වෙනත් ¥20,000) ලෙස ගණනය කෙරේ. උදාහරණයක් ලෙස, මාස 6ක් මෙම මුදලෙන් අඩකි.</p>
+    <p class="txt-vi" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Học phí năm thứ hai: được tính là ¥760,000 cho 12 tháng (học phí ¥740,000 + phí khác ¥20,000). Ví dụ, 6 tháng sẽ bằng một nửa số tiền này.</p>
+    <p class="txt-uk" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Плата за навчання на другому році: розраховується як ¥760,000 за 12 місяців (навчання ¥740,000 + інші витрати ¥20,000). Наприклад, 6 місяців становитимуть половину цієї суми.</p>
+    <p class="txt-id" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Biaya kuliah tahun kedua: dihitung sebagai ¥760,000 untuk 12 bulan (biaya kuliah ¥740,000 + biaya lain ¥20,000). Misalnya, 6 bulan akan menjadi setengah dari jumlah ini.</p>
+    <p class="txt-ru" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">*Плата за обучение на втором году: рассчитывается как ¥760,000 за 12 месяцев (обучение ¥740,000 + прочие расходы ¥20,000). Например, 6 месяцев составят половину этой суммы.</p>
+    <p class="txt-my" style="font-size: 14px;color:var(--ink-soft);margin-top:8px;margin-bottom:0;">※ဒုတိယနှစ် ကျောင်းလခ- ၁၂ လအတွက် ¥760,000 (သင်ကြားခ ¥740,000 + အခြား ¥20,000) အဖြစ် တွက်ချက်သည်။ ဥပမာအားဖြင့် ၆ လသည် ဤပမာဏ၏ တစ်ဝက်ဖြစ်သည်။</p>
     
   </div>
 
@@ -3761,43 +4064,6 @@
       <a href="files/annual-schedule-2026.pdf" target="_blank" class="btn btn-ghost">
         <span class="txt-ja">年間スケジュールをダウンロード (PDF)</span><span class="txt-zh">下載年度課表 (PDF)</span><span class="txt-sc">下载年度课表 (PDF)</span><span class="txt-en">Download Annual Schedule (PDF)</span><span class="txt-hi">वार्षिक कार्यक्रम डाउनलोड करें (PDF)</span><span class="txt-ne">वार्षिक तालिका डाउनलोड गर्नुहोस् (PDF)</span><span class="txt-si">වාර්ෂික කාලසටහන බාගන්න (PDF)</span><span class="txt-vi">Tải lịch năm học (PDF)</span><span class="txt-uk">Завантажити річний розклад (PDF)</span><span class="txt-id">Unduh Jadwal Tahunan (PDF)</span><span class="txt-ru">Скачать годовое расписание (PDF)</span><span class="txt-my">နှစ်ချုပ်ဇယားဒေါင်းလုဒ် (PDF)</span>
       </a>
-    </div>
-  </div>
-
-  <div class="eyebrow">OUR TEACHERS</div>
-  <h3 style="margin-bottom:6px;">
-    <span class="txt-ja">教職員のご紹介</span><span class="txt-zh">教職員介紹</span><span class="txt-sc">教职員介紹</span><span class="txt-en">Meet Our Teachers</span><span class="txt-hi">हमारे शिक्षकों से मिलें</span><span class="txt-ne">हाम्रा शिक्षकहरूसँग भेट्नुहोस्</span><span class="txt-si">අපගේ ගුරුවරුන් හමුවන්න</span><span class="txt-vi">Gặp gỡ giáo viên</span><span class="txt-uk">Знайомство з викладачами</span><span class="txt-id">Kenali Guru Kami</span><span class="txt-ru">Знакомство с преподавателями</span><span class="txt-my">ကျွန်ုပ်တို့၏ ဆရာများ</span>
-  </h3>
-  <p style="font-size: 15px;color:var(--ink-soft);margin-bottom:20px;">
-    <span class="txt-ja">※こちらは掲載枠のサンプルです。実際の教職員情報（写真・経歴・メッセージ）に差し替えてご使用ください。</span>
-    <span class="txt-zh">※此為版面示範，請替換為真實教職員資訊（照片、經歷、寄語）後使用。</span><span class="txt-sc">※此为版面示范，请替換为真实教职員资訊（照片、經历、寄语）后使用。</span>
-    <span class="txt-en">*This is a placeholder layout — please replace with real staff photos, background, and messages.</span><span class="txt-hi">*यह एक प्लेसहोल्डर लेआउट है — कृपया वास्तविक स्टाफ फ़ोटो, पृष्ठभूमि और संदेशों से बदलें।</span><span class="txt-ne">*यो प्लेसहोल्डर लेआउट हो — कृपया वास्तविक कर्मचारी फोटो, पृष्ठभूमि र सन्देशले प्रतिस्थापन गर्नुहोस्।</span><span class="txt-si">*මෙය තාවකාලික සැලසුමකි — කරුණාකර සැබෑ කාර්ය මණ්ඩල ඡායාරූප, පසුබිම සහ පණිවිඩ සමඟ ප්‍රතිස්ථාපනය කරන්න.</span>
-    <span class="txt-vi">*Đây là bố cục mẫu — vui lòng thay bằng ảnh, kinh nghiệm và lời nhắn thực tế của giáo viên.</span>
-    <span class="txt-uk">*Це зразок макета — будь ласка, замініть реальними фото, досвідом та повідомленнями викладачів.</span>
-    <span class="txt-id">*Ini adalah tata letak contoh — mohon ganti dengan foto, latar belakang, dan pesan staf yang sebenarnya.</span>
-    <span class="txt-ru">*Это пример макета — пожалуйста, замените реальными фото, опытом и сообщениями сотрудников.</span>
-    <span class="txt-my">*ဤသည်မှာ နမူနာပုံစံဖြစ်ပြီး အစစ်အမှန် ဝန်ထမ်းဓာတ်ပုံ၊ အတွေ့အကြုံနှင့် စကားများဖြင့် အစားထိုးအသုံးပြုပါ။</span>
-  </p>
-  <div class="staff-photo-grid">
-    <div class="staff-card">
-      <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
-      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">日本語教師・N1対策担当</span><span class="txt-zh">日語教師・N1對策負責人</span><span class="txt-sc">日语教师・N1对策负责人</span><span class="txt-en">Japanese Teacher, N1 Prep Lead</span><span class="txt-hi">जापानी शिक्षक, N1 तैयारी प्रमुख</span><span class="txt-ne">जापानी शिक्षक, N1 तयारी प्रमुख</span><span class="txt-si">ජපන් ගුරුවරයා, N1 සූදානම් ප්‍රධානියා</span><span class="txt-vi">Giáo viên tiếng Nhật, phụ trách N1</span><span class="txt-uk">Викладач японської, керівник N1</span><span class="txt-id">Guru Bahasa Jepang, Koordinator N1</span><span class="txt-ru">Преподаватель японского, куратор N1</span><span class="txt-my">ဂျပန်ဆရာ၊ N1 ပြင်ဆင်မှုတာဝန်ခံ</span></p>
-    </div>
-    <div class="staff-card">
-      <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
-      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">日本語教師・初級担当</span><span class="txt-zh">日語教師・初級負責人</span><span class="txt-sc">日语教师・初级负责人</span><span class="txt-en">Japanese Teacher, Beginner Level</span><span class="txt-hi">जापानी शिक्षक, शुरुआती स्तर</span><span class="txt-ne">जापानी शिक्षक, सुरुवाती तह</span><span class="txt-si">ජපන් ගුරුවරයා, ආරම්භක මට්ටම</span><span class="txt-vi">Giáo viên tiếng Nhật, sơ cấp</span><span class="txt-uk">Викладач японської, початковий рівень</span><span class="txt-id">Guru Bahasa Jepang, Tingkat Pemula</span><span class="txt-ru">Преподаватель японского, начальный уровень</span><span class="txt-my">ဂျပန်ဆရာ၊ အခြေခံအဆင့်</span></p>
-    </div>
-    <div class="staff-card">
-      <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
-      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">進学・キャリア相談担当</span><span class="txt-zh">升學・職涯諮詢負責人</span><span class="txt-sc">升学・职涯咨询负责人</span><span class="txt-en">Further Study & Career Advisor</span><span class="txt-hi">उच्च शिक्षा और करियर सलाहकार</span><span class="txt-ne">थप अध्ययन र करियर सल्लाहकार</span><span class="txt-si">වැඩිදුර අධ්‍යයන සහ වෘත්තීය උපදේශක</span><span class="txt-vi">Cố vấn học tiếp & sự nghiệp</span><span class="txt-uk">Консультант з навчання та кар'єри</span><span class="txt-id">Penasihat Studi Lanjut & Karier</span><span class="txt-ru">Консультант по учёбе и карьере</span><span class="txt-my">ပညာသင်ဆက်ခြင်း/အသက်မွေးဝမ်းကျောင်း အကြံပေး</span></p>
-    </div>
-    <div class="staff-card">
-      <div class="photo-placeholder"><span class="ph-icon">👤</span><span class="ph-caption">教師照片<br>Teacher photo</span></div>
-      <h4 style="margin:0 0 4px;font-size: 16px;">〇〇 〇〇</h4>
-      <p style="font-size: 14px;color:var(--ink-soft);margin:0;"><span class="txt-ja">生活指導・寮担当</span><span class="txt-zh">生活輔導・宿舍負責人</span><span class="txt-sc">生活辅导・宿舍负责人</span><span class="txt-en">Life Guidance & Dormitory Coordinator</span><span class="txt-hi">जीवन मार्गदर्शन और छात्रावास समन्वयक</span><span class="txt-ne">जीवन मार्गदर्शन र छात्रावास संयोजक</span><span class="txt-si">ජීවන මගපෙන්වීම සහ නේවාසිකාගාර සම්බන්ධීකාරක</span><span class="txt-vi">Điều phối viên hướng dẫn sinh hoạt & ký túc xá</span><span class="txt-uk">Координатор з побуту та гуртожитку</span><span class="txt-id">Koordinator Bimbingan Hidup & Asrama</span><span class="txt-ru">Координатор по быту и общежитию</span><span class="txt-my">နေထိုင်မှုလမ်းညွှန်/ကျောင်းအိပ်ဆောင် တာဝန်ခံ</span></p>
     </div>
   </div>
 
@@ -4614,26 +4880,33 @@
         <span class="txt-ja">お問い合わせ内容：</span><span class="txt-zh">詢問課程：</span><span class="txt-sc">询问课程：</span><span class="txt-en">Regarding:</span><span class="txt-hi">विषय:</span><span class="txt-ne">सम्बन्धमा:</span><span class="txt-si">සම්බන්ධයෙන්:</span><span class="txt-vi">Về khóa học:</span><span class="txt-uk">Щодо:</span><span class="txt-id">Mengenai:</span><span class="txt-ru">Относительно:</span><span class="txt-my">အကြောင်းအရာ：</span>
         <b id="modalCourseName"></b>
       </div>
-      <div class="modal-choice-group" role="radiogroup" aria-label="Inquiry type / 諮詢類型">
-        <div class="modal-choice" data-choice="online" role="radio" aria-checked="false" tabindex="0">Online Briefing (線上說明會)</div>
-        <div class="modal-choice" data-choice="brochure" role="radio" aria-checked="false" tabindex="0">Brochure (索取簡章)</div>
+
+      <div class="modal-step-label"><span class="num">1</span><span class="txt-ja">様式をダウンロード</span><span class="txt-zh">下載表格</span><span class="txt-sc">下载表格</span><span class="txt-en">Download the form</span></div>
+      <div class="modal-download-box">
+        <p><span class="txt-ja">申請様式（Excel）をダウンロードしてご記入ください。</span><span class="txt-zh">請先下載申請表格（Excel），填寫完成後依下方步驟以 Email 寄出。</span><span class="txt-sc">请先下载申请表格（Excel），填写完成后依下方步骤以 Email 寄出。</span><span class="txt-en">Download the application form (Excel) and fill it in, then send it by email as shown below.</span></p>
+        <a class="docs-dl-btn" href="files/application-form.xlsx" download="Tokyo_One_Application_Form.xlsx">⬇ <span class="txt-ja">DL</span><span class="txt-zh">下載</span><span class="txt-sc">下载</span><span class="txt-en">Download</span></a>
       </div>
-      <label for="modalContactType" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Preferred contact method / 偏好的聯絡工具</label>
-      <select id="modalContactType">
-        <option value="" disabled selected>Preferred contact method / 偏好的聯絡工具</option>
-        <option value="Email">Email</option>
-        <option value="Fax">Fax</option>
-      </select>
-      <label for="modalContactValue" id="modalContactValueLabel" style="position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0);">Contact detail / 聯絡方式內容</label>
-      <input type="text" id="modalContactValue" placeholder="Please select a contact method above first / 請先選擇上方的聯絡工具" />
-      <button class="btn btn-primary" style="width:100%; justify-content:center;" id="modalSubmit">Get My Study Advice →</button>
-      <p style="font-size: 13px; color:var(--ink-soft); text-align:center; margin:10px 0 0;">
-        <span class="txt-ja">クリックするとメールアプリが開きます</span><span class="txt-zh">點擊後將為您開啟郵件 App</span><span class="txt-sc">点擊后将为您开啟郵件 App</span><span class="txt-en">Clicking will open your email app</span><span class="txt-ru">При нажатии откроется ваше приложение электронной почты</span><span class="txt-my">နှိပ်လိုက်ပါက သင့်အီးမေးလ်အက်ပ်ကို ဖွင့်ပေးပါမည်</span><span class="txt-hi">क्लिक करने पर आपका ईमेल ऐप खुलेगा</span><span class="txt-ne">क्लिक गर्दा तपाईंको इमेल एप खुल्नेछ</span><span class="txt-si">ක්ලික් කිරීමෙන් ඔබේ විද්‍යුත් තැපැල් යෙදුම විවෘත වේ</span><span class="txt-vi">Nhấn để mở ứng dụng email của bạn</span><span class="txt-uk">Натискання відкриє ваш поштовий додаток</span><span class="txt-id">Klik untuk membuka aplikasi email Anda</span><span class="txt-ru">Нажатие откроет ваше почтовое приложение</span><span class="txt-my">နှိပ်လိုက်ပါက သင့်အီးမေးလ်အက်ပ် ဖွင့်ပါမည်</span>
+
+      <div class="modal-step-label"><span class="num">2</span><span class="txt-ja">記入済み様式をメールに添付して送信</span><span class="txt-zh">將填寫完成的表格以 Email 附加檔案寄出</span><span class="txt-sc">将填写完成的表格以 Email 附加文件寄出</span><span class="txt-en">Email the completed form as an attachment</span></div>
+      <div class="modal-download-box">
+        <p><span class="txt-ja">下記ボタンをクリックするとメールアプリが開きます。記入済みの様式ファイルを添付してから送信してください。</span><span class="txt-zh">點擊下方按鈕開啟您的郵件 App，請記得手動附加填寫完成的表格檔案後再送出。</span><span class="txt-sc">点击下方按钮开启您的邮件 App，请记得手动附加填写完成的表格文件后再送出。</span><span class="txt-en">Clicking the button opens your email app. Please attach the completed form file yourself before sending.</span></p>
+        <a class="docs-dl-btn" id="modalEmailAttachBtn" href="#">✉ <span class="txt-ja">メールを開く</span><span class="txt-zh">開啟郵件</span><span class="txt-sc">开启邮件</span><span class="txt-en">Open Email</span></a>
+      </div>
+
+      <div class="modal-step-label"><span class="num">3</span><span class="txt-ja">連絡先情報を送信</span><span class="txt-zh">送出聯絡資訊</span><span class="txt-sc">送出联络资讯</span><span class="txt-en">Submit your contact info</span></div>
+      <p class="modal-file-hint" style="text-align:left; margin: 0 0 10px;"><span class="txt-ja">下のボタンを押すと、お問い合わせ内容が学校のメールに直接届きます（添付ファイルは含まれません。上記メールで別途お送りください）。</span><span class="txt-zh">按下方按鈕，會將您的詢問內容直接送到學校信箱（不含檔案，檔案請依上方步驟另用 Email 寄送）。</span><span class="txt-sc">按下方按钮，会将您的询问内容直接送到学校信箱（不含文件，文件请依上方步骤另用 Email 寄送）。</span><span class="txt-en">The button below sends your inquiry details directly to the school's email (no file included — please send the file separately via the email step above).</span></p>
+
+      <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:6px;" id="modalSubmit">Submit Inquiry →</button>
+      <p class="modal-submit-note">
+        <span class="txt-ja">送信すると、内容が学校のメールに直接届きます</span><span class="txt-zh">送出後，內容將直接寄送至學校信箱</span><span class="txt-sc">送出后，内容将直接寄送至学校信箱</span><span class="txt-en">On submit, your details are sent directly to the school's email</span>
+      </p>
+      <p class="modal-error-note" id="modalErrorNote">
+        <span class="txt-ja">送信に失敗しました。しばらくしてから再度お試しいただくか、tokyo1.school@gmail.com まで直接ご連絡ください。</span><span class="txt-zh">送出失敗，請稍後再試，或直接寄信至 tokyo1.school@gmail.com</span><span class="txt-sc">送出失败，请稍后再试，或直接寄信至 tokyo1.school@gmail.com</span><span class="txt-en">Submission failed. Please try again shortly, or email tokyo1.school@gmail.com directly.</span>
       </p>
     </div>
     <div class="modal-success" id="modalSuccess" role="status">
       <h3 style="margin-bottom:14px;">✓</h3>
-      <p>已為您開啟電子郵件畫面，請協助點選送出，負責窗口將盡快回覆您！</p>
+      <p><span class="txt-ja">送信が完了しました。担当者よりできるだけ早くご連絡いたします！ファイルはメールで添付してお送りください。</span><span class="txt-zh">已成功送出，負責窗口將盡快回覆您！別忘了將表格檔案透過 Email 附加寄出。</span><span class="txt-sc">已成功送出，负责窗口将尽快回复您！别忘了将表格文件通过 Email 附加寄出。</span><span class="txt-en">Successfully submitted. Our team will get back to you soon! Don't forget to email the form file as an attachment.</span></p>
     </div>
   </div>
 </div>
@@ -4644,6 +4917,24 @@
       <div>
         <div class="foot-brand notranslate" translate="no">Tokyo <span>One</span></div>
         <p style="max-width:280px; color: rgba(255,255,255,0.4);">A Ministry-accredited Japanese language institute in Chiba City, Japan.</p>
+      </div>
+      <div>
+        <h5><span class="txt-ja">サイトマップ</span><span class="txt-zh">網站導覽</span><span class="txt-sc">网站导览</span><span class="txt-en">NAVIGATION</span><span class="txt-hi">नेविगेशन</span><span class="txt-ne">नेभिगेसन</span><span class="txt-si">සංචලනය</span><span class="txt-vi">Điều hướng</span><span class="txt-uk">Навігація</span><span class="txt-id">Navigasi</span><span class="txt-ru">Навигация</span><span class="txt-my">လမ်းညွှန်ချက်</span></h5>
+        <div class="foot-nav-links">
+          <button class="cross-link-btn" data-trigger="pane-achievements"><span class="txt-ja">学校紹介</span><span class="txt-zh">學校介紹</span><span class="txt-sc">学校介绍</span><span class="txt-en">About the School</span><span class="txt-hi">विद्यालय के बारे में</span><span class="txt-ne">विद्यालयको बारेमा</span><span class="txt-si">පාසල ගැන</span><span class="txt-vi">Giới thiệu trường</span><span class="txt-uk">Про школу</span><span class="txt-id">Tentang Sekolah</span><span class="txt-ru">О школе</span><span class="txt-my">ကျောင်းအကြောင်း</span></button>
+          <button class="cross-link-btn" data-trigger="pane-campus"><span class="txt-ja">キャンパス</span><span class="txt-zh">校園生活</span><span class="txt-sc">校园生活</span><span class="txt-en">Campus Life</span><span class="txt-hi">कैंपस जीवन</span><span class="txt-ne">क्याम्पस जीवन</span><span class="txt-si">කැම්පස් ජීවිතය</span><span class="txt-vi">Đời sống học đường</span><span class="txt-uk">Життя кампусу</span><span class="txt-id">Kehidupan Kampus</span><span class="txt-ru">Жизнь кампуса</span><span class="txt-my">ကျောင်းဝန်းနေထိုင်မှု</span></button>
+          <button class="cross-link-btn" data-trigger="pane-courses"><span class="txt-ja">コース</span><span class="txt-zh">課程介紹</span><span class="txt-sc">课程介绍</span><span class="txt-en">Courses</span><span class="txt-hi">पाठ्यक्रम</span><span class="txt-ne">पाठ्यक्रम</span><span class="txt-si">පාඨමාලා</span><span class="txt-vi">Khóa học</span><span class="txt-uk">Курси</span><span class="txt-id">Kursus</span><span class="txt-ru">Курсы</span><span class="txt-my">သင်တန်းများ</span></button>
+          <button class="cross-link-btn" data-trigger="pane-admission"><span class="txt-ja">入学案内</span><span class="txt-zh">招生資訊</span><span class="txt-sc">招生资讯</span><span class="txt-en">Admission</span><span class="txt-hi">प्रवेश जानकारी</span><span class="txt-ne">भर्ना जानकारी</span><span class="txt-si">ඇතුළත් වීම</span><span class="txt-vi">Thông tin tuyển sinh</span><span class="txt-uk">Вступ</span><span class="txt-id">Informasi Pendaftaran</span><span class="txt-ru">Поступление</span><span class="txt-my">ဝင်ခွင့်အချက်အလက်</span></button>
+        </div>
+      </div>
+      <div>
+        <h5><span class="txt-ja">資料・規則</span><span class="txt-zh">資料與規則</span><span class="txt-sc">资料与规则</span><span class="txt-en">DOCUMENTS</span><span class="txt-hi">दस्तावेज़</span><span class="txt-ne">कागजातहरू</span><span class="txt-si">ලේඛන</span><span class="txt-vi">Tài liệu</span><span class="txt-uk">Документи</span><span class="txt-id">Dokumen</span><span class="txt-ru">Документы</span><span class="txt-my">စာရွက်စာတမ်းများ</span></h5>
+        <div class="foot-nav-links">
+          <button class="cross-link-btn" data-trigger="pane-achievements" data-anchor="docCabinetSection"><span class="txt-ja">学則・学費返還規定</span><span class="txt-zh">學則．學費退費規定</span><span class="txt-sc">学则．学费退费规定</span><span class="txt-en">School Regulations &amp; Refund Policy</span><span class="txt-hi">विद्यालय नियम एवं शुल्क वापसी</span><span class="txt-ne">विद्यालय नियम र शुल्क फिर्ता</span><span class="txt-si">පාසල් නීති සහ ගාස්තු ආපසු ගෙවීම</span><span class="txt-vi">Nội quy &amp; Hoàn học phí</span><span class="txt-uk">Правила школи та повернення оплати</span><span class="txt-id">Peraturan &amp; Pengembalian Biaya</span><span class="txt-ru">Правила и возврат оплаты</span><span class="txt-my">ကျောင်းစည်းမျဉ်းနှင့် ငွေပြန်အမ်းမှု</span></button>
+          <button class="cross-link-btn" data-trigger="pane-achievements" data-anchor="docCabinetSection"><span class="txt-ja">44号・45号・外部評価</span><span class="txt-zh">第44號．第45號．外部評鑑</span><span class="txt-sc">第44号．第45号．外部评鉴</span><span class="txt-en">No.44 &amp; No.45 / External Evaluation</span><span class="txt-hi">क्रमांक 44 व 45 / बाह्य मूल्यांकन</span><span class="txt-ne">नं. ४४ र ४५ / बाह्य मूल्याङ्कन</span><span class="txt-si">අංක 44 සහ 45 / බාහිර ඇගයීම</span><span class="txt-vi">Số 44 &amp; 45 / Đánh giá bên ngoài</span><span class="txt-uk">№44 та №45 / Зовнішня оцінка</span><span class="txt-id">No.44 &amp; No.45 / Evaluasi Eksternal</span><span class="txt-ru">№44 и №45 / Внешняя оценка</span><span class="txt-my">အမှတ် ၄၄၊ ၄၅ / ပြင်ပအကဲဖြတ်မှု</span></button>
+          <button class="cross-link-btn" data-trigger="pane-campus" data-anchor="dormRulesSection"><span class="txt-ja">寮・寮規則</span><span class="txt-zh">宿舍．宿舍規則</span><span class="txt-sc">宿舍．宿舍规则</span><span class="txt-en">Dormitory &amp; Rules</span><span class="txt-hi">छात्रावास एवं नियम</span><span class="txt-ne">छात्रावास र नियमहरू</span><span class="txt-si">නේවාසිකාගාරය සහ නීති</span><span class="txt-vi">Ký túc xá &amp; Quy định</span><span class="txt-uk">Гуртожиток і правила</span><span class="txt-id">Asrama &amp; Aturan</span><span class="txt-ru">Общежитие и правила</span><span class="txt-my">ကျောင်းအိပ်ဆောင်နှင့် စည်းမျဉ်း</span></button>
+          <button class="foot-inquiry-link" onclick="document.getElementById('inquiryFab').click();"><span class="txt-ja">オンライン相談・資料請求</span><span class="txt-zh">線上諮詢・資料請求</span><span class="txt-sc">线上咨询・资料请求</span><span class="txt-en">Online Inquiry</span><span class="txt-hi">ऑनलाइन पूछताछ</span><span class="txt-ne">अनलाइन सोधपुछ</span><span class="txt-si">මාර්ගගත විමසීම</span><span class="txt-vi">Liên hệ trực tuyến</span><span class="txt-uk">Онлайн-запит</span><span class="txt-id">Pertanyaan Online</span><span class="txt-ru">Онлайн-запрос</span><span class="txt-my">အွန်လိုင်းမေးမြန်းခြင်း</span></button>
+        </div>
       </div>
       <div>
         <h5 style="color:#FFF; margin:0 0 16px 0; font-family:'Space Grotesk';">CAMPUS DESK</h5>
@@ -5136,12 +5427,35 @@
     });
   });
 
-  // 跨分頁快速連結引擎（完全相容多語系切換）
+  // 跨分頁快速連結引擎（完全相容多語系切換；若帶 data-anchor 則切換後精準捲動到該區塊）
   document.querySelectorAll('.cross-link-btn').forEach(link => {
     link.addEventListener('click', () => {
       homePane.classList.remove('active');
       const targetPaneId = link.getAttribute('data-trigger');
+      const anchorId = link.getAttribute('data-anchor');
       switchModule(targetPaneId);
+      if (anchorId) {
+        setTimeout(() => {
+          const anchorEl = document.getElementById(anchorId);
+          if (anchorEl) anchorEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 450);
+      }
+    });
+  });
+
+  // Header 合規資訊列連結：切換分頁後，直接捲動到資料實際所在的區塊（而非只回到分頁頂端）
+  document.querySelectorAll('.compliance-link').forEach(link => {
+    link.addEventListener('click', () => {
+      homePane.classList.remove('active');
+      const targetPaneId = link.getAttribute('data-trigger');
+      const anchorId = link.getAttribute('data-anchor');
+      switchModule(targetPaneId);
+      if (anchorId) {
+        setTimeout(() => {
+          const anchorEl = document.getElementById(anchorId);
+          if (anchorEl) anchorEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 450);
+      }
     });
   });
 
@@ -5209,6 +5523,19 @@
   let selectedCourseInterest = '';
 
   let lastFocusedElement = null;
+  function updateEmailAttachLink() {
+    const btn = document.getElementById('modalEmailAttachBtn');
+    if (!btn) return;
+    const subjectCoursePart = selectedCourseInterest ? '【' + selectedCourseInterest + '】' : '';
+    const subject = encodeURIComponent('【Tokyo One 申請表格】' + subjectCoursePart + '記入済み様式の送付 / Completed Application Form');
+    const body = encodeURIComponent(
+      (selectedCourseInterest ? ('詢問課程 / Course: ' + selectedCourseInterest + '\n\n') : '') +
+      '請在此附加已填寫完成的申請表格檔案後再送出。\n' +
+      'Please attach your completed application form file before sending.\n\n' +
+      '氏名 / Name：\n連絡先 / Contact：'
+    );
+    btn.href = `mailto:tokyo1.school@gmail.com?subject=${subject}&body=${body}`;
+  }
   function openModal(courseName) {
     const courseContext = document.getElementById('modalCourseContext');
     const courseNameEl = document.getElementById('modalCourseName');
@@ -5220,6 +5547,7 @@
       selectedCourseInterest = '';
       if (courseContext) courseContext.style.display = 'none';
     }
+    updateEmailAttachLink();
     lastFocusedElement = document.activeElement;
     if (modalOverlay) {
       modalOverlay.classList.add('open');
@@ -5239,6 +5567,8 @@
       const courseContext = document.getElementById('modalCourseContext');
       if (courseContext) courseContext.style.display = 'none';
       selectedCourseInterest = '';
+      const errorNote = document.getElementById('modalErrorNote');
+      if (errorNote) errorNote.classList.remove('show');
     }, 300);
     // 無障礙：關閉時把焦點還給原本觸發彈窗的元素
     if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') lastFocusedElement.focus();
@@ -5272,21 +5602,6 @@
     choice.setAttribute('aria-checked', 'true');
     selectedChoice = choice.getAttribute('data-choice');
   }
-  // 兩步引導：選定偏好的聯絡工具後，下方輸入框的提示文字動態切換，並優化手機鍵盤類型
-  const modalContactTypeSelect = document.getElementById('modalContactType');
-  const modalContactValueInput = document.getElementById('modalContactValue');
-  if (modalContactTypeSelect && modalContactValueInput) {
-    modalContactTypeSelect.addEventListener('change', () => {
-      const method = modalContactTypeSelect.value;
-      const placeholders = {
-        'Email': 'Please enter your email address / 請輸入您的電子郵件',
-        'Fax': 'Please enter your fax number / 請輸入您的傳真號碼'
-      };
-      modalContactValueInput.placeholder = placeholders[method] || 'Contact detail / 聯絡方式內容';
-      modalContactValueInput.type = method === 'Email' ? 'email' : 'text';
-      modalContactValueInput.focus();
-    });
-  }
 
   document.querySelectorAll('.modal-choice').forEach(choice => {
     choice.addEventListener('click', () => selectModalChoice(choice));
@@ -5296,17 +5611,49 @@
     });
   });
 
-  if (modalSubmit) modalSubmit.addEventListener('click', () => {
-    const contactType = document.getElementById('modalContactType').value || '未填寫';
-    const contactValue = document.getElementById('modalContactValue').value || '未填寫';
-    const choiceLabel = selectedChoice === 'online' ? '參加線上說明會 / Online briefing' : selectedChoice === 'brochure' ? '資料請求 / Brochure request' : '未選擇 / Not specified';
+
+  if (modalSubmit) modalSubmit.addEventListener('click', async () => {
     const courseLine = selectedCourseInterest ? ('詢問課程 / Course: ' + selectedCourseInterest + '\n') : '';
     const subjectCoursePart = selectedCourseInterest ? '【' + selectedCourseInterest + '】' : '';
-    const subject = encodeURIComponent('【Tokyo One 諮詢】' + subjectCoursePart + choiceLabel);
-    const body = encodeURIComponent(courseLine + '需求類型: ' + choiceLabel + '\n聯絡方式類型: ' + contactType + '\n聯絡方式內容: ' + contactValue);
-    window.location.href = `mailto:tokyo1.school@gmail.com?subject=${subject}&body=${body}`;
-    if (modalForm) modalForm.style.display = 'none';
-    if (modalSuccess) modalSuccess.classList.add('show');
+    const errorNote = document.getElementById('modalErrorNote');
+
+    if (errorNote) errorNote.classList.remove('show');
+
+    const originalLabel = modalSubmit.textContent;
+    modalSubmit.disabled = true;
+    modalSubmit.textContent = 'Sending... / 送出中…';
+
+    try {
+      const formData = new FormData();
+      formData.append('access_key', '1aeef2dc-1e24-4efe-bda6-34c7d2145321');
+      formData.append('subject', '【Tokyo One 線上諮詢】' + subjectCoursePart);
+      formData.append('from_name', 'Tokyo One 官網表單 / Website Form');
+      if (selectedCourseInterest) formData.append('course_interest', selectedCourseInterest);
+      formData.append('message', courseLine + '透過官網線上諮詢表單送出（表格檔案將由使用者另以 Email 附加寄送） / Submitted via website inquiry form (form file to be emailed separately by the user as an attachment).');
+
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+
+      if (data && data.success) {
+        if (modalForm) modalForm.style.display = 'none';
+        if (modalSuccess) modalSuccess.classList.add('show');
+      } else {
+        throw new Error((data && data.message) || 'Submission failed');
+      }
+    } catch (err) {
+      console.error('Web3Forms submission error:', err);
+      if (errorNote) {
+        errorNote.querySelectorAll('span').forEach(s => s.style.display = 'none');
+        errorNote.textContent = '送出失敗 / Submission failed： ' + (err && err.message ? err.message : 'Unknown error') + '（詳細錯誤已印在瀏覽器主控台 Console）';
+        errorNote.classList.add('show');
+      }
+    } finally {
+      modalSubmit.disabled = false;
+      modalSubmit.textContent = originalLabel;
+    }
   });
 
   const revealEls = document.querySelectorAll('.reveal');
@@ -5516,7 +5863,7 @@
                  正の値にするとアイコンの下側に表示されます
      =========================================================== */
   const mapShops = [
-    { name: "JR千葉駅", label: "千葉駅", dist: "学校まで徒歩約15分", hours: "JR総武本線・京葉線ほか", icon: "🚉", color: "#26211F", x: 90, y: 320, radius: 19, labelDy: -30 },
+    { name: "JR千葉駅", label: "千葉駅", dist: "学校まで徒歩約15分", hours: "JR総武本線・京葉線ほか／13號公車可抵達", icon: "🚉", color: "#26211F", x: 90, y: 320, radius: 19, labelDy: -30 },
     { name: "JR東千葉駅", label: "東千葉駅", dist: "学校まで徒歩約8分", hours: "JR総武本線", icon: "🚉", color: "#26211F", x: 312, y: 320, radius: 19, labelDy: 34 },
     { name: "祐光三丁目 バス停", label: "祐光三丁目", dist: "学校まで徒歩約3分", hours: "千葉駅方面ゆき", icon: "🚌", color: "#2F6DB0", x: 615, y: 320, radius: 17, labelDy: -30 },
     { name: "松屋 東千葉店", label: "松屋", dist: "学校のすぐ隣", hours: "24時間営業", icon: "🍚", color: "#E08A00", x: 787, y: 320, radius: 18, labelDy: -30 },
