@@ -876,6 +876,8 @@
   }
   .photo-placeholder .ph-icon { font-size: 28px; opacity: 0.5; }
   .photo-placeholder .ph-caption { font-weight: 700; max-width: 85%; line-height: 1.5; }
+  /* 真實照片：取代 .photo-placeholder 用，維持相同的圓角與滿版填滿方式 */
+  .photo-real { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: var(--radius); }
 
   /* ---------- 影片預留位元件 (Video Placeholder) ---------- */
   /* 之後只要把 .video-placeholder 換成真實影片 <video> 或 <iframe>（YouTube 等）即可 */
@@ -2384,10 +2386,7 @@
 <div class="aim-col">
 <div class="eyebrow" data-cid="g0553">WHAT WE AIM FOR</div>
 <h2><span class="txt-ja" data-cid="g0033">私たちが目指すもの</span><span class="txt-zh" data-cid="g0033">我們的教育目標</span><span class="txt-sc" data-cid="g0033">我们的教育目标</span><span class="txt-en" data-cid="g0033">What We Aim For</span><span class="txt-hi" data-cid="g0033">हमारा लक्ष्य</span><span class="txt-ne" data-cid="g0033">हाम्रो लक्ष्य</span><span class="txt-si" data-cid="g0033">අප ඉලක්ක කරන්නේ</span><span class="txt-vi" data-cid="g0033">Mục tiêu của chúng tôi</span><span class="txt-uk" data-cid="g0033">Наша мета</span><span class="txt-id" data-cid="g0033">Yang Kami Tuju</span><span class="txt-ru" data-cid="g0033">Наша цель</span><span class="txt-my" data-cid="g0033">ကျွန်ုပ်တို့ ရည်မှန်းချက်</span></h2>
-<div class="photo-placeholder aim-photo-placeholder">
-<span class="ph-icon" data-cid="g0554">📷</span>
-<span class="ph-caption"><span class="txt-ja" data-cid="g0034">写真（差し替え予定）</span><span class="txt-zh" data-cid="g0034">照片（待替換）</span><span class="txt-sc" data-cid="g0034">照片（待替换）</span><span class="txt-en" data-cid="g0034">Photo — to be added</span></span>
-</div>
+<img alt="学生の文化祭パフォーマンス" class="aim-photo-placeholder photo-real" src="images/culture-festival.png"/>
 <p class="aim-text">
 <span class="txt-ja" data-cid="g0035">開校以来、私たちは学生の日本語習得を支援するだけでなく、日本の文化や社会習慣への理解を深めることにも力を注いできました。私たちの教育理念の根底にあるのは、日本の学校教育の根本目標である「生きる力」です。日本語教育を通じて、学生が自ら考え、正しく判断し、自分を効果的に表現し、社会と意味のあるつながりを築く力を育み、充実した人生を歩めるよう支援します。</span>
 <span class="txt-zh" data-cid="g0035">自建校以來，我們不僅致力於協助學生掌握日語，更致力於加深他們對日本文化與社會習俗的理解。我們教育理念的核心，是日本學校教育的根本目標——「熱愛生活」。透過日語教育，我們培養學生獨立思考、做出正確判斷、有效表達自我，並與社會建立有意義的連結，讓每一位學生都能擁有充實的人生。</span>
@@ -2425,10 +2424,7 @@
 <div class="aim-col">
 <div class="eyebrow" data-cid="g0555">EXCITING CLASSES</div>
 <h2><span class="txt-ja" data-cid="g0038">授業の3つの柱</span><span class="txt-zh" data-cid="g0038">課程三大教育支柱</span><span class="txt-sc" data-cid="g0038">课程三大教育支柱</span><span class="txt-en" data-cid="g0038">Exciting Classes</span><span class="txt-hi" data-cid="g0038">रोमांचक कक्षाएँ</span><span class="txt-ne" data-cid="g0038">रोमाञ्चक कक्षाहरू</span><span class="txt-si" data-cid="g0038">උද්‍යෝගිමත් පන්ති</span><span class="txt-vi" data-cid="g0038">Những lớp học thú vị</span><span class="txt-uk" data-cid="g0038">Захопливі заняття</span><span class="txt-id" data-cid="g0038">Kelas yang Seru</span><span class="txt-ru" data-cid="g0038">Увлекательные занятия</span><span class="txt-my" data-cid="g0038">စိတ်လှုပ်ရှားစရာ သင်တန်းများ</span></h2>
-<div class="photo-placeholder aim-photo-placeholder">
-<span class="ph-icon" data-cid="g0556">📷</span>
-<span class="ph-caption"><span class="txt-ja" data-cid="g0039">写真（差し替え予定）</span><span class="txt-zh" data-cid="g0039">照片（待替換）</span><span class="txt-sc" data-cid="g0039">照片（待替换）</span><span class="txt-en" data-cid="g0039">Photo — to be added</span></span>
-</div>
+<img alt="浴衣体験" class="aim-photo-placeholder photo-real" src="images/yukata-experience.png"/>
 <p class="aim-text">
 <span class="txt-ja" data-cid="g0040">日本で成功する生活に必要なスキルを育むため、私たちのカリキュラムは3つの教育の柱の上に築かれています。まず「日本語力」では、聴く・読む・話す（やり取り・発表）・書くの言語活動を通じて、語彙・文法・談話構成といった基礎力から、進学や就職に必要な実践的コミュニケーション力まで、実生活で活かせる日本語を体系的に身につけます。次に「日本社会への適応力」では、日常生活・学業・職場など様々な場面で、他者と協力しながら自ら課題を解決し、主体的に行動する力を育みます。</span>
 <span class="txt-zh" data-cid="g0040">為了培養在日本成功生活所需的技能，我們的課程建立在三大教育支柱之上。首先是「日語能力」——透過聽、讀、說（互動與發表）、寫五大語言活動，從詞彙、文法、篇章結構等基礎能力，到升學與就業所需的實用溝通技巧，系統性地培養能在真實生活中靈活運用的日語能力。其次是「適應日本社會」——在日常生活、學業與職場等各種情境中，培養學生與他人合作、獨立解決問題並主動行動的能力。</span>
@@ -4950,7 +4946,7 @@
 <div class="wrap">
 <div class="foot-grid">
 <div>
-<div class="foot-brand notranslate" translate="no"><span data-cid="g0779">Tokyo </span><span data-cid="g0780">One</span></div>
+<div class="foot-brand notranslate" translate="no"><img alt="Tokyo One 日本語学校 千葉本校" src="images/logo-tokyo-one-footer.png" style="height:44px; width:auto; display:block;"/></div>
 <p data-cid="g0781" style="max-width:280px; color: rgba(255,255,255,0.4);">A Ministry-accredited Japanese language institute in Chiba City, Japan.</p>
 </div>
 <div>
