@@ -1962,7 +1962,13 @@
                     { type: "pdf", url: "files/xxx.pdf", label: "資料をダウンロード" }
                     { type: "url", url: "https://example.com", label: "詳しくはこちら" }
        =========================================================== */
-    const newsData = [
+    // ▼▼▼ 校方專用：若已設定 Google 表單，之後新增新聞「不需要」再手動編輯這個陣列 ▼▼▼
+    // 只要在下面的 GOOGLE_SHEET_CSV_URL 貼上「已發布為網路的試算表」CSV 連結，
+    // 網頁載入時就會自動抓取表單填寫的新聞資料，取代／補充下面這份預設資料。
+    // 尚未設定表單前，下面這份資料會照常顯示，網站不會壞掉，可以放心之後再串接。
+    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQZWOlm_LolVRqtWru28WXdS9chO_4mEU3tJeXZJdBxO5u0gatb9b0ACpHsP4u5qsCqJOn5r0pTAqM3/pub?gid=161579903&single=true&output=csv"; // 例如："https://docs.google.com/spreadsheets/d/e/xxxxx/pub?output=csv"
+
+    let newsData = [
       {
         date: "2026-04-10",
         category: "admission",
@@ -2002,6 +2008,87 @@
       }
     ];
 
+    // ---------- CSV を安全にパースする簡易関数（引用符・カンマ・改行を含むセルに対応） ----------
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], field = '', inQuotes = false;
+      for (let i = 0; i < text.length; i++) {
+        const c = text[i], next = text[i + 1];
+        if (inQuotes) {
+          if (c === '"' && next === '"') { field += '"'; i++; }
+          else if (c === '"') { inQuotes = false; }
+          else { field += c; }
+        } else {
+          if (c === '"') inQuotes = true;
+          else if (c === ',') { row.push(field); field = ''; }
+          else if (c === '\n') { row.push(field); rows.push(row); row = []; field = ''; }
+          else if (c === '\r') { /* 無視 */ }
+          else { field += c; }
+        }
+      }
+      if (field.length || row.length) { row.push(field); rows.push(row); }
+      return rows.filter(r => r.some(cell => cell.trim() !== ''));
+    }
+
+    // Google 表單的「分類」欄位是中文（活動／公告／招生），這裡自動轉換成程式內部使用的英文代碼
+    const CATEGORY_MAP = { '活動': 'event', '公告': 'notice', '招生': 'admission', event: 'event', notice: 'notice', admission: 'admission' };
+
+    // Google Drive 的分享連結（.../file/d/檔案ID/view）沒辦法直接當圖片顯示，
+    // 這個函式會自動偵測並轉換成可直接顯示的圖片網址；如果不是 Drive 連結則原樣返回（可支援其他圖床網址）。
+    function normalizeImageUrl(url) {
+      if (!url) return '';
+      const m = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+      if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
+      const m2 = url.match(/[?&]id=([^&]+)/);
+      if (m2 && url.includes('drive.google.com')) return `https://drive.google.com/uc?export=view&id=${m2[1]}`;
+      return url.trim();
+    }
+
+    // ---------- 從已發布的 Google 試算表抓取新聞資料 ----------
+    async function fetchNewsFromGoogleSheet() {
+      if (!GOOGLE_SHEET_CSV_URL) return; // 尚未設定表單網址，維持使用上方預設資料
+
+      try {
+        const res = await fetch(GOOGLE_SHEET_CSV_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error('無法讀取試算表');
+        const text = await res.text();
+        const rows = parseCSV(text);
+        if (rows.length < 2) return; // 只有標題列，還沒有人填寫過表單
+
+        // 第一列是欄位標題（Timestamp、日期、分類...），從第二列開始才是實際資料
+        const dataRows = rows.slice(1);
+
+        const fromSheet = dataRows.map(r => {
+          // 欄位順序對應目前 Google 表單實際題目：
+          // [0]時間戳記 [1]日期 [2]分類 [3]新聞摘要 [4]詳細內文(選填) [5]新聞圖片(選填) [6]是否有附上活動照片或影片(不使用) [7]連結網址(選填) [8]連結按鈕文字(選填)
+          const [, date, category, summary, content, image, , linkUrl, linkLabel] = r;
+          if (!date || !summary) return null;
+          const trimmedSummary = summary.trim();
+          const autoTitle = trimmedSummary.length > 22 ? trimmedSummary.slice(0, 22) + '…' : trimmedSummary;
+          const item = {
+            date: date.trim(),
+            category: CATEGORY_MAP[(category || '').trim()] || 'notice',
+            title: autoTitle,
+            summary: trimmedSummary
+          };
+          if (content && content.trim()) item.content = content.trim();
+          if (image && image.trim()) item.image = normalizeImageUrl(image.trim());
+          if (linkUrl && linkUrl.trim()) {
+            item.link = { type: 'url', url: linkUrl.trim(), label: (linkLabel || '').trim() || '詳細を見る' };
+          }
+          return item;
+        }).filter(Boolean);
+
+        if (fromSheet.length) {
+          newsData = fromSheet; // 用表單資料取代預設資料
+          if (typeof window.renderNewsSection === 'function') window.renderNewsSection();
+        }
+      } catch (err) {
+        console.warn('讀取 Google 表單新聞資料失敗，改用預設新聞內容：', err);
+      }
+    }
+    // ▲▲▲ 校方專用區塊結束 ▲▲▲
+
     (function initNewsSection() {
       const grid = document.getElementById('newsGrid');
       const emptyMsg = document.getElementById('newsEmpty');
@@ -2032,7 +2119,7 @@
       const linkLabelFallback = { pdf: '資料をダウンロード', url: 'リンクへ移動' };
 
       function hasDetail(n) {
-        return !!(n.content || n.link);
+        return !!(n.content || n.link || n.image);
       }
 
       function getSorted() {
@@ -2050,6 +2137,18 @@
         modalTag.className = 'news-card-tag ' + (tagClass[n.category] || '');
         modalTitle.textContent = n.title;
         modalBody.textContent = n.content || n.summary;
+
+        // 若有圖片，插入在標題下方、內文上方
+        const existingImg = modalBox.querySelector('#newsModalImg');
+        if (existingImg) existingImg.remove();
+        if (n.image) {
+          const img = document.createElement('img');
+          img.id = 'newsModalImg';
+          img.src = n.image;
+          img.alt = '';
+          img.style.cssText = 'width:100%; border-radius:10px; margin-bottom:16px; display:block;';
+          modalTitle.insertAdjacentElement('afterend', img);
+        }
 
         modalLinkWrap.innerHTML = '';
         if (n.link && n.link.url) {
@@ -2082,6 +2181,7 @@
 
         grid.innerHTML = toShow.map((n, i) => `
           <div class="news-card${hasDetail(n) ? ' is-clickable' : ''}" data-idx="${i}">
+            ${n.image ? `<div class="news-card-img" style="margin:-2px -2px 12px; border-radius:10px 10px 0 0; overflow:hidden;"><img src="${n.image}" alt="" style="width:100%; height:150px; object-fit:cover; display:block;" loading="lazy"></div>` : ''}
             <div class="news-card-top">
               <span class="news-card-date">${n.date}</span>
               <span class="news-card-tag ${tagClass[n.category] || ''}">${tagLabel[n.category] || n.category}</span>
@@ -2117,6 +2217,7 @@
       });
 
       render();
+      fetchNewsFromGoogleSheet(); // 若已設定表單網址，載入後會自動用表單資料更新新聞列表
 
       // 言語切り替え時にニュース欄も再描画するための関数（内容は日本語固定のため見た目は変わりません）
       window.renderNewsSection = function() { render(); };
