@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tokyo One 網站內容編輯器</title>
+<title>Tokyo One ウェブサイト コンテンツ編集ツール</title>
 <style>
   :root{
     --ink:#232120; --soft:#5C5654; --line:#ddd6c8; --bg:#FCFBF7; --accent:#D3232A; --ok:#007A3B;
@@ -54,15 +54,15 @@
 <body>
 
 <header>
-  <h1 id="uiTitle">📝 Tokyo One 內容編輯器</h1>
-  <input type="text" id="searchBox" placeholder="搜尋文字或標題（例如：學費、宿舍、入學）…">
+  <h1 id="uiTitle">📝 Tokyo One コンテンツ編集ツール</h1>
+  <input type="text" id="searchBox" placeholder="文字や見出しで検索（例：学費、寮、入学）…">
   <div class="spacer"></div>
   <div class="lang-toggle">
-    <button type="button" id="uiLangZh" class="lang-toggle-btn active">中文</button>
-    <button type="button" id="uiLangJa" class="lang-toggle-btn">日本語</button>
+    <button type="button" id="uiLangJa" class="lang-toggle-btn active">日本語</button>
+    <button type="button" id="uiLangZh" class="lang-toggle-btn">中文</button>
   </div>
   <span id="status"></span>
-  <button id="downloadBtn" disabled>下載更新後的 content.json</button>
+  <button id="downloadBtn" disabled>更新済み content.json をダウンロード</button>
 </header>
 
 <div class="steps" id="stepsContainer"></div>
@@ -71,7 +71,7 @@
 
 <div class="faq" id="faqContainer"></div>
 
-<main id="app"><p style="text-align:center;color:#999;" id="loadingMsg">載入中…</p></main>
+<main id="app"><p style="text-align:center;color:#999;" id="loadingMsg">読み込み中…</p></main>
 
 <script>
 const UI_TEXT = {
@@ -159,7 +159,7 @@ const UI_TEXT = {
   }
 };
 
-let uiLang = 'zh';
+let uiLang = 'ja'; // 接手的維護人員是日本人，預設直接顯示日文介面
 const SECTION_LABELS = () => UI_TEXT[uiLang].sectionLabels;
 const LANG_LABELS = () => UI_TEXT[uiLang].langLabels;
 
