@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="zh-Hant">
+<html lang="ja">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tokyo One ウェブサイト コンテンツ編集ツール</title>
+<title>Tokyo One コンテンツ編集ツール</title>
 <style>
   :root{
     --ink:#232120; --soft:#5C5654; --line:#ddd6c8; --bg:#FCFBF7; --accent:#D3232A; --ok:#007A3B;
@@ -25,7 +25,6 @@
   .section > summary .count{ color:var(--soft); font-weight:400; font-size:13px; }
   .block{ border-top:1px solid var(--line); padding:16px 18px; }
   .block .label{ font-size:13px; color:var(--soft); margin-bottom:8px; }
-  .block .label code{ background:var(--bg); padding:1px 5px; border-radius:4px; }
   .jump-link{ color:var(--accent); text-decoration:none; font-weight:700; }
   .jump-link:hover{ text-decoration:underline; }
   .ctx-group-header{ background:#EFEAD8; color:var(--ink); font-size:13px; font-weight:700; padding:8px 18px; border-top:1px solid var(--line); position:sticky; top:0; }
@@ -33,7 +32,6 @@
   .langrow label{ font-size:13px; color:var(--soft); padding-top:8px; }
   .langrow textarea{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:inherit; font-size:14px; resize:vertical; min-height:38px; }
   .langrow textarea.changed{ border-color:var(--accent); background:#FFF6F5; }
-  .hidden{ display:none !important; }
   .steps{ max-width:980px; margin:16px auto 0; display:grid; grid-template-columns:repeat(6,1fr); gap:10px; }
   .step-card{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 12px; text-align:center; }
   .step-card .num{ width:26px; height:26px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; margin:0 auto 8px; }
@@ -49,73 +47,39 @@
   .lang-toggle{ display:flex; border:1px solid rgba(255,255,255,0.3); border-radius:6px; overflow:hidden; }
   .lang-toggle-btn{ background:transparent; color:#fff; border:none; padding:8px 14px; font-size:13px; cursor:pointer; font-weight:400 !important; border-radius:0 !important; }
   .lang-toggle-btn.active{ background:#fff; color:var(--ink) !important; font-weight:700 !important; }
+  #loadingMsg{ text-align:center; color:#999; padding:40px 0; }
 </style>
 </head>
 <body>
 
 <header>
-  <h1 id="uiTitle">📝 Tokyo One コンテンツ編集ツール</h1>
-  <input type="text" id="searchBox" placeholder="文字や見出しで検索（例：学費、寮、入学）…">
+  <h1 id="uiTitle"></h1>
+  <input type="text" id="searchBox">
   <div class="spacer"></div>
   <div class="lang-toggle">
-    <button type="button" id="uiLangJa" class="lang-toggle-btn active">日本語</button>
+    <button type="button" id="uiLangJa" class="lang-toggle-btn">日本語</button>
     <button type="button" id="uiLangZh" class="lang-toggle-btn">中文</button>
   </div>
   <span id="status"></span>
-  <button id="downloadBtn" disabled>更新済み content.json をダウンロード</button>
+  <button id="downloadBtn" disabled></button>
 </header>
 
 <div class="steps" id="stepsContainer"></div>
-
 <div class="unsaved-banner" id="unsavedBanner"></div>
-
 <div class="faq" id="faqContainer"></div>
 
-<main id="app"><p style="text-align:center;color:#999;" id="loadingMsg">読み込み中…</p></main>
+<main>
+  <p id="loadingMsg"></p>
+  <div id="app"></div>
+</main>
 
 <script>
-const UI_TEXT = {
-  zh: {
-    pageTitle: 'Tokyo One 網站內容編輯器',
-    header: '📝 Tokyo One 內容編輯器',
-    searchPlaceholder: '搜尋文字或標題（例如：學費、宿舍、入學）…',
-    downloadBtn: '下載更新後的 content.json',
-    loading: '載入中…',
-    noData: '沒有資料。',
-    loadError: (msg) => `讀取 data/content.json 失敗，請確認這個編輯器檔案跟 data 資料夾放在同一層。<br>錯誤訊息：${msg}`,
-    statusChanged: (n) => `已修改 ${n} 個欄位`,
-    charCount: (n) => `${n} 段文字`,
-    noContext: '（無對應標題）',
-    jumpLink: '🔗 在網站上查看這段文字的位置',
-    monoNote: '（僅單一語言，無多語言版本）',
-    monoFieldLabel: '文字',
-    unsavedWarn: '⚠️ 目前有尚未下載的修改，請記得按右上角「下載」按鈕，否則離開這頁會遺失變更',
-    unsavedDone: '✅ 已下載 content.json，別忘了到 GitHub 把它拖到 data 資料夾覆蓋、按 Commit changes 才會真正上線',
-    sectionLabels: {
-      'home-index': '首頁', 'achievements': '學校介紹', 'campus': '校園生活',
-      'courses': '課程與學費', 'admission': '入學申請', 'nav-and-labels': '選單／按鈕／共用標籤',
-      'other': '其他（版型固定文字）'
-    },
-    langLabels: {
-      ja:'日文', zh:'繁中', sc:'簡中', en:'英文', hi:'印地文', ne:'尼泊爾文',
-      si:'僧伽羅文', vi:'越南文', uk:'烏克蘭文', id:'印尼文', ru:'俄文', my:'緬甸文'
-    },
-    steps: [
-      { icon:'🔍', txt:'用搜尋框找到<br>想改的文字或標題' },
-      { icon:'🔗', txt:'點「在網站上查看」<br>確認是不是要改的地方' },
-      { icon:'✏️', txt:'直接在欄位裡<br>打字修改' },
-      { icon:'⬇️', txt:'按右上角<br>「下載」按鈕' },
-      { icon:'📂', txt:'把下載的檔案拖到<br>GitHub 的 data 資料夾' },
-      { icon:'✅', txt:'按 Commit changes<br>約 1 分鐘後上線' }
-    ],
-    faq: [
-      { q:'怎麼確定這段文字是不是我要改的地方？', a:'每段文字上方都有一個「🔗 在網站上查看這段文字的位置」連結，點下去會開新分頁跳到真正的網站、自動切換到正確頁面，並用紅框標示出那段文字，方便您確認是不是要改的地方，不用再靠猜的。' },
-      { q:'改完之後，什麼時候網站才會真的更新？', a:'下載檔案本身<b>不會</b>讓網站改變，一定要完成拖到 GitHub、按 Commit changes 才會真正上線，通常需要等待 30 秒到 1 分鐘讓 GitHub Pages 重新部署。' },
-      { q:'為什麼有些段落只有一個欄位，沒有列出 12 種語言？', a:'少數文字（例如按鈕上的箭頭符號、聯絡電話、地圖標籤）本來就只有單一語言版本，這是正常的，不是資料遺失。' },
-      { q:'改錯了想恢復原狀怎麼辦？', a:'在還沒按「下載」之前，直接重新整理這個網頁即可還原成目前線上的版本。如果已經上傳到 GitHub 且發現改錯了，GitHub 的每個檔案都有版本紀錄（History），可以點進去復原到上一個版本，資料不會真的遺失。' },
-      { q:'可以同時改很多段文字，一次下載嗎？', a:'可以，這是建議的做法。修改過的欄位會自動標成紅色框線，改完全部想改的地方後，只要按一次「下載」，所有修改都會包含在同一個檔案裡，只需要上傳、Commit 一次即可。' }
-    ]
-  },
+'use strict';
+
+/* ============================================================
+   1. 語言字典：所有畫面上會出現的文字都集中放在這裡管理
+   ============================================================ */
+var UI_TEXT = {
   ja: {
     pageTitle: 'Tokyo One ウェブサイト コンテンツ編集ツール',
     header: '📝 Tokyo One コンテンツ編集ツール',
@@ -123,9 +87,9 @@ const UI_TEXT = {
     downloadBtn: '更新済み content.json をダウンロード',
     loading: '読み込み中…',
     noData: 'データがありません。',
-    loadError: (msg) => `data/content.json の読み込みに失敗しました。この編集ツールのファイルが data フォルダと同じ階層にあるか確認してください。<br>エラー内容：${msg}`,
-    statusChanged: (n) => `${n} 件の項目を変更しました`,
-    charCount: (n) => `${n} 件`,
+    loadError: function (msg) { return 'data/content.json の読み込みに失敗しました。この編集ツールのファイルが data フォルダと同じ階層にあるか確認してください。<br>エラー内容：' + msg; },
+    statusChanged: function (n) { return n + ' 件の項目を変更しました'; },
+    charCount: function (n) { return n + ' 件'; },
     noContext: '（対応する見出しなし）',
     jumpLink: '🔗 サイト上でこの文章の位置を確認する',
     monoNote: '（言語バージョンは1つのみです）',
@@ -150,170 +114,284 @@ const UI_TEXT = {
       { icon:'✅', txt:'Commit changes を押す<br>約1分で反映されます' }
     ],
     faq: [
-      { q:'この文章が本当に変更したい箇所かどうか、どう確認すればいいですか？', a:'各項目の上に「🔗 サイト上でこの文章の位置を確認する」というリンクがあります。クリックすると新しいタブで実際のサイトが開き、自動的に正しいページに切り替わり、該当箇所が赤枠で表示されます。推測に頼らず確認できます。' },
-      { q:'変更した後、いつサイトに反映されますか？', a:'ファイルをダウンロードしただけでは<b>サイトは変わりません</b>。GitHubにドラッグしてCommit changesを押して初めて反映されます。GitHub Pagesの再デプロイには通常30秒〜1分ほどかかります。' },
-      { q:'なぜ一部の項目は言語が1つしか表示されないのですか？', a:'ボタンの矢印記号、電話番号、地図のラベルなど、一部のテキストはもともと1つの言語版しか存在しません。これは正常な状態で、データが失われたわけではありません。' },
-      { q:'間違えて変更してしまった場合、元に戻せますか？', a:'「ダウンロード」を押す前であれば、このページを再読み込みするだけで現在サイトに公開されている内容に戻ります。すでにGitHubにアップロードしてしまった場合も、GitHubの各ファイルには変更履歴（History）が残っているので、以前のバージョンに復元できます。データが完全に失われることはありません。' },
-      { q:'複数の項目をまとめて変更してから、一度にダウンロードできますか？', a:'はい、それが推奨される方法です。変更した項目は自動的に赤い枠で表示されます。変更したい箇所をすべて修正してから「ダウンロード」を1回押せば、すべての変更が1つのファイルにまとまります。アップロードとCommitも1回で済みます。' }
+      { q:'この文章が本当に変更したい箇所かどうか、どう確認すればいいですか？', a:'各項目の上に「🔗 サイト上でこの文章の位置を確認する」というリンクがあります。クリックすると新しいタブで実際のサイトが開き、自動的に正しいページに切り替わり、該当箇所が赤枠で表示されます。' },
+      { q:'変更した後、いつサイトに反映されますか？', a:'ファイルをダウンロードしただけでは<b>サイトは変わりません</b>。GitHubにドラッグしてCommit changesを押して初めて反映されます。通常30秒〜1分ほどかかります。' },
+      { q:'なぜ一部の項目は言語が1つしか表示されないのですか？', a:'ボタンの矢印記号、電話番号、地図のラベルなど、一部のテキストはもともと1つの言語版しか存在しません。正常な状態です。' },
+      { q:'間違えて変更してしまった場合、元に戻せますか？', a:'「ダウンロード」を押す前であれば、このページを再読み込みするだけで元に戻ります。GitHubにアップロード済みの場合も、各ファイルの変更履歴（History）から復元できます。' },
+      { q:'複数の項目をまとめて変更してから、一度にダウンロードできますか？', a:'はい、それが推奨される方法です。変更した項目は自動的に赤い枠で表示されます。すべて修正してから「ダウンロード」を1回押せば、まとめて反映されます。' }
+    ]
+  },
+  zh: {
+    pageTitle: 'Tokyo One 網站內容編輯器',
+    header: '📝 Tokyo One 內容編輯器',
+    searchPlaceholder: '搜尋文字或標題（例如：學費、宿舍、入學）…',
+    downloadBtn: '下載更新後的 content.json',
+    loading: '載入中…',
+    noData: '沒有資料。',
+    loadError: function (msg) { return '讀取 data/content.json 失敗，請確認這個編輯器檔案跟 data 資料夾放在同一層。<br>錯誤訊息：' + msg; },
+    statusChanged: function (n) { return '已修改 ' + n + ' 個欄位'; },
+    charCount: function (n) { return n + ' 段文字'; },
+    noContext: '（無對應標題）',
+    jumpLink: '🔗 在網站上查看這段文字的位置',
+    monoNote: '（僅單一語言，無多語言版本）',
+    monoFieldLabel: '文字',
+    unsavedWarn: '⚠️ 目前有尚未下載的修改，請記得按右上角「下載」按鈕，否則離開這頁會遺失變更',
+    unsavedDone: '✅ 已下載 content.json，別忘了到 GitHub 把它拖到 data 資料夾覆蓋、按 Commit changes 才會真正上線',
+    sectionLabels: {
+      'home-index': '首頁', 'achievements': '學校介紹', 'campus': '校園生活',
+      'courses': '課程與學費', 'admission': '入學申請', 'nav-and-labels': '選單／按鈕／共用標籤',
+      'other': '其他（版型固定文字）'
+    },
+    langLabels: {
+      ja:'日文', zh:'繁中', sc:'簡中', en:'英文', hi:'印地文', ne:'尼泊爾文',
+      si:'僧伽羅文', vi:'越南文', uk:'烏克蘭文', id:'印尼文', ru:'俄文', my:'緬甸文'
+    },
+    steps: [
+      { icon:'🔍', txt:'用搜尋框找到<br>想改的文字或標題' },
+      { icon:'🔗', txt:'點「在網站上查看」<br>確認是不是要改的地方' },
+      { icon:'✏️', txt:'直接在欄位裡<br>打字修改' },
+      { icon:'⬇️', txt:'按右上角<br>「下載」按鈕' },
+      { icon:'📂', txt:'把下載的檔案拖到<br>GitHub 的 data 資料夾' },
+      { icon:'✅', txt:'按 Commit changes<br>約 1 分鐘後上線' }
+    ],
+    faq: [
+      { q:'怎麼確定這段文字是不是我要改的地方？', a:'每段文字上方都有一個「🔗 在網站上查看這段文字的位置」連結，點下去會開新分頁跳到真正的網站、自動切換到正確頁面，並用紅框標示出那段文字。' },
+      { q:'改完之後，什麼時候網站才會真的更新？', a:'下載檔案本身<b>不會</b>讓網站改變，一定要完成拖到 GitHub、按 Commit changes 才會真正上線，通常需要等待 30 秒到 1 分鐘。' },
+      { q:'為什麼有些段落只有一個欄位，沒有列出 12 種語言？', a:'少數文字（例如按鈕上的箭頭符號、聯絡電話、地圖標籤）本來就只有單一語言版本，這是正常的。' },
+      { q:'改錯了想恢復原狀怎麼辦？', a:'在還沒按「下載」之前，直接重新整理這個網頁即可還原。已上傳到 GitHub 的話，每個檔案都有版本紀錄（History），可以復原到上一個版本。' },
+      { q:'可以同時改很多段文字，一次下載嗎？', a:'可以，這是建議的做法。修改過的欄位會自動標成紅色框線，改完全部想改的地方後，只要按一次「下載」即可。' }
     ]
   }
 };
 
-let uiLang = 'ja'; // 接手的維護人員是日本人，預設直接顯示日文介面
-const SECTION_LABELS = () => UI_TEXT[uiLang].sectionLabels;
-const LANG_LABELS = () => UI_TEXT[uiLang].langLabels;
+/* ============================================================
+   2. 狀態變數
+   ============================================================ */
+var uiLang = 'ja'; // 預設語言：接手的維護人員是日本人
+var originalData = null;
+var workingData = null;
+var changedKeys = {};
+var changedCount = 0;
+var lastFilter = '';
+var dataLoaded = false;
 
-let originalData = null;
-let workingData = null;
-let changedKeys = new Set();
-let lastFilter = '';
+/* ============================================================
+   3. 固定存在的 DOM 節點：一次抓好放進物件，全程使用同一批參照。
+      這些節點從頁面一開始就存在，且程式全程不會刪除它們，
+      因此不會發生「元素消失後還想操作它」的錯誤。
+   ============================================================ */
+var el = {
+  title: document.getElementById('uiTitle'),
+  search: document.getElementById('searchBox'),
+  downloadBtn: document.getElementById('downloadBtn'),
+  status: document.getElementById('status'),
+  steps: document.getElementById('stepsContainer'),
+  faq: document.getElementById('faqContainer'),
+  banner: document.getElementById('unsavedBanner'),
+  loadingMsg: document.getElementById('loadingMsg'),
+  app: document.getElementById('app'),
+  langJaBtn: document.getElementById('uiLangJa'),
+  langZhBtn: document.getElementById('uiLangZh')
+};
 
-function renderStaticUI() {
-  const t = UI_TEXT[uiLang];
+/* ============================================================
+   4. 畫面上的「固定介面文字」（標題、按鈕、步驟卡、FAQ）
+   ============================================================ */
+function renderChrome() {
+  var t = UI_TEXT[uiLang];
+
   document.title = t.pageTitle;
-  document.getElementById('uiTitle').textContent = t.header;
-  document.getElementById('searchBox').placeholder = t.searchPlaceholder;
-  document.getElementById('downloadBtn').textContent = t.downloadBtn;
-  const loadingMsgEl = document.getElementById('loadingMsg');
-  if (loadingMsgEl) loadingMsgEl.textContent = t.loading; // 這個元素只在「資料還沒載入完成」時存在，之後會被 render() 換掉，所以要先判斷存不存在
+  el.title.textContent = t.header;
+  el.search.placeholder = t.searchPlaceholder;
+  el.downloadBtn.textContent = t.downloadBtn;
 
-  const stepsEl = document.getElementById('stepsContainer');
-  stepsEl.innerHTML = t.steps.map((s, i) =>
-    `<div class="step-card"><div class="num">${i + 1}</div><div class="icon">${s.icon}</div><div class="txt">${s.txt}</div></div>`
-  ).join('');
+  el.steps.innerHTML = t.steps.map(function (s, i) {
+    return '<div class="step-card"><div class="num">' + (i + 1) + '</div><div class="icon">' + s.icon + '</div><div class="txt">' + s.txt + '</div></div>';
+  }).join('');
 
-  const faqEl = document.getElementById('faqContainer');
-  faqEl.innerHTML = t.faq.map(f =>
-    `<details><summary>❓ ${f.q}</summary><div class="faq-body">${f.a}</div></details>`
-  ).join('');
+  el.faq.innerHTML = t.faq.map(function (f) {
+    return '<details><summary>❓ ' + f.q + '</summary><div class="faq-body">' + f.a + '</div></details>';
+  }).join('');
 
-  document.getElementById('uiLangZh').classList.toggle('active', uiLang === 'zh');
-  document.getElementById('uiLangJa').classList.toggle('active', uiLang === 'ja');
+  el.langJaBtn.classList.toggle('active', uiLang === 'ja');
+  el.langZhBtn.classList.toggle('active', uiLang === 'zh');
+
+  // loadingMsg 只有在「資料還沒載入完成」時才需要顯示文字；
+  // 資料載入完成後，這個節點會被隱藏（不是刪除），所以永遠可以安全操作它。
+  if (!dataLoaded) {
+    el.loadingMsg.textContent = t.loading;
+  }
+
+  // 如果目前有未下載的修改，重新整理提示文字（跟著語言切換）
+  if (changedCount > 0) {
+    el.banner.textContent = t.unsavedWarn;
+  }
+  updateStatusText();
 }
 
-document.getElementById('uiLangZh').addEventListener('click', () => { uiLang = 'zh'; renderStaticUI(); render(lastFilter); });
-document.getElementById('uiLangJa').addEventListener('click', () => { uiLang = 'ja'; renderStaticUI(); render(lastFilter); });
+function updateStatusText() {
+  var t = UI_TEXT[uiLang];
+  el.status.textContent = changedCount > 0 ? t.statusChanged(changedCount) : '';
+  el.downloadBtn.disabled = changedCount === 0;
+}
 
-renderStaticUI();
+/* ============================================================
+   5. 語言切換按鈕
+   ============================================================ */
+function setLang(lang) {
+  uiLang = lang;
+  renderChrome();
+  renderList(lastFilter);
+}
+el.langJaBtn.addEventListener('click', function () { setLang('ja'); });
+el.langZhBtn.addEventListener('click', function () { setLang('zh'); });
+
+/* ============================================================
+   6. 讀取 content.json
+   ============================================================ */
+renderChrome(); // 先把介面文字畫出來，不用等資料載入完成
 
 fetch('data/content.json', { cache: 'no-store' })
-  .then(r => { if (!r.ok) throw new Error('讀取失敗 / 読み込み失敗'); return r.json(); })
-  .then(data => {
+  .then(function (r) {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
+  .then(function (data) {
     originalData = data;
     workingData = JSON.parse(JSON.stringify(data));
-    render();
+    dataLoaded = true;
+    el.loadingMsg.style.display = 'none';
+    renderList(lastFilter);
   })
-  .catch(err => {
-    document.getElementById('app').innerHTML =
-      `<p style="color:red;text-align:center;">${UI_TEXT[uiLang].loadError(err.message)}</p>`;
+  .catch(function (err) {
+    el.loadingMsg.innerHTML = UI_TEXT[uiLang].loadError(err.message);
+    el.loadingMsg.style.color = 'red';
   });
 
-function render(filter) {
+/* ============================================================
+   7. 內容清單渲染
+   ============================================================ */
+function renderList(filter) {
+  if (!dataLoaded) return; // 資料還沒回來之前不做任何事，避免操作到 null
   lastFilter = filter || '';
-  const t = UI_TEXT[uiLang];
-  const sectionLabels = t.sectionLabels;
-  const langLabels = t.langLabels;
-  const app = document.getElementById('app');
-  app.innerHTML = '';
 
-  // group by section
-  const bySection = {};
-  Object.entries(workingData).forEach(([cid, entry]) => {
-    (bySection[entry.section] = bySection[entry.section] || []).push([cid, entry]);
+  var t = UI_TEXT[uiLang];
+  var sectionLabels = t.sectionLabels;
+  var langLabels = t.langLabels;
+
+  el.app.innerHTML = '';
+
+  var bySection = {};
+  Object.keys(workingData).forEach(function (cid) {
+    var entry = workingData[cid];
+    if (!bySection[entry.section]) bySection[entry.section] = [];
+    bySection[entry.section].push([cid, entry]);
   });
 
-  const order = ['home-index','achievements','campus','courses','admission','nav-and-labels','other'];
-  order.forEach(sectionKey => {
-    const items = bySection[sectionKey];
+  var order = ['home-index', 'achievements', 'campus', 'courses', 'admission', 'nav-and-labels', 'other'];
+  var anySectionRendered = false;
+
+  order.forEach(function (sectionKey) {
+    var items = bySection[sectionKey];
     if (!items) return;
 
-    const filtered = filter
-      ? items.filter(([cid, entry]) => {
-          const ctx = (entry.context || '').toLowerCase();
-          if (ctx.includes(filter)) return true;
-          return entry.mono
-            ? entry.value.toLowerCase().includes(filter)
-            : Object.values(entry.text).some(v => v.toLowerCase().includes(filter));
-        })
-      : items;
-    if (filter && filtered.length === 0) return;
+    var filtered = lastFilter ? items.filter(function (pair) {
+      var entry = pair[1];
+      var ctx = (entry.context || '').toLowerCase();
+      if (ctx.indexOf(lastFilter) !== -1) return true;
+      if (entry.mono) return entry.value.toLowerCase().indexOf(lastFilter) !== -1;
+      return Object.keys(entry.text).some(function (l) {
+        return entry.text[l].toLowerCase().indexOf(lastFilter) !== -1;
+      });
+    }) : items;
 
-    const details = document.createElement('details');
+    if (lastFilter && filtered.length === 0) return;
+    anySectionRendered = true;
+
+    var details = document.createElement('details');
     details.className = 'section';
-    if (filter) details.open = true;
-    const summary = document.createElement('summary');
-    summary.innerHTML = `<span>${sectionLabels[sectionKey] || sectionKey}</span><span class="count">${t.charCount(filtered.length)}</span>`;
+    if (lastFilter) details.open = true;
+
+    var summary = document.createElement('summary');
+    summary.innerHTML = '<span>' + (sectionLabels[sectionKey] || sectionKey) + '</span><span class="count">' + t.charCount(filtered.length) + '</span>';
     details.appendChild(summary);
 
-    // 依上下文標題再分組，讓同一個標題底下的內容聚在一起顯示（類似目錄結構）
-    const byContext = new Map();
-    filtered.forEach(item => {
-      const ctx = item[1].context || t.noContext;
-      if (!byContext.has(ctx)) byContext.set(ctx, []);
-      byContext.get(ctx).push(item);
+    var byContext = {};
+    var contextOrder = [];
+    filtered.forEach(function (pair) {
+      var ctx = pair[1].context || t.noContext;
+      if (!byContext[ctx]) { byContext[ctx] = []; contextOrder.push(ctx); }
+      byContext[ctx].push(pair);
     });
 
-    byContext.forEach((groupItems, ctxLabel) => {
-      const groupHeader = document.createElement('div');
+    contextOrder.forEach(function (ctxLabel) {
+      var groupHeader = document.createElement('div');
       groupHeader.className = 'ctx-group-header';
       groupHeader.textContent = '📍 ' + ctxLabel;
       details.appendChild(groupHeader);
 
-      groupItems.forEach(([cid, entry]) => {
-      const block = document.createElement('div');
-      block.className = 'block';
+      byContext[ctxLabel].forEach(function (pair) {
+        var cid = pair[0];
+        var entry = pair[1];
+        var block = document.createElement('div');
+        block.className = 'block';
 
-      if (entry.mono) {
-        // 單一語言段落（沒有其他語言版本，例如按鈕圖示文字、聯絡資訊、地圖標籤等）
-        block.innerHTML = `<div class="label"><a class="jump-link" href="index.html?jump=${cid}" target="_blank" rel="noopener">${t.jumpLink}</a> <span style="color:#999;">${t.monoNote}</span></div>`;
-        const row = document.createElement('div');
-        row.className = 'langrow';
-        const ta = document.createElement('textarea');
-        ta.rows = entry.value.length > 60 ? 3 : 1;
-        ta.value = entry.value;
-        ta.dataset.cid = cid;
-        ta.dataset.mono = '1';
-        ta.addEventListener('input', onEdit);
-        row.innerHTML = `<label>${t.monoFieldLabel}</label>`;
-        row.appendChild(ta);
-        block.appendChild(row);
+        if (entry.mono) {
+          block.innerHTML = '<div class="label"><a class="jump-link" href="index.html?jump=' + cid + '" target="_blank" rel="noopener">' + t.jumpLink + '</a> <span style="color:#999;">' + t.monoNote + '</span></div>';
+          var row = document.createElement('div');
+          row.className = 'langrow';
+          var ta = document.createElement('textarea');
+          ta.rows = entry.value.length > 60 ? 3 : 1;
+          ta.value = entry.value;
+          ta.dataset.cid = cid;
+          ta.dataset.mono = '1';
+          ta.addEventListener('input', onEdit);
+          row.innerHTML = '<label>' + t.monoFieldLabel + '</label>';
+          row.appendChild(ta);
+          block.appendChild(row);
+          details.appendChild(block);
+          return;
+        }
+
+        var jaPreview = (entry.text.ja || Object.values(entry.text)[0] || '').replace(/<[^>]+>/g, '').slice(0, 40);
+        var zhPreview = (entry.text.zh || '').replace(/<[^>]+>/g, '').slice(0, 40);
+        block.innerHTML = '<div class="label"><a class="jump-link" href="index.html?jump=' + cid + '" target="_blank" rel="noopener">' + t.jumpLink + '</a> — ' + jaPreview + (zhPreview ? ' ／ ' + zhPreview : '') + '</div>';
+
+        Object.keys(langLabels).forEach(function (lang) {
+          if (!(lang in entry.text)) return;
+          var r = document.createElement('div');
+          r.className = 'langrow';
+          var t2 = document.createElement('textarea');
+          t2.rows = entry.text[lang].length > 60 ? 3 : 1;
+          t2.value = entry.text[lang];
+          t2.dataset.cid = cid;
+          t2.dataset.lang = lang;
+          t2.addEventListener('input', onEdit);
+          r.innerHTML = '<label>' + langLabels[lang] + '</label>';
+          r.appendChild(t2);
+          block.appendChild(r);
+        });
         details.appendChild(block);
-        return;
-      }
-
-      const jaPreview = (entry.text.ja || Object.values(entry.text)[0] || '').replace(/<[^>]+>/g,'').slice(0, 40);
-      const zhPreview = (entry.text.zh || '').replace(/<[^>]+>/g,'').slice(0, 40);
-      block.innerHTML = `<div class="label"><a class="jump-link" href="index.html?jump=${cid}" target="_blank" rel="noopener">${t.jumpLink}</a> — ${jaPreview}${zhPreview ? ' ／ ' + zhPreview : ''}</div>`;
-
-      Object.keys(langLabels).forEach(lang => {
-        if (!(lang in entry.text)) return;
-        const row = document.createElement('div');
-        row.className = 'langrow';
-        const ta = document.createElement('textarea');
-        ta.rows = entry.text[lang].length > 60 ? 3 : 1;
-        ta.value = entry.text[lang];
-        ta.dataset.cid = cid;
-        ta.dataset.lang = lang;
-        ta.addEventListener('input', onEdit);
-        row.innerHTML = `<label>${langLabels[lang]}</label>`;
-        row.appendChild(ta);
-        block.appendChild(row);
-      });
-      details.appendChild(block);
       });
     });
 
-    app.appendChild(details);
+    el.app.appendChild(details);
   });
 
-  if (Object.keys(bySection).length === 0) {
-    app.innerHTML = `<p style="text-align:center;color:#999;">${t.noData}</p>`;
+  if (!anySectionRendered) {
+    el.app.innerHTML = '<p style="text-align:center;color:#999;">' + t.noData + '</p>';
   }
 }
 
+/* ============================================================
+   8. 編輯欄位
+   ============================================================ */
 function onEdit(e) {
-  const { cid, lang, mono } = e.target.dataset;
-  let isChanged;
+  var cid = e.target.dataset.cid;
+  var lang = e.target.dataset.lang;
+  var mono = e.target.dataset.mono;
+  var isChanged;
+
   if (mono) {
     workingData[cid].value = e.target.value;
     isChanged = originalData[cid].value !== e.target.value;
@@ -321,39 +399,40 @@ function onEdit(e) {
     workingData[cid].text[lang] = e.target.value;
     isChanged = originalData[cid].text[lang] !== e.target.value;
   }
+
   e.target.classList.toggle('changed', isChanged);
-  const key = cid + ':' + (lang || 'mono');
-  if (isChanged) changedKeys.add(key); else changedKeys.delete(key);
-  document.getElementById('status').textContent = changedKeys.size ? UI_TEXT[uiLang].statusChanged(changedKeys.size) : '';
-  document.getElementById('downloadBtn').disabled = changedKeys.size === 0;
-  const banner = document.getElementById('unsavedBanner');
-  if (changedKeys.size) {
-    banner.textContent = UI_TEXT[uiLang].unsavedWarn;
-    banner.style.background = '#FFF0EE';
-    banner.style.borderColor = '#F0C7C2';
-    banner.style.color = 'var(--accent)';
-    banner.style.display = 'block';
+
+  var key = cid + ':' + (lang || 'mono');
+  if (isChanged && !changedKeys[key]) { changedKeys[key] = true; changedCount++; }
+  if (!isChanged && changedKeys[key]) { delete changedKeys[key]; changedCount--; }
+
+  updateStatusText();
+
+  if (changedCount > 0) {
+    el.banner.textContent = UI_TEXT[uiLang].unsavedWarn;
+    el.banner.style.background = '#FFF0EE';
+    el.banner.style.borderColor = '#F0C7C2';
+    el.banner.style.color = 'var(--accent)';
+    el.banner.style.display = 'block';
   } else {
-    banner.style.display = 'none';
+    el.banner.style.display = 'none';
   }
 }
 
-// 有未下載的修改時，離開／關閉頁面前跳出瀏覽器內建的確認提示，避免不小心遺失修改
-window.addEventListener('beforeunload', (e) => {
-  if (changedKeys.size > 0) {
-    e.preventDefault();
-    e.returnValue = '';
-  }
+/* ============================================================
+   9. 搜尋框
+   ============================================================ */
+el.search.addEventListener('input', function (e) {
+  renderList(e.target.value.trim().toLowerCase());
 });
 
-document.getElementById('searchBox').addEventListener('input', (e) => {
-  render(e.target.value.trim().toLowerCase());
-});
-
-document.getElementById('downloadBtn').addEventListener('click', () => {
-  const blob = new Blob([JSON.stringify(workingData, null, 1)], { type: 'application/json' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
+/* ============================================================
+   10. 下載
+   ============================================================ */
+el.downloadBtn.addEventListener('click', function () {
+  var blob = new Blob([JSON.stringify(workingData, null, 1)], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
   a.href = url;
   a.download = 'content.json';
   document.body.appendChild(a);
@@ -361,13 +440,21 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
 
-  // 下載後，提醒重點改成「請記得上傳」，而不是「請記得下載」
-  const banner = document.getElementById('unsavedBanner');
-  banner.textContent = UI_TEXT[uiLang].unsavedDone;
-  banner.style.background = '#EAF6EE';
-  banner.style.borderColor = '#BFE3C9';
-  banner.style.color = 'var(--ok)';
-  banner.style.display = 'block';
+  el.banner.textContent = UI_TEXT[uiLang].unsavedDone;
+  el.banner.style.background = '#EAF6EE';
+  el.banner.style.borderColor = '#BFE3C9';
+  el.banner.style.color = 'var(--ok)';
+  el.banner.style.display = 'block';
+});
+
+/* ============================================================
+   11. 離開頁面前的未儲存提示
+   ============================================================ */
+window.addEventListener('beforeunload', function (e) {
+  if (changedCount > 0) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
 });
 </script>
 
