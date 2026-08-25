@@ -174,7 +174,8 @@ function renderStaticUI() {
   document.getElementById('uiTitle').textContent = t.header;
   document.getElementById('searchBox').placeholder = t.searchPlaceholder;
   document.getElementById('downloadBtn').textContent = t.downloadBtn;
-  document.getElementById('loadingMsg').textContent = t.loading;
+  const loadingMsgEl = document.getElementById('loadingMsg');
+  if (loadingMsgEl) loadingMsgEl.textContent = t.loading; // 這個元素只在「資料還沒載入完成」時存在，之後會被 render() 換掉，所以要先判斷存不存在
 
   const stepsEl = document.getElementById('stepsContainer');
   stepsEl.innerHTML = t.steps.map((s, i) =>
