@@ -1855,8 +1855,64 @@
   </style>
 
   <section class="news-section reveal">
-    <div class="eyebrow">NEWS</div>
+    <div class="eyebrow" id="newsSecretTrigger" style="cursor:default; user-select:none;">NEWS</div>
     <h2><span class="txt-ja">年度ニュース</span><span class="txt-zh">年度新聞</span><span class="txt-sc">年度新闻</span><span class="txt-en">Annual News</span></h2>
+
+    <!-- 校方專用「新聞產生器」面板（連續點擊上方 NEWS 字樣5次可叫出，供內部維護人員使用，一般訪客不會看到） -->
+    <div id="newsGeneratorPanel" style="display:none; background: var(--bg-washi); border: 2px dashed var(--vibrant-red); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
+      <p style="margin:0 0 14px; font-weight:700; color:var(--vibrant-red);">📰 新聞產生器（校內維護專用，訪客看不到這個面板）</p>
+      <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">日期</label>
+          <input type="date" id="ngDate" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">分類</label>
+          <select id="ngCategory" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; background:var(--bg-white);">
+            <option value="event">活動 (event)</option>
+            <option value="notice">公告 (notice)</option>
+            <option value="admission">招生 (admission)</option>
+          </select>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">標題</label>
+          <input type="text" id="ngTitle" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">摘要（會顯示在卡片上）</label>
+          <textarea id="ngSummary" rows="2" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">詳細內容（選填，點擊卡片彈出視窗時顯示；不填則顯示摘要）</label>
+          <textarea id="ngContent" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
+        </div>
+        <div style="grid-column: 1 / -1; background:var(--bg-white); border:1px solid var(--line); border-radius:8px; padding:10px 12px;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">圖片檔名（選填，例：images/news-2026-04-event.jpg）</label>
+          <input type="text" id="ngImage" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+          <p style="margin:6px 0 0; font-size:12px; color:var(--ink-soft); line-height:1.6;">⚠ 這裡只是「填寫檔名」，不會真的上傳圖片。實際步驟：① 先把照片檔案本身傳到 GitHub 的 <code style="background:var(--bg-washi); padding:1px 4px; border-radius:4px;">images</code> 資料夾（跟之前上傳校舍照片同樣的方式）② 把上傳後的檔名完整填在這裡（含 images/ 開頭）。若不需要圖片可留空。</p>
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">連結網址（選填，例：files/admission-guide-2026.pdf）</label>
+          <input type="text" id="ngLinkUrl" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+          <p style="margin:4px 0 0; font-size:11.5px; color:var(--ink-soft);">同樣道理：檔案本身需先上傳到 GitHub 的 files 資料夾，這裡只填路徑。</p>
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">連結按鈕文字（選填）</label>
+          <input type="text" id="ngLinkLabel" placeholder="例：詳細資料をダウンロード" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+      </div>
+
+      <button type="button" id="ngGenerateBtn" class="btn btn-primary" style="margin-bottom:12px;">產生新聞代碼 →</button>
+
+      <div id="ngOutputWrap" style="display:none;">
+        <p style="margin:0 0 6px; font-size:13px; font-weight:700;">① 點下方框格，會自動全選；請按 Ctrl+C（或 Cmd+C）複製：</p>
+        <textarea id="ngOutput" readonly style="width:100%; min-height:160px; padding:12px; border:1px solid var(--line); border-radius:8px; font-family:monospace; font-size:12.5px; background:var(--bg-white); white-space:pre; resize:vertical;" onclick="this.select();"></textarea>
+        <p style="margin:10px 0 0; font-size:13px; color:var(--ink-soft); line-height:1.7;">
+          ② 打開網頁原始檔（.html），搜尋 <code style="background:var(--bg-washi); padding:1px 5px; border-radius:4px;">let newsData = [</code>，把複製的內容貼在這一行的正下方（緊接在 <code style="background:var(--bg-washi); padding:1px 5px; border-radius:4px;">[</code> 符號後面）。<br>
+          ③ 存檔後重新上傳到 GitHub 即可，新聞會自動顯示在最上方。
+        </p>
+      </div>
+    </div>
 
     <div class="news-filter-tags" id="newsFilterTags">
       <button class="news-filter-btn active" data-filter="all">
@@ -1966,7 +2022,7 @@
     // 只要在下面的 GOOGLE_SHEET_CSV_URL 貼上「已發布為網路的試算表」CSV 連結，
     // 網頁載入時就會自動抓取表單填寫的新聞資料，取代／補充下面這份預設資料。
     // 尚未設定表單前，下面這份資料會照常顯示，網站不會壞掉，可以放心之後再串接。
-    const GOOGLE_SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQZWOlm_LolVRqtWru28WXdS9chO_4mEU3tJeXZJdBxO5u0gatb9b0ACpHsP4u5qsCqJOn5r0pTAqM3/pub?gid=161579903&single=true&output=csv"; // 例如："https://docs.google.com/spreadsheets/d/e/xxxxx/pub?output=csv"
+    const GOOGLE_SHEET_CSV_URL = ""; // 目前改用「隱藏新聞產生器」模式，此串接功能先保留但不使用
 
     let newsData = [
       {
@@ -2033,15 +2089,21 @@
     // Google 表單的「分類」欄位是中文（活動／公告／招生），這裡自動轉換成程式內部使用的英文代碼
     const CATEGORY_MAP = { '活動': 'event', '公告': 'notice', '招生': 'admission', event: 'event', notice: 'notice', admission: 'admission' };
 
-    // Google Drive 的分享連結（.../file/d/檔案ID/view）沒辦法直接當圖片顯示，
-    // 這個函式會自動偵測並轉換成可直接顯示的圖片網址；如果不是 Drive 連結則原樣返回（可支援其他圖床網址）。
+    // Google Drive 的分享連結（.../file/d/檔案ID/view 或 .../open?id=檔案ID）沒辦法直接當圖片顯示，
+    // 而且 Google 已限制舊式的 uc?export=view 連結用於外部網站嵌入圖片，
+    // 這裡改用目前仍穩定可用的縮圖 API（drive.google.com/thumbnail），並自動偵測、轉換各種 Drive 連結格式。
     function normalizeImageUrl(url) {
       if (!url) return '';
-      const m = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
-      if (m) return `https://drive.google.com/uc?export=view&id=${m[1]}`;
-      const m2 = url.match(/[?&]id=([^&]+)/);
-      if (m2 && url.includes('drive.google.com')) return `https://drive.google.com/uc?export=view&id=${m2[1]}`;
-      return url.trim();
+      url = url.trim();
+      let fileId = '';
+      let m = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+      if (m) fileId = m[1];
+      if (!fileId) {
+        m = url.match(/[?&]id=([^&]+)/);
+        if (m && url.includes('drive.google.com')) fileId = m[1];
+      }
+      if (fileId) return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1000`;
+      return url; // 不是 Drive 連結（例如其他圖床網址），原樣返回
     }
 
     // ---------- 從已發布的 Google 試算表抓取新聞資料 ----------
@@ -2147,6 +2209,7 @@
           img.src = n.image;
           img.alt = '';
           img.style.cssText = 'width:100%; border-radius:10px; margin-bottom:16px; display:block;';
+          img.onerror = function() { this.style.display = 'none'; };
           modalTitle.insertAdjacentElement('afterend', img);
         }
 
@@ -2181,7 +2244,7 @@
 
         grid.innerHTML = toShow.map((n, i) => `
           <div class="news-card${hasDetail(n) ? ' is-clickable' : ''}" data-idx="${i}">
-            ${n.image ? `<div class="news-card-img" style="margin:-2px -2px 12px; border-radius:10px 10px 0 0; overflow:hidden;"><img src="${n.image}" alt="" style="width:100%; height:150px; object-fit:cover; display:block;" loading="lazy"></div>` : ''}
+            ${n.image ? `<div class="news-card-img" style="margin:-2px -2px 12px; border-radius:10px 10px 0 0; overflow:hidden;"><img src="${n.image}" alt="" style="width:100%; height:150px; object-fit:cover; display:block;" loading="lazy" onerror="this.closest('.news-card-img').style.display='none';"></div>` : ''}
             <div class="news-card-top">
               <span class="news-card-date">${n.date}</span>
               <span class="news-card-tag ${tagClass[n.category] || ''}">${tagLabel[n.category] || n.category}</span>
@@ -5037,20 +5100,71 @@
         <b id="modalCourseName"></b>
       </div>
 
-      <div class="modal-step-label"><span class="num">1</span><span class="txt-ja">様式をダウンロード</span><span class="txt-zh">下載表格</span><span class="txt-sc">下载表格</span><span class="txt-en">Download the form</span></div>
-      <div class="modal-download-box">
-        <p><span class="txt-ja">申請様式（Excel）をダウンロードしてご記入ください。</span><span class="txt-zh">請先下載申請表格（Excel），填寫完成後依下方步驟以 Email 寄出。</span><span class="txt-sc">请先下载申请表格（Excel），填写完成后依下方步骤以 Email 寄出。</span><span class="txt-en">Download the application form (Excel) and fill it in, then send it by email as shown below.</span></p>
-        <a class="docs-dl-btn" href="files/application-form.xlsx" download="Tokyo_One_Application_Form.xlsx">⬇ <span class="txt-ja">DL</span><span class="txt-zh">下載</span><span class="txt-sc">下载</span><span class="txt-en">Download</span></a>
-      </div>
+      <p class="modal-sub" style="margin-top:0;"><span class="txt-ja">下のフォームにご記入のうえ送信してください。内容は学校のメールに直接届きます。</span><span class="txt-zh">請填寫下方表單並送出，內容將直接送達學校信箱。</span><span class="txt-sc">请填写下方表单并送出，内容将直接送达学校信箱。</span><span class="txt-en">Please fill in the form below and submit. Your details will be sent directly to the school's email.</span></p>
 
-      <div class="modal-step-label"><span class="num">2</span><span class="txt-ja">記入済み様式をメールに添付して送信</span><span class="txt-zh">將填寫完成的表格以 Email 附加檔案寄出</span><span class="txt-sc">将填写完成的表格以 Email 附加文件寄出</span><span class="txt-en">Email the completed form as an attachment</span></div>
-      <div class="modal-download-box">
-        <p><span class="txt-ja">下記ボタンをクリックするとメールアプリが開きます。記入済みの様式ファイルを添付してから送信してください。</span><span class="txt-zh">點擊下方按鈕開啟您的郵件 App，請記得手動附加填寫完成的表格檔案後再送出。</span><span class="txt-sc">点击下方按钮开启您的邮件 App，请记得手动附加填写完成的表格文件后再送出。</span><span class="txt-en">Clicking the button opens your email app. Please attach the completed form file yourself before sending.</span></p>
-        <a class="docs-dl-btn" id="modalEmailAttachBtn" href="#">✉ <span class="txt-ja">メールを開く</span><span class="txt-zh">開啟郵件</span><span class="txt-sc">开启邮件</span><span class="txt-en">Open Email</span></a>
+      <div id="modalFormFields" style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 14px;">
+        <div style="grid-column: 1 / -1;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">お名前</span><span class="txt-zh">姓名</span><span class="txt-sc">姓名</span><span class="txt-en">Name</span><span class="txt-hi">नाम</span><span class="txt-ne">नाम</span><span class="txt-si">නම</span><span class="txt-vi">Họ và tên</span><span class="txt-uk">Ім'я</span><span class="txt-id">Nama</span><span class="txt-ru">Имя</span><span class="txt-my">အမည်</span></label>
+          <input type="text" id="mf_name" name="name" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">国籍</span><span class="txt-zh">國籍</span><span class="txt-sc">国籍</span><span class="txt-en">Nationality</span><span class="txt-hi">राष्ट्रीयता</span><span class="txt-ne">राष्ट्रियता</span><span class="txt-si">ජාතිකත්වය</span><span class="txt-vi">Quốc tịch</span><span class="txt-uk">Громадянство</span><span class="txt-id">Kewarganegaraan</span><span class="txt-ru">Гражданство</span><span class="txt-my">နိုင်ငံသား</span></label>
+          <input type="text" id="mf_nationality" name="nationality" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">生年月日</span><span class="txt-zh">出生年月日</span><span class="txt-sc">出生年月日</span><span class="txt-en">Date of Birth</span><span class="txt-hi">जन्म तिथि</span><span class="txt-ne">जन्म मिति</span><span class="txt-si">උපන් දිනය</span><span class="txt-vi">Ngày sinh</span><span class="txt-uk">Дата народження</span><span class="txt-id">Tanggal Lahir</span><span class="txt-ru">Дата рождения</span><span class="txt-my">မွေးသက္ကရာဇ်</span></label>
+          <input type="date" id="mf_dob" name="dob" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">性別</span><span class="txt-zh">性別</span><span class="txt-sc">性别</span><span class="txt-en">Gender</span><span class="txt-hi">लिंग</span><span class="txt-ne">लिङ्ग</span><span class="txt-si">ස්ත්‍රී පුරුෂ භාවය</span><span class="txt-vi">Giới tính</span><span class="txt-uk">Стать</span><span class="txt-id">Jenis Kelamin</span><span class="txt-ru">Пол</span><span class="txt-my">ကျား/မ</span></label>
+          <select id="mf_gender" name="gender" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; background:var(--bg-white);">
+            <option value=""></option>
+            <option value="male" data-i18n-opt='{"ja":"男性","zh":"男","sc":"男","en":"Male","hi":"पुरुष","ne":"पुरुष","si":"පුරුෂ","vi":"Nam","uk":"Чоловіча","id":"Laki-laki","ru":"Мужской","my":"အမျိုးသား"}'>男性</option>
+            <option value="female" data-i18n-opt='{"ja":"女性","zh":"女","sc":"女","en":"Female","hi":"महिला","ne":"महिला","si":"ස්ත්‍රී","vi":"Nữ","uk":"Жіноча","id":"Perempuan","ru":"Женский","my":"အမျိုးသမီး"}'>女性</option>
+            <option value="other" data-i18n-opt='{"ja":"その他","zh":"其他","sc":"其他","en":"Other","hi":"अन्य","ne":"अन्य","si":"වෙනත්","vi":"Khác","uk":"Інше","id":"Lainnya","ru":"Другое","my":"အခြား"}'>その他</option>
+          </select>
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">職業</span><span class="txt-zh">職業</span><span class="txt-sc">职业</span><span class="txt-en">Occupation</span><span class="txt-hi">व्यवसाय</span><span class="txt-ne">पेशा</span><span class="txt-si">රැකියාව</span><span class="txt-vi">Nghề nghiệp</span><span class="txt-uk">Професія</span><span class="txt-id">Pekerjaan</span><span class="txt-ru">Профессия</span><span class="txt-my">အလုပ်အကိုင်</span></label>
+          <input type="text" id="mf_occupation" name="occupation" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">現住所</span><span class="txt-zh">現居地址</span><span class="txt-sc">现居地址</span><span class="txt-en">Current Address</span><span class="txt-hi">वर्तमान पता</span><span class="txt-ne">हालको ठेगाना</span><span class="txt-si">වර්තමාන ලිපිනය</span><span class="txt-vi">Địa chỉ hiện tại</span><span class="txt-uk">Поточна адреса</span><span class="txt-id">Alamat Saat Ini</span><span class="txt-ru">Текущий адрес</span><span class="txt-my">လက်ရှိနေရပ်လိပ်စာ</span></label>
+          <input type="text" id="mf_address" name="address" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">電話番号</span><span class="txt-zh">電話號碼</span><span class="txt-sc">电话号码</span><span class="txt-en">Phone Number</span><span class="txt-hi">फ़ोन नंबर</span><span class="txt-ne">फोन नम्बर</span><span class="txt-si">දුරකථන අංකය</span><span class="txt-vi">Số điện thoại</span><span class="txt-uk">Номер телефону</span><span class="txt-id">Nomor Telepon</span><span class="txt-ru">Номер телефона</span><span class="txt-my">ဖုန်းနံပါတ်</span></label>
+          <input type="tel" id="mf_phone" name="phone" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);">Email</label>
+          <input type="email" id="mf_email" name="email" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">最終学歴</span><span class="txt-zh">最高學歷</span><span class="txt-sc">最高学历</span><span class="txt-en">Highest Education</span><span class="txt-hi">उच्चतम शिक्षा</span><span class="txt-ne">उच्चतम शिक्षा</span><span class="txt-si">ඉහළම අධ්‍යාපනය</span><span class="txt-vi">Trình độ học vấn cao nhất</span><span class="txt-uk">Найвища освіта</span><span class="txt-id">Pendidikan Terakhir</span><span class="txt-ru">Наивысшее образование</span><span class="txt-my">အမြင့်ဆုံးပညာအရည်အချင်း</span></label>
+          <input type="text" id="mf_education" name="education" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div>
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">日本語レベル</span><span class="txt-zh">日語程度</span><span class="txt-sc">日语程度</span><span class="txt-en">Japanese Level</span><span class="txt-hi">जापानी स्तर</span><span class="txt-ne">जापानी स्तर</span><span class="txt-si">ජපන් මට්ටම</span><span class="txt-vi">Trình độ tiếng Nhật</span><span class="txt-uk">Рівень японської</span><span class="txt-id">Tingkat Bahasa Jepang</span><span class="txt-ru">Уровень японского</span><span class="txt-my">ဂျပန်ဘာသာအဆင့်</span></label>
+          <select id="mf_jplevel" name="jp_level" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; background:var(--bg-white);">
+            <option value=""></option>
+            <option value="N5">N5</option>
+            <option value="N4">N4</option>
+            <option value="N3">N3</option>
+            <option value="N2">N2</option>
+            <option value="N1">N1</option>
+            <option value="none" data-i18n-opt='{"ja":"未学習","zh":"未學習","sc":"未学习","en":"None","hi":"अध्ययन नहीं किया","ne":"अध्ययन गरेको छैन","si":"ඉගෙනගෙන නැත","vi":"Chưa học","uk":"Не вивчав(ла)","id":"Belum belajar","ru":"Не изучал(а)","my":"မသင်ကြားရသေးပါ"}'>未学習</option>
+          </select>
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">日本語学習期間</span><span class="txt-zh">日語學習期間</span><span class="txt-sc">日语学习时间</span><span class="txt-en">Japanese Study Duration</span><span class="txt-hi">जापानी सीखने की अवधि</span><span class="txt-ne">जापानी सिकाइ अवधि</span><span class="txt-si">ජපන් ඉගෙනුම් කාලය</span><span class="txt-vi">Thời gian học tiếng Nhật</span><span class="txt-uk">Тривалість вивчення японської</span><span class="txt-id">Durasi Belajar Bahasa Jepang</span><span class="txt-ru">Продолжительность изучения японского</span><span class="txt-my">ဂျပန်ဘာသာသင်ယူမှုကာလ</span></label>
+          <input type="text" id="mf_jpperiod" name="jp_period" placeholder="例：6ヶ月" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;">
+        </div>
+        <div style="grid-column: 1 / -1;">
+          <label style="display:block; font-size:13px; font-weight:700; margin-bottom:4px; color:var(--ink-main);"><span class="txt-ja">備考欄</span><span class="txt-zh">備註</span><span class="txt-sc">备注</span><span class="txt-en">Remarks</span><span class="txt-hi">टिप्पणी</span><span class="txt-ne">टिप्पणी</span><span class="txt-si">සටහන්</span><span class="txt-vi">Ghi chú</span><span class="txt-uk">Примітки</span><span class="txt-id">Catatan</span><span class="txt-ru">Примечания</span><span class="txt-my">မှတ်ချက်</span></label>
+          <textarea id="mf_remarks" name="remarks" rows="3" required style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
+        </div>
       </div>
-
-      <div class="modal-step-label"><span class="num">3</span><span class="txt-ja">連絡先情報を送信</span><span class="txt-zh">送出聯絡資訊</span><span class="txt-sc">送出联络资讯</span><span class="txt-en">Submit your contact info</span></div>
-      <p class="modal-file-hint" style="text-align:left; margin: 0 0 10px;"><span class="txt-ja">下のボタンを押すと、お問い合わせ内容が学校のメールに直接届きます（添付ファイルは含まれません。上記メールで別途お送りください）。</span><span class="txt-zh">按下方按鈕，會將您的詢問內容直接送到學校信箱（不含檔案，檔案請依上方步驟另用 Email 寄送）。</span><span class="txt-sc">按下方按钮，会将您的询问内容直接送到学校信箱（不含文件，文件请依上方步骤另用 Email 寄送）。</span><span class="txt-en">The button below sends your inquiry details directly to the school's email (no file included — please send the file separately via the email step above).</span></p>
 
       <button class="btn btn-primary" style="width:100%; justify-content:center; margin-top:6px;" id="modalSubmit">Submit Inquiry →</button>
       <p class="modal-submit-note">
@@ -5304,6 +5418,15 @@
         // 若該語言字典缺少此key（例如越南文/俄文尚未覆蓋全部詞條），退回英文而非留空
         el.textContent = i18nDict['en'][key];
       }
+    });
+
+    // 諮詢表單中的下拉選單（性別／日本語レベル）依語言切換選項文字
+    // <option> 標籤無法像其他元素一樣放多語言 <span>，改用 data-i18n-opt 屬性儲存各語言翻譯
+    document.querySelectorAll('#modalFormFields option[data-i18n-opt]').forEach(opt => {
+      try {
+        const dict = JSON.parse(opt.getAttribute('data-i18n-opt'));
+        opt.textContent = dict[langCode] || dict['en'] || opt.textContent;
+      } catch (e) { /* 若解析失敗則保留原文字，不影響其他功能 */ }
     });
 
     // 讓目前使用中的語言按鈕有明顯的選中樣式
@@ -5775,6 +5898,50 @@
 
     if (errorNote) errorNote.classList.remove('show');
 
+    // 讀取表單欄位內容
+    const fVal = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+    const name = fVal('mf_name');
+    const nationality = fVal('mf_nationality');
+    const dob = fVal('mf_dob');
+    const gender = fVal('mf_gender');
+    const occupation = fVal('mf_occupation');
+    const address = fVal('mf_address');
+    const phone = fVal('mf_phone');
+    const email = fVal('mf_email');
+    const education = fVal('mf_education');
+    const jpLevel = fVal('mf_jplevel');
+    const jpPeriod = fVal('mf_jpperiod');
+    const remarks = fVal('mf_remarks');
+
+    if (!name || !nationality || !dob || !gender || !occupation || !address || !phone || !email || !education || !jpLevel || !jpPeriod || !remarks) {
+      if (errorNote) {
+        errorNote.querySelectorAll('span').forEach(s => s.style.display = 'none');
+        errorNote.textContent = '請填寫所有欄位 / Please fill in all fields / すべての項目をご入力ください';
+        errorNote.classList.add('show');
+      }
+      return;
+    }
+
+    const genderSel = document.getElementById('mf_gender');
+    const genderText = genderSel && genderSel.selectedOptions[0] ? genderSel.selectedOptions[0].textContent : '';
+    const jpLevelSel = document.getElementById('mf_jplevel');
+    const jpLevelText = jpLevelSel && jpLevelSel.selectedOptions[0] ? jpLevelSel.selectedOptions[0].textContent : '';
+
+    const fieldsSummary = [
+      '姓名 / Name: ' + name,
+      '國籍 / Nationality: ' + fVal('mf_nationality'),
+      '出生年月日 / DOB: ' + fVal('mf_dob'),
+      '性別 / Gender: ' + genderText,
+      '職業 / Occupation: ' + fVal('mf_occupation'),
+      '現居地址 / Address: ' + fVal('mf_address'),
+      '電話號碼 / Phone: ' + fVal('mf_phone'),
+      'Email: ' + email,
+      '最高學歷 / Education: ' + fVal('mf_education'),
+      '日語程度 / Japanese Level: ' + jpLevelText,
+      '日語學習期間 / Japanese Study Duration: ' + fVal('mf_jpperiod'),
+      '備註 / Remarks: ' + fVal('mf_remarks')
+    ].join('\n');
+
     const originalLabel = modalSubmit.textContent;
     modalSubmit.disabled = true;
     modalSubmit.textContent = 'Sending... / 送出中…';
@@ -5782,10 +5949,11 @@
     try {
       const formData = new FormData();
       formData.append('access_key', '1aeef2dc-1e24-4efe-bda6-34c7d2145321');
-      formData.append('subject', '【Tokyo One 線上諮詢】' + subjectCoursePart);
-      formData.append('from_name', 'Tokyo One 官網表單 / Website Form');
+      formData.append('subject', '【Tokyo One 線上諮詢】' + subjectCoursePart + ' ' + name);
+      formData.append('from_name', name);
+      formData.append('email', email);
       if (selectedCourseInterest) formData.append('course_interest', selectedCourseInterest);
-      formData.append('message', courseLine + '透過官網線上諮詢表單送出（表格檔案將由使用者另以 Email 附加寄送） / Submitted via website inquiry form (form file to be emailed separately by the user as an attachment).');
+      formData.append('message', courseLine + fieldsSummary + '\n\n透過官網線上諮詢表單送出（表格檔案將由使用者另以 Email 附加寄送） / Submitted via website inquiry form (form file to be emailed separately by the user as an attachment).');
 
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
@@ -6125,6 +6293,76 @@
     });
   }
 
+  /* ---------- 隱しトリガー：「NEWS」の文字を素早く5回クリックすると
+       「新聞產生器」パネルが表示されます（校内スタッフ専用、一般のお客様には見えません） ---------- */
+  function initNewsGeneratorTrigger() {
+    const trigger = document.getElementById('newsSecretTrigger');
+    const panel = document.getElementById('newsGeneratorPanel');
+    if (!trigger || !panel) return;
+
+    let clickCount = 0;
+    let resetTimer = null;
+
+    trigger.addEventListener('click', () => {
+      clickCount++;
+      clearTimeout(resetTimer);
+      resetTimer = setTimeout(() => { clickCount = 0; }, 1500);
+
+      if (clickCount >= 5) {
+        clickCount = 0;
+        panel.style.display = (panel.style.display === 'none' || !panel.style.display) ? 'block' : 'none';
+      }
+    });
+  }
+
+  // JS の文字列リテラル用にエスケープ（バックスラッシュ・引用符・改行を安全な形に変換）
+  function jsStringEscape(str) {
+    return String(str || '')
+      .replace(/\\/g, '\\\\')
+      .replace(/'/g, "\\'")
+      .replace(/\n/g, '\\n')
+      .replace(/\r/g, '');
+  }
+
+  function initNewsGenerator() {
+    const genBtn = document.getElementById('ngGenerateBtn');
+    if (!genBtn) return;
+
+    genBtn.addEventListener('click', () => {
+      const date = document.getElementById('ngDate').value;
+      const category = document.getElementById('ngCategory').value;
+      const title = document.getElementById('ngTitle').value.trim();
+      const summary = document.getElementById('ngSummary').value.trim();
+      const content = document.getElementById('ngContent').value.trim();
+      const image = document.getElementById('ngImage').value.trim();
+      const linkUrl = document.getElementById('ngLinkUrl').value.trim();
+      const linkLabel = document.getElementById('ngLinkLabel').value.trim();
+
+      const outputWrap = document.getElementById('ngOutputWrap');
+      const output = document.getElementById('ngOutput');
+
+      if (!date || !title || !summary) {
+        alert('請至少填寫「日期」「標題」「摘要」這三項，其餘為選填。');
+        return;
+      }
+
+      let code = '  {\n';
+      code += `    date: '${jsStringEscape(date)}',\n`;
+      code += `    category: '${category}',\n`;
+      code += `    title: '${jsStringEscape(title)}',\n`;
+      code += `    summary: '${jsStringEscape(summary)}'`;
+      if (content) code += `,\n    content: '${jsStringEscape(content)}'`;
+      if (image) code += `,\n    image: '${jsStringEscape(image)}'`;
+      if (linkUrl) code += `,\n    link: { type: 'url', url: '${jsStringEscape(linkUrl)}', label: '${jsStringEscape(linkLabel || '詳細を見る')}' }`;
+      code += '\n  },';
+
+      output.value = code;
+      outputWrap.style.display = 'block';
+      output.focus();
+      output.select();
+    });
+  }
+
   /* ---------- 「位置を測定する」ツール：マップをクリックすると座標を表示 ---------- */
   function initMapPinTool() {
     const btn = document.getElementById('mapPinModeBtn');
@@ -6245,6 +6483,8 @@
   initMapHotspots();
   initMapPinTool();
   initSecretMapToolTrigger();
+  initNewsGeneratorTrigger();
+  initNewsGenerator();
 </script>
   <script>
     /* ===========================================================
