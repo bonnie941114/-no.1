@@ -26,31 +26,70 @@
   .block{ border-top:1px solid var(--line); padding:16px 18px; }
   .block .label{ font-size:13px; color:var(--soft); margin-bottom:8px; }
   .block .label code{ background:var(--bg); padding:1px 5px; border-radius:4px; }
+  .jump-link{ color:var(--accent); text-decoration:none; font-weight:700; }
+  .jump-link:hover{ text-decoration:underline; }
+  .ctx-group-header{ background:#EFEAD8; color:var(--ink); font-size:13px; font-weight:700; padding:8px 18px; border-top:1px solid var(--line); position:sticky; top:0; }
   .langrow{ display:grid; grid-template-columns:90px 1fr; gap:10px; align-items:start; margin-bottom:6px; }
   .langrow label{ font-size:13px; color:var(--soft); padding-top:8px; }
   .langrow textarea{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:inherit; font-size:14px; resize:vertical; min-height:38px; }
   .langrow textarea.changed{ border-color:var(--accent); background:#FFF6F5; }
   .hidden{ display:none !important; }
-  .help{ max-width:980px; margin:16px auto; padding:14px 18px; background:#FFF6E0; border:1px solid #E9D9A0; border-radius:8px; font-size:14px; line-height:1.7; }
+  .steps{ max-width:980px; margin:16px auto 0; display:grid; grid-template-columns:repeat(6,1fr); gap:10px; }
+  .step-card{ background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 12px; text-align:center; }
+  .step-card .num{ width:26px; height:26px; border-radius:50%; background:var(--ink); color:#fff; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; margin:0 auto 8px; }
+  .step-card .icon{ font-size:22px; margin-bottom:6px; }
+  .step-card .txt{ font-size:12.5px; line-height:1.5; color:var(--soft); }
+  @media (max-width: 800px){ .steps{ grid-template-columns:repeat(3,1fr); } }
+  @media (max-width: 500px){ .steps{ grid-template-columns:repeat(2,1fr); } }
+  .faq{ max-width:980px; margin:12px auto; }
+  .faq details{ background:#fff; border:1px solid var(--line); border-radius:8px; margin-bottom:6px; padding:0; }
+  .faq summary{ padding:10px 16px; font-size:13.5px; font-weight:700; cursor:pointer; }
+  .faq .faq-body{ padding:0 16px 12px; font-size:13.5px; color:var(--soft); line-height:1.7; }
+  .unsaved-banner{ position:sticky; top:64px; z-index:9; background:#FFF0EE; border-bottom:1px solid #F0C7C2; color:var(--accent); font-size:13px; padding:8px 20px; text-align:center; font-weight:700; display:none; }
 </style>
 </head>
 <body>
 
 <header>
   <h1>📝 Tokyo One 內容編輯器</h1>
-  <input type="text" id="searchBox" placeholder="搜尋文字（可用日文/中文關鍵字）…">
+  <input type="text" id="searchBox" placeholder="搜尋文字或標題（例如：學費、宿舍、入學）…">
   <div class="spacer"></div>
   <span id="status"></span>
   <button id="downloadBtn" disabled>下載更新後的 content.json</button>
 </header>
 
-<div class="help">
-  <b>使用方式：</b>
-  ① 用上面的搜尋框找到想改的文字（可以打日文或中文關鍵字）　
-  ② 直接在欄位裡改字　
-  ③ 改完按右上角「下載更新後的 content.json」　
-  ④ 打開 GitHub 網站，把下載的檔案拖曳到原本 <code>data/content.json</code> 的位置覆蓋，按下 <b>Commit changes</b> 即完成上線。
-  <br>只要沒按下載，或沒有把檔案上傳覆蓋，網站都不會有任何變動，可以放心嘗試。
+<div class="steps">
+  <div class="step-card"><div class="num">1</div><div class="icon">🔍</div><div class="txt">用搜尋框找到<br>想改的文字或標題</div></div>
+  <div class="step-card"><div class="num">2</div><div class="icon">🔗</div><div class="txt">點「在網站上查看」<br>確認是不是要改的地方</div></div>
+  <div class="step-card"><div class="num">3</div><div class="icon">✏️</div><div class="txt">直接在欄位裡<br>打字修改</div></div>
+  <div class="step-card"><div class="num">4</div><div class="icon">⬇️</div><div class="txt">按右上角<br>「下載」按鈕</div></div>
+  <div class="step-card"><div class="num">5</div><div class="icon">📂</div><div class="txt">把下載的檔案拖到<br>GitHub 的 data 資料夾</div></div>
+  <div class="step-card"><div class="num">6</div><div class="icon">✅</div><div class="txt">按 Commit changes<br>約 1 分鐘後上線</div></div>
+</div>
+
+<div class="unsaved-banner" id="unsavedBanner">⚠️ 目前有尚未下載的修改，請記得按右上角「下載」按鈕，否則離開這頁會遺失變更</div>
+
+<div class="faq">
+  <details>
+    <summary>❓ 怎麼確定這段文字是不是我要改的地方？</summary>
+    <div class="faq-body">每段文字上方都有一個「🔗 在網站上查看這段文字的位置」連結，點下去會開新分頁跳到真正的網站、自動切換到正確頁面，並用紅框標示出那段文字，方便您確認是不是要改的地方，不用再靠猜的。</div>
+  </details>
+  <details>
+    <summary>❓ 改完之後，什麼時候網站才會真的更新？</summary>
+    <div class="faq-body">下載檔案本身<b>不會</b>讓網站改變，一定要完成第 4、5 步（拖到 GitHub、按 Commit changes）才會真正上線，通常需要等待 30 秒到 1 分鐘讓 GitHub Pages 重新部署。</div>
+  </details>
+  <details>
+    <summary>❓ 為什麼有些段落只有一個欄位，沒有列出 12 種語言？</summary>
+    <div class="faq-body">少數文字（例如按鈕上的箭頭符號、聯絡電話、地圖標籤）本來就只有單一語言版本，這是正常的，不是資料遺失。</div>
+  </details>
+  <details>
+    <summary>❓ 改錯了想恢復原狀怎麼辦？</summary>
+    <div class="faq-body">在還沒按「下載」之前，直接重新整理這個網頁即可還原成目前線上的版本。如果已經上傳到 GitHub 且發現改錯了，GitHub 的每個檔案都有版本紀錄（History），可以點進去復原到上一個版本，資料不會真的遺失。</div>
+  </details>
+  <details>
+    <summary>❓ 可以同時改很多段文字，一次下載嗎？</summary>
+    <div class="faq-body">可以，這是建議的做法。修改過的欄位會自動標成紅色框線，改完全部想改的地方後，只要按一次「下載」，所有修改都會包含在同一個檔案裡，只需要上傳、Commit 一次即可。</div>
+  </details>
 </div>
 
 <main id="app"><p style="text-align:center;color:#999;">載入中…</p></main>
@@ -102,9 +141,13 @@ function render(filter) {
     if (!items) return;
 
     const filtered = filter
-      ? items.filter(([cid, entry]) => entry.mono
-          ? entry.value.toLowerCase().includes(filter)
-          : Object.values(entry.text).some(v => v.toLowerCase().includes(filter)))
+      ? items.filter(([cid, entry]) => {
+          const ctx = (entry.context || '').toLowerCase();
+          if (ctx.includes(filter)) return true;
+          return entry.mono
+            ? entry.value.toLowerCase().includes(filter)
+            : Object.values(entry.text).some(v => v.toLowerCase().includes(filter));
+        })
       : items;
     if (filter && filtered.length === 0) return;
 
@@ -115,13 +158,27 @@ function render(filter) {
     summary.innerHTML = `<span>${SECTION_LABELS[sectionKey] || sectionKey}</span><span class="count">${filtered.length} 段文字</span>`;
     details.appendChild(summary);
 
-    filtered.forEach(([cid, entry]) => {
+    // 依上下文標題再分組，讓同一個標題底下的內容聚在一起顯示（類似目錄結構）
+    const byContext = new Map();
+    filtered.forEach(item => {
+      const ctx = item[1].context || '（無對應標題）';
+      if (!byContext.has(ctx)) byContext.set(ctx, []);
+      byContext.get(ctx).push(item);
+    });
+
+    byContext.forEach((groupItems, ctxLabel) => {
+      const groupHeader = document.createElement('div');
+      groupHeader.className = 'ctx-group-header';
+      groupHeader.textContent = '📍 ' + ctxLabel;
+      details.appendChild(groupHeader);
+
+      groupItems.forEach(([cid, entry]) => {
       const block = document.createElement('div');
       block.className = 'block';
 
       if (entry.mono) {
         // 單一語言段落（沒有其他語言版本，例如按鈕圖示文字、聯絡資訊、地圖標籤等）
-        block.innerHTML = `<div class="label">編號 <code>${cid}</code> — <span style="color:#999;">（僅單一語言，無多語言版本）</span></div>`;
+        block.innerHTML = `<div class="label"><a class="jump-link" href="index.html?jump=${cid}" target="_blank" rel="noopener">🔗 在網站上查看這段文字的位置</a> <span style="color:#999;">（僅單一語言，無多語言版本）</span></div>`;
         const row = document.createElement('div');
         row.className = 'langrow';
         const ta = document.createElement('textarea');
@@ -138,7 +195,8 @@ function render(filter) {
       }
 
       const jaPreview = (entry.text.ja || Object.values(entry.text)[0] || '').replace(/<[^>]+>/g,'').slice(0, 40);
-      block.innerHTML = `<div class="label">編號 <code>${cid}</code> — ${jaPreview}</div>`;
+      const zhPreview = (entry.text.zh || '').replace(/<[^>]+>/g,'').slice(0, 40);
+      block.innerHTML = `<div class="label"><a class="jump-link" href="index.html?jump=${cid}" target="_blank" rel="noopener">🔗 在網站上查看這段文字的位置</a> — ${jaPreview}${zhPreview ? ' ／ ' + zhPreview : ''}</div>`;
 
       Object.keys(LANG_LABELS).forEach(lang => {
         if (!(lang in entry.text)) return;
@@ -155,6 +213,7 @@ function render(filter) {
         block.appendChild(row);
       });
       details.appendChild(block);
+      });
     });
 
     app.appendChild(details);
@@ -180,7 +239,16 @@ function onEdit(e) {
   if (isChanged) changedKeys.add(key); else changedKeys.delete(key);
   document.getElementById('status').textContent = changedKeys.size ? `已修改 ${changedKeys.size} 個欄位` : '';
   document.getElementById('downloadBtn').disabled = changedKeys.size === 0;
+  document.getElementById('unsavedBanner').style.display = changedKeys.size ? 'block' : 'none';
 }
+
+// 有未下載的修改時，離開／關閉頁面前跳出瀏覽器內建的確認提示，避免不小心遺失修改
+window.addEventListener('beforeunload', (e) => {
+  if (changedKeys.size > 0) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+});
 
 document.getElementById('searchBox').addEventListener('input', (e) => {
   render(e.target.value.trim().toLowerCase());
@@ -196,6 +264,12 @@ document.getElementById('downloadBtn').addEventListener('click', () => {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
+
+  // 下載後，提醒重點改成「請記得上傳」，而不是「請記得下載」
+  document.getElementById('unsavedBanner').textContent = '✅ 已下載 content.json，別忘了到 GitHub 把它拖到 data 資料夾覆蓋、按 Commit changes 才會真正上線';
+  document.getElementById('unsavedBanner').style.background = '#EAF6EE';
+  document.getElementById('unsavedBanner').style.borderColor = '#BFE3C9';
+  document.getElementById('unsavedBanner').style.color = 'var(--ok)';
 });
 </script>
 
