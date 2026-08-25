@@ -5260,6 +5260,7 @@
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const shutterWrap = document.getElementById('loading-shutter-wrap');
   const introAlreadyPlayed = sessionStorage.getItem('tokyoOneIntroPlayed') === '1';
+  const skipIntroForJump = new URLSearchParams(window.location.search).has('jump'); // 從編輯器「在網站上查看」跳轉過來時，直接略過開頭動畫
   let introSkipped = false;
 
   function finishIntroNow(instant) {
@@ -5286,8 +5287,8 @@
     }
   }
 
-  if (prefersReducedMotion || introAlreadyPlayed) {
-    // 無障礙偏好、或本次瀏覽階段已經看過一次動畫：直接跳過，不再讓熟悉的訪客等待
+  if (prefersReducedMotion || introAlreadyPlayed || skipIntroForJump) {
+    // 無障礙偏好、本次瀏覽階段已經看過一次動畫、或從編輯器跳轉過來：直接跳過，不再讓熟悉的訪客等待
     if (shutterWrap) shutterWrap.classList.add('hidden');
     introSkipped = true;
   } else {
