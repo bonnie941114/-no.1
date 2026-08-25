@@ -9781,5 +9781,23 @@
   "mono": true,
   "value": "© 2026 Tokyo One. All rights reserved.",
   "context": "CAMPUS DESK"
+ },
+ "g0800": {
+  "section": "other",
+  "context": null,
+  "text": {
+   "ja": "＊は必須項目です（備考欄のみ任意）",
+   "zh": "＊為必填欄位（僅備註欄可不填）",
+   "sc": "＊为必填栏位（仅备注栏可不填）",
+   "en": "* indicates a required field (Remarks is optional)",
+   "hi": "* आवश्यक फ़ील्ड को दर्शाता है (टिप्पणी वैकल्पिक है)",
+   "ne": "* अनिवार्य फिल्ड जनाउँछ (टिप्पणी वैकल्पिक हो)",
+   "si": "* අවශ්‍ය ක්ෂේත්‍රයක් දක්වයි (සටහන් විකල්පයකි)",
+   "vi": "* biểu thị trường bắt buộc (Ghi chú không bắt buộc)",
+   "uk": "* позначає обов'язкове поле (Примітки необов'язкові)",
+   "id": "* menunjukkan kolom wajib diisi (Catatan bersifat opsional)",
+   "ru": "* означает обязательное поле (Примечания необязательны)",
+   "my": "* သည် ဖြည့်ရန်လိုအပ်သောနေရာကိုဖော်ပြသည် (မှတ်ချက်မှာ မဖြည့်လည်းရပါသည်)"
+  }
  }
 }
