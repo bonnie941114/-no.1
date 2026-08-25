@@ -6353,7 +6353,9 @@
         var key = cid.slice(2);
         var langMap = content[cid].text;
         Object.keys(langMap).forEach(function (lang) {
-          if (typeof window.i18nDict !== 'undefined' && i18nDict[lang]) {
+          // 注意：i18nDict 是用 const 宣告在最外層，瀏覽器不會自動把它掛到 window 上，
+          // 所以這裡直接用變數名稱本身（同一份文件內的頂層 script 彼此共用同一個全域作用域，可以直接存取）
+          if (typeof i18nDict !== 'undefined' && i18nDict[lang]) {
             i18nDict[lang][key] = langMap[lang];
             updatedAnyDict = true;
           }
