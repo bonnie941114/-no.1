@@ -1887,13 +1887,15 @@
 <input id="ngLinkLabel" placeholder="例：詳細資料をダウンロード" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;" type="text"/>
 </div>
 </div>
-<button class="btn btn-primary" data-cid="g0534" id="ngGenerateBtn" style="margin-bottom:12px;" type="button">ニュースコードを生成 →</button>
+<button class="btn btn-primary" data-cid="g0534" id="ngGenerateBtn" style="margin-bottom:12px;" type="button">news.jsonを生成してダウンロード →</button>
 <div id="ngOutputWrap" style="display:none;">
-<p data-cid="g0535" style="margin:0 0 6px; font-size:13px; font-weight:700;">①下の枠をクリックすると自動的に全選択されます。Ctrl+C（またはCmd+C）でコピーしてください：</p>
+<p data-cid="g0535" style="margin:0 0 6px; font-size:13px; font-weight:700;">✅ ダウンロード完了！新しいニュースを含む news.json が保存されました（内容は下記でも確認できます）：</p>
 <textarea id="ngOutput" onclick="this.select();" readonly="" style="width:100%; min-height:160px; padding:12px; border:1px solid var(--line); border-radius:8px; font-family:monospace; font-size:12.5px; background:var(--bg-white); white-space:pre; resize:vertical;"></textarea>
 <p style="margin:10px 0 0; font-size:13px; color:var(--ink-soft); line-height:1.7;"><span data-cid="g0536">
-          ②ウェブページの原本ファイル（.html）を開き、</span><code data-cid="g0537" style="background:var(--bg-washi); padding:1px 5px; border-radius:4px;">let newsData = [</code><span data-cid="g0538"> を検索し、コピーした内容をこの行のすぐ下（</span><code data-cid="g0539" style="background:var(--bg-washi); padding:1px 5px; border-radius:4px;">[</code><span data-cid="g0540"> の直後）に貼り付けてください。</span><br/><span data-cid="g0541">
-          ③保存後、GitHubに再アップロードすれば、ニュースが自動的に一番上に表示されます。
+          次の手順：①GitHubのサイトを開き、</span><code data-cid="g0537" style="background:var(--bg-washi); padding:1px 5px; border-radius:4px;">data</code><span data-cid="g0538"> フォルダに移動してください。</span><br/><span data-cid="g0539">
+          ②ダウンロードした news.json をこのページにドラッグ＆ドロップしてください（同名ファイルの上書き確認が出ます）。</span><br/><span data-cid="g0540">
+          ③「Commit changes」ボタンを押せば完了です。30秒〜1分ほどでサイトに反映されます。</span><br/><span data-cid="g0541">
+          ※ editor.html を使う場合と全く同じアップロード方法です。
         </span></p>
 </div>
 </div>
@@ -5440,6 +5442,7 @@
       history.pushState({ pane: targetPaneId }, '', '#' + targetPaneId);
     }
   }
+  window.switchModule = switchModule; // 讓外部（例如編輯器的「在網站上查看」跳轉功能）可以呼叫這個函式
 
   // 記住頁面載入時的初始狀態，讓一路上一頁最終能回到首頁
   if (!history.state) {
@@ -6091,7 +6094,7 @@
     const genBtn = document.getElementById('ngGenerateBtn');
     if (!genBtn) return;
 
-    genBtn.addEventListener('click', () => {
+    genBtn.addEventListener('click', async () => {
       const date = document.getElementById('ngDate').value;
       const category = document.getElementById('ngCategory').value;
       const title = document.getElementById('ngTitle').value.trim();
@@ -6109,20 +6112,35 @@
         return;
       }
 
-      let code = '  {\n';
-      code += `    date: '${jsStringEscape(date)}',\n`;
-      code += `    category: '${category}',\n`;
-      code += `    title: '${jsStringEscape(title)}',\n`;
-      code += `    summary: '${jsStringEscape(summary)}'`;
-      if (content) code += `,\n    content: '${jsStringEscape(content)}'`;
-      if (image) code += `,\n    image: '${jsStringEscape(image)}'`;
-      if (linkUrl) code += `,\n    link: { type: 'url', url: '${jsStringEscape(linkUrl)}', label: '${jsStringEscape(linkLabel || '詳細を見る')}' }`;
-      code += '\n  },';
+      const newItem = { date, category, title, summary };
+      if (content) newItem.content = content;
+      if (image) newItem.image = image;
+      if (linkUrl) newItem.link = { type: 'url', url: linkUrl, label: linkLabel || '詳細を見る' };
 
-      output.value = code;
+      // 讀取目前線上的 data/news.json，把新項目加進去（讀取失敗則視為空清單，仍可繼續）
+      let list = [];
+      try {
+        const res = await fetch('data/news.json', { cache: 'no-store' });
+        if (res.ok) list = await res.json();
+      } catch (e) { /* 讀取失敗就從空清單開始，不中斷流程 */ }
+
+      list.unshift(newItem); // 新項目放最前面（畫面上會依日期自動排序，這裡順序不影響顯示）
+
+      const jsonText = JSON.stringify(list, null, 1);
+
+      // 直接觸發下載，檔名固定為 news.json，方便直接拖到 GitHub 覆蓋同名檔案
+      const blob = new Blob([jsonText], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'news.json';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+
+      output.value = jsonText;
       outputWrap.style.display = 'block';
-      output.focus();
-      output.select();
     });
   }
 
@@ -6350,6 +6368,43 @@
       }
     })
     .catch(function (err) { console.warn('讀取 data/content.json 失敗，畫面維持預設文字：', err); });
+})();
+
+// 【編輯器輔助】從 editor.html 點擊「在網站上查看」跳轉過來時，自動切換到正確分頁並標示出該段文字的位置
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var jumpCid = params.get('jump');
+  if (!jumpCid) return;
+
+  function locate() {
+    var el = document.querySelector('[data-cid="' + jumpCid + '"]');
+    if (!el) return;
+
+    // 找到該元素所在的分頁（view-pane），如果不是目前顯示中的分頁，先切換過去
+    var pane = el.closest('.view-pane');
+    if (pane && !pane.classList.contains('active') && typeof window.switchModule === 'function') {
+      window.switchModule(pane.id, false);
+    }
+
+    // 等版面切換動畫跑完再捲動，避免位置算錯
+    setTimeout(function () {
+      el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var originalOutline = el.style.outline;
+      var originalOffset = el.style.outlineOffset;
+      var originalBg = el.style.backgroundColor;
+      el.style.outline = '3px solid #D3232A';
+      el.style.outlineOffset = '3px';
+      el.style.backgroundColor = 'rgba(211,35,42,0.12)';
+      setTimeout(function () {
+        el.style.outline = originalOutline;
+        el.style.outlineOffset = originalOffset;
+        el.style.backgroundColor = originalBg;
+      }, 2600);
+    }, 350);
+  }
+
+  // 等 content.json 覆蓋完文字、頁面完全載入後再定位，避免捲動位置被文字置換打亂
+  window.addEventListener('load', function () { setTimeout(locate, 500); });
 })();
 </script>
 </body>
