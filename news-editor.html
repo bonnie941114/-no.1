@@ -1,0 +1,491 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tokyo One ニュース編集ツール</title>
+<style>
+  :root{ --ink:#232120; --soft:#5C5654; --line:#ddd6c8; --bg:#FCFBF7; --accent:#D3232A; --ok:#007A3B; --danger:#D64545; }
+  * { box-sizing: border-box; }
+  body{ margin:0; font-family:"Noto Sans TC","Hiragino Sans",sans-serif; background:#F3EFE2; color:var(--ink); }
+  header{ position:sticky; top:0; z-index:20; background:var(--ink); color:#fff; padding:14px 20px; display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  header h1{ font-size:16px; margin:0; white-space:nowrap; }
+  header .spacer{ flex:1; }
+  header button{ padding:10px 14px; border-radius:6px; border:none; font-weight:700; cursor:pointer; font-size:13px; white-space:nowrap; }
+  #fileBtn{ background:#3A7FE0; color:#fff; }
+  #downloadBtn{ background:var(--accent); color:#fff; }
+  #downloadBtn:disabled{ background:#999; cursor:not-allowed; }
+  #status{ font-size:12.5px; color:#ffe; }
+  #fileInput{ display:none; }
+  #fileName{ font-size:12px; color:#ddd; }
+  .lang-toggle{ display:flex; border:1px solid rgba(255,255,255,0.3); border-radius:6px; overflow:hidden; flex:none; }
+  .lang-toggle-btn{ background:transparent; color:#fff; border:none; padding:8px 12px; font-size:12.5px; cursor:pointer; font-weight:400 !important; border-radius:0 !important; }
+  .lang-toggle-btn.active{ background:#fff; color:var(--ink) !important; font-weight:700 !important; }
+  main{ max-width:880px; margin:0 auto; padding:20px; }
+  .unsaved-banner{ position:sticky; top:58px; z-index:19; background:#FFF0EE; border-bottom:1px solid #F0C7C2; color:var(--accent); font-size:13px; padding:8px 20px; text-align:center; font-weight:700; display:none; }
+  #loadingMsg{ text-align:center; color:#999; padding:20px 0; display:none; }
+  #app{ display:none; }
+  .errbox{ max-width:880px; margin:20px auto; background:#FFF0EE; border:1px solid #F0C7C2; color:var(--danger); padding:16px 18px; border-radius:10px; font-size:14px; line-height:1.6; display:none; }
+  .errbox .retry{ margin-top:10px; background:var(--accent); color:#fff; border:none; padding:8px 16px; border-radius:6px; font-weight:700; cursor:pointer; }
+  .startbar{ max-width:880px; margin:24px auto; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; display:none; }
+  .startbar button{ padding:14px 24px; border-radius:10px; border:1px solid var(--line); background:#fff; font-size:14.5px; font-weight:700; cursor:pointer; }
+  .startbar .primary{ background:var(--accent); color:#fff; border:none; }
+
+  .note{ background:#FFF8E6; border:1px solid #F0DFA6; color:#8A6D1D; font-size:12.5px; padding:10px 14px; border-radius:8px; margin-bottom:16px; line-height:1.7; }
+  .note code{ background:#fff; padding:1px 5px; border-radius:4px; }
+
+  .card{ background:#fff; border:1px solid var(--line); border-radius:12px; margin-bottom:16px; overflow:hidden; }
+  .card-head{ display:flex; align-items:center; gap:10px; padding:12px 16px; background:var(--bg); border-bottom:1px solid var(--line); }
+  .card-head .spacer{ flex:1; }
+  .card-head .del{ background:#FFF0EE; color:var(--danger); border:1px solid #F0C7C2; padding:6px 12px; border-radius:6px; font-size:12.5px; font-weight:700; cursor:pointer; }
+  .card-body{ padding:16px; }
+  .field-row{ display:flex; gap:14px; margin-bottom:12px; flex-wrap:wrap; }
+  .field{ flex:1; min-width:160px; }
+  .field label{ display:block; font-size:12px; color:var(--soft); margin-bottom:4px; font-weight:700; }
+  .field input[type=text], .field input[type=date], .field select{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:inherit; font-size:13.5px; background:#fff; }
+  .field textarea{ width:100%; padding:8px 10px; border:1px solid var(--line); border-radius:6px; font-family:inherit; font-size:13.5px; resize:vertical; min-height:36px; }
+  .field textarea.detail{ min-height:80px; }
+  .field textarea.imgpaths{ min-height:60px; font-family:ui-monospace,Consolas,monospace; font-size:12.5px; }
+
+  #addBtnWrap{ text-align:center; margin:20px 0 40px; }
+  #addBtn{ padding:12px 26px; font-size:14.5px; background:var(--ok); color:#fff; border:none; border-radius:8px; font-weight:700; cursor:pointer; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1 id="uiTitle"></h1>
+  <div class="spacer"></div>
+  <div class="lang-toggle">
+    <button type="button" id="uiLangJa" class="lang-toggle-btn">日本語</button>
+    <button type="button" id="uiLangZh" class="lang-toggle-btn">中文</button>
+  </div>
+  <span id="fileName"></span>
+  <input type="file" id="fileInput" accept=".json">
+  <button id="fileBtn" style="display:none;"></button>
+  <span id="status"></span>
+  <button id="downloadBtn" disabled></button>
+</header>
+
+<div class="unsaved-banner" id="unsavedBanner"></div>
+
+<div class="errbox" id="errBox"></div>
+
+<div class="startbar" id="startbar">
+  <input type="file" id="fileInput2" accept=".json">
+  <button class="primary" id="loadExistingBtn"></button>
+  <button id="startBlankBtn"></button>
+</div>
+
+<main>
+  <p id="loadingMsg"></p>
+  <div id="app">
+    <div class="note" id="noteBox"></div>
+    <div id="newsCards"></div>
+    <div id="addBtnWrap"><button id="addBtn"></button></div>
+  </div>
+</main>
+
+<script>
+'use strict';
+
+/* ============================================================
+   0. UI 語言字典
+   ============================================================ */
+var CATEGORY_OPTIONS = ['event', 'notice', 'admission'];
+var CATEGORY_LABEL = {
+  ja: { event: 'イベント', notice: 'お知らせ', admission: '募集' },
+  zh: { event: '活動', notice: '公告', admission: '招生' }
+};
+
+var UI_TEXT = {
+  ja: {
+    pageTitle: 'Tokyo One ニュース編集ツール',
+    header: '📰 Tokyo One ニュース編集ツール',
+    fileBtn: '📂 news.json を変更',
+    downloadBtn: '⬇️ 更新後の news.json をダウンロード',
+    loading: '自動で現在の news.json を読み込んでいます…',
+    autoLoadFail: '自動読み込みに失敗しました。下から手動でアップロードするか、初回利用の場合は「空白から始める」を選んでください。',
+    retryBtn: '🔄 もう一度自動読み込みを試す',
+    loadExistingBtn: '📂 現在の news.json をアップロードして編集',
+    startBlankBtn: '🆕 空白から始める（初回利用時）',
+    note: '💡 画像はこのツールからアップロードしません。先に画像ファイルを手動で GitHub の <code>images</code> フォルダにアップロードしてから、ファイル名（例：<code>images/news-2026-08-event.jpg</code>）を「画像パス」欄に貼り付けてください（1行に1枚）。<br>リンク（PDFダウンロードなど）も同様：先に <code>files</code> フォルダにファイルを置き、ここにはパスだけ入力します。',
+    addBtn: '＋ ニュースを1件追加',
+    cardTitle: function (n) { return 'ニュース #' + n; },
+    delBtn: '🗑 このニュースを削除',
+    delConfirm: function (title) { return 'このニュースを削除してよろしいですか？（' + title + '）'; },
+    untitled: '未入力',
+    labelDate: '日付',
+    labelCategory: '分類',
+    labelTitle: 'タイトル',
+    labelSummary: '概要（カードに表示される短い文章）',
+    labelDetail: '詳細内容（任意、ポップアップ表示用。未入力の場合は概要が表示されます）',
+    labelLinkUrl: 'リンクURL（任意、例：files/xxx.pdf または https://...）',
+    labelLinkLabel: 'リンクボタンの文言（任意）',
+    labelImages: '画像パス（任意、複数可、1行に1枚、例：images/news-2026-08-event.jpg）',
+    statusChanged: function (n) { return n + ' 件の未ダウンロードの変更'; },
+    unsavedWarn: '⚠️ まだダウンロードしていない変更があります。右上の「ダウンロード」ボタンを押してください。押さずにこのページを離れると変更内容が失われます',
+    unsavedDone: '✅ news.json をダウンロードしました。GitHub の data フォルダにアップロード／上書きし、Commit changes を押せば反映されます',
+    invalidJson: function (msg) { return '読み込みに失敗しました。有効な news.json ファイルではありません。\nエラー内容：' + msg; },
+    readErr: 'ファイルの読み込みに失敗しました。もう一度お試しください。',
+    requiredAlert: '「日付」「タイトル」「概要」は必須項目です。空欄のカードがあると保存できません。'
+  },
+  zh: {
+    pageTitle: 'Tokyo One 新聞編輯器',
+    header: '📰 Tokyo One 新聞編輯器',
+    fileBtn: '📂 更換 news.json',
+    downloadBtn: '⬇️ 下載更新後的 news.json',
+    loading: '正在自動讀取目前線上的 news.json…',
+    autoLoadFail: '自動讀取失敗，請改用下方手動上傳，或第一次使用時選「從空白開始」。',
+    retryBtn: '🔄 再試一次自動讀取',
+    loadExistingBtn: '📂 上傳目前的 news.json 來編輯',
+    startBlankBtn: '🆕 從空白開始（第一次使用）',
+    note: '💡 圖片不透過這個工具上傳。請先手動把圖片檔案上傳到 GitHub 的 <code>images</code> 資料夾，再回來這裡把檔名（例如 <code>images/news-2026-08-event.jpg</code>）貼進「圖片路徑」欄位，一行一張。<br>連結（例如下載 PDF）也一樣：檔案先放進 <code>files</code> 資料夾，這裡只填路徑。',
+    addBtn: '＋ 新增一則新聞',
+    cardTitle: function (n) { return '新聞 #' + n; },
+    delBtn: '🗑 刪除這則新聞',
+    delConfirm: function (title) { return '確定要刪除這則新聞嗎？（' + title + '）'; },
+    untitled: '未命名',
+    labelDate: '日期',
+    labelCategory: '分類',
+    labelTitle: '標題',
+    labelSummary: '摘要（會顯示在卡片上的短文字）',
+    labelDetail: '詳細內容（選填，點開彈窗才顯示。未填則顯示摘要）',
+    labelLinkUrl: '連結網址（選填，例如 files/xxx.pdf 或 https://...）',
+    labelLinkLabel: '連結按鈕文字（選填）',
+    labelImages: '圖片路徑（選填，可放多張，一行一張，例如 images/news-2026-08-event.jpg）',
+    statusChanged: function (n) { return '有 ' + n + ' 項尚未下載的修改'; },
+    unsavedWarn: '⚠️ 還有尚未下載的修改，請記得按右上角「下載」按鈕，否則離開頁面會遺失變更',
+    unsavedDone: '✅ 已下載 news.json，請上傳到 GitHub 的 data 資料夾覆蓋同名檔案、按 Commit changes 即可上線',
+    invalidJson: function (msg) { return '讀取失敗，這不是有效的 news.json 檔案。\n錯誤訊息：' + msg; },
+    readErr: '讀取檔案失敗，請再試一次。',
+    requiredAlert: '「日期」「標題」「摘要」為必填欄位，有空白卡片時無法下載。'
+  }
+};
+
+var uiLang = 'ja'; // 主要維護人員為日本人，預設日文
+
+var el = {
+  fileInput: document.getElementById('fileInput'),
+  fileInput2: document.getElementById('fileInput2'),
+  fileBtn: document.getElementById('fileBtn'),
+  fileName: document.getElementById('fileName'),
+  loadExistingBtn: document.getElementById('loadExistingBtn'),
+  startBlankBtn: document.getElementById('startBlankBtn'),
+  startbar: document.getElementById('startbar'),
+  downloadBtn: document.getElementById('downloadBtn'),
+  status: document.getElementById('status'),
+  banner: document.getElementById('unsavedBanner'),
+  errBox: document.getElementById('errBox'),
+  loadingMsg: document.getElementById('loadingMsg'),
+  app: document.getElementById('app'),
+  noteBox: document.getElementById('noteBox'),
+  cards: document.getElementById('newsCards'),
+  addBtn: document.getElementById('addBtn'),
+  title: document.getElementById('uiTitle'),
+  langJaBtn: document.getElementById('uiLangJa'),
+  langZhBtn: document.getElementById('uiLangZh')
+};
+
+var items = [];
+var changedCount = 0;
+var loaded = false;
+
+function renderChrome() {
+  var t = UI_TEXT[uiLang];
+  document.title = t.pageTitle;
+  el.title.textContent = t.header;
+  el.fileBtn.textContent = t.fileBtn;
+  el.downloadBtn.textContent = t.downloadBtn;
+  el.loadingMsg.textContent = t.loading;
+  el.loadExistingBtn.textContent = t.loadExistingBtn;
+  el.startBlankBtn.textContent = t.startBlankBtn;
+  el.noteBox.innerHTML = t.note;
+  el.addBtn.textContent = t.addBtn;
+
+  el.langJaBtn.classList.toggle('active', uiLang === 'ja');
+  el.langZhBtn.classList.toggle('active', uiLang === 'zh');
+
+  updateStatus();
+  if (loaded) renderCards();
+}
+function setUiLang(lang) { uiLang = lang; renderChrome(); }
+el.langJaBtn.addEventListener('click', function () { setUiLang('ja'); });
+el.langZhBtn.addEventListener('click', function () { setUiLang('zh'); });
+
+function todayISO(){
+  var d = new Date();
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+
+/* ============================================================
+   自動讀取 / 手動上傳 / 從空白開始
+   ============================================================ */
+function startWith(list) {
+  items = list;
+  loaded = true;
+  changedCount = 0;
+  el.startbar.style.display = 'none';
+  el.errBox.style.display = 'none';
+  el.loadingMsg.style.display = 'none';
+  el.fileBtn.style.display = 'inline-block';
+  el.app.style.display = 'block';
+  renderChrome();
+}
+
+function attemptAutoLoad() {
+  el.errBox.style.display = 'none';
+  el.startbar.style.display = 'none';
+  el.loadingMsg.style.display = 'block';
+  fetch('data/news.json', { cache: 'no-store' })
+    .then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    })
+    .then(function (data) {
+      if (!Array.isArray(data)) throw new Error('not an array');
+      startWith(mapFromJson(data));
+    })
+    .catch(function () {
+      showManualStart();
+    });
+}
+
+function showManualStart() {
+  el.loadingMsg.style.display = 'none';
+  el.startbar.style.display = 'flex';
+  el.errBox.style.display = 'block';
+  el.errBox.innerHTML = UI_TEXT[uiLang].autoLoadFail +
+    '<br><button class="retry" id="retryAutoBtn">' + UI_TEXT[uiLang].retryBtn + '</button>';
+  var retryBtn = document.getElementById('retryAutoBtn');
+  if (retryBtn) retryBtn.addEventListener('click', function () { attemptAutoLoad(); });
+}
+
+el.loadExistingBtn.addEventListener('click', function(){ el.fileInput2.click(); });
+el.startBlankBtn.addEventListener('click', function(){ startWith([]); });
+el.fileBtn.addEventListener('click', function(){ el.fileInput.click(); });
+
+function mapFromJson(data) {
+  return data.map(function (n) {
+    var images = n.images && n.images.length ? n.images.slice() : (n.image ? [n.image] : []);
+    return {
+      date: n.date || '',
+      category: n.category || 'event',
+      title: n.title || '',
+      summary: n.summary || '',
+      content: n.content || '',
+      images: images,
+      linkUrl: (n.link && n.link.url) || '',
+      linkLabel: (n.link && n.link.label) || ''
+    };
+  });
+}
+
+function handleFile(file) {
+  if (!file) return;
+  el.loadingMsg.style.display = 'block';
+  var reader = new FileReader();
+  reader.onload = function (e) {
+    var data;
+    try {
+      data = JSON.parse(e.target.result);
+      if (!Array.isArray(data)) throw new Error('news.json content must be an array');
+    } catch (err) {
+      el.loadingMsg.style.display = 'none';
+      alert(UI_TEXT[uiLang].invalidJson(err.message));
+      return;
+    }
+    el.loadingMsg.style.display = 'none';
+    el.fileName.textContent = file.name;
+    startWith(mapFromJson(data));
+  };
+  reader.onerror = function () {
+    el.loadingMsg.style.display = 'none';
+    alert(UI_TEXT[uiLang].readErr);
+  };
+  reader.readAsText(file, 'UTF-8');
+}
+el.fileInput.addEventListener('change', function (e) { if (e.target.files[0]) handleFile(e.target.files[0]); });
+el.fileInput2.addEventListener('change', function (e) { if (e.target.files[0]) handleFile(e.target.files[0]); });
+
+/* ============================================================
+   卡片渲染
+   ============================================================ */
+function renderCards() {
+  el.cards.innerHTML = '';
+  items.forEach(function (item, idx) {
+    el.cards.appendChild(buildCard(item, idx));
+  });
+}
+
+function buildCard(item, idx) {
+  var t = UI_TEXT[uiLang];
+  var card = document.createElement('div');
+  card.className = 'card';
+
+  var head = document.createElement('div');
+  head.className = 'card-head';
+  head.innerHTML = '<span style="font-weight:700;">' + t.cardTitle(idx + 1) + '</span><span class="spacer"></span>';
+  var delBtn = document.createElement('button');
+  delBtn.className = 'del';
+  delBtn.textContent = t.delBtn;
+  delBtn.addEventListener('click', function () {
+    if (confirm(t.delConfirm(item.title || t.untitled))) {
+      items.splice(idx, 1);
+      markChanged();
+      renderCards();
+    }
+  });
+  head.appendChild(delBtn);
+  card.appendChild(head);
+
+  var body = document.createElement('div');
+  body.className = 'card-body';
+
+  var row1 = document.createElement('div');
+  row1.className = 'field-row';
+  row1.appendChild(makeField(t.labelDate, 'date', item, 'date', 180));
+  row1.appendChild(makeCategoryField(t, item));
+  body.appendChild(row1);
+
+  body.appendChild(makeField(t.labelTitle, 'text', item, 'title', null, true));
+  body.appendChild(makeField(t.labelSummary, 'textarea', item, 'summary', null, true));
+  body.appendChild(makeField(t.labelDetail, 'textarea', item, 'content', null, true, 'detail'));
+
+  var row2 = document.createElement('div');
+  row2.className = 'field-row';
+  row2.appendChild(makeField(t.labelLinkUrl, 'text', item, 'linkUrl'));
+  row2.appendChild(makeField(t.labelLinkLabel, 'text', item, 'linkLabel'));
+  body.appendChild(row2);
+
+  var imgField = document.createElement('div');
+  imgField.className = 'field';
+  imgField.style.marginBottom = '4px';
+  imgField.innerHTML = '<label>' + t.labelImages + '</label>';
+  var imgTa = document.createElement('textarea');
+  imgTa.className = 'imgpaths';
+  imgTa.value = item.images.join('\n');
+  imgTa.addEventListener('input', function (e) {
+    item.images = e.target.value.split('\n').map(function (s) { return s.trim(); }).filter(Boolean);
+    markChanged();
+  });
+  imgField.appendChild(imgTa);
+  body.appendChild(imgField);
+
+  card.appendChild(body);
+  return card;
+}
+
+function makeCategoryField(t, item) {
+  var wrap = document.createElement('div');
+  wrap.className = 'field';
+  wrap.style.maxWidth = '220px';
+  var label = document.createElement('label');
+  label.textContent = t.labelCategory;
+  wrap.appendChild(label);
+  var select = document.createElement('select');
+  CATEGORY_OPTIONS.forEach(function (val) {
+    var opt = document.createElement('option');
+    opt.value = val;
+    opt.textContent = CATEGORY_LABEL[uiLang][val];
+    if (item.category === val) opt.selected = true;
+    select.appendChild(opt);
+  });
+  select.addEventListener('change', function (e) { item.category = e.target.value; markChanged(); });
+  wrap.appendChild(select);
+  return wrap;
+}
+
+function makeField(labelText, type, obj, key, maxWidth, full, textareaClass) {
+  var wrap = document.createElement('div');
+  wrap.className = 'field';
+  if (maxWidth) wrap.style.maxWidth = maxWidth + 'px';
+  if (full) wrap.style.flexBasis = '100%';
+  var label = document.createElement('label');
+  label.textContent = labelText;
+  wrap.appendChild(label);
+  var input;
+  if (type === 'textarea') {
+    input = document.createElement('textarea');
+    if (textareaClass) input.className = textareaClass;
+  } else {
+    input = document.createElement('input');
+    input.type = type;
+  }
+  input.value = obj[key] || '';
+  input.addEventListener('input', function (e) { obj[key] = e.target.value; markChanged(); });
+  wrap.appendChild(input);
+  return wrap;
+}
+
+function markChanged() {
+  changedCount++;
+  updateStatus();
+}
+
+function updateStatus() {
+  var t = UI_TEXT[uiLang];
+  el.status.textContent = changedCount > 0 ? t.statusChanged(changedCount) : '';
+  el.downloadBtn.disabled = changedCount === 0;
+  if (changedCount > 0) {
+    el.banner.textContent = t.unsavedWarn;
+    el.banner.style.background = '#FFF0EE';
+    el.banner.style.color = 'var(--accent)';
+    el.banner.style.display = 'block';
+  } else {
+    el.banner.style.display = 'none';
+  }
+}
+
+el.addBtn.addEventListener('click', function () {
+  items.unshift({ date: todayISO(), category: 'event', title: '', summary: '', content: '', images: [], linkUrl: '', linkLabel: '' });
+  markChanged();
+  renderCards();
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+el.downloadBtn.addEventListener('click', function () {
+  var t = UI_TEXT[uiLang];
+  var hasEmpty = items.some(function (item) { return !item.date || !item.title || !item.summary; });
+  if (hasEmpty) { alert(t.requiredAlert); return; }
+
+  var out = items.map(function (item) {
+    var o = { date: item.date, category: item.category, title: item.title, summary: item.summary };
+    if (item.content) o.content = item.content;
+    if (item.images.length === 1) o.image = item.images[0];
+    if (item.images.length > 1) o.images = item.images;
+    if (item.linkUrl) o.link = { type: 'url', url: item.linkUrl, label: item.linkLabel || '' };
+    return o;
+  });
+  var jsonText = JSON.stringify(out, null, 1);
+  var blob = new Blob([jsonText], { type: 'application/json' });
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = 'news.json';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+
+  changedCount = 0;
+  updateStatus();
+  el.banner.style.display = 'block';
+  el.banner.style.background = '#EAF6EE';
+  el.banner.style.color = 'var(--ok)';
+  el.banner.textContent = t.unsavedDone;
+});
+
+window.addEventListener('beforeunload', function (e) {
+  if (changedCount > 0) { e.preventDefault(); e.returnValue = ''; }
+});
+
+/* ============================================================
+   啟動：先畫介面文字，再自動嘗試讀取線上 news.json
+   ============================================================ */
+renderChrome();
+attemptAutoLoad();
+</script>
+
+</body>
+</html>
