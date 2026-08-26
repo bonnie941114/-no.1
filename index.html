@@ -1875,9 +1875,9 @@
 <textarea id="ngContent" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
 </div>
 <div style="grid-column: 1 / -1; background:var(--bg-white); border:1px solid var(--line); border-radius:8px; padding:10px 12px;">
-<label data-cid="g0527" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">画像ファイル名（任意、例：images/news-2026-04-event.jpg）</label>
-<input id="ngImage" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;" type="text"/>
-<p style="margin:6px 0 0; font-size:12px; color:var(--ink-soft); line-height:1.6;"><span data-cid="g0528">⚠ ここは「ファイル名の入力」のみで、実際に画像がアップロードされるわけではありません。手順：①まず写真ファイル自体を GitHub の </span><code data-cid="g0529" style="background:var(--bg-washi); padding:1px 4px; border-radius:4px;">images</code><span data-cid="g0530"> フォルダにアップロード（以前校舎写真をアップロードした方法と同様）②アップロード後のファイル名をここに正確に入力（images/ から始まる形で）。画像が不要な場合は空欄のままで構いません。</span></p>
+<label data-cid="g0527" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">画像ファイル名（任意、複数可。1行に1枚ずつ入力してください。例：images/news-2026-04-event.jpg）</label>
+<textarea id="ngImage" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
+<p style="margin:6px 0 0; font-size:12px; color:var(--ink-soft); line-height:1.6;"><span data-cid="g0528">⚠ ここは「ファイル名の入力」のみで、実際に画像がアップロードされるわけではありません。手順：①まず写真ファイル自体を GitHub の </span><code data-cid="g0529" style="background:var(--bg-washi); padding:1px 4px; border-radius:4px;">images</code><span data-cid="g0530"> フォルダにアップロード（以前校舎写真をアップロードした方法と同様）②アップロード後のファイル名をここに正確に入力（images/ から始まる形で）。複数枚ある場合は、1行に1枚ずつ入力してください。画像が不要な場合は空欄のままで構いません。</span></p>
 </div>
 <div>
 <label data-cid="g0531" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">リンクURL（任意、例：files/admission-guide-2026.pdf）</label>
@@ -2105,7 +2105,7 @@
       const linkLabelFallback = { pdf: '資料をダウンロード', url: 'リンクへ移動' };
 
       function hasDetail(n) {
-        return !!(n.content || n.link || n.image);
+        return !!(n.content || n.link || n.image || (n.images && n.images.length));
       }
 
       function getSorted() {
@@ -2124,17 +2124,22 @@
         modalTitle.textContent = n.title;
         modalBody.textContent = n.content || n.summary;
 
-        // 若有圖片，插入在標題下方、內文上方
-        const existingImg = modalBox.querySelector('#newsModalImg');
-        if (existingImg) existingImg.remove();
-        if (n.image) {
-          const img = document.createElement('img');
-          img.id = 'newsModalImg';
-          img.src = n.image;
-          img.alt = '';
-          img.style.cssText = 'width:100%; border-radius:10px; margin-bottom:16px; display:block;';
-          img.onerror = function() { this.style.display = 'none'; };
-          modalTitle.insertAdjacentElement('afterend', img);
+        // 若有圖片，插入在標題下方、內文上方（新版 images 陣列可放多張；舊版 image 單一欄位仍相容）
+        modalBox.querySelectorAll('.newsModalImg').forEach(el => el.remove());
+        const imageList = n.images && n.images.length ? n.images : (n.image ? [n.image] : []);
+        if (imageList.length) {
+          const wrap = document.createElement('div');
+          wrap.className = 'newsModalImg';
+          wrap.style.cssText = 'display:flex; flex-direction:column; gap:10px; margin-bottom:16px;';
+          imageList.forEach(src => {
+            const img = document.createElement('img');
+            img.src = src;
+            img.alt = '';
+            img.style.cssText = 'width:100%; border-radius:10px; display:block;';
+            img.onerror = function() { this.style.display = 'none'; };
+            wrap.appendChild(img);
+          });
+          modalTitle.insertAdjacentElement('afterend', wrap);
         }
 
         modalLinkWrap.innerHTML = '';
@@ -2166,9 +2171,11 @@
         const filtered = getFiltered();
         const toShow = filtered.slice(0, visibleCount);
 
-        grid.innerHTML = toShow.map((n, i) => `
+        grid.innerHTML = toShow.map((n, i) => {
+          const thumb = n.image || (n.images && n.images[0]) || '';
+          return `
           <div class="news-card${hasDetail(n) ? ' is-clickable' : ''}" data-idx="${i}">
-            ${n.image ? `<div class="news-card-img" style="margin:-2px -2px 12px; border-radius:10px 10px 0 0; overflow:hidden;"><img src="${n.image}" alt="" style="width:100%; height:150px; object-fit:cover; display:block;" loading="lazy" onerror="this.closest('.news-card-img').style.display='none';"></div>` : ''}
+            ${thumb ? `<div class="news-card-img" style="margin:-2px -2px 12px; border-radius:10px 10px 0 0; overflow:hidden;"><img src="${thumb}" alt="" style="width:100%; height:150px; object-fit:cover; display:block;" loading="lazy" onerror="this.closest('.news-card-img').style.display='none';"></div>` : ''}
             <div class="news-card-top">
               <span class="news-card-date">${n.date}</span>
               <span class="news-card-tag ${tagClass[n.category] || ''}">${tagLabel[n.category] || n.category}</span>
@@ -2176,7 +2183,8 @@
             <h4>${n.title}</h4>
             <p>${n.summary}</p>
           </div>
-        `).join('');
+        `;
+        }).join('');
 
         grid.querySelectorAll('.news-card').forEach((card, i) => {
           if (hasDetail(toShow[i])) {
@@ -6094,7 +6102,7 @@
       const title = document.getElementById('ngTitle').value.trim();
       const summary = document.getElementById('ngSummary').value.trim();
       const content = document.getElementById('ngContent').value.trim();
-      const image = document.getElementById('ngImage').value.trim();
+      const imageLines = document.getElementById('ngImage').value.split('\n').map(s => s.trim()).filter(Boolean);
       const linkUrl = document.getElementById('ngLinkUrl').value.trim();
       const linkLabel = document.getElementById('ngLinkLabel').value.trim();
 
@@ -6108,7 +6116,8 @@
 
       const newItem = { date, category, title, summary };
       if (content) newItem.content = content;
-      if (image) newItem.image = image;
+      if (imageLines.length === 1) newItem.image = imageLines[0]; // 只有 1 張時，沿用舊格式（相容舊資料）
+      if (imageLines.length > 1) newItem.images = imageLines; // 2 張以上時，用新的陣列格式
       if (linkUrl) newItem.link = { type: 'url', url: linkUrl, label: linkLabel || '詳細を見る' };
 
       // 讀取目前線上的 data/news.json，把新項目加進去（讀取失敗則視為空清單，仍可繼續）
