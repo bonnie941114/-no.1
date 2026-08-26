@@ -1844,63 +1844,8 @@
     @media (max-width: 560px) { .news-grid { grid-template-columns: 1fr; } .news-section { padding: 32px 20px 4px; } }
   </style>
 <section class="news-section reveal">
-<div class="eyebrow" data-cid="g0517" id="newsSecretTrigger" style="cursor:default; user-select:none;">NEWS</div>
+<div class="eyebrow" data-cid="g0517">NEWS</div>
 <h2><span class="txt-ja" data-cid="g0006">年度ニュース</span><span class="txt-zh" data-cid="g0006">年度新聞</span><span class="txt-sc" data-cid="g0006">年度新闻</span><span class="txt-en" data-cid="g0006">Annual News</span></h2>
-<!-- 校方専用「ニュース生成ツール」パネル（上部 NEWS の文字を素早く5回クリックすると表示、内部スタッフ専用、一般の訪問者には表示されません） -->
-<div id="newsGeneratorPanel" style="display:none; background: var(--bg-washi); border: 2px dashed var(--vibrant-red); border-radius: var(--radius); padding: 20px; margin-bottom: 24px;">
-<p data-cid="g0518" style="margin:0 0 14px; font-weight:700; color:var(--vibrant-red);">📰 ニュース生成ツール（学校スタッフ専用、訪問者にはこのパネルは表示されません）</p>
-<div style="display:grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-<div>
-<label data-cid="g0519" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">日付</label>
-<input id="ngDate" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;" type="date"/>
-</div>
-<div>
-<label data-cid="g0520" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">カテゴリー</label>
-<select id="ngCategory" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; background:var(--bg-white);">
-<option data-cid="g0521" value="event">イベント (event)</option>
-<option data-cid="g0522" value="notice">お知らせ (notice)</option>
-<option data-cid="g0523" value="admission">募集 (admission)</option>
-</select>
-</div>
-<div style="grid-column: 1 / -1;">
-<label data-cid="g0524" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">タイトル</label>
-<input id="ngTitle" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;" type="text"/>
-</div>
-<div style="grid-column: 1 / -1;">
-<label data-cid="g0525" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">概要（カードに表示されます）</label>
-<textarea id="ngSummary" rows="2" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
-</div>
-<div style="grid-column: 1 / -1;">
-<label data-cid="g0526" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">詳細内容（任意、カードをクリックした際のポップアップに表示されます。未入力の場合は概要が表示されます）</label>
-<textarea id="ngContent" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
-</div>
-<div style="grid-column: 1 / -1; background:var(--bg-white); border:1px solid var(--line); border-radius:8px; padding:10px 12px;">
-<label data-cid="g0527" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">画像ファイル名（任意、複数可。1行に1枚ずつ入力してください。例：images/news-2026-04-event.jpg）</label>
-<textarea id="ngImage" rows="3" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px; resize:vertical;"></textarea>
-<p style="margin:6px 0 0; font-size:12px; color:var(--ink-soft); line-height:1.6;"><span data-cid="g0528">⚠ ここは「ファイル名の入力」のみで、実際に画像がアップロードされるわけではありません。手順：①まず写真ファイル自体を GitHub の </span><code data-cid="g0529" style="background:var(--bg-washi); padding:1px 4px; border-radius:4px;">images</code><span data-cid="g0530"> フォルダにアップロード（以前校舎写真をアップロードした方法と同様）②アップロード後のファイル名をここに正確に入力（images/ から始まる形で）。複数枚ある場合は、1行に1枚ずつ入力してください。画像が不要な場合は空欄のままで構いません。</span></p>
-</div>
-<div>
-<label data-cid="g0531" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">リンクURL（任意、例：files/admission-guide-2026.pdf）</label>
-<input id="ngLinkUrl" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;" type="text"/>
-<p data-cid="g0532" style="margin:4px 0 0; font-size:11.5px; color:var(--ink-soft);">同様に：ファイル自体は先に GitHub の files フォルダにアップロードしてください。ここにはパスのみ入力します。</p>
-</div>
-<div>
-<label data-cid="g0533" style="display:block; font-size:13px; font-weight:700; margin-bottom:4px;">リンクボタンの文言（任意）</label>
-<input id="ngLinkLabel" placeholder="例：詳細資料をダウンロード" style="width:100%; padding:9px 12px; border:1px solid var(--line); border-radius:8px; font-family:inherit; font-size:14px;" type="text"/>
-</div>
-</div>
-<button class="btn btn-primary" data-cid="g0534" id="ngGenerateBtn" style="margin-bottom:12px;" type="button">news.jsonを生成してダウンロード →</button>
-<div id="ngOutputWrap" style="display:none;">
-<p data-cid="g0535" style="margin:0 0 6px; font-size:13px; font-weight:700;">✅ ダウンロード完了！新しいニュースを含む news.json が保存されました（内容は下記でも確認できます）：</p>
-<textarea id="ngOutput" onclick="this.select();" readonly="" style="width:100%; min-height:160px; padding:12px; border:1px solid var(--line); border-radius:8px; font-family:monospace; font-size:12.5px; background:var(--bg-white); white-space:pre; resize:vertical;"></textarea>
-<p style="margin:10px 0 0; font-size:13px; color:var(--ink-soft); line-height:1.7;"><span data-cid="g0536">
-          次の手順：①GitHubのサイトを開き、</span><code data-cid="g0537" style="background:var(--bg-washi); padding:1px 5px; border-radius:4px;">data</code><span data-cid="g0538"> フォルダに移動してください。</span><br/><span data-cid="g0539">
-          ②ダウンロードした news.json をこのページにドラッグ＆ドロップしてください（同名ファイルの上書き確認が出ます）。</span><br/><span data-cid="g0540">
-          ③「Commit changes」ボタンを押せば完了です。30秒〜1分ほどでサイトに反映されます。</span><br/><span data-cid="g0541">
-          ※ editor.html を使う場合と全く同じアップロード方法です。
-        </span></p>
-</div>
-</div>
 <div class="news-filter-tags" id="newsFilterTags">
 <button class="news-filter-btn active" data-filter="all">
 <span class="txt-ja" data-cid="g0007">すべて</span><span class="txt-zh" data-cid="g0007">全部</span><span class="txt-sc" data-cid="g0007">全部</span><span class="txt-en" data-cid="g0007">All</span>
@@ -6061,92 +6006,6 @@
     });
   }
 
-  /* ---------- 隱しトリガー：「NEWS」の文字を素早く5回クリックすると
-       「新聞產生器」パネルが表示されます（校内スタッフ専用、一般のお客様には見えません） ---------- */
-  function initNewsGeneratorTrigger() {
-    const trigger = document.getElementById('newsSecretTrigger');
-    const panel = document.getElementById('newsGeneratorPanel');
-    if (!trigger || !panel) return;
-
-    let clickCount = 0;
-    let resetTimer = null;
-
-    trigger.addEventListener('click', () => {
-      clickCount++;
-      clearTimeout(resetTimer);
-      resetTimer = setTimeout(() => { clickCount = 0; }, 1500);
-
-      if (clickCount >= 5) {
-        clickCount = 0;
-        panel.style.display = (panel.style.display === 'none' || !panel.style.display) ? 'block' : 'none';
-      }
-    });
-  }
-
-  // JS の文字列リテラル用にエスケープ（バックスラッシュ・引用符・改行を安全な形に変換）
-  function jsStringEscape(str) {
-    return String(str || '')
-      .replace(/\\/g, '\\\\')
-      .replace(/'/g, "\\'")
-      .replace(/\n/g, '\\n')
-      .replace(/\r/g, '');
-  }
-
-  function initNewsGenerator() {
-    const genBtn = document.getElementById('ngGenerateBtn');
-    if (!genBtn) return;
-
-    genBtn.addEventListener('click', async () => {
-      const date = document.getElementById('ngDate').value;
-      const category = document.getElementById('ngCategory').value;
-      const title = document.getElementById('ngTitle').value.trim();
-      const summary = document.getElementById('ngSummary').value.trim();
-      const content = document.getElementById('ngContent').value.trim();
-      const imageLines = document.getElementById('ngImage').value.split('\n').map(s => s.trim()).filter(Boolean);
-      const linkUrl = document.getElementById('ngLinkUrl').value.trim();
-      const linkLabel = document.getElementById('ngLinkLabel').value.trim();
-
-      const outputWrap = document.getElementById('ngOutputWrap');
-      const output = document.getElementById('ngOutput');
-
-      if (!date || !title || !summary) {
-        alert('「日付」「タイトル」「概要」は必須項目です。その他は任意です。');
-        return;
-      }
-
-      const newItem = { date, category, title, summary };
-      if (content) newItem.content = content;
-      if (imageLines.length === 1) newItem.image = imageLines[0]; // 只有 1 張時，沿用舊格式（相容舊資料）
-      if (imageLines.length > 1) newItem.images = imageLines; // 2 張以上時，用新的陣列格式
-      if (linkUrl) newItem.link = { type: 'url', url: linkUrl, label: linkLabel || '詳細を見る' };
-
-      // 讀取目前線上的 data/news.json，把新項目加進去（讀取失敗則視為空清單，仍可繼續）
-      let list = [];
-      try {
-        const res = await fetch('data/news.json', { cache: 'no-store' });
-        if (res.ok) list = await res.json();
-      } catch (e) { /* 讀取失敗就從空清單開始，不中斷流程 */ }
-
-      list.unshift(newItem); // 新項目放最前面（畫面上會依日期自動排序，這裡順序不影響顯示）
-
-      const jsonText = JSON.stringify(list, null, 1);
-
-      // 直接觸發下載，檔名固定為 news.json，方便直接拖到 GitHub 覆蓋同名檔案
-      const blob = new Blob([jsonText], { type: 'application/json' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'news.json';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-
-      output.value = jsonText;
-      outputWrap.style.display = 'block';
-    });
-  }
-
   /* ---------- 「位置を測定する」ツール：マップをクリックすると座標を表示 ---------- */
   function initMapPinTool() {
     const btn = document.getElementById('mapPinModeBtn');
@@ -6267,8 +6126,6 @@
   initMapHotspots();
   initMapPinTool();
   initSecretMapToolTrigger();
-  initNewsGeneratorTrigger();
-  initNewsGenerator();
 </script>
 <script>
     /* ===========================================================
