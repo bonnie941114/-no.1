@@ -497,16 +497,6 @@
   },
   "context": "冬休み (Winter)"
  },
- "g0034": {
-  "section": "home-index",
-  "text": {
-   "ja": "写真（差し替え予定）",
-   "zh": "照片（待替換）",
-   "sc": "照片（待替换）",
-   "en": "Photo — to be added"
-  },
-  "context": "冬休み (Winter)"
- },
  "g0035": {
   "section": "home-index",
   "text": {
@@ -576,16 +566,6 @@
    "id": "Kelas yang Seru",
    "ru": "Увлекательные занятия",
    "my": "စိတ်လှုပ်ရှားစရာ သင်တန်းများ"
-  },
-  "context": "冬休み (Winter)"
- },
- "g0039": {
-  "section": "home-index",
-  "text": {
-   "ja": "写真（差し替え予定）",
-   "zh": "照片（待替換）",
-   "sc": "照片（待替换）",
-   "en": "Photo — to be added"
   },
   "context": "冬休み (Winter)"
  },
@@ -2013,24 +1993,6 @@
   },
   "context": "適性レベル別クラス"
  },
- "g0131": {
-  "section": "achievements",
-  "text": {
-   "ja": "課程修了者の日本語能力習得状況等",
-   "zh": "課程修了者的日語能力習得狀況等",
-   "sc": "课程修了者的日语能力习得状况等",
-   "en": "Japanese Proficiency Outcomes of Program Completers",
-   "hi": "कार्यक्रम पूर्ण करने वालों की जापानी दक्षता परिणाम",
-   "ne": "कार्यक्रम पूरा गर्नेहरूको जापानी दक्षता नतिजा",
-   "si": "වැඩසටහන සම්පූර්ණ කළවුන්ගේ ජපන් ප්‍රවීණතා ප්‍රතිඵල",
-   "vi": "Kết quả năng lực tiếng Nhật của học viên hoàn thành khóa học",
-   "uk": "Результати володіння японською мовою випускників програми",
-   "id": "Hasil Kemahiran Bahasa Jepang Peserta yang Menyelesaikan Program",
-   "ru": "Результаты владения японским языком выпускников программы",
-   "my": "သင်တန်းပြီးဆုံးသူများ၏ ဂျပန်ဘာသာစွမ်းရည် ရလဒ်များ"
-  },
-  "context": "適性レベル別クラス"
- },
  "g0132": {
   "section": "achievements",
   "text": {
@@ -2043,24 +2005,6 @@
    "id": "Data objektif yang mencatat hasil JLPT lulusan secara rinci — hasil nyata sebagai bukti kualitas pengajaran.",
    "ru": "Объективные данные, подробно фиксирующие результаты JLPT выпускников — реальные результаты как доказательство качества преподавания.",
    "my": "ဘွဲ့ရများ၏ JLPT ရလဒ်များကို အသေးစိတ် မှတ်တမ်းတင်သော ဓမ္မဓိဋ္ဌာန်ကျသည့် အချက်အလက်များ — သင်ကြားမှုအရည်အသွေး၏ သက်သေအဖြစ် အမှန်တကယ်ရလဒ်များ။"
-  },
-  "context": "適性レベル別クラス"
- },
- "g0133": {
-  "section": "achievements",
-  "text": {
-   "ja": "44号：課程修了者の日本語能力習得状況等",
-   "zh": "44號：課程修了者的日語能力習得狀況等",
-   "sc": "44号：课程修了者的日语能力习得状况等",
-   "en": "No.44: Download PDF",
-   "hi": "क्रमांक 44: PDF डाउनलोड करें",
-   "ne": "नं. ४४: PDF डाउनलोड गर्नुहोस्",
-   "si": "අංක 44: PDF බාගන්න",
-   "vi": "Số 44: Tải PDF",
-   "uk": "№44: Завантажити PDF",
-   "id": "No.44: Unduh PDF",
-   "ru": "№44: Скачать PDF",
-   "my": "အမှတ် ၄၄: PDF ဒေါင်းလုဒ်လုပ်ရန်"
   },
   "context": "適性レベル別クラス"
  },
@@ -8197,126 +8141,6 @@
   "mono": true,
   "value": "NEWS"
  },
- "g0518": {
-  "section": "home-index",
-  "mono": true,
-  "value": "📰 ニュース生成ツール（学校スタッフ専用、訪問者にはこのパネルは表示されません）"
- },
- "g0519": {
-  "section": "home-index",
-  "mono": true,
-  "value": "日付"
- },
- "g0520": {
-  "section": "home-index",
-  "mono": true,
-  "value": "カテゴリー"
- },
- "g0521": {
-  "section": "home-index",
-  "mono": true,
-  "value": "イベント (event)"
- },
- "g0522": {
-  "section": "home-index",
-  "mono": true,
-  "value": "お知らせ (notice)"
- },
- "g0523": {
-  "section": "home-index",
-  "mono": true,
-  "value": "募集 (admission)"
- },
- "g0524": {
-  "section": "home-index",
-  "mono": true,
-  "value": "タイトル"
- },
- "g0525": {
-  "section": "home-index",
-  "mono": true,
-  "value": "概要（カードに表示されます）"
- },
- "g0526": {
-  "section": "home-index",
-  "mono": true,
-  "value": "詳細内容（任意、カードをクリックした際のポップアップに表示されます。未入力の場合は概要が表示されます）"
- },
- "g0527": {
-  "section": "home-index",
-  "mono": true,
-  "value": "画像ファイル名（任意、例：images/news-2026-04-event.jpg）"
- },
- "g0528": {
-  "section": "home-index",
-  "mono": true,
-  "value": "⚠ ここは「ファイル名の入力」のみで、実際に画像がアップロードされるわけではありません。手順：①まず写真ファイル自体を GitHub の"
- },
- "g0529": {
-  "section": "home-index",
-  "mono": true,
-  "value": "images"
- },
- "g0530": {
-  "section": "home-index",
-  "mono": true,
-  "value": "フォルダにアップロード（以前校舎写真をアップロードした方法と同様）②アップロード後のファイル名をここに正確に入力（images/ から始まる形で）。画像が不要な場合は空欄のままで構いません。"
- },
- "g0531": {
-  "section": "home-index",
-  "mono": true,
-  "value": "リンクURL（任意、例：files/admission-guide-2026.pdf）"
- },
- "g0532": {
-  "section": "home-index",
-  "mono": true,
-  "value": "同様に：ファイル自体は先に GitHub の files フォルダにアップロードしてください。ここにはパスのみ入力します。"
- },
- "g0533": {
-  "section": "home-index",
-  "mono": true,
-  "value": "リンクボタンの文言（任意）"
- },
- "g0534": {
-  "section": "home-index",
-  "mono": true,
-  "value": "news.jsonを生成してダウンロード →"
- },
- "g0535": {
-  "section": "home-index",
-  "mono": true,
-  "value": "✅ ダウンロード完了！新しいニュースを含む news.json が保存されました（内容は下記でも確認できます）："
- },
- "g0536": {
-  "section": "home-index",
-  "mono": true,
-  "value": "\n          次の手順：①GitHubのサイトを開き、"
- },
- "g0537": {
-  "section": "home-index",
-  "mono": true,
-  "value": "data"
- },
- "g0538": {
-  "section": "home-index",
-  "mono": true,
-  "value": " フォルダに移動してください。"
- },
- "g0539": {
-  "section": "home-index",
-  "mono": true,
-  "value": "\n          ②ダウンロードした news.json をこのページにドラッグ＆ドロップしてください（同名ファイルの上書き確認が出ます）。"
- },
- "g0540": {
-  "section": "home-index",
-  "mono": true,
-  "value": "\n          ③「Commit changes」ボタンを押せば完了です。30秒〜1分ほどでサイトに反映されます。"
- },
- "g0541": {
-  "section": "home-index",
-  "mono": true,
-  "value": "\n          ※ editor.html を使う場合と全く同じアップロード方法です。\n        "
- },
  "g0542": {
   "section": "home-index",
   "mono": true,
@@ -8384,22 +8208,10 @@
   "value": "WHAT WE AIM FOR",
   "context": "冬休み (Winter)"
  },
- "g0554": {
-  "section": "home-index",
-  "mono": true,
-  "value": "📷",
-  "context": "冬休み (Winter)"
- },
  "g0555": {
   "section": "home-index",
   "mono": true,
   "value": "EXCITING CLASSES",
-  "context": "冬休み (Winter)"
- },
- "g0556": {
-  "section": "home-index",
-  "mono": true,
-  "value": "📷",
   "context": "冬休み (Winter)"
  },
  "g0557": {
@@ -9727,18 +9539,6 @@
   "mono": true,
   "value": "✓",
   "context": "Online Inquiry"
- },
- "g0779": {
-  "section": "other",
-  "mono": true,
-  "value": "Tokyo",
-  "context": "✓"
- },
- "g0780": {
-  "section": "other",
-  "mono": true,
-  "value": "One",
-  "context": "✓"
  },
  "g0781": {
   "section": "other",
